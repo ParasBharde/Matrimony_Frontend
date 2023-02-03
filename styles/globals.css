@@ -4,8 +4,16 @@
 
 .indexbg{
     background: url(../assets/indexBG.png);
-    background-size: contain;
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     height: 829.2px;
+}
+
+.aboutusbg{
+    background: url(../assets/aboutUsBG.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 622px;
 }
