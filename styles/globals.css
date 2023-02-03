@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.indexbg{
+    background: url(../assets/indexBG.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 829.2px;
+}
