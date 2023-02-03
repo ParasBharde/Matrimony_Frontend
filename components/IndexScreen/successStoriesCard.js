@@ -2,7 +2,7 @@ import React from 'react'
 
 
 import Image from 'next/image'
-import ss from "@/assets/ss.png"
+import ss from "@/assets/indexAssets/ss.png"
 
 
 const SuccessStoriesCard = () => {

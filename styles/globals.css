@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .indexbg{
-    background: url(../assets/indexBG.png);
+    background: url(../assets/indexAssets/indexBG.png);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -11,9 +11,17 @@
 }
 
 .aboutusbg{
-    background: url(../assets/aboutUsBG.png);
+    background: url(../assets/indexAssets/aboutUsBG.png);
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
     height: 622px;
+}
+
+.signinbg{
+    background: url(../assets/signUpAssets/a1.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
 }

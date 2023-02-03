@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import contactInfo from "@/assets/contactInfo.png"
+import contactInfo from "@/assets/indexAssets/contactInfo.png"
 
 const ContactInformation = () => {
   return (

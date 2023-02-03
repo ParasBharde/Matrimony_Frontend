@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Image from "next/image"
-import logo from "@/assets/bestMatching.png"
+import logo from "@/assets/indexAssets/bestMatching.png"
 
 const HeadingCard = () => {
   return (

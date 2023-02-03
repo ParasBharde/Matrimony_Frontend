@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 
-import bgfy from "@/assets/bestGiftFromYou.png"
+import bgfy from "@/assets/indexAssets/bestGiftFromYou.png"
 
 const BestGiftFromYou = () => {
   return (

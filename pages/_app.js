@@ -1,6 +1,17 @@
 import '@/styles/globals.css'
 import Footer from '@/components/footer'
+import { useRouter } from 'next/router'
 
 export default function App({ Component, pageProps }) {
-  return <><Component {...pageProps} /><Footer/></>
+
+  const router=useRouter()
+
+  return (
+  <>
+  <Component {...pageProps} />
+  {router.pathname=="/signIn"?null:<Footer/>}
+  </>
+  
+  )
+
 }
