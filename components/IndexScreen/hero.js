@@ -2,8 +2,12 @@ import React from 'react'
 import Image from 'next/image'
 
 import logo from "@/assets/indexAssets/headerLogo.png";
+import { useRouter } from 'next/router';
 
 const Hero = () => {
+
+  const router=useRouter()
+
   return (
     <div className='relative h-[829.2px]'>
       <div className='indexbg absolute top-0 w-full h-[829.2px] -z-10'>
@@ -16,14 +20,14 @@ const Hero = () => {
         </div>
         <div className='text-white flex justify-center items-center text-[16px] font-[600]'>
           <p className='mx-10 cursor-pointer'>Home</p>
-          <p className='mx-10 cursor-pointer'>Pricing Plan</p>
+          <p className='mx-10 cursor-pointer' onClick={()=>{router.push("/pricingPlan")}}>Pricing Plan</p>
           <p className='mx-10 cursor-pointer'>Contact Us</p>
           <p className='mx-10 cursor-pointer'>About Us</p>
           <p className='mx-10 cursor-pointer'>EN</p>
         </div>
         <div className='flex justify-center items-center'>
-          <p className='text-white bg-main py-2 px-5 rounded-md mx-2 cursor-pointer'>Login</p>
-          <p className='text-main bg-white py-2 px-5 rounded-md mx-2 cursor-pointer'>Register</p>
+          <p className='text-white bg-main py-2 px-5 rounded-md mx-2 cursor-pointer' onClick={()=>{router.push("/signIn")}}>Login</p>
+          <p className='text-main bg-white py-2 px-5 rounded-md mx-2 cursor-pointer' onClick={()=>{router.push("/register")}}>Register</p>
         </div>
       </div>
       <p className='text-white font-[700] text-[60px] text-center absolute top-[36%] w-full'>
