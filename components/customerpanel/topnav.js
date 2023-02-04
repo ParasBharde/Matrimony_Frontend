@@ -7,13 +7,13 @@ const Topnav = () => {
         <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
           
 
-          <div class="flex justify-end relative h-16 ">
+          <div class="flex justify-end relative h-16  space-x-99">
           
-            <h1 className="flex justify-start items-center mr-96">
+            <h1 className="txt_top flex justify-start items-center ">
               Welcome 👋 Jenny Wilson
             </h1>
         
-            <div class="absolute inset-y-0 right-0 flex justify-end items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+            <div class="search_download absolute inset-y-0 right-0 flex justify-end items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               <button
                 type="button"
                 class="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"

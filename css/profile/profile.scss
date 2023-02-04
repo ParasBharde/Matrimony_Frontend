@@ -1,0 +1,29 @@
+.parent{
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+.child{
+    position: absolute;
+    top:0;
+    left:0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    background-color: white;
+    margin-top: 2rem;
+    margin-left: 18rem;
+    width: 78vw;
+    height: auto;
+}
+.table_header{
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem 0rem auto 1rem;
+    padding: 2rem;
+ 
+}
+.table_body{
+    
+    
+}

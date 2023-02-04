@@ -1,8 +1,12 @@
 import React from "react";
+import Sidenav from "@/components/customerpanel/sidenav";
+import Topnav from "@/components/customerpanel/topnav";
 
 const Dashboard = () => {
   return (
     <>
+    <Sidenav/>
+    <Topnav/>
       <div class="p-4 sm:ml-64">
         <div class="p-4 border-gray-200 rounded">
           <div class="grid grid-cols-4 gap-4 mb-4">
