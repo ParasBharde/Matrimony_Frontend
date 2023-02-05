@@ -3,8 +3,8 @@ import React from "react";
 const Managelistdash = () => {
   return (
     <>
-      <div className="txt flex justify-around mx-22 relative mt-10 ">
-        <span>Manage Users</span>
+      <div className="txt flex justify-around  relative">
+        <span className="font-medium">Members Lists</span>
         <div className="search_download flex space-x-2 items-center">
           <form>
             <div className="relative w-full">
@@ -53,7 +53,7 @@ const Managelistdash = () => {
         </div>
       </div>
       <div className="user_dash relative overflow-x-auto mt-8">
-        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <table className="text-sm text-left text-gray-500 dark:text-gray-400">
           <thead
             style={{ color: "rgba(30, 30, 30, 0.5)", fontWeight: "400" }}
             className="text-xs  uppercase "
@@ -103,12 +103,12 @@ const Managelistdash = () => {
                   onclick="checkAll(this)"
                 />
               </td>
-              <th
+              <td
                 scope="row"
                 className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
               >
                 00121
-              </th>
+              </td>
               <td class="py-3 px-6 text-left">
                 <div class="flex items-center">
                   <div class="mr-2">
@@ -124,8 +124,8 @@ const Managelistdash = () => {
               <td className="px-6 py-4">$ABC</td>
               <td className="px-6 py-4">$ABC</td>
               <td className="px-6 py-4">123456789</td>
-              <td class="py-4 px-6 text-center">
-                <span class="bg-purple-200 text-purple-600 py-2 px-6 rounded text-xs">
+              <td className="font-medium text-left px-2 py-4">
+                <span className="bg-purple-200 text-purple-600 py-2 px-4 rounded text-base">
                   Active
                 </span>
               </td>

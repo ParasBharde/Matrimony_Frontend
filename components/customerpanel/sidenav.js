@@ -61,7 +61,7 @@ const Sidenav = () => {
               <li>
                 <a
                   href="/admin/dashboard"
-                  className="flex items-center p-2 text-base font-normal text-gray-900 rounded dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700"
+                  className="hv_co flex items-center p-2 text-base font-normal text-white rounded dark:text-white hover:text-white"
                 >
                   <span className="flex-1 ml-3 whitespace-nowrap">
                     Dashboard
@@ -71,7 +71,7 @@ const Sidenav = () => {
               <li>
                 <a
                   href="/admin/manageuser"
-                  className="flex items-center p-2 text-base font-normal text-gray-900 rounded dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                  className="hv_co flex items-center p-2 text-base font-normal text-white rounded dark:text-white hover:text-white"
                 >
                   <span className="flex-1 ml-3 whitespace-nowrap">
                     Manage Users
@@ -81,7 +81,7 @@ const Sidenav = () => {
               <li>
                 <a
                   href="/admin/managelist"
-                  className="flex items-center p-2 text-base font-normal text-gray-900 rounded dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                  className="hv_co flex items-center p-2 text-base font-normal text-white rounded dark:text-white hover:text-white"
                 >
                   <span className="flex-1 ml-3 whitespace-nowrap">
                     Manage List

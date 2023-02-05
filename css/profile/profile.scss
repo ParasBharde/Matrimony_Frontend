@@ -173,7 +173,8 @@
 
 .tb_dt {
     display: flex;
-    margin: -2rem 0rem auto 4rem;
-
+    margin: -2rem 0rem auto 0rem;
+    flex-direction: row;
+    justify-content: space-around;
 
 }

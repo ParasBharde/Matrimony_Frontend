@@ -5,7 +5,24 @@
  
   .hv_co:hover{
    
-    background-color: white;
-    opacity: 2;
+    left: 0px;
+    right: 1196px;
+    top: 228px;
+    bottom: 664px;
+    color: black;
+    font-weight: 900;
+    background: #FFFFFF;
+    opacity: 1;
     
+  }
+
+  .top_navv{
+    margin-left: 16rem;
+    position: relative;
+    width: auto;
+    height: 4rem;
+    @include breakpoint-down(small) {
+     width: 100%;
+     margin-left: 0;
+    }
   }

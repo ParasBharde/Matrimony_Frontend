@@ -1,6 +1,8 @@
 import React from "react";
 import profile from "@/assets/profile.png";
 import Image from "next/image";
+import horos from "@/assets/horos.png";
+import horos1 from "@/assets/horos1.png";
 
 const Customerpofile = () => {
   return (
@@ -9,11 +11,14 @@ const Customerpofile = () => {
         <table className="child table-fixed">
           <div className="table_header flex ">
             <thead className="block">
-              <tr className="font-bold">Paras Bharde</tr>
-              <tr style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+              <td className="font-bold">Paras Bharde</td>
+              <div>
+            <td style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                 Reg- No : VRE223
-              </tr>
+              </td>
+            </div>
             </thead>
+           
             <thead className="flex space-x-2 mt-2">
               <button className="px-5 rounded  bg-orange-400 py-1.5">
                 <a className="flex text-white" href="#">
@@ -564,60 +569,9 @@ const Customerpofile = () => {
           <div className="fourth_content">
             <span className="sec_text ">Horoscope Chart</span>
             <div className="tb_dt flex ">
-            <table>
-                <tr className="">
-                  <th colspan="1">Firstname</th>
-                  <th>Firstname</th>
-                  <th>Firstname</th>
-                  <th>Firstname</th>
-                </tr>
-                <tr className="">
-                  <th colspan="1">Firstname</th>
-                  <th></th>
-                  <th></th>
-                  <th>Firstname</th>
-                </tr>
-                <tr className="">
-                  <th colspan="1">Firstname</th>
-                  <th></th>
-                  <th></th>
-                  <th>Firstname</th>
-                </tr>
-                <tr>
-                  <th>Jill</th>
-                  <th>Jill</th>
-                  <th>Jill</th>
-                  <th>Jill</th>
-                  
-                </tr>
-              </table>
-              <table>
-                <tr className="">
-                  <th colspan="1">Firstname</th>
-                  <th>Firstname</th>
-                  <th>Firstname</th>
-                  <th>Firstname</th>
-                </tr>
-                <tr className="">
-                  <th colspan="1">Firstname</th>
-                  <th></th>
-                  <th></th>
-                  <th>Firstname</th>
-                </tr>
-                <tr className="">
-                  <th colspan="1">Firstname</th>
-                  <th></th>
-                  <th></th>
-                  <th>Firstname</th>
-                </tr>
-                <tr>
-                  <th>Jill</th>
-                  <th>Jill</th>
-                  <th>Jill</th>
-                  <th>Jill</th>
-                  
-                </tr>
-              </table>
+             <Image src={horos} width={500} height={500} />
+             <Image src={horos1} width={500} height={500} />
+
             </div>
           </div>
         </table>

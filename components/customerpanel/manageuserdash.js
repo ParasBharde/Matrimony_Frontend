@@ -26,8 +26,8 @@ const Manageuserdash = () => {
               <input
                 type="text"
                 id="voice-search"
-                className="bg-gray-50 border px-5 border-gray-300 text-gray-900 text-sm rounded  focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Search Mockups, Logos, Design Templates..."
+                className="bg-gray-50  px-5 border-orange-300 text-gray-900 text-sm rounded  focus:ring-orange-500 focus:border-orange-500 block w-full pl-10 p-2.5  dark:bg-orange-400 dark:border-orange-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-orange-400"
+                placeholder="Search..."
                 required
               />
             </div>
@@ -53,7 +53,7 @@ const Manageuserdash = () => {
         </div>
       </div>
       <div className="user_dash relative overflow-x-auto mt-8">
-        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <table className="text-sm text-left text-gray-500 dark:text-gray-400">
           <thead
             style={{ color: "rgba(30, 30, 30, 0.5)", fontWeight: "400" }}
             className="text-xs  uppercase "
@@ -106,12 +106,12 @@ const Manageuserdash = () => {
                   onclick="checkAll(this)"
                 />
               </td>
-              <th
+              <td
                 scope="row"
                 className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
               >
                 00121
-              </th>
+              </td>
               <td class="py-3 px-6 text-left">
                 <div class="flex items-center">
                   <div class="mr-2">

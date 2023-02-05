@@ -7,18 +7,9 @@ import Footernav from "@/components/customerpanel/footernav";
 const Adminpanel = () => {
   return (
     <>
-      {/* Side Navbar */}
-      <Sidenav />
 
-      {/* Top NavBar */}
-
-      <Topnav />
-
-      {/* Hedader Data */}
       <Dashboard />
 
-      {/* Footer */}
-      <Footernav />
       <style jsx>{`
         button {
           background: #f98b1d;
