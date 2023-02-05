@@ -1,4 +1,4 @@
-footer {
+.footer {
     position: fixed;
     left: 0;
     bottom: 0;
@@ -11,4 +11,29 @@ footer {
     font-size: 0.8rem;
     font-weight: 500;
     align-items: center;
+ }
+ .footer_main{
+   //  position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 70px;
+    color: rgba(30, 30, 30, 0.5);
+    text-align: center;
+    padding: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    align-items: center;
+ }
+
+ footer, .card{
+   position: relative;
+      background-color: white;
+      color: rgba(30, 30, 30, 0.5);
+      text-align: center;
+      padding: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      align-items: center;
+      margin-top: -1rem;
  }

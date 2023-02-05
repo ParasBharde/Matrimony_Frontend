@@ -2,7 +2,7 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <div className='bg-main flex justify-between items-center h-[70px] px-20'>
+    <div className='footer_main bg-main flex justify-between items-center h-[70px] px-20'>
         <p className='text-white text-[16px]'>
         Copyright © Trichy Vayalur Road Reddy Trust All rights reserved. Theme Anews by themeuniver
         </p>
