@@ -1,18 +1,18 @@
 import React from "react";
-import Manageuserdash from "@/components/customerpanel/manageuserdash";
-import Sidenav from "@/components/customerpanel/sidenav";
 import Topnav from "@/components/customerpanel/topnav";
 import Footernav from "@/components/customerpanel/footernav";
+import Sidenav from "@/components/customerpanel/sidenav";
+import Managelistdash from "@/components/customerpanel/managelistdash";
 
-const Manageuser = () => {
+const ManageList = () => {
   return (
     <>
       <Sidenav />
       <Topnav />
-      <Manageuserdash />
       <Footernav />
+      <Managelistdash />
     </>
   );
 };
 
-export default Manageuser;
+export default ManageList;

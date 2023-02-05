@@ -1,6 +1,5 @@
 import React from 'react'
 import Image from 'next/image'
-
 import logo from "@/assets/headerLogo.png";
 
 const Hero = () => {

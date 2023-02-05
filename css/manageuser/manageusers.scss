@@ -1,7 +1,6 @@
 .user_dash{
-    margin: 5rem 18rem;
-    display: block;
-    width: 80vw;
+    margin: 0rem 17rem;
+    min-width: 80vw;
     
     @media screen and (max-width: 1150px) {
         display: block;

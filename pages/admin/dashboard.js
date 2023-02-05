@@ -1,6 +1,7 @@
 import React from "react";
 import Sidenav from "@/components/customerpanel/sidenav";
 import Topnav from "@/components/customerpanel/topnav";
+import Footernav from "@/components/customerpanel/footernav";
 
 const Dashboard = () => {
   return (
@@ -239,6 +240,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+      <Footernav />
     </>
   );
 };

@@ -2,6 +2,7 @@ import React from "react";
 import Dashboard from "@/pages/admin/dashboard";
 import Sidenav from "@/components/customerpanel/sidenav";
 import Topnav from "@/components/customerpanel/topnav";
+import Footernav from "@/components/customerpanel/footernav";
 
 const Adminpanel = () => {
   return (
@@ -11,11 +12,13 @@ const Adminpanel = () => {
 
       {/* Top NavBar */}
 
-      <Topnav/>
+      <Topnav />
 
       {/* Hedader Data */}
       <Dashboard />
 
+      {/* Footer */}
+      <Footernav />
       <style jsx>{`
         button {
           background: #f98b1d;

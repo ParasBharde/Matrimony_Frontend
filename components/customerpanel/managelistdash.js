@@ -1,6 +1,6 @@
 import React from "react";
 
-const Manageuserdash = () => {
+const Managelistdash = () => {
   return (
     <>
       <div className="txt flex justify-around mx-22 relative mt-10 ">
@@ -70,7 +70,7 @@ const Manageuserdash = () => {
                   onclick="checkAll(this)"
                 />
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-6 py-3 ">
                 Reg.No
               </th>
               <th scope="col" className="px-6 py-3">
@@ -80,19 +80,16 @@ const Manageuserdash = () => {
                 Gender
               </th>
               <th scope="col" className="px-6 py-3">
-                Father Name
-              </th>
-              <th scope="col" className="px-6 py-3">
-                DOB
+                Email
               </th>
               <th scope="col" className="px-6 py-3">
                 Contact.No
               </th>
               <th scope="col" className="px-6 py-3">
-                Downloads
+                Purchase Date
               </th>
               <th scope="col" className="px-6 py-3">
-                Action
+                Status
               </th>
             </tr>
           </thead>
@@ -123,43 +120,19 @@ const Manageuserdash = () => {
                   <span>Eshal Rosas</span>
                 </div>
               </td>
-              {/* <td className="px-20 py-4">Sliver</td> */}
               <td className="px-6 py-4">Female</td>
               <td className="px-6 py-4">$ABC</td>
               <td className="px-6 py-4">$ABC</td>
               <td className="px-6 py-4">123456789</td>
-              <td className="px-6 py-4 ">5</td>
-
-              <td className="px-6 py-4 flex items-center justify-evenly">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M12 6.5C13.8387 6.49389 15.6419 7.00678 17.2021 7.97973C18.7624 8.95267 20.0164 10.3462 20.82 12C19.17 15.37 15.8 17.5 12 17.5C8.2 17.5 4.83 15.37 3.18 12C3.98362 10.3462 5.23763 8.95267 6.79788 7.97973C8.35813 7.00678 10.1613 6.49389 12 6.5ZM12 4.5C7 4.5 2.73 7.61 1 12C2.73 16.39 7 19.5 12 19.5C17 19.5 21.27 16.39 23 12C21.27 7.61 17 4.5 12 4.5ZM12 9.5C12.663 9.5 13.2989 9.76339 13.7678 10.2322C14.2366 10.7011 14.5 11.337 14.5 12C14.5 12.663 14.2366 13.2989 13.7678 13.7678C13.2989 14.2366 12.663 14.5 12 14.5C11.337 14.5 10.7011 14.2366 10.2322 13.7678C9.76339 13.2989 9.5 12.663 9.5 12C9.5 11.337 9.76339 10.7011 10.2322 10.2322C10.7011 9.76339 11.337 9.5 12 9.5ZM12 7.5C9.52 7.5 7.5 9.52 7.5 12C7.5 14.48 9.52 16.5 12 16.5C14.48 16.5 16.5 14.48 16.5 12C16.5 9.52 14.48 7.5 12 7.5Z"
-                    fill="#F98B1D"
-                  />
-                </svg>
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 14 14"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M12.0007 9.4987V11.9987H2.00065V9.4987H0.333984V11.9987C0.333984 12.9154 1.08398 13.6654 2.00065 13.6654H12.0007C12.9173 13.6654 13.6673 12.9154 13.6673 11.9987V9.4987H12.0007ZM11.1673 6.16536L9.99232 4.99036L7.83398 7.14036V0.332031H6.16732V7.14036L4.00898 4.99036L2.83398 6.16536L7.00065 10.332L11.1673 6.16536Z"
-                    fill="#F98B1D"
-                  />
-                </svg>
+              <td class="py-4 px-6 text-center">
+                <span class="bg-purple-200 text-purple-600 py-2 px-6 rounded text-xs">
+                  Active
+                </span>
               </td>
             </tr>
           </tbody>
         </table>
-        <div className="flex items-center px-4 py-3 sm:px-6">
+        <div className="flex items-center justify-between  px-4 py-3 sm:px-6">
           <div className="flex flex-1 justify-between sm:hidden">
             <a
               href="#"
@@ -280,5 +253,4 @@ const Manageuserdash = () => {
     </>
   );
 };
-
-export default Manageuserdash;
+export default Managelistdash;
