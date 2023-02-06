@@ -1,5 +1,7 @@
 .parent {
-    position: relative;
+    // position: relative;
+    width: 100%;
+    height: 100%;
 }
 .child {
     position: absolute;
@@ -9,7 +11,7 @@
     right: 0;
     margin: auto;
     background-color: white;
-    margin-top: 2rem;
+    margin-top: 7rem;
     margin-left: 18rem;
     width: 78vw;
     height: 100%;
@@ -95,6 +97,15 @@
 }
 .img_profile {
     width: 60vw;
+    border-radius: 2px;
+    margin: 0rem 0rem 0rem 2.5rem;
+    padding: 0rem;
+    align-content: flex-start;
+    flex-direction: column;
+}
+.img_profile_portfolio{
+    width: 60vw;
+
     border-radius: 2px;
     margin: 0rem 0rem 0rem 2.5rem;
     padding: 0rem;
