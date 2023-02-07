@@ -1,9 +1,8 @@
 import React from 'react'
 import Image from 'next/image'
-
 import logo from "@/assets/indexAssets/headerLogo.png";
 import { useRouter } from 'next/router';
-import logo from "@/assets/headerLogo.png";
+
 
 const Hero = () => {
 
