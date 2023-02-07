@@ -37,25 +37,25 @@ import React from "react";
                 <span style={{color:'#B6B3BE', fontSize:'1.1rem',}} className="py-2 text-sm leading-snug">{" "}Remember me{" "}</span>
               </label>
               <label className=" my-0">
-                <a
+                <Link
                   href="#"
                   className="cursor-pointer"
                 >
                   <span style={{color:'#B6B3BE',fontSize:'1.1rem'}}>Forgot Password</span>
-                </a>
+                </Link>
               </label>
             </div>
             <button className=" w-full py-3 font-medium text-white rounded-lg  hover:shadow inline-flex space-x-2 items-center justify-center">
               <span>Sign in</span>
             </button>
             <p className="text-center">
-              Dont have an account ?{" "}
-              <a
+              Don't have an account ?{" "}
+              <Link
                 href="#"
                 className="text-indigo-600 font-medium inline-flex space-x-1 items-center"
               >
                 <span style={{ color: "#F98B1D" }}>Sign up </span>
-              </a>
+              </Link>
             </p>
           </div>
         </form>

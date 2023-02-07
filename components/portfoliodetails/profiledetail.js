@@ -3,6 +3,7 @@ import profile from "@/assets/profile.png";
 import Image from "next/image";
 import horos from "@/assets/horos.png";
 import horos1 from "@/assets/horos1.png";
+import Link from "next/link";
 import {
   Button,
   Card,
@@ -25,7 +26,8 @@ const Profiledetail = () => {
       <div className="container">
         <div className="header_detail">
           <span className="px-2">Home {">"}</span>
-          <span className="px-2">Search {">"}</span>
+          <Link href="/portfolio/portfolio/">
+          <span className="px-2 cursor-pointer hover:text-main">Search {">"}</span></Link>
           <span className="px-2 text-main">Profile Detail</span>
         </div>
         <div className="main_container flex justify-center">
@@ -224,7 +226,7 @@ const Profiledetail = () => {
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                               Height
                             </span>
-                            <span>5.6 Inch</span>
+                            <span>5.6' Inch</span>
                           </div>
                         </div>
                         <div className="flex items-center justify-center h-24 rounded ">
@@ -398,7 +400,7 @@ const Profiledetail = () => {
                               <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                                 Height
                               </span>
-                              <span>5.6 Inch</span>
+                              <span>5.6' Inch</span>
                             </div>
                           </div>
                           <div className="flex items-center justify-center h-24 rounded ">
@@ -559,7 +561,7 @@ const Profiledetail = () => {
                               <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                                 Height
                               </span>
-                              <span>5.6 Inch</span>
+                              <span>5.6' Inch</span>
                             </div>
                           </div>
                           <div className="flex items-center justify-center h-24 rounded ">

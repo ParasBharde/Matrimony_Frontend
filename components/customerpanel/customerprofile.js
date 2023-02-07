@@ -3,6 +3,7 @@ import profile from "@/assets/profile.png";
 import Image from "next/image";
 import horos from "@/assets/horos.png";
 import horos1 from "@/assets/horos1.png";
+import Link from "next/link";
 
 const Customerpofile = () => {
   return (
@@ -10,18 +11,17 @@ const Customerpofile = () => {
       <div className="parent">
         <table className="child table-fixed">
           <div className="table_header flex ">
-            <thead className="block">
+            <thead>
               <td className="font-bold">Paras Bharde</td>
               <div>
-            <td style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                Reg- No : VRE223
-              </td>
-            </div>
+                <td style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                  Reg- No : VRE223
+                </td>
+              </div>
             </thead>
-           
-            <thead className="flex space-x-2 mt-2">
+            <div className="flex space-x-2 mt-2">
               <button className="px-5 rounded  bg-orange-400 py-1.5">
-                <a className="flex text-white" href="#">
+                <Link className="flex text-white" href="#">
                   <svg
                     className="mr-2 mt-1"
                     width="17"
@@ -36,10 +36,10 @@ const Customerpofile = () => {
                     />
                   </svg>
                   Download
-                </a>
+                </Link>
               </button>
               <button className="px-5 rounded bg-orange-600 py-1.5">
-                <a className="flex text-white" href="#">
+                <Link className="flex text-white" href="#">
                   <svg
                     className="mr-2 mt-1"
                     width="17"
@@ -54,11 +54,196 @@ const Customerpofile = () => {
                     />
                   </svg>
                   Delete
-                </a>
+                </Link>
               </button>
-            </thead>
+            </div>
           </div>
+
+          <div className="first_content p-4 sm:ml-64 ">
+            <div className="p-4 ">
+              <div className="grid grid-cols-4 gap-10 ">
+                <div className="flex items-center justify-center h-24 rounded ">
+                  <div className="first_row">
+                    <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                      Email
+                    </span>
+                    <span>paras@scus.tech</span>
+                  </div>
+                </div>
+                <div className="flex items-center justify-center h-24 rounded ">
+                  <div className="first_row">
+                    <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                      Phone
+                    </span>
+                    <span>+91-7894561235</span>
+                  </div>
+                </div>
+                <div className="flex items-center justify-center h-24 rounded ">
+                  <div className="first_row">
+                    <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                      Date of Birth
+                    </span>
+                    <span>04 Feb 2023</span>
+                  </div>
+                </div>
+                <div className="flex items-center justify-center h-24 ">
+                  <div className="second_item relative">
+                    <Image
+                      className="img_profile object-contain w-40 h-60"
+                      object-fit
+                      sizes="(max-width: 768px) 100vw,
+                               (max-width: 1200px) 50vw,
+                               33vw"
+                      src={profile}
+                      alt={"logo"}
+                    />
+                    <div className="gap-2  flex">
+                      <Image
+                        className="img_profile_g w-40 h-26"
+                        src={profile}
+                        alt={"logo"}
+                      />
+                      <Image
+                        className="img_profile_g w-40 h-26"
+                        src={profile}
+                        alt={"logo"}
+                      />
+                      <Image
+                        className="img_profile_g w-40 h-26"
+                        src={profile}
+                        alt={"logo"}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="first_content p-4 sm:ml-64 ">
+            <div className="p-4 ">
+              <div className="grid grid-cols-4 gap-10 ">
+                <div className="flex items-center justify-center h-24 rounded ">
+                  <div className="second_row">
+                    <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>Age</span>
+                    <span>28 Years</span>
+                  </div>
+                </div>
+                <div className="flex items-center justify-center h-24 rounded ">
+                  <div className="second_row">
+                    <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>Star</span>
+                    <span>Hastham</span>
+                  </div>
+                </div>
+                <div className="flex items-center justify-center h-24 rounded ">
+                  <div className="second_row">
+                    <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                      Marriage Status
+                    </span>
+                    <span>Unmarried</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="first_content p-4 sm:ml-64 ">
+            <div className="p-4 ">
+              <div className="grid grid-cols-4 gap-10 ">
+                <div className="flex items-center justify-center h-24 rounded ">
+                  <div className="third_row">
+                    <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                      Height
+                    </span>
+                    <span>5.6' Inch</span>
+                  </div>
+                </div>
+                <div className="flex items-center justify-center h-24 rounded ">
+                  <div className="third_row">
+                    <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                      Qualification
+                    </span>
+                    <span>BCCA, MCA</span>
+                  </div>
+                </div>
+                <div className="flex items-center justify-center h-24 rounded ">
+                  <div className="third_row">
+                    <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                      Color
+                    </span>
+                    <span>White</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="first_content p-4 sm:ml-64 ">
+            <div className="p-4 ">
+              <div className="grid grid-cols-4 gap-10 ">
+                <div className="flex items-center justify-center h-24 rounded ">
+                  <div className="fourth_row">
+                    <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                      Caste
+                    </span>
+                    <span>paras@scus.tech</span>
+                  </div>
+                </div>
+                <div className="flex items-center justify-center h-24 rounded ">
+                  <div className="fourth_row">
+                    <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                      Family Property
+                    </span>
+                    <span>+91-7894561235</span>
+                  </div>
+                </div>
+                <div className="flex items-center justify-center h-24 rounded ">
+                  <div className="fourth_row">
+                    <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                      Type of food
+                    </span>
+                    <span>40,000 -/ per month</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="first_content p-4 sm:ml-64 ">
+            <div className="p-4 ">
+              <div className="grid grid-cols-4 gap-10 ">
+                <div className="flex items-center justify-center h-24 rounded ">
+                  <div className="fifth_row">
+                    <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                      Caste
+                    </span>
+                    <span>paras@scus.tech</span>
+                  </div>
+                </div>
+                <div className="flex items-center justify-center h-24 rounded ">
+                  <div className="fifth_row">
+                    <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                      Family Property
+                    </span>
+                    <span>+91-7894561235</span>
+                  </div>
+                </div>
+                <div className="flex items-center justify-center h-24 rounded ">
+                  <div className="fifth_row">
+                    <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                      Type of food
+                    </span>
+                    <span>40,000 -/ per month</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div>
+            <span className="line_one"></span>
+          </div>
+
+          {/*Family Information */}
+          <div className="second_content">
+            <span className="sec_text">Family Information</span>
+
             <div className="first_content p-4 sm:ml-64 ">
               <div className="p-4 ">
                 <div className="grid grid-cols-4 gap-10 ">
@@ -78,7 +263,7 @@ const Customerpofile = () => {
                       <span>+91-7894561235</span>
                     </div>
                   </div>
-                  <div className="flex items-center justify-center h-24 rounded ">
+                  <div className="flex items-center justify-center h-24 ">
                     <div className="first_row">
                       <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                         Date of Birth
@@ -87,33 +272,11 @@ const Customerpofile = () => {
                     </div>
                   </div>
                   <div className="flex items-center justify-center h-24 ">
-                    <div className="second_item relative">
-                      <Image
-                        className="img_profile object-contain w-40 h-60"
-                        object-fit
-                        sizes="(max-width: 768px) 100vw,
-                               (max-width: 1200px) 50vw,
-                               33vw"
-                        src={profile}
-                        alt={"logo"}
-                      />
-                      <div className="gap-2  flex">
-                        <Image
-                          className="img_profile_g w-40 h-26"
-                          src={profile}
-                          alt={"logo"}
-                        />
-                        <Image
-                          className="img_profile_g w-40 h-26"
-                          src={profile}
-                          alt={"logo"}
-                        />
-                        <Image
-                          className="img_profile_g w-40 h-26"
-                          src={profile}
-                          alt={"logo"}
-                        />
-                      </div>
+                    <div className="first_row">
+                      <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                        Phone
+                      </span>
+                      <span>+91-7894561235</span>
                     </div>
                   </div>
                 </div>
@@ -146,6 +309,14 @@ const Customerpofile = () => {
                       <span>Unmarried</span>
                     </div>
                   </div>
+                  <div className="flex items-center justify-center h-24 rounded ">
+                    <div className="second_row">
+                      <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                        Marriage Status
+                      </span>
+                      <span>Unmarried</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -157,7 +328,7 @@ const Customerpofile = () => {
                       <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                         Height
                       </span>
-                      <span>5.6 Inch</span>
+                      <span>5.6' Inch</span>
                     </div>
                   </div>
                   <div className="flex items-center justify-center h-24 rounded ">
@@ -166,6 +337,14 @@ const Customerpofile = () => {
                         Qualification
                       </span>
                       <span>BCCA, MCA</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-center h-24 rounded ">
+                    <div className="third_row">
+                      <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                        Color
+                      </span>
+                      <span>White</span>
                     </div>
                   </div>
                   <div className="flex items-center justify-center h-24 rounded ">
@@ -206,34 +385,12 @@ const Customerpofile = () => {
                       <span>40,000 -/ per month</span>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div className="first_content p-4 sm:ml-64 ">
-              <div className="p-4 ">
-                <div className="grid grid-cols-4 gap-10 ">
                   <div className="flex items-center justify-center h-24 rounded ">
-                    <div className="fifth_row">
+                    <div className="fourth_row">
                       <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                        Caste
+                        Color
                       </span>
-                      <span>paras@scus.tech</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-center h-24 rounded ">
-                    <div className="fifth_row">
-                      <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                        Family Property
-                      </span>
-                      <span>+91-7894561235</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-center h-24 rounded ">
-                    <div className="fifth_row">
-                      <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                        Type of food
-                      </span>
-                      <span>40,000 -/ per month</span>
+                      <span>White</span>
                     </div>
                   </div>
                 </div>
@@ -241,172 +398,13 @@ const Customerpofile = () => {
             </div>
           </div>
 
-          <span className="line_one"></span>
-
-          {/*Family Information */}
-          <div className="second_content">
-            <span className="sec_text">Family Information</span>
-            <div>
-              <div className="first_content p-4 sm:ml-64 ">
-                <div className="p-4 ">
-                  <div className="grid grid-cols-4 gap-10 ">
-                    <div className="flex items-center justify-center h-24 rounded ">
-                      <div className="first_row">
-                        <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                          Email
-                        </span>
-                        <span>paras@scus.tech</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-center h-24 rounded ">
-                      <div className="first_row">
-                        <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                          Phone
-                        </span>
-                        <span>+91-7894561235</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-center h-24 ">
-                      <div className="first_row">
-                        <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                          Date of Birth
-                        </span>
-                        <span>04 Feb 2023</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-center h-24 ">
-                      <div className="first_row">
-                        <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                          Phone
-                        </span>
-                        <span>+91-7894561235</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="first_content p-4 sm:ml-64 ">
-                <div className="p-4 ">
-                  <div className="grid grid-cols-4 gap-10 ">
-                    <div className="flex items-center justify-center h-24 rounded ">
-                      <div className="second_row">
-                        <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                          Age
-                        </span>
-                        <span>28 Years</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-center h-24 rounded ">
-                      <div className="second_row">
-                        <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                          Star
-                        </span>
-                        <span>Hastham</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-center h-24 rounded ">
-                      <div className="second_row">
-                        <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                          Marriage Status
-                        </span>
-                        <span>Unmarried</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-center h-24 rounded ">
-                      <div className="second_row">
-                        <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                          Marriage Status
-                        </span>
-                        <span>Unmarried</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="first_content p-4 sm:ml-64 ">
-                <div className="p-4 ">
-                  <div className="grid grid-cols-4 gap-10 ">
-                    <div className="flex items-center justify-center h-24 rounded ">
-                      <div className="third_row">
-                        <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                          Height
-                        </span>
-                        <span>5.6 Inch</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-center h-24 rounded ">
-                      <div className="third_row">
-                        <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                          Qualification
-                        </span>
-                        <span>BCCA, MCA</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-center h-24 rounded ">
-                      <div className="third_row">
-                        <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                          Color
-                        </span>
-                        <span>White</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-center h-24 rounded ">
-                      <div className="third_row">
-                        <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                          Color
-                        </span>
-                        <span>White</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="first_content p-4 sm:ml-64 ">
-                <div className="p-4 ">
-                  <div className="grid grid-cols-4 gap-10 ">
-                    <div className="flex items-center justify-center h-24 rounded ">
-                      <div className="fourth_row">
-                        <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                          Caste
-                        </span>
-                        <span>paras@scus.tech</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-center h-24 rounded ">
-                      <div className="fourth_row">
-                        <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                          Family Property
-                        </span>
-                        <span>+91-7894561235</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-center h-24 rounded ">
-                      <div className="fourth_row">
-                        <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                          Type of food
-                        </span>
-                        <span>40,000 -/ per month</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-center h-24 rounded ">
-                      <div className="fourth_row">
-                        <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                          Color
-                        </span>
-                        <span>White</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div>
+            <span className="line_two"></span>
           </div>
-
-          <span className="line_two"></span>
 
           {/* Horoscope Information */}
           <div className="third_content">
-            <span className="sec_text">Family Information</span>
+            <span className="sec_text">Horoscope Information</span>
             <div>
               <div className="first_content p-4 sm:ml-64 ">
                 <div className="p-4 ">
@@ -492,7 +490,7 @@ const Customerpofile = () => {
                         <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                           Height
                         </span>
-                        <span>5.6 Inch</span>
+                        <span>5.6' Inch</span>
                       </div>
                     </div>
                     <div className="flex items-center justify-center h-24 rounded ">
@@ -502,76 +500,25 @@ const Customerpofile = () => {
                         </span>
                         <span>BCCA, MCA</span>
                       </div>
-                    </div>
-                    <div className="flex items-center justify-center h-24 rounded ">
-                      <div className="third_row">
-                        <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                          Color
-                        </span>
-                        <span>White</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-center h-24 rounded ">
-                      <div className="third_row">
-                        <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                          Color
-                        </span>
-                        <span>White</span>
-                      </div>
-                    </div>
+                    </div>  
                   </div>
                 </div>
               </div>
               <div className="first_content p-4 sm:ml-64 ">
-                <div className="p-4 ">
-                  <div className="grid grid-cols-4 gap-10 ">
-                    <div className="flex items-center justify-center h-24 rounded ">
-                      <div className="fourth_row">
-                        <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                          Caste
-                        </span>
-                        <span>paras@scus.tech</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-center h-24 rounded ">
-                      <div className="fourth_row">
-                        <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                          Family Property
-                        </span>
-                        <span>+91-7894561235</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-center h-24 rounded ">
-                      <div className="fourth_row">
-                        <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                          Type of food
-                        </span>
-                        <span>40,000 -/ per month</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-center h-24 rounded ">
-                      <div className="fourth_row">
-                        <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                          Color
-                        </span>
-                        <span>White</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
 
-          <span className="line_three"></span>
+          <div>
+            <span className="line_three"></span>
+          </div>
 
           {/* Horoscope Chart */}
           <div className="fourth_content">
             <span className="sec_text ">Horoscope Chart</span>
             <div className="tb_dt flex ">
-             <Image src={horos} width={500} height={500} />
-             <Image src={horos1} width={500} height={500} />
-
+              <Image src={horos} width={500} height={500} />
+              <Image src={horos1} width={500} height={500} />
             </div>
           </div>
         </table>

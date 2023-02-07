@@ -2,6 +2,7 @@ import React from "react";
 import Sidenav from "@/components/customerpanel/sidenav";
 import Topnav from "@/components/customerpanel/topnav";
 import Footernav from "@/components/customerpanel/footernav";
+import Link from "next/link";
 
 const Dashboard = () => {
   return (
@@ -165,7 +166,7 @@ const Dashboard = () => {
                     scope="row"
                     class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
-                    01213
+                    01213"
                   </td>
                   <td class="px-6 py-4">Sliver</td>
                   <td class="px-6 py-4">Laptop</td>

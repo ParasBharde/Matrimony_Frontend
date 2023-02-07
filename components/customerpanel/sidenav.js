@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Sidenav = () => {
   return (
@@ -35,7 +36,7 @@ const Sidenav = () => {
           <div className="h-full px-3 py-4 overflow-y-auto dark:bg-gray-800">
             <ul className="space-y-4">
               <li>
-                <a
+                <Link
                   href="#"
                   className="flex justify-center items-center p-2 text-base font-normal"
                 >
@@ -56,37 +57,37 @@ const Sidenav = () => {
                       fill="white"
                     />
                   </svg>
-                </a>
+                </Link>
               </li>
               <li>
-                <p
+                <Link
                   href="/admin/dashboard"
                   className="hv_co flex items-center p-2 text-base font-normal text-white rounded dark:text-white hover:text-white"
                 >
                   <span className="flex-1 ml-3 whitespace-nowrap">
                     Dashboard
                   </span>
-                </p>
+                </Link>
               </li>
               <li>
-                <p
+                <Link
                   href="/admin/manageuser"
                   className="hv_co flex items-center p-2 text-base font-normal text-white rounded dark:text-white hover:text-white"
                 >
                   <span className="flex-1 ml-3 whitespace-nowrap">
                     Manage Users
                   </span>
-                </p>
+                </Link>
               </li>
               <li>
-                <p
+                <Link
                   href="/admin/managelist"
                   className="hv_co flex items-center p-2 text-base font-normal text-white rounded dark:text-white hover:text-white"
                 >
                   <span className="flex-1 ml-3 whitespace-nowrap">
                     Manage List
                   </span>
-                </p>
+                </Link>
               </li>
             </ul>
           </div>

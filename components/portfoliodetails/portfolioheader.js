@@ -1,6 +1,7 @@
 import React from "react";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
+import Link from "next/link";
 
 const Portfolioheader = () => {
   const options = ["one", "two", "three"];
@@ -9,11 +10,13 @@ const Portfolioheader = () => {
     <>
       <div className="button_top">
         <span className="text-sm text-gray-700 dark:text-gray-400">
-          <button  className="text-gray-400 hover:text-main text-lg">Home</button>
+          <Link href="#">
+          <button  className="text-gray-400 hover:text-main text-lg ">Home</button></Link>
           <span className="font-semibold text-gray-900 dark:text-white">
             {" > "}
           </span>{" "}
-          <button className="text-main hover:text-main text-lg">Search</button>{" "}
+          <Link href="#">
+          <button className="text-main hover:text-main text-lg " aria-current="page">Search</button></Link>{" "}
         </span>
       </div>
       <div className="portfolio_header">

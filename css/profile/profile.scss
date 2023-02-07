@@ -1,0 +1,193 @@
+.parent {
+    // position: relative;
+    width: 100%;
+    height: 100%;
+}
+.child {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    background-color: white;
+    margin-top: 7rem;
+    margin-left: 18rem;
+    width: 78vw;
+    height: 100%;
+    margin-bottom: 25rem;
+}
+.table_header {
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem 0rem auto 1rem;
+    padding: 2rem;
+}
+.first_content {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 0rem auto 0rem;
+    padding: 2rem;
+    align-content: flex-end;
+    flex-direction: column;
+}
+.first_item {
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem 0rem 12rem -4rem;
+    padding: 2rem;
+    align-content: flex-start;
+    flex-direction: column;
+    width: 100%;
+}
+.second_item {
+    display: flex;
+    justify-content: space-between;
+    margin: 20rem 0rem 10rem -5rem;
+    align-content: flex-start;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    gap: 2rem;
+}
+.first_row {
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem 0rem 12rem -4rem;
+    padding: 2rem;
+    align-content: flex-start;
+    flex-direction: column;
+    width: 100%;
+}
+.second_row {
+    display: flex;
+    justify-content: space-between;
+    margin: -14rem 0rem 12rem -4rem;
+    padding: 2rem;
+    align-content: flex-start;
+    flex-direction: column;
+    width: 100%;
+}
+.third_row {
+    display: flex;
+    justify-content: space-between;
+    margin: -30rem 0rem 12rem -4rem;
+    padding: 2rem;
+    align-content: flex-start;
+    flex-direction: column;
+    width: 100%;
+}
+.fourth_row {
+    display: flex;
+    justify-content: space-between;
+    margin: -46rem 0rem 12rem -4rem;
+    padding: 2rem;
+    align-content: flex-start;
+    flex-direction: column;
+    width: 100%;
+}
+.fifth_row {
+    display: flex;
+    justify-content: space-between;
+    margin: -62rem 0rem 12rem -4rem;
+    padding: 2rem;
+    align-content: flex-start;
+    flex-direction: column;
+    width: 100%;
+}
+.img_profile {
+    width: 60vw;
+    border-radius: 2px;
+    margin: 0rem 0rem 0rem 2.5rem;
+    padding: 0rem;
+    align-content: flex-start;
+    flex-direction: column;
+}
+.img_profile_portfolio{
+    width: 60vw;
+
+    border-radius: 2px;
+    margin: 0rem 0rem 0rem 2.5rem;
+    padding: 0rem;
+    align-content: flex-start;
+    flex-direction: column;
+}
+.img_profile_g {
+    width: 40%;
+    height: 40%;
+    border-radius: 2px;
+    margin: 0rem 0rem 0rem 0rem;
+    padding: 0rem;
+    margin-left: 0.2rem;
+    align-content: flex-start;
+    flex-direction: column;
+}
+.line_one{
+    position: absolute;
+    width: 62rem;
+    height: 0px;
+    left: 5rem;
+    top: 64rem;
+    border: 1px solid #e1e1e1;
+}
+.line_two{
+    position: absolute;
+    width: 62rem;
+    height: 0px;
+    left: 5rem;
+    top: 36rem;
+    border: 1px solid #e1e1e1;
+}
+.line_three{
+    position: absolute;
+    width: 62rem;
+    height: 0px;
+    left: 5rem;
+    top: 86rem;
+    border: 1px solid #e1e1e1;
+}
+.second_content{
+    display: flex;
+    justify-content: space-between;
+    margin: -12rem 0rem auto 0rem;
+    align-content: flex-end;
+    flex-direction: column;
+}
+.sec_text{
+    margin-top: -25rem;
+    font-weight: bold;
+    padding: 2rem;
+    margin: -25rem 0rem auto 1rem;
+}
+.third_content{
+    display: flex;
+    justify-content: space-between;
+    margin: -5rem 0rem auto 0rem;
+    align-content: flex-end;
+    flex-direction: column;
+}
+.fourth_content{
+    display: flex;
+    justify-content: flex-start;
+    margin: -2rem 0rem auto 0rem; 
+    align-content: flex-end;
+    flex-direction: column;
+}
+
+//   table, tr, th{
+//     // border: 1px solid #E1E1E1;
+//     border-collapse: collapse;
+//     padding: 1.5rem;
+//     margin: 1rem;
+//     width: 2vw;
+//   }
+
+.tb_dt {
+    display: flex;
+    margin: -2rem 0rem auto 0rem;
+    flex-direction: row;
+    justify-content: space-around;
+
+}
+
+

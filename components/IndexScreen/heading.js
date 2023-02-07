@@ -11,6 +11,7 @@ const Heading = () => {
             <HeadingCard/>
             <HeadingCard/> 
         </div>
+        
        </div>
   )
 }

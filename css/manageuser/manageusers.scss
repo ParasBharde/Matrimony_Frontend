@@ -1,0 +1,29 @@
+.user_dash{
+    margin: 0rem 17rem;
+    min-width: 80vw;
+    
+    @media screen and (max-width: 1150px) {
+        display: block;
+        margin: 5rem 0rem;
+        max-width: 100%;
+       }
+
+}
+.txt{
+    margin:2rem 0rem;
+    margin-left: 15rem;
+}
+.txt_top{
+    margin:2rem 4rem;
+    margin-left: 18rem;
+}
+.search_download{
+    margin-left: 40rem;
+    display: flex;
+   
+    @media screen and (max-width: 1150px) {
+        display: block;
+        margin: 5rem 0rem;
+        max-width: 100%;
+       }    
+}

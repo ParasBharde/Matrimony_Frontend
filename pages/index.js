@@ -6,6 +6,7 @@ import SuccessStories from '@/components/IndexScreen/successStories'
 import BestGiftFromYou from '@/components/IndexScreen/bestGiftFromYou'
 import ContactInformation from '@/components/IndexScreen/contactInformation'
 
+import Footer from '@/components/footer'
 
 const Index = () => {
   return (

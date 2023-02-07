@@ -1,6 +1,7 @@
 import React from "react";
 import profile from "@/assets/profile.png";
 import Image from "next/image";
+import Link from "next/link";
 
 const Portfoliodetails = () => {
   return (
@@ -8,7 +9,7 @@ const Portfoliodetails = () => {
       <div class="container_card grid lg:grid-cols-4">
         <div class="max-w-xs mx-2 mb-7 rounded-lg shadow-lg">
           <div className="cards">
-            <p href="/portfolio/portfolioprofile/" className="relative">
+            <Link href="/portfolio/portfolioprofile/" className="relative">
               <Image
                 className=""
                 alt="Placeholder"
@@ -42,12 +43,12 @@ const Portfoliodetails = () => {
                   />
                 </svg>
               </div>
-            </p>
+            </Link>
             <header class="coloumn items-center justify-between leading-tight p-2 md:p-4">
               <h1 class="text-lg">
-                <a class="no-underline hover:underline text-black" href="#">
+                <span class="no-underline hover:underline text-black" href="#">
                   V. Megha Akash
-                </a>
+                </span>
               </h1>
               <p
                 style={{ color: "rgba(30, 30, 30, 0.5)" }}
@@ -57,7 +58,7 @@ const Portfoliodetails = () => {
               </p>
             </header>
             <footer class="card flex items-center justify-evenly leading-none p-4 md:p-4">
-              <a
+              <Link
                 class="flex items-center no-underline hover:underline text-black"
                 href="#"
               >
@@ -75,7 +76,7 @@ const Portfoliodetails = () => {
                     />
                   </svg>
                 </p>
-              </a>
+              </Link>
               <p style={{ color: "rgba(30, 30, 30, 0.5)" }}> Hastham</p>
               <svg
                 width="2"
@@ -126,7 +127,7 @@ const Portfoliodetails = () => {
         </div>
         <div class="max-w-xs mx-2 mb-7 rounded-lg shadow-lg">
           <div className="cards">
-            <p href="/portfolio/portfolioprofile/" className="relative">
+            <Link href="/portfolio/portfolioprofile/" className="relative">
               <Image
                 className=""
                 alt="Placeholder"
@@ -160,12 +161,12 @@ const Portfoliodetails = () => {
                   />
                 </svg>
               </div>
-            </p>
+            </Link>
             <header class="coloumn items-center justify-between leading-tight p-2 md:p-4">
               <h1 class="text-lg">
-                <a class="no-underline hover:underline text-black" href="#">
+                <span class="no-underline hover:underline text-black" href="#">
                   V. Megha Akash
-                </a>
+                </span>
               </h1>
               <p
                 style={{ color: "rgba(30, 30, 30, 0.5)" }}
@@ -175,7 +176,7 @@ const Portfoliodetails = () => {
               </p>
             </header>
             <footer class="card flex items-center justify-evenly leading-none p-4 md:p-4">
-              <a
+              <Link
                 class="flex items-center no-underline hover:underline text-black"
                 href="#"
               >
@@ -193,7 +194,7 @@ const Portfoliodetails = () => {
                     />
                   </svg>
                 </p>
-              </a>
+              </Link>
               <p style={{ color: "rgba(30, 30, 30, 0.5)" }}> Hastham</p>
               <svg
                 width="2"
@@ -244,7 +245,7 @@ const Portfoliodetails = () => {
         </div>
         <div class="max-w-xs mx-2 mb-7 rounded-lg shadow-lg">
           <div className="cards">
-            <p href="/portfolio/portfolioprofile/" className="relative">
+            <Link href="/portfolio/portfolioprofile/" className="relative">
               <Image
                 className=""
                 alt="Placeholder"
@@ -278,12 +279,12 @@ const Portfoliodetails = () => {
                   />
                 </svg>
               </div>
-            </p>
+            </Link>
             <header class="coloumn items-center justify-between leading-tight p-2 md:p-4">
               <h1 class="text-lg">
-                <a class="no-underline hover:underline text-black" href="#">
+                <span class="no-underline hover:underline text-black" href="#">
                   V. Megha Akash
-                </a>
+                </span>
               </h1>
               <p
                 style={{ color: "rgba(30, 30, 30, 0.5)" }}
@@ -293,7 +294,7 @@ const Portfoliodetails = () => {
               </p>
             </header>
             <footer class="card flex items-center justify-evenly leading-none p-4 md:p-4">
-              <a
+              <Link
                 class="flex items-center no-underline hover:underline text-black"
                 href="#"
               >
@@ -311,7 +312,7 @@ const Portfoliodetails = () => {
                     />
                   </svg>
                 </p>
-              </a>
+              </Link>
               <p style={{ color: "rgba(30, 30, 30, 0.5)" }}> Hastham</p>
               <svg
                 width="2"
@@ -362,7 +363,7 @@ const Portfoliodetails = () => {
         </div>
         <div class="max-w-xs mx-2 mb-7 rounded-lg shadow-lg">
           <div className="cards">
-            <p href="/portfolio/portfolioprofile/" className="relative">
+            <Link href="/portfolio/portfolioprofile/" className="relative">
               <Image
                 className=""
                 alt="Placeholder"
@@ -396,12 +397,12 @@ const Portfoliodetails = () => {
                   />
                 </svg>
               </div>
-            </p>
+            </Link>
             <header class="coloumn items-center justify-between leading-tight p-2 md:p-4">
               <h1 class="text-lg">
-                <a class="no-underline hover:underline text-black" href="#">
+                <span class="no-underline hover:underline text-black" href="#">
                   V. Megha Akash
-                </a>
+                </span>
               </h1>
               <p
                 style={{ color: "rgba(30, 30, 30, 0.5)" }}
@@ -411,7 +412,7 @@ const Portfoliodetails = () => {
               </p>
             </header>
             <footer class="card flex items-center justify-evenly leading-none p-4 md:p-4">
-              <a
+              <Link
                 class="flex items-center no-underline hover:underline text-black"
                 href="#"
               >
@@ -429,7 +430,7 @@ const Portfoliodetails = () => {
                     />
                   </svg>
                 </p>
-              </a>
+              </Link>
               <p style={{ color: "rgba(30, 30, 30, 0.5)" }}> Hastham</p>
               <svg
                 width="2"
@@ -480,7 +481,7 @@ const Portfoliodetails = () => {
         </div>
         <div class="max-w-xs mx-2 mb-7 rounded-lg shadow-lg">
           <div className="cards">
-            <p href="/portfolio/portfolioprofile/" className="relative">
+            <Link href="/portfolio/portfolioprofile/" className="relative">
               <Image
                 className=""
                 alt="Placeholder"
@@ -514,12 +515,12 @@ const Portfoliodetails = () => {
                   />
                 </svg>
               </div>
-            </p>
+            </Link>
             <header class="coloumn items-center justify-between leading-tight p-2 md:p-4">
               <h1 class="text-lg">
-                <a class="no-underline hover:underline text-black" href="#">
+                <span class="no-underline hover:underline text-black" href="#">
                   V. Megha Akash
-                </a>
+                </span>
               </h1>
               <p
                 style={{ color: "rgba(30, 30, 30, 0.5)" }}
@@ -529,7 +530,7 @@ const Portfoliodetails = () => {
               </p>
             </header>
             <footer class="card flex items-center justify-evenly leading-none p-4 md:p-4">
-              <a
+              <Link
                 class="flex items-center no-underline hover:underline text-black"
                 href="#"
               >
@@ -547,7 +548,7 @@ const Portfoliodetails = () => {
                     />
                   </svg>
                 </p>
-              </a>
+              </Link>
               <p style={{ color: "rgba(30, 30, 30, 0.5)" }}> Hastham</p>
               <svg
                 width="2"
