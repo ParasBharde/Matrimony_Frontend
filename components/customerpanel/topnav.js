@@ -1,4 +1,6 @@
 import React from "react";
+import Image from "next/image";
+import profile from "@/assets/profile.png";
 
 const Topnav = () => {
   return (
@@ -76,18 +78,13 @@ const Topnav = () => {
   navbar navbar-expand-lg navbar-light
   "
       >
-        <div class="container-fluid w-full flex flex-wrap items-center justify-between px-6">
-        
-           
-            <h1 classNameName="flex justify-start items-center ">
-              Welcome 👋 Jenny Wilson
-            </h1>
-          
-         <div className="flex items-center">
-         <a
-              class="text-gray-500 hover:text-gray-700 focus:text-gray-700 mr-4 "
-              href="#"
-            >
+        <div class="container-fluid w-full px-6 container flex flex-wrap items-center justify-between mx-auto">
+          <h1 classNameName="flex justify-start items-center ">
+            Welcome 👋 Jenny Wilson
+          </h1>
+
+          <div className="flex items-center">
+            <div class="text-gray-500 hover:text-gray-700 focus:text-gray-700 mr-4 ">
               <svg
                 width="16"
                 height="20"
@@ -101,29 +98,76 @@ const Topnav = () => {
                   fill-opacity="0.5"
                 />
               </svg>
-            </a>
-            <a
-              class="text-gray-500 hover:text-gray-700 focus:text-gray-700 mr-4"
-              href="#"
-            >
+            </div>
+
+            <div class="text-gray-500 hover:text-gray-700 focus:text-gray-700 mr-4">
               <button
-                    type="button"
-                    className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                    id="user-menu-button"
-                    aria-expanded="false"
-                    aria-haspopup="true"
-                  >
-                    <span className="sr-only">Open user menu</span>
-                    <img
-                      className="h-8 w-8 rounded-full"
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                      alt=""
-                    />
-                  </button>
-            </a>
-         </div>
+                type="button"
+                className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                data-dropdown-toggle="language-dropdown-menu"
+              >
+                <img
+                  className="h-8 w-8 rounded-full"
+                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                  alt=""
+                />
+              </button>
+
+              <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700" id="language-dropdown-menu">
+                <ul class="py-2" role="none">
+                  <li>
+                    <a
+                      href="#"
+                      class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                      role="menuitem"
+                    >
+                      <div class="inline-flex items-center">
+                   
+                        English (US)
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                      role="menuitem"
+                    >
+                      <div class="inline-flex items-center">
+                   
+                        Deutsch
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                      role="menuitem"
+                    >
+                      <div class="inline-flex items-center">
+                       
+                        Italiano
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                      role="menuitem"
+                    >
+                      <div class="inline-flex items-center">
+                    
+                        中文 (繁體)
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
-        
+        </div>
       </nav>
     </>
   );

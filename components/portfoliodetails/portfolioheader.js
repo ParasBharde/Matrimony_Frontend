@@ -9,11 +9,12 @@ const Portfolioheader = () => {
     <>
       <div className="button_top">
         <span className="text-sm text-gray-700 dark:text-gray-400">
-          <button  className="text-gray-400 hover:text-main text-lg">Home</button>
+          <a href="">
+          <button  className="text-gray-400 hover:text-main text-lg ">Home</button></a>
           <span className="font-semibold text-gray-900 dark:text-white">
             {" > "}
           </span>{" "}
-          <button className="text-main hover:text-main text-lg">Search</button>{" "}
+          <button className="text-main hover:text-main text-lg " aria-current="page">Search</button>{" "}
         </span>
       </div>
       <div className="portfolio_header">

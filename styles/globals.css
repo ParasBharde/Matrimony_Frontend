@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+bootstrap.css
+bootstrap.min.css
+bootstrap.rtl.css
+bootstrap.rtl.min.css
+
 .indexbg{
     background: url(../assets/indexBG.png);
     background-size: cover;

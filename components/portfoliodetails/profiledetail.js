@@ -25,7 +25,8 @@ const Profiledetail = () => {
       <div className="container">
         <div className="header_detail">
           <span className="px-2">Home {">"}</span>
-          <span className="px-2">Search {">"}</span>
+          <a href="/portfolio/portfolio/">
+          <span className="px-2 cursor-pointer hover:text-main">Search {">"}</span></a>
           <span className="px-2 text-main">Profile Detail</span>
         </div>
         <div className="main_container flex justify-center">
