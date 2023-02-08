@@ -4,11 +4,10 @@ import Image from "next/image";
 import horos from "@/assets/horos.png";
 import horos1 from "@/assets/horos1.png";
 import Link from "next/link";
-import Heart from '@/assets/SVG/heart.svg'  
-import Download from '@/assets/SVG/downloadlogo.svg'
-import Share from '@/assets/SVG/share.svg'
-
-
+import Heart from "@/assets/SVG/heart.svg";
+import Download from "@/assets/SVG/downloadlogo.svg";
+import Share from "@/assets/SVG/share.svg";
+import Breadcrumb from '@/components/breadcrumb'
 import {
   Button,
   Card,
@@ -29,24 +28,22 @@ const Profiledetail = () => {
   return (
     <>
       <div className="container">
-        <div className="header_detail">
-          <span className="px-2">Home {">"}</span>
-          <Link href="/portfolio/portfolio/">
-          <span className="px-2 cursor-pointer hover:text-main">Search {">"}</span></Link>
-          <span className="px-2 text-main">Profile Detail</span>
-        </div>
-        <div className="main_container flex justify-center">
+        <Breadcrumb screens={["Home","Search","Profile Details"]}/>
+        <div className="main_container flex justify-center overflow-auto">
           <table>
             <tr>
               <td className="flex items-center w-full bg-main h-16 px-5">
                 <span className="text-white flex-1">Profile Detail</span>
                 <div className="flex items-center ">
-                  
-                  <Image src={Heart} width={24} height={21} className="mx-2"/>
-                  <Image src={Download} width={24} height={21} className="mx-2" />
-                 
-                  <Image src={Share} width={24} height={21} className="mx-2"/>
+                  <Image src={Heart} width={24} height={21} className="mx-2" />
+                  <Image
+                    src={Download}
+                    width={24}
+                    height={21}
+                    className="mx-2"
+                  />
 
+                  <Image src={Share} width={24} height={21} className="mx-2" />
                 </div>
               </td>
             </tr>
@@ -94,14 +91,13 @@ const Profiledetail = () => {
                         <div className="flex items-center justify-center h-24 ">
                           <div className="second_item relative">
                             <button
-                            className=""
+                              className=""
                               type="button"
                               onClick={() => setModalDefaultOpen(true)}
                             >
                               <Image
                                 className="img_profile_portfolio object-contain w-40 min-h-full"
                                 object-fit
-                       
                                 src={profile}
                                 alt={"logo"}
                               />
@@ -111,7 +107,7 @@ const Profiledetail = () => {
                               toggle={() => setModalDefaultOpen(false)}
                               fade={true}
                               fullscreen={true}
-                             className="flex justify-center items-center top-0 left-0 w-full h-full bg-black bg-opacity-50 fixed z-50"
+                              className="flex justify-center items-center top-0 left-0 w-full h-full bg-black bg-opacity-50 fixed z-50"
                             >
                               <div className=" modal-header">
                                 <button
@@ -123,9 +119,8 @@ const Profiledetail = () => {
                                   <span aria-hidden={true}>×</span>
                                 </button>
                               </div>
-                              
-                              <div  className="img_modal modal-body "
-                              >
+
+                              <div className="img_modal modal-body ">
                                 <Image
                                   src={profile}
                                   placeholder="image"
@@ -133,7 +128,6 @@ const Profiledetail = () => {
                                   height={500}
                                 />
                               </div>
-                            
                             </Modal>
                             <div className="gap-2  flex">
                               <Image
@@ -369,7 +363,7 @@ const Profiledetail = () => {
                               <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                                 Height
                               </span>
-                              <span>5.6' Inch</span>
+                              <span>5.6 Inch</span>
                             </div>
                           </div>
                           <div className="flex items-center justify-center h-24 rounded ">
@@ -530,7 +524,7 @@ const Profiledetail = () => {
                               <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                                 Height
                               </span>
-                              <span>5.6' Inch</span>
+                              <span>5.6 Inch</span>
                             </div>
                           </div>
                           <div className="flex items-center justify-center h-24 rounded ">
@@ -618,7 +612,7 @@ const Profiledetail = () => {
       </div>
 
       <style global jsx>{`
-        body {
+        .container {
           background: #e0e0e0;
         }
       `}</style>

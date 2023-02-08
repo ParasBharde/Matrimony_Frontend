@@ -9,7 +9,7 @@ const Adminpanel = () => {
     <>
 
       <Dashboard />
-
+      <Footernav />
       <style jsx>{`
         button {
           background: #f98b1d;
@@ -30,9 +30,9 @@ const Adminpanel = () => {
         }
       `}</style>
       <style global jsx>{`
-        body {
-          background: #e0e0e0;
-        }
+        // body {
+        //   background: #e0e0e0;
+        // }
       `}</style>
     </>
   );

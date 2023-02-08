@@ -1,70 +1,72 @@
-.container{
+.container {
+  width: 100%;
+  height: 100%;
+
+  
+  .header_detail {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 2rem 5rem;
+  }
+  .main_container {
+    //  width: 100vw;
+    padding: 0rem 0rem 5em 0rem;
+    margin: 1rem 0rem;
+    min-height: 100%;
+  }
+  .line_one_1 {
+    position: absolute;
+    width: 62rem;
+    height: 0px;
+    left: 15rem;
+    top: 76rem;
+    border: 1px solid #e1e1e1;
+  }
+  .line_two_2 {
+    position: absolute;
+    width: 62rem;
+    height: 0px;
+    left: 15rem;
+    top: 48rem;
+    border: 1px solid #e1e1e1;
+  }
+  .line_three_3 {
+    position: absolute;
+    width: 62rem;
+    height: 0px;
+    left: 15rem;
+    top: 104rem;
+    border: 1px solid #e1e1e1;
+  }
+  .profile_header {
+    margin: 0rem 5rem;
+    width: auto;
+    height: 7vh;
+    background-color: orange;
+  }
+  .parent_profile {
     width: 100%;
     height: 100%;
-    .header_detail{
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        margin: 6rem 2rem;
-    }
-    .main_container{
-    //  width: 100vw;
-     margin: -4rem 0rem;
-    }
-    .line_one_1{
-        position: absolute;
-        width: 62rem;
-        height: 0px;
-        left: 15rem;
-        top: 76rem;
-        border: 1px solid #e1e1e1;
-    }
-    .line_two_2{
-        position: absolute;
-        width: 62rem;
-        height: 0px;
-        left: 15rem;
-        top: 48rem;
-        border: 1px solid #e1e1e1;
-    }
-    .line_three_3{
-        position: absolute;
-        width: 62rem;
-        height: 0px;
-        left: 15rem;
-        top: 104rem;
-        border: 1px solid #e1e1e1;
-    }
-    .profile_header{
-        margin: 0rem 5rem;
-        width: auto;
-        height: 7vh;
-        background-color: orange;
-      
-    }
-    .parent_profile {
-        width: 100%;
-        height: 100%;
-    }
-    .child_profile{
-        position: absolute;
-        top: 11.7rem;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        margin: auto;
-        background-color: white;
-        margin-top: 1.5rem;
-        width: 82.3vw;
-        height: 100%;
-        margin-bottom: 25rem;
-    }
-    .profile_header, table{
-        width: 83.2%;
-        
-    }
-    .profile_data{
-        margin: -2rem 0rem;
-    }
-
+  }
+  .child_profile {
+    position: absolute;
+    top: 11.7rem;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    background-color: white;
+    margin-top: 1.5rem;
+    width: 82.3vw;
+    height: 100%;
+    margin-bottom: 25rem;
+  }
+  .profile_header,
+  table {
+    width: 83.2%;
+  }
+  .profile_data {
+    margin: -2rem 0rem;
+  }
 }

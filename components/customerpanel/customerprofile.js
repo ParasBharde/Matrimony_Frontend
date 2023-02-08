@@ -153,7 +153,7 @@ const Customerpofile = () => {
                     <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                       Height
                     </span>
-                    <span>5.6' Inch</span>
+                    <span>5.6 Inch</span>
                   </div>
                 </div>
                 <div className="flex items-center justify-center h-24 rounded ">
@@ -328,7 +328,7 @@ const Customerpofile = () => {
                       <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                         Height
                       </span>
-                      <span>5.6' Inch</span>
+                      <span>5.6 Inch</span>
                     </div>
                   </div>
                   <div className="flex items-center justify-center h-24 rounded ">
@@ -490,7 +490,7 @@ const Customerpofile = () => {
                         <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                           Height
                         </span>
-                        <span>5.6' Inch</span>
+                        <span>5.6 Inch</span>
                       </div>
                     </div>
                     <div className="flex items-center justify-center h-24 rounded ">

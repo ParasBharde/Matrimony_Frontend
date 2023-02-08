@@ -6,7 +6,7 @@ const Footer = () => {
 
   return (
     <>
-    {router.pathname === '/portfolio/portfolioprofile' ? <div className='footer_main_1 bg-main flex justify-between items-center h-[70px] px-20'>
+    {(router.pathname === '/portfolio/portfolioprofile' || router.pathname === '/portfolio/portfolio') ? <div className='footer_main_1 bg-main flex justify-between items-center h-[70px] px-20'>
         <p className='text-white text-[16px]'>
         Copyright © Trichy Vayalur Road Reddy Trust All rights reserved. Theme Anews by themeuniver
         </p>

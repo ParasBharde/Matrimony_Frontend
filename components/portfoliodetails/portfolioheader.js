@@ -2,13 +2,13 @@ import React from "react";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import Link from "next/link";
-
+import Breadcrumb from '@/components/breadcrumb'
 const Portfolioheader = () => {
   const options = ["one", "two", "three"];
   const defaultOption = "Choose";
   return (
     <>
-      <div className="button_top">
+      {/* <div className="button_top">
         <span className="text-sm text-gray-700 dark:text-gray-400">
           <Link href="#">
           <button  className="text-gray-400 hover:text-main text-lg ">Home</button></Link>
@@ -18,7 +18,8 @@ const Portfolioheader = () => {
           <Link href="#">
           <button className="text-main hover:text-main text-lg " aria-current="page">Search</button></Link>{" "}
         </span>
-      </div>
+      </div> */}
+      <Breadcrumb screens={["Home","Search"]}/>
       <div className="portfolio_header">
         <table className="port_table">
           <thead>

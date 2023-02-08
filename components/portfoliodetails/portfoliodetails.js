@@ -7,13 +7,13 @@ const Portfoliodetails = () => {
   return (
     <>
       <div class="container_card grid lg:grid-cols-4">
-        <div class="max-w-xs mx-2 mb-7 rounded-lg shadow-lg">
+        <div class="max-w-xs mx-9 mb-2">
           <div className="cards">
             <Link href="/portfolio/portfolioprofile/" className="relative">
               <Image
-                className=""
+                className="img_card"
                 alt="Placeholder"
-                class="block h-auto w-full"
+                class="block h-auto w-60"
                 src={profile}
               />
               <div
@@ -125,13 +125,13 @@ const Portfoliodetails = () => {
             </footer>
           </div>
         </div>
-        <div class="max-w-xs mx-2 mb-7 rounded-lg shadow-lg">
+        <div class="max-w-xs mx-9 mb-2">
           <div className="cards">
             <Link href="/portfolio/portfolioprofile/" className="relative">
               <Image
-                className=""
+                className="img_card"
                 alt="Placeholder"
-                class="block h-auto w-full"
+                class="block h-auto w-60"
                 src={profile}
               />
               <div
@@ -243,13 +243,13 @@ const Portfoliodetails = () => {
             </footer>
           </div>
         </div>
-        <div class="max-w-xs mx-2 mb-7 rounded-lg shadow-lg">
+        <div class="max-w-xs mx-9 mb-2">
           <div className="cards">
             <Link href="/portfolio/portfolioprofile/" className="relative">
               <Image
-                className=""
+                className="img_card"
                 alt="Placeholder"
-                class="block h-auto w-full"
+                class="block h-auto w-60"
                 src={profile}
               />
               <div
@@ -361,13 +361,13 @@ const Portfoliodetails = () => {
             </footer>
           </div>
         </div>
-        <div class="max-w-xs mx-2 mb-7 rounded-lg shadow-lg">
+        <div class="max-w-xs mx-9 mb-2">
           <div className="cards">
             <Link href="/portfolio/portfolioprofile/" className="relative">
               <Image
-                className=""
+                className="img_card"
                 alt="Placeholder"
-                class="block h-auto w-full"
+                class="block h-auto w-60"
                 src={profile}
               />
               <div
@@ -479,13 +479,13 @@ const Portfoliodetails = () => {
             </footer>
           </div>
         </div>
-        <div class="max-w-xs mx-2 mb-7 rounded-lg shadow-lg">
+        <div class="max-w-xs mx-9 mb-2">
           <div className="cards">
             <Link href="/portfolio/portfolioprofile/" className="relative">
               <Image
-                className=""
+                className="img_card"
                 alt="Placeholder"
-                class="block h-auto w-full"
+                class="block h-auto w-60"
                 src={profile}
               />
               <div
@@ -598,11 +598,8 @@ const Portfoliodetails = () => {
           </div>
         </div>
       </div>
-      <style global jsx>{`
-        body {
-          background: #e0e0e0;
-        }
-      `}</style>
+    
+
     </>
   );
 };

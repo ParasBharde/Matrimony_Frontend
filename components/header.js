@@ -16,7 +16,7 @@ const Header = () => {
         <div className='flex justify-center items-center gap-16 '>
             <div className='flex justify-center items-center text-[16px] font-[400] gap-10 '>
                 <p className='cursor-pointer'>Home</p>
-                <p className='cursor-pointer'>Search</p>
+                <p className='cursor-pointer' onClick={()=>{router.push("/portfolio/portfolio")}}>Search</p>
                 <p className='cursor-pointer' onClick={()=>{router.push("/pricingPlan")}}>Pricing Plan</p>
                 <p className='cursor-pointer'>Contact Us</p>
                 <p className='cursor-pointer'>EN</p>
