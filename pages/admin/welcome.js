@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
  const Welcome = () => {
   return (
@@ -49,7 +50,7 @@ import React from "react";
               <span>Sign in</span>
             </button>
             <p className="text-center">
-              Don't have an account ?{" "}
+              {"Don't "} have an account ?{" "}
               <Link
                 href="#"
                 className="text-indigo-600 font-medium inline-flex space-x-1 items-center"

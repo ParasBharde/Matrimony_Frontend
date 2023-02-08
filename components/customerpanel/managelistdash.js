@@ -1,4 +1,6 @@
 import React from "react";
+import Image from "next/image";
+import Link from "next/link";
 
 const Managelistdash = () => {
   return (
@@ -33,7 +35,7 @@ const Managelistdash = () => {
             </div>
           </form>
           <button className="px-5 rounded bg-orange-400 py-2">
-            <a className="flex text-white" href="#">
+            <Link className="flex text-white" href="#">
               <svg
                 className="mr-2 mt-1"
                 width="17"
@@ -48,7 +50,7 @@ const Managelistdash = () => {
                 />
               </svg>
               Download
-            </a>
+            </Link>
           </button>
         </div>
       </div>
@@ -99,7 +101,7 @@ const Managelistdash = () => {
                 <input
                   placeholder="check box"
                   type="checkbox"
-                  className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white dark:bg-gray-800 focus:outline-none focus:outline-none focus:ring-2  focus:ring-gray-400"
+                  className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white dark:bg-gray-800 focus:outline-none  focus:ring-2  focus:ring-gray-400"
                   onclick="checkAll(this)"
                 />
               </td>
@@ -112,7 +114,8 @@ const Managelistdash = () => {
               <td class="py-3 px-6 text-left">
                 <div class="flex items-center">
                   <div class="mr-2">
-                    <img
+                    <Image
+                    alt='user image'
                       class="w-6 h-6 rounded-full"
                       src="https://randomuser.me/api/portraits/men/1.jpg"
                     />

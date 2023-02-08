@@ -35,15 +35,16 @@ const Profiledetail = () => {
               <td className="flex items-center w-full bg-main h-16 px-5">
                 <span className="text-white flex-1">Profile Detail</span>
                 <div className="flex items-center ">
-                  <Image src={Heart} width={24} height={21} className="mx-2" />
+                  <Image src={Heart} width={24} height={21} alt='' className="mx-2" />
                   <Image
                     src={Download}
                     width={24}
                     height={21}
+                    alt=''
                     className="mx-2"
                   />
 
-                  <Image src={Share} width={24} height={21} className="mx-2" />
+                  <Image src={Share} width={24} height={21} alt='' className="mx-2" />
                 </div>
               </td>
             </tr>
@@ -122,6 +123,7 @@ const Profiledetail = () => {
 
                               <div className="img_modal modal-body ">
                                 <Image
+                                alt=''
                                   src={profile}
                                   placeholder="image"
                                   width={500}
@@ -601,8 +603,8 @@ const Profiledetail = () => {
                 <div className="fourth_content">
                   <span className="sec_text ">Horoscope Chart</span>
                   <div className="tb_dt flex ">
-                    <Image src={horos} width={500} height={500} />
-                    <Image src={horos1} width={500} height={500} />
+                    <Image src={horos} width={500} alt='' height={500} />
+                    <Image src={horos1} width={500} alt='' height={500} />
                   </div>
                 </div>
               </div>

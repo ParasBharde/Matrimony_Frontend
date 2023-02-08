@@ -95,23 +95,23 @@ const Customerpofile = () => {
                                (max-width: 1200px) 50vw,
                                33vw"
                       src={profile}
-                      alt={"logo"}
+                      alt="logo"
                     />
                     <div className="gap-2  flex">
                       <Image
                         className="img_profile_g w-40 h-26"
                         src={profile}
-                        alt={"logo"}
+                        alt="logo"
                       />
                       <Image
                         className="img_profile_g w-40 h-26"
                         src={profile}
-                        alt={"logo"}
+                        alt="logo"
                       />
                       <Image
                         className="img_profile_g w-40 h-26"
                         src={profile}
-                        alt={"logo"}
+                        alt="logo"
                       />
                     </div>
                   </div>
@@ -517,8 +517,8 @@ const Customerpofile = () => {
           <div className="fourth_content">
             <span className="sec_text ">Horoscope Chart</span>
             <div className="tb_dt flex ">
-              <Image src={horos} width={500} height={500} />
-              <Image src={horos1} width={500} height={500} />
+              <Image src={horos} width={500} alt='img' height={500} />
+              <Image src={horos1} width={500} alt='img' height={500} />
             </div>
           </div>
         </table>
