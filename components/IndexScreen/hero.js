@@ -24,7 +24,7 @@ const Hero = () => {
           <p className='mx-10 cursor-pointer'>Home</p>
           <p className='mx-10 cursor-pointer' onClick={()=>{router.push("/pricingPlan")}}>Pricing Plan</p>
           <p className='mx-10 cursor-pointer' onClick={()=>{router.push("/contactus")}}>Contact Us</p>
-          <p className='mx-10 cursor-pointer'>About Us</p>
+          <p className='mx-10 cursor-pointer' onClick={()=>{router.push("/aboutus")}}>About Us</p>
           <p className='mx-10 cursor-pointer'>EN</p>
         </div>
         <div className='flex justify-center items-center'>
