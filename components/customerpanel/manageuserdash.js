@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import profile from "@/assets/profile.png";
 
 const Manageuserdash = () => {
   return (
@@ -120,7 +121,7 @@ const Manageuserdash = () => {
                     <Image
                     alt="logo"
                       class="w-6 h-6 rounded-full"
-                      src="https://randomuser.me/api/portraits/men/1.jpg"
+                      src={profile}
                     />
                   </div>
                   <span>Eshal Rosas</span>

@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import profile from "@/assets/profile.png";
 
 const Managelistdash = () => {
   return (
@@ -117,7 +118,7 @@ const Managelistdash = () => {
                     <Image
                     alt='user image'
                       class="w-6 h-6 rounded-full"
-                      src="https://randomuser.me/api/portraits/men/1.jpg"
+                      src={profile}
                     />
                   </div>
                   <span>Eshal Rosas</span>
@@ -137,18 +138,18 @@ const Managelistdash = () => {
         </table>
         <div className="flex items-center justify-between  px-4 py-3 sm:px-6">
           <div className="flex flex-1 justify-between sm:hidden">
-            <a
+            <Link
               href="#"
               className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
               Previous
-            </a>
-            <a
+            </Link>
+            <Link
               href="#"
               className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
               Next
-            </a>
+            </Link>
           </div>
           <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
             <div>
@@ -168,7 +169,7 @@ const Managelistdash = () => {
                 className="isolate inline-flex -space-x-px  rounded-md shadow-sm "
                 aria-label="Pagination"
               >
-                <a
+                <Link
                   href="#"
                   className="relative inline-flex items-center rounded-l-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
                 >
@@ -187,48 +188,48 @@ const Managelistdash = () => {
                       clip-rule="evenodd"
                     />
                   </svg>
-                </a>
-                <a
+                </Link>
+                <Link
                   href="#"
                   aria-current="page"
                   className="relative z-10 inline-flex items-center border border-gray-400 px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
                 >
                   1
-                </a>
-                <a
+                </Link>
+                <Link
                   href="#"
                   className="relative inline-flex items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
                 >
                   2
-                </a>
-                <a
+                </Link>
+                <Link
                   href="#"
                   className="relative hidden items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20 md:inline-flex"
                 >
                   3
-                </a>
+                </Link>
                 <span className="relative inline-flex items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-700">
                   ...
                 </span>
-                <a
+                <Link
                   href="#"
                   className="relative hidden items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20 md:inline-flex"
                 >
                   8
-                </a>
-                <a
+                </Link>
+                <Link
                   href="#"
                   className="relative inline-flex items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
                 >
                   9
-                </a>
-                <a
+                </Link>
+                <Link
                   href="#"
                   className="relative inline-flex items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
                 >
                   10
-                </a>
-                <a
+                </Link>
+                <Link
                   href="#"
                   className="relative inline-flex items-center rounded-r-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
                 >
@@ -247,7 +248,7 @@ const Managelistdash = () => {
                       clip-rule="evenodd"
                     />
                   </svg>
-                </a>
+                </Link>
               </nav>
             </div>
           </div>
