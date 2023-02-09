@@ -16,6 +16,12 @@ module.exports = {
     })
     return config
   },
+  i18n: {
+    // providing the locales supported by your application
+   locales: ["en-US", "ta-TA"],
+   //  default locale used when the non-locale paths are visited
+   defaultLocale: "ta-TA",
+ },
 }
 
 module.exports = nextConfig
