@@ -1,12 +1,14 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import Image from 'next/image'
 import logo from "@/assets/indexAssets/headerLogo.png";
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import axios from 'axios';
 
-const Hero = () => {
-
+const Hero = (props) => {
+  console.log('props',props)
   const router=useRouter()
+
 
   return (
     <div className='relative h-[829.2px]'>
@@ -33,6 +35,7 @@ const Hero = () => {
         </div>
       </div>
       <p className='text-white font-[700] text-[60px] text-center absolute top-[36%] w-full'>
+        {/* {props.homedata.Hero_Title} */}
        We Bring people together, Love<br/>unites them..
       </p>
     </div>
