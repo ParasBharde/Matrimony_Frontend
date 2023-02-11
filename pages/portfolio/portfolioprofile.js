@@ -4,7 +4,8 @@ import Profiledetail from "@/components/portfoliodetails/profiledetail";
 import Header from "@/components/header";
 import { useRouter } from "next/router";
 
-const Portfolioprofile = () => {
+const Portfolioprofile = ({itms}) => {
+console.log("itms", itms);
   const router = useRouter();
   return (
     <>
