@@ -1,16 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Topnavbar from "@/components/portfoliodetails/topnavbar";
-import Profiledetail from "@/components/portfoliodetails/profiledetail";
 import Header from "@/components/header";
 import { useRouter } from "next/router";
 
-const Portfolioprofile = ({itms}) => {
-console.log("itms", itms);
+const Portfolioprofile = () => {
+
   const router = useRouter();
+
+  const [profilesdata, setprofilesdata] = useState([]);
+  async function getUser() {
+    try {
+      const response = await axios.get(
+        "http://localhost:1337/api/profiles/?populate=%2A"
+      );
+      setprofilesdata(response.data.data);
+      console.log("response", response.data.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
   return (
     <>
      <div className="colom">
-     <Profiledetail />
+     {/* <Profiledetail profilesdata={profilesdata}/> */}
 
      </div>
    
