@@ -47,10 +47,6 @@ const Portfoliodetails = ({ id }) => {
                           query: { id: itms.id },
                         });
 
-
-
-
-
                       }}
                       className="relative"
                     >
