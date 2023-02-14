@@ -8,25 +8,10 @@ const Portfolio = () => {
   const router = useRouter();
   return (
     <>
-      <div className="colo">
+      <div className="colo" style={{backgroundColor:'#e0e0e0'}}>
         <Portfolioheader />
         <Portfoliodetails />
       </div>
-      <style global jsx>{`
-    
-        .body{
-          margin: 0;
-          width: 100%;
-          height: 100%;
-        }
-     
-        .colo {
-          background: #e0e0e0;
-          width: 100%;
-          height: 100%;
-          margin-bottom: 4rem;
-        }
-      `}</style>
     </>
   );
 };
