@@ -28,7 +28,7 @@ const Right = () => {
       <p className='text-[#B6B3BE] cursor-pointer' onClick={()=>{router.push("/setNewPassword")}}>Forgot Password</p>
     </div>
     <p className='text-white bg-main py-2 px-5 rounded-md cursor-pointer  lg:w-[400px] sm:w-[300px] w-[90%] text-center my-5'>Login</p>
-    <p className='text-main bg-white border border-main py-2 px-5 rounded-md cursor-pointer lg:w-[400px] sm:w-[300px] w-[90%] text-center'>New User Register Here</p> 
+    <p className='text-main bg-white border border-main py-2 px-5 rounded-md cursor-pointer lg:w-[400px] sm:w-[300px] w-[90%] text-center' onClick={()=>{router.push("/register")}}>New User Register Here</p> 
 </div>
   )
 }

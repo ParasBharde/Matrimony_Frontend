@@ -3,7 +3,7 @@ import React from 'react'
 import Image from "next/image"
 import logo from "@/assets/indexAssets/bestMatching.png"
 
-const HeadingCard = () => {
+const HeadingCard = ({desc}) => {
   return (
     <div className='w-[28%] bg-white py-8 mx-3 rounded shadow-md'>
     <div className='flex justify-center'>

@@ -1,28 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import profile from "@/assets/profile.png";
 import Image from "next/image";
-import horos from "@/assets/horos.png";
-import horos1 from "@/assets/horos1.png";
-import Link from "next/link";
 import Heart from "@/assets/SVG/heart.svg";
 import Download from "@/assets/SVG/downloadlogo.svg";
 import Share from "@/assets/SVG/share.svg";
 import Breadcrumb from "@/components/breadcrumb";
 import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  FormGroup,
-  Form,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
   Modal,
-  Row,
-  Col,
 } from "reactstrap";
 import { useRouter } from "next/router";
 
@@ -391,7 +375,7 @@ const Profiledetail = () => {
                                           color: "rgba(30, 30, 30, 0.5)",
                                         }}
                                       >
-                                        Father's Name
+                                        Father&apos;s Name
                                       </span>
                                       <span>{data.attributes.father_name}</span>
                                     </div>
@@ -403,7 +387,7 @@ const Profiledetail = () => {
                                           color: "rgba(30, 30, 30, 0.5)",
                                         }}
                                       >
-                                        Mother's Name
+                                        Mother&apos;s Name
                                       </span>
                                       <span>{data.attributes.mother_name}</span>
                                     </div>
@@ -415,7 +399,7 @@ const Profiledetail = () => {
                                           color: "rgba(30, 30, 30, 0.5)",
                                         }}
                                       >
-                                        Father's Native
+                                        Father&apos;s Native
                                       </span>
                                       <span>{data.attributes.father_native}</span>
                                     </div>
@@ -427,7 +411,7 @@ const Profiledetail = () => {
                                           color: "rgba(30, 30, 30, 0.5)",
                                         }}
                                       >
-                                       Mother's Native
+                                       Mother&apos;s Native
                                       </span>
                                       <span>{data.attributes.mother_native}</span>
                                     </div>
@@ -445,7 +429,7 @@ const Profiledetail = () => {
                                           color: "rgba(30, 30, 30, 0.5)",
                                         }}
                                       >
-                                        Father's Profession
+                                        Father&apos;s Profession
                                       </span>
                                       <span>{data.attributes.father_profession}</span>
                                     </div>
@@ -457,7 +441,7 @@ const Profiledetail = () => {
                                           color: "rgba(30, 30, 30, 0.5)",
                                         }}
                                       >
-                                        Mother's Profession
+                                        Mother&apos;s Profession
                                       </span>
                                       <span>{data.attributes.mother_profession}</span>
                                     </div>

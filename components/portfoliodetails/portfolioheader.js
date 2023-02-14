@@ -1,12 +1,6 @@
 import React from "react";
 import Breadcrumb from "@/components/breadcrumb";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import {
-  HamburgerMenuIcon,
-  DotFilledIcon,
-  CheckIcon,
-  ChevronRightIcon,
-} from "@radix-ui/react-icons";
 
 const Portfolioheader = () => {
   const [bookmarksChecked, setBookmarksChecked] = React.useState(true);

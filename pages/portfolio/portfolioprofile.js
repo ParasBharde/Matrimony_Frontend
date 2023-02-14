@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Topnavbar from "@/components/portfoliodetails/topnavbar";
-import Header from "@/components/header";
 import { useRouter } from "next/router";
 
 const Portfolioprofile = () => {

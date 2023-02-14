@@ -35,8 +35,7 @@ const Hero = (props) => {
         </div>
       </div>
       <p className='text-white font-[700] text-[60px] text-center absolute top-[36%] w-full'>
-        {/* {props.homedata.Hero_Title} */}
-       We Bring people together, Love<br/>unites them..
+        {props.homedata.Hero_Title} 
       </p>
     </div>
   )

@@ -28,7 +28,6 @@ module.exports = {
   //   API_URL: process.env.API_URL,
   //   IMAGES_DOMAIN: process.env.IMAGES_DOMAIN,
   // },
-
   images: {
     remotePatterns: [
       {
