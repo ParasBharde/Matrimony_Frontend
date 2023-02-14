@@ -18,7 +18,8 @@ const Register = () => {
         {screen==2&&<RegisterForm2/>}
         {screen==3&&<RegisterForm3/>}
         {screen==4&&<RegisterForm4/>}
-      <div className={`${screen==2?"w-[800px]":"w-[400px]"} mx-auto flex justify-end my-3`}>
+      <div className={`${screen!=1?"w-[800px]":"w-[400px]"} mx-auto flex justify-end my-3 gap-2`}>
+        {screen!=1&&<p className='text-main bg-white border-2 border-main py-2 px-5 rounded-md cursor-pointer max-w-max' onClick={()=>{setScreen(screen-1)}}>Back</p>}
             <p className='text-white bg-main py-2 px-5 rounded-md cursor-pointer max-w-max' onClick={()=>{if(screen<=3) setScreen(screen+1)}}>Next</p>
       </div>
       </div>

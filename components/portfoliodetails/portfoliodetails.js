@@ -17,7 +17,7 @@ console.log("slug", slug);
 
     try {
       const response = await axios.get(
-        `http://localhost:1337/api/profiles/?populate=%2A&slug=${slug}}`
+        `http://172.105.57.17:1337/api/profiles/?populate=%2A&slug=${slug}}`
       );
       setprofiles(response.data.data);
       console.log("response", response.data.data);
@@ -52,7 +52,7 @@ console.log("slug", slug);
                       className="relative"
                     >
                       <picture >
-                          <img className="img_card block h-auto w-60" src={`http://localhost:1337${itms.attributes.profile_photo.data[0].attributes.url}`} alt="" />
+                          <img className="img_card block h-auto w-60" src={`http://172.105.57.17:1337${itms.attributes.profile_photo.data[0].attributes.url}`} alt="" />
                       </picture>
 
 

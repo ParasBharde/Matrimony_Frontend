@@ -40,7 +40,7 @@ console.log("id", router.query);
     try {
       const response = await axios.get(
       
-        `http://localhost:1337/api/profiles/?populate=%2A`
+        `http://172.105.57.17:1337/api/profiles/?populate=%2A`
 
       );
       console.log("response", response.data.data);
