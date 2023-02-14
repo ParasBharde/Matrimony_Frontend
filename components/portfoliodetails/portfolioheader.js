@@ -1,95 +1,143 @@
 import React from "react";
-import Dropdown from "react-dropdown";
-import "react-dropdown/style.css";
-import Link from "next/link";
-import Breadcrumb from '@/components/breadcrumb'
+import Breadcrumb from "@/components/breadcrumb";
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import {
+  HamburgerMenuIcon,
+  DotFilledIcon,
+  CheckIcon,
+  ChevronRightIcon,
+} from "@radix-ui/react-icons";
+
 const Portfolioheader = () => {
-  const options = ["one", "two", "three"];
-  const defaultOption = "Choose";
+  const [bookmarksChecked, setBookmarksChecked] = React.useState(true);
+  const [urlsChecked, setUrlsChecked] = React.useState(false);
+  const [person, setPerson] = React.useState("pedro");
   return (
     <>
-      {/* <div className="button_top">
-        <span className="text-sm text-gray-700 dark:text-gray-400">
-          <Link href="#">
-          <button  className="text-gray-400 hover:text-main text-lg ">Home</button></Link>
-          <span className="font-semibold text-gray-900 dark:text-white">
-            {" > "}
-          </span>{" "}
-          <Link href="#">
-          <button className="text-main hover:text-main text-lg " aria-current="page">Search</button></Link>{" "}
-        </span>
-      </div> */}
-      <Breadcrumb screens={["Home","Search"]}/>
+      <Breadcrumb screens={["Home", "Search"]} />
       <div className="portfolio_header">
-        <table className="port_table">
-          <thead>
-            <tr>
-              <th>
-                <span className="header_gen">I’m looking for a</span>
-              </th>
-              <th>
-                <span className="header_star">Star</span>
-              </th>
-              <th>
-                <span className="header_age">Age</span>
-              </th>
-              <th>
-                <span className="header_status">Marriage Status</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody className="body">
-            <tr>
-              <th>
-                <span className="px-8 py-4 ">
-                  <Dropdown
-                    className="drpd border-2  rounded"
-                    options={options}
-                    value={defaultOption}
-                    placeholder="Select an option"
-                  />
-                </span>
-              </th>
-              <th>
-                <span className="px-6 py-4">
-                  <Dropdown
-                    className="drpd border-2  rounded"
-                    options={options}
-                    value={defaultOption}
-                    placeholder="Select an option"
-                  />
-                </span>
-              </th>
-              <th>
-                <span className="flex justify-evenly">
-                  <input
-                    type="text"
-                    className="border-2  rounded w-28 py-2"
-                    placeholder="From"
-                  />
-                  <input
-                    type="text"
-                    className="border-2 w-28 rounded"
-                    placeholder="From"
-                  />
-                </span>
-              </th>
-              <th>
-                <span className="px-8 py-4">
-                  <Dropdown
-                    className="drpd border-2  rounded"
-                    options={options}
-                    value={defaultOption}
-                    placeholder="Select an option"
-                  />
-                </span>
-              </th>
-              <th className="">
-                <button className="port_button px-6 py-4">Search</button>
-              </th>
-            </tr>
-          </tbody>
-        </table>
+        <div class="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-2">
+          <div class="grid lg:grid-cols-5 sm:grid-cols-1">
+            <div class="text-center grid">
+              <h6 class="text-lg text-grey-400">Im looking for a</h6>
+              <div class="font-bold">
+                <DropdownMenu.Root>
+                  <DropdownMenu.Trigger asChild>
+                    <button
+                      className="w-[5rem] h-[35px] inline-flex items-center justify-center text-violet11 shadow-blackA7 outline-none hover:bg-violet3 "
+                      aria-label="Customise options"
+                    >
+                      <input
+                        type="text"
+                        value="Choose "
+                        className="text-violet11 h-[2.5rem] rounded bg-white border-2 outline-none hover:bg-violet3 focus:shadow-[0_0_0_2px]"
+                      />
+                    </button>
+                  </DropdownMenu.Trigger>
+
+                  <DropdownMenu.Portal>
+                    <DropdownMenu.Content
+                      className="min-w-[220px] bg-white rounded-md p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
+                      sideOffset={5}
+                    >
+                      <DropdownMenu.Item className="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
+                        New Tab{" "}
+                        
+                      </DropdownMenu.Item>
+
+                      <DropdownMenu.Arrow className="fill-white" />
+                    </DropdownMenu.Content>
+                  </DropdownMenu.Portal>
+                </DropdownMenu.Root>
+              </div>
+            </div>
+            <div class="text-center grid">
+              <h6 class="text-lg text-grey-400">Star</h6>
+              <div class="font-bold">
+              <DropdownMenu.Root>
+                  <DropdownMenu.Trigger asChild>
+                    <button
+                      className="w-[5rem] h-[35px] inline-flex items-center justify-center text-violet11 shadow-blackA7 outline-none hover:bg-violet3 "
+                      aria-label="Customise options"
+                    >
+                      <input
+                        type="text"
+                        value="Choose "
+                        className="text-violet11 h-[2.5rem] rounded bg-white border-2 outline-none hover:bg-violet3 focus:shadow-[0_0_0_2px]"
+                      />
+                    </button>
+                  </DropdownMenu.Trigger>
+
+                  <DropdownMenu.Portal>
+                    <DropdownMenu.Content
+                      className="min-w-[220px] bg-white rounded-md p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
+                      sideOffset={5}
+                    >
+                      <DropdownMenu.Item className="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
+                        New Tab{" "}
+                      </DropdownMenu.Item>
+
+                      <DropdownMenu.Arrow className="fill-white" />
+                    </DropdownMenu.Content>
+                  </DropdownMenu.Portal>
+                </DropdownMenu.Root>
+              </div>
+            </div>
+            <div class="text-center grid">
+              <h6 class="text-lg text-grey-400">Age</h6>
+              <div class="font-bold">
+                <input
+                  type="text"
+                  className="border-2  rounded w-28 py-2"
+                  placeholder="From"
+                />
+                <input
+                  type="text"
+                  className="border-2 w-28 py-2 rounded"
+                  placeholder="From"
+                />
+              </div>
+            </div>
+            <div class="text-center grid">
+              <h6 class="text-lg text-grey-400">Marriage Status</h6>
+              <div class="font-bold">
+              <DropdownMenu.Root>
+                  <DropdownMenu.Trigger asChild>
+                    <button
+                      className=""
+                      aria-label="Customise options"
+                    >
+                      <input
+                        type="text"
+                        value="Choose "
+                        className="text-violet11 h-[2.5rem] rounded bg-white border-2 outline-none hover:bg-violet3 focus:shadow-[0_0_0_2px]"
+                      />
+                    </button>
+                  </DropdownMenu.Trigger>
+
+                  <DropdownMenu.Portal>
+                    <DropdownMenu.Content
+                      className="min-w-[220px] bg-white rounded-md p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
+                      sideOffset={5}
+                    >
+                      <DropdownMenu.Item className="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
+                        New Tab{" "}
+                      </DropdownMenu.Item>
+
+                      <DropdownMenu.Arrow className="fill-white" />
+                    </DropdownMenu.Content>
+                  </DropdownMenu.Portal>
+                </DropdownMenu.Root>
+              </div>
+            </div>
+            <div class="text-center grid">
+              <span class="text-white">b</span>
+              <div className="">
+                <button className="port_button">Search</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="row_data flex justify-between px-24 ">
