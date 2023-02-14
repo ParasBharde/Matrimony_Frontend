@@ -8,7 +8,7 @@ const SuccessStoriesCard = () => {
   const [home, sethome] = useState([]);
   async function getUser() {
     try {
-      const response = await axios.get('http://localhost:1337/api/home/?populate=%2A');
+      const response = await axios.get('http://172.105.57.17:1337/api/home/?populate=%2A');
       sethome(response.data.data.attributes);
       console.log('response', response.data.data);
     } catch (error) {

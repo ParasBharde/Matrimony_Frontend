@@ -2,7 +2,19 @@ import React from 'react'
 import Image from 'next/image'
 import fileInputImage from "@/assets/fileInput.png"
 
+import Files from "react-files";
+
 const RegisterForm2 = () => {
+
+  function  onFilesChange(files) {
+    console.log(files)
+  }
+
+   function onFilesError(error, file) {
+    console.log('error code ' + error.code + ': ' + error.message)
+  }
+
+
   return (
     <div className='flex justify-center items-center gap-5'>
         <div>
@@ -55,8 +67,32 @@ const RegisterForm2 = () => {
       <div>
         <p className='h-[10px] my-6'>Profile Photo *</p>
         <div className='flex justify-between items-center'>
+
+        <Files
+          className='files-dropzone cursor-pointer'
+          onChange={onFilesChange}
+          onError={onFilesError}
+          accepts={['image/png', 'image/jpg']}
+          maxFileSize={10000000}
+          minFileSize={0}
+          clickable
+        >
         <Image src={fileInputImage} alt={"File Input Image"}/>
+        </Files>
+
+ 
+        <Files
+          className='files-dropzone cursor-pointer'
+          onChange={onFilesChange}
+          onError={onFilesError}
+          accepts={['image/png', 'image/jpg']}
+          maxFileSize={10000000}
+          minFileSize={0}
+          clickable
+        >
         <Image src={fileInputImage} alt={"File Input Image"}/>
+        </Files>
+
         </div>
       </div>
 
@@ -120,8 +156,28 @@ const RegisterForm2 = () => {
       <div>
         <p className='h-[10px] my-6'></p>
         <div className='flex justify-between items-center'>
+        <Files
+          className='files-dropzone cursor-pointer'
+          onChange={onFilesChange}
+          onError={onFilesError}
+          accepts={['image/png', 'image/jpg']}
+          maxFileSize={10000000}
+          minFileSize={0}
+          clickable
+        >
         <Image src={fileInputImage} alt={"File Input Image"}/>
+        </Files>
+        <Files
+          className='files-dropzone cursor-pointer'
+          onChange={onFilesChange}
+          onError={onFilesError}
+          accepts={['image/png', 'image/jpg']}
+          maxFileSize={10000000}
+          minFileSize={0}
+          clickable
+        >
         <Image src={fileInputImage} alt={"File Input Image"}/>
+        </Files>
         </div>
       </div>
 

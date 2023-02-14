@@ -12,7 +12,7 @@ const Portfolioprofile = () => {
   async function getUser() {
     try {
       const response = await axios.get(
-        "http://localhost:1337/api/profiles/?populate=%2A"
+        "http://172.105.57.17:1337/api/profiles/?populate=%2A"
       );
       setprofilesdata(response.data.data);
       console.log("response", response.data.data);
