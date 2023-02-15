@@ -20,14 +20,14 @@ module.exports = {
 
   rewrites: async () => nextI18NextRewrites(localeSubpaths),
 
-  // env: {
-  //   API_URL: process.env.API_URL,
-  //   IMAGES_DOMAIN: process.env.IMAGES_DOMAIN,
-  // },
-  // publicRuntimeConfig: {
-  //   API_URL: process.env.API_URL,
-  //   IMAGES_DOMAIN: process.env.IMAGES_DOMAIN,
-  // },
+  env: {
+    API_URL: process.env.API_URL,
+    IMAGES_DOMAIN: process.env.IMAGES_DOMAIN,
+  },
+  publicRuntimeConfig: {
+    API_URL: process.env.API_URL,
+    IMAGES_DOMAIN: process.env.IMAGES_DOMAIN,
+  },
   images: {
     remotePatterns: [
       {
@@ -45,5 +45,6 @@ module.exports = {
     return config
   }
 }
+
 
 module.exports = nextConfig

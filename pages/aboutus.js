@@ -1,11 +1,37 @@
-import react from 'react';
+import React,{useState,useEffect} from 'react';
 import Image from 'next/image';
 import Head from 'next/head';
 import Link from 'next/link';
 import profile from '@/assets/profile.png'
 import quote from '@/assets/left-quote.png'
+import axios from 'axios';
 
 const AboutUs = () => {
+
+  const [about, setabout] = useState([]);
+ const About = () => {
+  var config = {
+    method: 'get',
+  maxBodyLength: Infinity,
+    url: 'http://172.105.57.17:1337/api/about-page/?populate=%2A',
+    headers: { 
+      'Authorization': 'Bearer Bearer 3ad527b6e04e45a25b5c7a57d8e796af06f0853e2fa7c4551566c2096b18b80500bdaf2fc61dace337df1dc8c2a0026075026b10589f9c9d009a72165635b72012c305bf52929b73a79c97e1e5a53e7193f812604f83fa679731fa19540e9ecd7112dc224f0cccd4624294b05ec2864b552bdf7905d65736410f0cf2774c3994'
+    }
+  };
+  
+  axios(config)
+  .then(function (response) {
+    setabout(response.data.data.attributes)
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+ }
+ console.log('about',about)
+ useEffect(() => {
+  About();
+ }, [])
+
     return (
         <>
          <Head>
@@ -162,24 +188,23 @@ const AboutUs = () => {
       <div className="grid grid-cols-1 ml-5 md:grid-cols-2 gap-y-6 gap-x-6 xl:ml-44 xl:mr-44 lg:ml-24 lg:mr-24 md:ml-4 md:mr-4 mt-8">
         <div>
           <h2 className="text-2xl mb-6  md:mt-24">
-            Bringing tradition to modern age
+          {about.label1}
           </h2>
           <p className="pr-5 text-lg">
-          Lorem Ipsum is simply dummy text of the printing and 
-          typesetting industry. Lorem Ipsum has been the industry's 
-          standard dummy text ever since the 1500s, when an unknown 
-          printer took a galley of type and scrambled it to make a 
-          type specimen book. It has survived not only five centuries, 
-          but also the leap into electronic typesetting, remaining essentially 
-          unchanged. It was popularised in the 1960s with the release of Letraset 
-          sheets containing Lorem Ipsum passages, and more recently with desktop 
-          publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+          {about.label1_desc}
           </p>
         </div>
         <div className="md:flex md:flex-col md:justify-center mr-5">
           <div className="md:self-end md:mt-20 md:block flex flex-col justify-center items-center">
             <div className="border-8 border-gray-200 xls:h-l-img xls:w-l-img xs:h-m-img xs:w-96 w-72 h-s-img">
-              <Image src={profile} width={500} height={400} className="object-cover" alt="About Us Image" />
+            <picture>
+                                        <img
+                                          className="img_profile_portfolio object-contain w-40 min-h-full"
+                                          object-fit
+                                          src={`http://172.105.57.17:1337${about.founder_image1.data.attributes.url}`}
+                                          alt=""
+                                        />
+                                      </picture>
             </div>
             <p className="italic text-center text-gray-500 mt-3">
               Founder of You Ji Poultry LLP, Ms. Sammi Tan
@@ -190,63 +215,37 @@ const AboutUs = () => {
       <br></br>
       <div className="flex">
         <div className="flex-auto ml-5 xl:ml-44 xl:mr-44 lg:ml-24 lg:mr-24 md:ml-4 md:mr-4">
-          <h2 className="text-2xl mb-6 mt-2 md:mt-16 ">A Fresh Idea</h2>
+          <h2 className="text-2xl mb-6 mt-2 md:mt-16 ">{about.label2}</h2>
           <p className="pr-5 text-lg">
-          Lorem Ipsum is simply dummy text of the printing and 
-          typesetting industry. Lorem Ipsum has been the industry's 
-          standard dummy text ever since the 1500s, when an unknown 
-          printer took a galley of type and scrambled it to make a 
-          type specimen book. It has survived not only five centuries, 
-          but also the leap into electronic typesetting, remaining essentially 
-          unchanged. It was popularised in the 1960s with the release of Letraset 
-          sheets containing Lorem Ipsum passages, and more recently with desktop 
-          publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+          {about.label2_desc}
           </p>
         </div>
       </div>
       <div className="mt-6 md:mt-10 mb-12 grid grid-cols-1 ml-5 md:grid-cols-2 gap-y-6 gap-x-6 xl:ml-44 xl:mr-44 lg:ml-24 lg:mr-24 md:ml-4 md:mr-4">
         <div className="md:block flex flex-col justify-center items-center mr-5">
           <div className="border-8 border-gray-200 md:mt-20 xls:h-l-img xls:w-l-img xs:h-m-img xs:w-96 w-72 h-s-img">
-            <Image src={profile} width={500} height={400} className="object-cover" alt="About Us Image 2" />
+          <picture>
+                                        <img
+                                          className="img_profile_portfolio object-contain w-40 min-h-full"
+                                          object-fit
+                                          src={`http://172.105.57.17:1337${about.founder_image2.data.attributes.url}`}
+                                          alt=""
+                                        />
+                                      </picture>
           </div>
         </div>
         <div className="">
-          <h2 className="text-2xl mb-6 mt-4 md:mt-24 ">The Courage to Move Forward</h2>
+          <h2 className="text-2xl mb-6 mt-4 md:mt-24 ">{about.label3}</h2>
           <p className="pr-5 text-lg">
-          Lorem Ipsum is simply dummy text of the printing and 
-          typesetting industry. Lorem Ipsum has been the industry's 
-          standard dummy text ever since the 1500s, when an unknown 
-          printer took a galley of type and scrambled it to make a 
-          type specimen book. It has survived not only five centuries, 
-          but also the leap into electronic typesetting, remaining essentially 
-          unchanged. It was popularised in the 1960s with the release of Letraset 
-          sheets containing Lorem Ipsum passages, and more recently with desktop 
-          publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+          {about.label3_desc}
           </p>
         </div>
       </div>
       <div className="flex ml-5">
         <div className="flex-auto xl:ml-44 xl:mr-44 lg:ml-24 lg:mr-24 md:ml-4 md:mr-4 ">
-          <h2 className="text-2xl mb-6 md:mt-16 ">The Extra Mile</h2>
+          <h2 className="text-2xl mb-6 md:mt-16 ">{about.label4} </h2>
           <p className="pr-5 text-lg">
-          Lorem Ipsum is simply dummy text of the printing and 
-          typesetting industry. Lorem Ipsum has been the industry's 
-          standard dummy text ever since the 1500s, when an unknown 
-          printer took a galley of type and scrambled it to make a 
-          type specimen book. It has survived not only five centuries, 
-          but also the leap into electronic typesetting, remaining essentially 
-          unchanged. It was popularised in the 1960s with the release of Letraset 
-          sheets containing Lorem Ipsum passages, and more recently with desktop 
-          publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-          Lorem Ipsum is simply dummy text of the printing and 
-          typesetting industry. Lorem Ipsum has been the industry's 
-          standard dummy text ever since the 1500s, when an unknown 
-          printer took a galley of type and scrambled it to make a 
-          type specimen book. It has survived not only five centuries, 
-          but also the leap into electronic typesetting, remaining essentially 
-          unchanged. It was popularised in the 1960s with the release of Letraset 
-          sheets containing Lorem Ipsum passages, and more recently with desktop 
-          publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+        {about.label4_desc}
           </p>
         </div>
       </div>
@@ -262,9 +261,7 @@ const AboutUs = () => {
           <div className="p-8">
             <blockquote className="text-lg">
               {" "}
-              While It takes a unique product and good
-              customer service to set up a good business, it also
-              takes courage to be able to keep moving forward.
+              {about.aboutus_thought}
             </blockquote>
           </div>
         </div>

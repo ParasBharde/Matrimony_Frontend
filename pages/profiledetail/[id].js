@@ -132,18 +132,12 @@ const Profiledetail = () => {
                                       className=""
                                       type="button"
                                       onClick={() => setModalDefaultOpen(true)}
-                                    >
-                                      {/* <Image
-                                        className="img_profile_portfolio object-contain w-40 min-h-full"
-                                        object-fit
-                                        src={profile}
-                                        alt={"logo"}
-                                      /> */}
+                                    >                                  
                                       <picture>
                                         <img
                                           className="img_profile_portfolio object-contain w-40 min-h-full"
                                           object-fit
-                                          src={`http://localhost:1337${data.attributes.profile_photo.data[0].attributes.url}`}
+                                          src={`http://172.105.57.17:1337${data.attributes.profile_photo.data[0].attributes.url}`}
                                           alt=""
                                         />
                                       </picture>
@@ -172,7 +166,7 @@ const Profiledetail = () => {
                                       <picture>
                                       <img
                                           alt=""
-                                          src={`http://localhost:1337${data.attributes.profile_photo.data[0].attributes.url}`}
+                                          src={`http://172.105.57.17:1337${data.attributes.profile_photo.data[0].attributes.url}`}
                                           
                                           placeholder="image"
                                           width={500}
@@ -187,7 +181,7 @@ const Profiledetail = () => {
                                         <img
                                           className="img_profile_g"
                                           object-fit
-                                          src={`http://localhost:1337${data.attributes.profile_photo.data[1].attributes.url}`}
+                                          src={`http://172.105.57.17:1337${data.attributes.profile_photo.data[1].attributes.url}`}
                                           alt=""
                                         />
                                       </picture>
@@ -195,7 +189,7 @@ const Profiledetail = () => {
                                         <img
                                           className="img_profile_g w-40 h-26"
                                           object-fit
-                                          src={`http://localhost:1337${data.attributes.profile_photo.data[2].attributes.url}`}
+                                          src={`http://172.105.57.17:1337${data.attributes.profile_photo.data[2].attributes.url}`}
                                           alt=""
                                         />
                                       </picture>
@@ -203,7 +197,7 @@ const Profiledetail = () => {
                                         <img
                                           className="img_profile_g w-40 h-26"
                                           object-fit
-                                          src={`http://localhost:1337${data.attributes.profile_photo.data[3].attributes.url}`}
+                                          src={`http://172.105.57.17:1337${data.attributes.profile_photo.data[3].attributes.url}`}
                                           alt=""
                                         />
                                       </picture>
@@ -741,7 +735,7 @@ const Profiledetail = () => {
                                         <img
                                           className=""
                                           object-fit
-                                          src={`http://localhost:1337${data.attributes.horoscope_document.data[0].attributes.url}`}
+                                          src={`http://172.105.57.17:1337${data.attributes.horoscope_document.data[0].attributes.url}`}
                                           alt=""
                                         />
                                       </picture>
@@ -749,7 +743,7 @@ const Profiledetail = () => {
                                         <img
                                           className=""
                                           object-fit
-                                          src={`http://localhost:1337${data.attributes.horoscope_document.data[1].attributes.url}`}
+                                          src={`http://172.105.57.17:1337${data.attributes.horoscope_document.data[1].attributes.url}`}
                                           alt=""
                                         />
                                       </picture>
