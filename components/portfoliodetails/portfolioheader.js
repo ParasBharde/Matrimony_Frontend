@@ -13,7 +13,7 @@ const Portfolioheader = () => {
         <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-2">
           <div className="grid lg:grid-cols-5 sm:grid-cols-1">
             <div className="text-center grid">
-              <h6 className="text-lg text-grey-400">I'm looking for a</h6>
+              <h6 className="text-lg text-grey-400"> {"I'm"} looking for a</h6>
               <div className="font-bold">
                 <DropdownMenu.Root>
                   <DropdownMenu.Trigger asChild>

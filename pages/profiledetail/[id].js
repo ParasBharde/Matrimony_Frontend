@@ -16,23 +16,23 @@ const Profiledetail = () => {
   const id = router.query;
 
   const [profilesdata, setprofilesdata] = useState([]);
-  async function getUser() {
-    try {
-      const response = await axios.get(
-      
-        `http://172.105.57.17:1337/api/profiles/?populate=%2A`
-
-      );
-      console.log("response", response.data.data);
-      setprofilesdata(response.data.data.filter((u) => u.id == id.id));
-    } catch (error) {
-      console.error(error);
-    }
-  }
 
   useEffect(() => {
+    async function getUser() {
+      try {
+        const response = await axios.get(
+        
+          `http://172.105.57.17:1337/api/profiles/?populate=%2A`
+  
+        );
+        console.log("response", response.data.data);
+        setprofilesdata(response.data.data.filter((u) => u.id == id.id));
+      } catch (error) {
+        console.error(error);
+      }
+    }
     getUser();
-  }, []);
+  }, [id]);
 
   const [modalDefaultOpen, setModalDefaultOpen] = React.useState(false);
   return (

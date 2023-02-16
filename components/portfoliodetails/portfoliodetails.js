@@ -70,11 +70,11 @@ const Portfoliodetails = () => {
                           top: "10",
                           right: "10",
                         }}
-                        onClick={() =>
-                          router.push({ pathname: "/likedprofile/[id]/" ,
-                          query: { id: itms.id },
-                        })
-                        }
+                        // onClick={() =>
+                        //   router.push({ pathname: "/likedprofile/[id]/" ,
+                        //   query: { id: itms.id },
+                        // })
+                        // }
                         className="absolute top-0 right-0 m-2 rounded flex items-center justify-center w-10 h-11 text-white text-sm font-bold"
                       >
                         <svg

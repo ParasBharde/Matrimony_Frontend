@@ -1,46 +1,49 @@
-import React,{useState,useEffect} from 'react';
-import Image from 'next/image';
-import Head from 'next/head';
-import Link from 'next/link';
-import profile from '@/assets/profile.png'
-import quote from '@/assets/left-quote.png'
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import Head from "next/head";
+import quote from "@/assets/left-quote.png";
+import profile from "@/assets/profile.png";
+import axios from "axios";
 
-const AboutUs = () => {
-
+const Aboutus = () => {
   const [about, setabout] = useState([]);
- const About = () => {
-  var config = {
-    method: 'get',
-  maxBodyLength: Infinity,
-    url: 'http://172.105.57.17:1337/api/about-page/?populate=%2A',
-    headers: { 
-      'Authorization': 'Bearer Bearer 3ad527b6e04e45a25b5c7a57d8e796af06f0853e2fa7c4551566c2096b18b80500bdaf2fc61dace337df1dc8c2a0026075026b10589f9c9d009a72165635b72012c305bf52929b73a79c97e1e5a53e7193f812604f83fa679731fa19540e9ecd7112dc224f0cccd4624294b05ec2864b552bdf7905d65736410f0cf2774c3994'
-    }
-  };
+ 
+  useEffect(() => {
+    const About = () => {
+      var config = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: "http://172.105.57.17:1337/api/about-page/?populate=%2A",
+        headers: {
+          Authorization:
+            "Bearer 3ad527b6e04e45a25b5c7a57d8e796af06f0853e2fa7c4551566c2096b18b80500bdaf2fc61dace337df1dc8c2a0026075026b10589f9c9d009a72165635b72012c305bf52929b73a79c97e1e5a53e7193f812604f83fa679731fa19540e9ecd7112dc224f0cccd4624294b05ec2864b552bdf7905d65736410f0cf2774c3994",
+        },
+      };
   
-  axios(config)
-  .then(function (response) {
-    setabout(response.data.data.attributes)
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
- }
- console.log('about',about)
- useEffect(() => {
-  About();
- }, [])
+      axios(config)
+        .then(function (response) {
+          setabout(response.data.data.attributes);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    };
+ console.log("about", about);
+    About();
+  },[]);
 
-    return (
-        <>
-         <Head>
+  return (
+    <>
+      <Head>
         <title>About Us | Youji</title>
-        <meta name="description" content="Shop for healthy and fresh kampung poultry and farm grown poultry products at your door step" />
+        <meta
+          name="description"
+          content="Shop for healthy and fresh kampung poultry and farm grown poultry products at your door step"
+        />
       </Head>
       <div className=" bg-bg-about_us bg-cover bg-no-repeat min-h-[26vh] md:min-h-[50vh]">
         <div className="bg-black/60 items-center min-h-[26vh] md:min-h-[50vh] flex flex-col justify-center">
-          <div >
+          <div>
             <h1 className="text-center pt-5  xs:text-6xl text-5xl  text-brand_color uppercase ">
               About Us
             </h1>
@@ -187,24 +190,21 @@ const AboutUs = () => {
       </div>
       <div className="grid grid-cols-1 ml-5 md:grid-cols-2 gap-y-6 gap-x-6 xl:ml-44 xl:mr-44 lg:ml-24 lg:mr-24 md:ml-4 md:mr-4 mt-8">
         <div>
-          <h2 className="text-2xl mb-6  md:mt-24">
-          {about.label1}
-          </h2>
-          <p className="pr-5 text-lg">
-          {about.label1_desc}
-          </p>
+          <h2 className="text-2xl mb-6  md:mt-24">{about.label1} </h2>
+          <p className="pr-5 text-lg">{about.label1_desc}</p>
         </div>
         <div className="md:flex md:flex-col md:justify-center mr-5">
           <div className="md:self-end md:mt-20 md:block flex flex-col justify-center items-center">
             <div className="border-8 border-gray-200 xls:h-l-img xls:w-l-img xs:h-m-img xs:w-96 w-72 h-s-img">
-            <picture>
-                                        <img
-                                          className="img_profile_portfolio object-contain w-40 min-h-full"
-                                          object-fit
-                                          src={`http://172.105.57.17:1337${about.founder_image1.data.attributes.url}`}
-                                          alt=""
-                                        />
-                                      </picture>
+              <picture>
+                <img
+                  className="img_profile_portfolio object-contain w-40 min-h-full"
+                  object-fit
+                  src={profile}
+                  // {`http://172.105.57.17:1337${about.founder_image1.data.attributes.url}`}
+                  alt=""
+                />
+              </picture>
             </div>
             <p className="italic text-center text-gray-500 mt-3">
               Founder of You Ji Poultry LLP, Ms. Sammi Tan
@@ -215,38 +215,45 @@ const AboutUs = () => {
       <br></br>
       <div className="flex">
         <div className="flex-auto ml-5 xl:ml-44 xl:mr-44 lg:ml-24 lg:mr-24 md:ml-4 md:mr-4">
-          <h2 className="text-2xl mb-6 mt-2 md:mt-16 ">{about.label2}</h2>
+          <h2 className="text-2xl mb-6 mt-2 md:mt-16 ">
+            {about.label2}
+            </h2>
           <p className="pr-5 text-lg">
-          {about.label2_desc}
-          </p>
+            {about.label2_desc}
+            </p>
         </div>
       </div>
       <div className="mt-6 md:mt-10 mb-12 grid grid-cols-1 ml-5 md:grid-cols-2 gap-y-6 gap-x-6 xl:ml-44 xl:mr-44 lg:ml-24 lg:mr-24 md:ml-4 md:mr-4">
         <div className="md:block flex flex-col justify-center items-center mr-5">
           <div className="border-8 border-gray-200 md:mt-20 xls:h-l-img xls:w-l-img xs:h-m-img xs:w-96 w-72 h-s-img">
-          <picture>
-                                        <img
-                                          className="img_profile_portfolio object-contain w-40 min-h-full"
-                                          object-fit
-                                          src={`http://172.105.57.17:1337${about.founder_image2.data.attributes.url}`}
-                                          alt=""
-                                        />
-                                      </picture>
+            <picture>
+              <img
+                className="img_profile_portfolio object-contain w-40 min-h-full"
+                object-fit
+                src={profile}
+                // {`http://172.105.57.17:1337${about.founder_image2.data.attributes.url}`}
+                alt=""
+              />
+            </picture>
           </div>
         </div>
         <div className="">
-          <h2 className="text-2xl mb-6 mt-4 md:mt-24 ">{about.label3}</h2>
+          <h2 className="text-2xl mb-6 mt-4 md:mt-24 ">
+            {about.label3}
+            </h2>
           <p className="pr-5 text-lg">
-          {about.label3_desc}
-          </p>
+            {about.label3_desc}
+            </p>
         </div>
       </div>
       <div className="flex ml-5">
         <div className="flex-auto xl:ml-44 xl:mr-44 lg:ml-24 lg:mr-24 md:ml-4 md:mr-4 ">
-          <h2 className="text-2xl mb-6 md:mt-16 ">{about.label4} </h2>
+          <h2 className="text-2xl mb-6 md:mt-16 ">
+            {about.label4} 
+            </h2>
           <p className="pr-5 text-lg">
-        {about.label4_desc}
-          </p>
+            {about.label4_desc}
+            </p>
         </div>
       </div>
       <br></br> <br></br>
@@ -266,8 +273,8 @@ const AboutUs = () => {
           </div>
         </div>
       </div>
-        </>
-    );
-}
+    </>
+  );
+};
 
-export default AboutUs;
+export default Aboutus;
