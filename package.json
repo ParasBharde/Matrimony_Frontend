@@ -23,6 +23,7 @@
     "react-dom": "18.2.0",
     "react-dropdown": "^1.11.0",
     "react-files": "^3.0.0",
+    "react-heart": "^1.0.6",
     "reactstrap": "^9.1.5"
   },
   "devDependencies": {

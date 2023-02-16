@@ -50,12 +50,26 @@
 // Portfolio
 
 .container_card {
-    // margin-bottom: 4rem;
+
     margin: 0rem 5.5rem;
     padding: 1rem;
 }
 .cards {
     margin: 0px;
+    background-color: #ffffff;
+    padding: 0.5rem;
+}
+
+// Liked Profiles
+.container_card_like {
+
+    margin: 0rem 5rem;
+    padding: 1rem;
+}
+.cards_like {
+    // margin: 2rem;
+    width: 16vw;
+    height: 50vh;
     background-color: #ffffff;
     padding: 0.5rem;
 }

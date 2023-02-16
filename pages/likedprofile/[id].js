@@ -4,18 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useOnHoverOutside } from "@/hooks/useOnHoverOutside";
-import Redheart from "@/assets/redheart.png";
+import Breadcrumb from "@/components/breadcrumb";
 
-const Portfoliodetails = () => {
+const Likedprofile = () => {
   const router = useRouter();
-  const dropdownRef = useRef(null);
-  const closeHoverMenu = () => {
-    setActive(false);
-  };
-  useOnHoverOutside(dropdownRef, closeHoverMenu);
-
-  const [profiles, setprofiles] = useState([]);
+  const id = router.query;
+  const [isLiked, setIsLiked] = useState(false);
+  const [likedprofiles, setlikedprofiles] = useState([]);
   const [active, setActive] = useState(false);
 
   async function getUser() {
@@ -28,36 +23,81 @@ const Portfoliodetails = () => {
           "Bearer Bearer 3ad527b6e04e45a25b5c7a57d8e796af06f0853e2fa7c4551566c2096b18b80500bdaf2fc61dace337df1dc8c2a0026075026b10589f9c9d009a72165635b72012c305bf52929b73a79c97e1e5a53e7193f812604f83fa679731fa19540e9ecd7112dc224f0cccd4624294b05ec2864b552bdf7905d65736410f0cf2774c3994",
       },
     };
-
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
-        setprofiles(response.data.data);
+        setlikedprofiles(response.data.data.filter((u) => u.id == id.id));
       })
       .catch(function (error) {
         console.log(error);
       });
   }
-  console.log("profiles", profiles);
+  console.log("likedprofiles", likedprofiles);
   useEffect(() => {
     getUser();
   }, []);
 
   return (
     <>
-      <div class="container_card grid lg:grid-cols-4">
-        {profiles.length > 0 &&
-          profiles.map((itms) => {
-            console.log("itmssss", itms);
-            return (
-              <>
-                <div class="max-w-xs mx-9 mb-2 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300">
-                  <div className="cards">
+    <div style={{background: '#E0E0E0'}}>
+        <Breadcrumb screens={["Home", "Liked Profile"]} />
+        <div className="row_data flex justify-between px-24 ">
+        <span className="text-lg text-gray-700 dark:text-gray-400">
+          Liked Profile
+        </span>
+        <div className="flex">
+          <span className="px-2">View by :</span>
+          <div className="flex">
+            <svg
+              className="svg_port"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0 4H4V0H0V4ZM6 16H10V12H6V16ZM0 16H4V12H0V16ZM0 10H4V6H0V10ZM6 10H10V6H6V10ZM12 0V4H16V0H12ZM6 4H10V0H6V4ZM12 10H16V6H12V10ZM12 16H16V12H12V16Z"
+                fill="#F98B1D"
+              />
+            </svg>
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g clip-path="url(#clip0_62_21301)">
+                <path
+                  d="M19 13H5C3.9 13 3 13.9 3 15V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V15C21 13.9 20.1 13 19 13ZM19 19H5V15H19V19Z"
+                  fill="#1E1E1E"
+                  fillOpacity="0.5"
+                />
+                <path
+                  d="M19 3H5C3.9 3 3 3.9 3 5V9C3 10.1 3.9 11 5 11H19C20.1 11 21 10.1 21 9V5C21 3.9 20.1 3 19 3ZM19 9H5V5H19V9Z"
+                  fill="#1E1E1E"
+                  fillOpacity="0.5"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_62_21301">
+                  <rect width="24" height="24" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+          </div>
+        </div>
+      </div>
+       <div class="container_card grid lg:grid-cols-4">
+
+        <div class="max-w-xs mx-9 hover:transform hover:scale-105 duration-300">
+                  <div className="cards_like">
                     <div className="relative">
                       <picture>
-                        <img
+                        <Image
                           className="img_card block h-auto w-60"
-                          src={`http://172.105.57.17:1337${itms.attributes.profile_photo.data[0].attributes.url}`}
+                          src={profile}
                           alt=""
                         />
                       </picture>
@@ -71,7 +111,7 @@ const Portfoliodetails = () => {
                           right: "10",
                         }}
                         onClick={() =>
-                          router.push({ pathname: "/likedprofile/[id]/" ,
+                          router.push({
                           query: { id: itms.id },
                         })
                         }
@@ -111,19 +151,18 @@ const Portfoliodetails = () => {
                           class="no-underline hover:underline text-black"
                           href="#"
                         >
-                          {itms.attributes.first_name}{" "}
-                          {itms.attributes.last_name}
+                          sdsa
                         </span>
                       </h1>
                       <p
                         style={{ color: "rgba(30, 30, 30, 0.5)" }}
                         class="text-grey-darker text-sm"
                       >
-                        {itms.attributes.educational_qualification}
+                       ccsss
                       </p>
                     </header>
                     <footer class="card flex items-center justify-evenly leading-none p-4 md:p-4">
-                      <p class="ml-2 text-sm">
+                      <p class=" text-sm">
                         <svg
                           width="16"
                           height="15"
@@ -140,7 +179,7 @@ const Portfoliodetails = () => {
 
                       <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                         {" "}
-                        {itms.attributes.star}
+                        sAsDS
                       </p>
                       <svg
                         width="2"
@@ -187,17 +226,21 @@ const Portfoliodetails = () => {
                       </svg>
                       <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                         {" "}
-                        {itms.attributes.marriage_status}
+                        Single
                       </p>
                     </footer>
                   </div>
                 </div>
-              </>
-            );
-          })}
       </div>
+      </div>
+      <style global jsx>{`
+        body {
+          margin: 0;
+          padding: 0;
+        }
+      `}</style>
     </>
   );
 };
 
-export default Portfoliodetails;
+export default Likedprofile;
