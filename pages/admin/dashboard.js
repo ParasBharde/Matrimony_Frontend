@@ -10,13 +10,13 @@ const Dashboard = () => {
     <>
     <Sidenav/>
     <Topnav/>
-      <div class="p-4 sm:ml-64">
-        <div class="p-4 border-gray-200 rounded">
-          <div class="grid grid-cols-4 gap-4 mb-4">
-            <div class="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
+      <div className="p-4 sm:ml-64">
+        <div className="p-4 border-gray-200 rounded">
+          <div className="grid grid-cols-4 gap-4 mb-4">
+            <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
               <div className="grid grid-rows-2 gap-2 flex-1 justify-start align-middle ml-6">
                 <span style={{ fontSize: "1.5rem" }}>250</span>
-                <p class="text-sm">Total Profile</p>
+                <p className="text-sm">Total Profile</p>
               </div>
               <svg
                 style={{
@@ -44,10 +44,10 @@ const Dashboard = () => {
                 />
               </svg>
             </div>
-            <div class="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
+            <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
               <div className="grid grid-rows-2 gap-2 flex-1 justify-start align-middle ml-6">
                 <span style={{ fontSize: "1.5rem" }}>250</span>
-                <p class="text-sm">Total Profile</p>
+                <p className="text-sm">Total Profile</p>
               </div>
               <svg
                 style={{
@@ -75,10 +75,10 @@ const Dashboard = () => {
                 />
               </svg>
             </div>
-            <div class="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
+            <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
               <div className="grid grid-rows-2 gap-2 flex-1 justify-start align-middle ml-6">
                 <span style={{ fontSize: "1.5rem" }}>250</span>
-                <p class="text-sm">Total Profile</p>
+                <p className="text-sm">Total Profile</p>
               </div>
               <svg
                 style={{
@@ -106,10 +106,10 @@ const Dashboard = () => {
                 />
               </svg>
             </div>
-            <div class="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
+            <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
               <div className="grid grid-rows-2 gap-2 flex-1 justify-start align-middle ml-6">
                 <span style={{ fontSize: "1.5rem" }}>250</span>
-                <p class="text-sm">Total Profile</p>
+                <p className="text-sm">Total Profile</p>
               </div>
               <svg
                 style={{
@@ -140,39 +140,39 @@ const Dashboard = () => {
           </div>
           <h1 className="ml-3 text-lg">New Users</h1>
 
-          <div class="relative overflow-x-auto mt-8">
-            <table class="text-sm text-left text-gray-500 dark:text-gray-400">
-              <thead style={{color: 'rgba(30, 30, 30, 0.5)',fontWeight:'400'}} class="text-xs  uppercase ">
+          <div className="relative overflow-x-auto mt-8">
+            <table className="text-sm text-left text-gray-500 dark:text-gray-400">
+              <thead style={{color: 'rgba(30, 30, 30, 0.5)',fontWeight:'400'}} className="text-xs  uppercase ">
                 <tr>
-                  <th scope="col" class="px-6 py-3">
+                  <th scope="col" className="px-6 py-3">
                     Reg.No
                   </th>
-                  <th scope="col" class="px-6 py-3">
+                  <th scope="col" className="px-6 py-3">
                     Profile
                   </th>
-                  <th scope="col" class="px-6 py-3">
+                  <th scope="col" className="px-6 py-3">
                     Email
                   </th>
-                  <th scope="col" class="px-6 py-3">
+                  <th scope="col" className="px-6 py-3">
                     Mobile Number
                   </th>
-                  <th scope="col" class="px-6 py-3">
+                  <th scope="col" className="px-6 py-3">
                     Action
                   </th>
                 </tr>
               </thead>
               <tbody>
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                   <td
                     scope="row"
-                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
                     01213
                   </td>
-                  <td class="px-6 py-4">Sliver</td>
-                  <td class="px-6 py-4">Laptop</td>
-                  <td class="px-6 py-4">$2999</td>
-                  <td class="px-6 py-4">
+                  <td className="px-6 py-4">Sliver</td>
+                  <td className="px-6 py-4">Laptop</td>
+                  <td className="px-6 py-4">$2999</td>
+                  <td className="px-6 py-4">
                     <svg
                     
                       width="24"

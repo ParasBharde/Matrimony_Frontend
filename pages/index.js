@@ -30,7 +30,7 @@ const Index = ({props}) => {
     });
     
   }
-  console.log('home',home)
+  
 useEffect(() => {
   getUser();
 }, [])

@@ -38,20 +38,20 @@ const Portfoliodetails = () => {
         console.log(error);
       });
   }
-  console.log("profiles", profiles);
+  //console.log("profiles", profiles);
   useEffect(() => {
     getUser();
   }, []);
 
   return (
     <>
-      <div class="container_card grid lg:grid-cols-4">
+      <div className="container_card grid lg:grid-cols-4">
         {profiles.length > 0 &&
           profiles.map((itms) => {
             console.log("itmssss", itms);
             return (
               <>
-                <div class="max-w-xs mx-9 mb-2 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300">
+                <div className="max-w-xs mx-9 mb-2 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300">
                   <div className="cards">
                     <div className="relative">
                       <picture>
@@ -98,7 +98,7 @@ const Portfoliodetails = () => {
                       </div>
                     </div>
                     <header
-                      class="coloumn items-center justify-between leading-tight p-2 md:p-4"
+                      className="coloumn items-center justify-between leading-tight p-2 md:p-4"
                       onClick={() => {
                         router.push({
                           pathname: "/profiledetail/[id]/",
@@ -106,9 +106,9 @@ const Portfoliodetails = () => {
                         });
                       }}
                     >
-                      <h1 class="text-lg">
+                      <h1 className="text-lg">
                         <span
-                          class="no-underline hover:underline text-black"
+                          className="no-underline hover:underline text-black"
                           href="#"
                         >
                           {itms.attributes.first_name}{" "}
@@ -117,13 +117,13 @@ const Portfoliodetails = () => {
                       </h1>
                       <p
                         style={{ color: "rgba(30, 30, 30, 0.5)" }}
-                        class="text-grey-darker text-sm"
+                        className="text-grey-darker text-sm"
                       >
                         {itms.attributes.educational_qualification}
                       </p>
                     </header>
-                    <footer class="card flex items-center justify-evenly leading-none p-4 md:p-4">
-                      <p class="ml-2 text-sm">
+                    <footer className="card flex items-center justify-evenly leading-none p-4 md:p-4">
+                      <p className="ml-2 text-sm">
                         <svg
                           width="16"
                           height="15"

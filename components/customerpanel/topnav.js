@@ -8,7 +8,7 @@ const Topnav = () => {
     <>
 
       <nav
-        class="
+        className="
         top_navv
 
   flex flex-wrap
@@ -23,13 +23,13 @@ const Topnav = () => {
   navbar navbar-expand-lg navbar-light
   "
       >
-        <div class="container-fluid w-full px-6 container flex flex-wrap items-center justify-between mx-auto">
+        <div className="container-fluid w-full px-6 container flex flex-wrap items-center justify-between mx-auto">
           <h1 classNameName="flex justify-start items-center ">
             Welcome 👋 Jenny Wilson
           </h1>
 
           <div className="flex items-center">
-            <div class="text-gray-500 hover:text-gray-700 focus:text-gray-700 mr-4 ">
+            <div className="text-gray-500 hover:text-gray-700 focus:text-gray-700 mr-4 ">
               <svg
                 width="16"
                 height="20"
@@ -45,7 +45,7 @@ const Topnav = () => {
               </svg>
             </div>
 
-            <div class="text-gray-500 hover:text-gray-700 focus:text-gray-700 mr-4">
+            <div className="text-gray-500 hover:text-gray-700 focus:text-gray-700 mr-4">
               <button
                 type="button"
                 className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
@@ -58,15 +58,15 @@ const Topnav = () => {
                 />
               </button>
 
-              <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700" id="language-dropdown-menu">
-                <ul class="py-2" role="none">
+              <div className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700" id="language-dropdown-menu">
+                <ul className="py-2" role="none">
                   <li>
                     <Link
                       href="#"
-                      class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
                       role="menuitem"
                     >
-                      <div class="inline-flex items-center">
+                      <div className="inline-flex items-center">
                    
                         English (US)
                       </div>
@@ -75,10 +75,10 @@ const Topnav = () => {
                   <li>
                     <Link
                       href="#"
-                      class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
                       role="menuitem"
                     >
-                      <div class="inline-flex items-center">
+                      <div className="inline-flex items-center">
                    
                         Deutsch
                       </div>
@@ -87,10 +87,10 @@ const Topnav = () => {
                   <li>
                     <Link
                       href="#"
-                      class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
                       role="menuitem"
                     >
-                      <div class="inline-flex items-center">
+                      <div className="inline-flex items-center">
                        
                         Italiano
                       </div>
@@ -99,10 +99,10 @@ const Topnav = () => {
                   <li>
                     <Link
                       href="#"
-                      class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
                       role="menuitem"
                     >
-                      <div class="inline-flex items-center">
+                      <div className="inline-flex items-center">
                     
                         中文 (繁體)
                       </div>

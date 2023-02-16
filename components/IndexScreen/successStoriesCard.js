@@ -15,7 +15,7 @@ const SuccessStoriesCard = () => {
       console.error(error);
     }
   }
-  console.log('home',home)
+  //console.log('home',home)
 useEffect(() => {
   getUser();
 }, [])

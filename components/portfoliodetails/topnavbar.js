@@ -62,7 +62,7 @@ const Topnavbar = () => {
       </nav> */}
 
       <nav
-        class="
+        className="
         top_navbar
       
   flex flex-wrap
@@ -77,7 +77,7 @@ const Topnavbar = () => {
   navbar navbar-expand-lg navbar-light
   "
       >
-        <div class="container-fluid w-full flex flex-wrap items-center justify-between px-6">
+        <div className="container-fluid w-full flex flex-wrap items-center justify-between px-6">
         
            
             <h1 classNameName="flex justify-start items-center ">
@@ -86,7 +86,7 @@ const Topnavbar = () => {
           
          <div className="flex items-center">
          <Link
-              class="text-gray-500 hover:text-gray-700 focus:text-gray-700 mr-4 "
+              className="text-gray-500 hover:text-gray-700 focus:text-gray-700 mr-4 "
               href="#"
             >
               <svg
@@ -104,7 +104,7 @@ const Topnavbar = () => {
               </svg>
             </Link>
             <Link
-              class="text-gray-500 hover:text-gray-700 focus:text-gray-700 mr-4"
+              className="text-gray-500 hover:text-gray-700 focus:text-gray-700 mr-4"
               href="#"
             >
               <button
