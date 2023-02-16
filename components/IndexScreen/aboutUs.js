@@ -1,7 +1,7 @@
 import React from "react";
 
 const AboutUs = (props) => {
-  console.log("props", props);
+  //console.log("props", props);
   return (
     <div className="aboutusbg break-all">
       <div className="pt-40 pl-24">

@@ -66,9 +66,9 @@ const Likedprofile = () => {
           </div>
         </div>
       </div>
-       <div class="container_card grid lg:grid-cols-4">
+       <div className="container_card grid lg:grid-cols-4">
 
-        <div class="max-w-xs mx-9 hover:transform hover:scale-105 duration-300">
+        <div className="max-w-xs mx-9 hover:transform hover:scale-105 duration-300">
                   <div className="cards_like">
                     <div className="relative">
                       <picture>
@@ -115,7 +115,7 @@ const Likedprofile = () => {
                       </div>
                     </div>
                     <header
-                      class="coloumn items-center justify-between leading-tight p-2 md:p-4"
+                      className="coloumn items-center justify-between leading-tight p-2 md:p-4"
                       onClick={() => {
                         router.push({
                           pathname: "/profiledetail/[id]/",
@@ -123,9 +123,9 @@ const Likedprofile = () => {
                         });
                       }}
                     >
-                      <h1 class="text-lg">
+                      <h1 className="text-lg">
                         <span
-                          class="no-underline hover:underline text-black"
+                          className="no-underline hover:underline text-black"
                           href="#"
                         >
                           sdsa
@@ -133,13 +133,13 @@ const Likedprofile = () => {
                       </h1>
                       <p
                         style={{ color: "rgba(30, 30, 30, 0.5)" }}
-                        class="text-grey-darker text-sm"
+                        className="text-grey-darker text-sm"
                       >
                        ccsss
                       </p>
                     </header>
-                    <footer class="card flex items-center justify-evenly leading-none p-4 md:p-4">
-                      <p class=" text-sm">
+                    <footer className="card flex items-center justify-evenly leading-none p-4 md:p-4">
+                      <p className=" text-sm">
                         <svg
                           width="16"
                           height="15"

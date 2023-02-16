@@ -111,12 +111,12 @@ const Managelistdash = () => {
               >
                 00121
               </td>
-              <td class="py-3 px-6 text-left">
-                <div class="flex items-center">
-                  <div class="mr-2">
+              <td className="py-3 px-6 text-left">
+                <div className="flex items-center">
+                  <div className="mr-2">
                     <Image
                     alt='user image'
-                      class="w-6 h-6 rounded-full"
+                      className="w-6 h-6 rounded-full"
                       src="https://randomuser.me/api/portraits/men/1.jpg"
                     />
                   </div>

@@ -5,6 +5,8 @@ import avatar from "@/assets/avatar.png";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
+import downloadIcon from "@/assets/SVG/downloadlogo.svg"
+
 import { useOnHoverOutside } from "@/hooks/useOnHoverOutside";
 
 const Header = () => {
@@ -96,17 +98,16 @@ const Header = () => {
                 Profile
               </p>
               <p className="m-3 w-[200px] cursor-pointer">
-                <i class="fa-regular fa-heart mr-5 text-main"></i>Liked Profile
+                <i className="fa-regular fa-heart mr-5 text-main"></i>Liked Profile
               </p>
               <p className="m-3 w-[200px] cursor-pointer">
-                <i class="fa-regular fa-download mr-5 text-main"></i>Download
-                Profile
+                  <i class="fa-solid fa-download mr-5 text-main"></i> Download Profile
               </p>
               <p className="m-3 w-[200px] cursor-pointer">
-                <i class="fa-regular fa-lock mr-5 text-main"></i>Change Password
+              <i class="fa-solid fa-lock mr-5 text-main"></i> Change Password
               </p>
               <p className="m-3 w-[200px] cursor-pointer">
-                <i class="fa-solid fa-right-from-bracket mr-5 text-main"></i>
+                <i className="fa-solid fa-right-from-bracket mr-5 text-main"></i>
                 Logout
               </p>
             </div>
