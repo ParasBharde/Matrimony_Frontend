@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { useOnHoverOutside } from "@/hooks/useOnHoverOutside";
 import Redheart from "@/assets/redheart.png";
 
-const Portfoliodetails = () => {
+const Portfoliodetails = ({ postId }) => {
   const router = useRouter();
   const dropdownRef = useRef(null);
   const closeHoverMenu = () => {
@@ -75,6 +75,7 @@ const Portfoliodetails = () => {
                         //   query: { id: itms.id },
                         // })
                         // }
+                
                         className="absolute top-0 right-0 m-2 rounded flex items-center justify-center w-10 h-11 text-white text-sm font-bold"
                       >
                         <svg

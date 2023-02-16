@@ -7,7 +7,7 @@ import axios from "axios";
 
 const Aboutus = () => {
   const [about, setabout] = useState([]);
- 
+
   useEffect(() => {
     const About = () => {
       var config = {
@@ -19,7 +19,7 @@ const Aboutus = () => {
             "Bearer 3ad527b6e04e45a25b5c7a57d8e796af06f0853e2fa7c4551566c2096b18b80500bdaf2fc61dace337df1dc8c2a0026075026b10589f9c9d009a72165635b72012c305bf52929b73a79c97e1e5a53e7193f812604f83fa679731fa19540e9ecd7112dc224f0cccd4624294b05ec2864b552bdf7905d65736410f0cf2774c3994",
         },
       };
-  
+
       axios(config)
         .then(function (response) {
           setabout(response.data.data.attributes);
@@ -28,9 +28,9 @@ const Aboutus = () => {
           console.log(error);
         });
     };
- console.log("about", about);
+    console.log("about", about);
     About();
-  },[]);
+  }, []);
 
   return (
     <>
@@ -215,12 +215,8 @@ const Aboutus = () => {
       <br></br>
       <div className="flex">
         <div className="flex-auto ml-5 xl:ml-44 xl:mr-44 lg:ml-24 lg:mr-24 md:ml-4 md:mr-4">
-          <h2 className="text-2xl mb-6 mt-2 md:mt-16 ">
-            {about.label2}
-            </h2>
-          <p className="pr-5 text-lg">
-            {about.label2_desc}
-            </p>
+          <h2 className="text-2xl mb-6 mt-2 md:mt-16 ">{about.label2}</h2>
+          <p className="pr-5 text-lg">{about.label2_desc}</p>
         </div>
       </div>
       <div className="mt-6 md:mt-10 mb-12 grid grid-cols-1 ml-5 md:grid-cols-2 gap-y-6 gap-x-6 xl:ml-44 xl:mr-44 lg:ml-24 lg:mr-24 md:ml-4 md:mr-4">
@@ -238,22 +234,14 @@ const Aboutus = () => {
           </div>
         </div>
         <div className="">
-          <h2 className="text-2xl mb-6 mt-4 md:mt-24 ">
-            {about.label3}
-            </h2>
-          <p className="pr-5 text-lg">
-            {about.label3_desc}
-            </p>
+          <h2 className="text-2xl mb-6 mt-4 md:mt-24 ">{about.label3}</h2>
+          <p className="pr-5 text-lg">{about.label3_desc}</p>
         </div>
       </div>
       <div className="flex ml-5">
         <div className="flex-auto xl:ml-44 xl:mr-44 lg:ml-24 lg:mr-24 md:ml-4 md:mr-4 ">
-          <h2 className="text-2xl mb-6 md:mt-16 ">
-            {about.label4} 
-            </h2>
-          <p className="pr-5 text-lg">
-            {about.label4_desc}
-            </p>
+          <h2 className="text-2xl mb-6 md:mt-16 ">{about.label4}</h2>
+          <p className="pr-5 text-lg">{about.label4_desc}</p>
         </div>
       </div>
       <br></br> <br></br>
