@@ -54,6 +54,7 @@ const Portfoliodetails = ({ postId }) => {
   }, []);
   return (
     <>
+    <div>
       <div class="flex items-center justify-between px-4  py-3 sm:px-[6rem]">
         <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
           <div>
@@ -408,7 +409,6 @@ const Portfoliodetails = ({ postId }) => {
         </div>
       </div>
 
-    
         {isList ? (
           <>
             <div className="list_data flex justify-center px-[5rem] pb-[4rem] ">
@@ -677,7 +677,7 @@ const Portfoliodetails = ({ postId }) => {
             </div>
           </>
         )}
-    
+    </div>
       <style jsx>{`
       .list_data{
         margin-bottom: 4rem;
