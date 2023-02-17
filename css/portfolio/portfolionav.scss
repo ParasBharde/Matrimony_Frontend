@@ -53,11 +53,13 @@
 
     margin: 0rem 5.5rem;
     padding: 1rem;
+    
 }
 .cards {
     margin: 0px;
     background-color: #ffffff;
     padding: 0.5rem;
+    height: 50vh;
 }
 
 // Liked Profiles
@@ -73,7 +75,9 @@
     background-color: #ffffff;
     padding: 0.5rem;
 }
-
+.card{
+    padding: 0rem 0rem 0rem 0rem;
+}
 Dropdown,
 .drpd {
     width: 15vw;
