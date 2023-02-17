@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect, useRef } from "react";
 import profile from "@/assets/profile.png";
 import Image from "next/image";
@@ -457,10 +458,10 @@ const Portfoliodetails = ({ postId }) => {
                   </tr>
                 </thead>
                 {profiles.length > 0 &&
-                  profiles.map((itms) => {
+                  profiles.map((itms,index) => {
                     console.log("itmssss", itms);
                     return (
-                      <tbody>
+                      <tbody key={index}>
                         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                           <td className="px-6 py-4">
                             <input
@@ -524,10 +525,10 @@ const Portfoliodetails = ({ postId }) => {
           <>
             <div className="container_card inline-grid grid-cols-4 gap-4">
               {profiles.length > 0 &&
-                profiles.map((itms) => {
+                profiles.map((itms,index) => {
                   console.log("itmssss", itms);
                   return (
-                    <div className="max-w-xs mx-9 mb-2 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300">
+                    <div key={index} className="max-w-xs mx-9 mb-2 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300">
                       <div className="cards">
                         <div className="relative">
                           <picture>
