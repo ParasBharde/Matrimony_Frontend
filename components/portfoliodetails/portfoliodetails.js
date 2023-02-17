@@ -408,7 +408,7 @@ const Portfoliodetails = ({ postId }) => {
         </div>
       </div>
 
-      <>
+    
         {isList ? (
           <>
             <div className="list_data flex justify-center px-[5rem] pb-[4rem] ">
@@ -677,7 +677,7 @@ const Portfoliodetails = ({ postId }) => {
             </div>
           </>
         )}
-      </>
+    
       <style jsx>{`
       .list_data{
         margin-bottom: 4rem;
