@@ -50,7 +50,7 @@ const Hero = (props) => {
           <p className="mx-10 cursor-pointer">EN</p>
         </div>
         <div></div>
-        <div className="flex justify-center items-center ">
+        <div className="flex justify-center items-center  max-md:hidden">
           <p
             className="text-white bg-main py-2 px-5 rounded-md mx-2 cursor-pointer"
             onClick={() => {
@@ -69,13 +69,34 @@ const Hero = (props) => {
           </p>
         </div>
       </div>
-      <div className="absolute right-10 top-14 hidden max-md:block max-sm:block">
-      <Hamburger onClick={() => console.log("Clicked")} />
 
+
+      {/* dublicate div start here   */}
+      <div className="flex justify-center items-center absolute bottom-[16rem] right-[12rem] px-6 md:hidden max-md:block max-md:flex">
+        <p
+          className="text-white bg-main py-2 px-5 rounded-md mx-2 cursor-pointer my-5"
+          onClick={() => {
+            router.push("/signIn");
+          }}
+        >
+          Login
+        </p>
+        <p
+          className="text-main bg-white py-2 px-5 rounded-md mx-2 cursor-pointer "
+          onClick={() => {
+            router.push("/register");
+          }}
+        >
+          Register
+        </p>
       </div>
 
+    
+      <div className="absolute right-10 top-14 hidden max-md:block max-sm:block">
+        <Hamburger onClick={() => console.log("Clicked")} />
+      </div>
 
-      <p className="text-white font-[700] text-[4vw] text-center absolute top-[36%] w-full">
+      <p className="text-white font-[700] text-[4vw] text-center absolute top-[36%] w-full max-md:text-6xl  ">
         {props.homedata.Hero_Title}
       </p>
       {/* <div className="hidden max-md:block">
