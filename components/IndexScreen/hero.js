@@ -23,7 +23,7 @@ const Hero = (props) => {
         </div>
         </Link>
         <div className='text-white flex justify-center items-center text-[16px] font-[600]'>
-          <p className='mx-10 cursor-pointer sm:text-green-500'>Home</p>
+          <p className='mx-10 cursor-pointer'>Home</p>
           <p className='mx-10 cursor-pointer' onClick={()=>{router.push("/pricingPlan")}}>Pricing Plan</p>
           <p className='mx-10 cursor-pointer' onClick={()=>{router.push("/contactus")}}>Contact Us</p>
           <p className='mx-10 cursor-pointer' onClick={()=>{router.push("/aboutus")}}>About Us</p>

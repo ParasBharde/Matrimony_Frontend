@@ -1,17 +1,74 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import Image from 'next/image'
 import fileInputImage from "@/assets/fileInputBig.png"
 
 import Files from "react-files";
 
-const RegisterForm4 = () => {
+const RegisterForm4 = ({screen,setScreen,getAllDataAndPost}) => {
 
-  function  onFilesChange(files) {
-    console.log(files)
+  const signs=[ 'Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo', 'Libra', 'Scorpius' , 'Sagittarius', 'Capricornus', 'Aquarius', 'Pisces']
+  const daysOfWeek=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+
+  const [file1,setFile1]=useState(null)
+  const [file2,setFile2]=useState(null)
+
+  function  onFilesChange1(files) {
+    console.log("Files 1 : ",files)
+    setFile1(files)
+  }
+   function onFilesError1(error, file) {
+    console.log('error code on file 1' + error.code + ': ' + error.message)
   }
 
-   function onFilesError(error, file) {
-    console.log('error code ' + error.code + ': ' + error.message)
+  function  onFilesChange2(files) {
+    console.log("Files 2 : ",files)
+    setFile2(files)
+  }
+   function onFilesError2(error, file) {
+    console.log('error code on file 2' + error.code + ': ' + error.message)
+  }
+
+  const [zodiacSign,setZodiacSign]=useState("Aries")
+  const [tamilYear,setTamilYear]=useState("")
+
+  const [tamilMonth,setTamilMonth]=useState("")
+  const [udayatiNazhikai,setUdayatiNazhikai]=useState("")
+
+  const [day,setDay]=useState("Sunday")
+  const [birthTime,setBirthTime]=useState("")
+
+  const [starFoot,setStarFoot]=useState("Aries")
+  const [ascendant,setAscendant]=useState("Aries")
+
+  const [birthplace,setBirthplace]=useState("")
+  const [presenceOfNatalDirection,setPresenceOFNatalDirection]=useState("")
+
+  useEffect(() => {
+    const rg=sessionStorage.getItem("rg4")
+    if(rg)
+    {
+      const jrg=JSON.parse(rg)
+
+      setFile1(jrg.file1)
+      setFile2(jrg.file2)
+      setZodiacSign(jrg.zodiacSign)
+      setTamilYear(jrg.tamilYear)
+      setTamilMonth(jrg.tamilMonth)
+      setUdayatiNazhikai(jrg.udayatiNazhikai)
+      setDay(jrg.day)
+      setBirthTime(jrg.birthTime)
+      setStarFoot(jrg.starFoot)
+      setAscendant(jrg.ascendant)
+      setBirthplace(jrg.birthplace)
+      setPresenceOFNatalDirection(jrg.presenceOfNatalDirection)
+
+      
+    }
+  }, []);
+
+  const beforeNextScreen=()=>{
+    const rg4={file1,file2,zodiacSign,tamilYear,tamilMonth,udayatiNazhikai,day,birthTime,starFoot,ascendant,birthplace,presenceOfNatalDirection}
+    sessionStorage.setItem("rg4",JSON.stringify(rg4))
   }
 
 
@@ -25,12 +82,18 @@ const RegisterForm4 = () => {
   
       <div className='mt-5'>
         <p className='text-dark font-[500] text-[14px] mb-2'>Zodiac Sign *</p>
-        <input placeholder='Enter Your Name' type={"password"}
-          className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
+        <select value={zodiacSign} onChange={(e)=>{setZodiacSign(e.target.value)}}
+          className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3'>
+            {signs.map((item,index)=>{
+            return(
+              <option key={index} value={item}>{item}</option>
+            )
+          })}
+        </select>
       </div>
       <div className='mt-5'>
         <p className='text-dark font-[500] text-[14px] mb-2'>Tamil Year *</p>
-        <input placeholder='Enter Your Name' type={"password"}
+        <input placeholder='Enter Your Name' type={"text"} value={tamilYear} onChange={(e)=>{setTamilYear(e.target.value)}}
           className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
       </div>
   
@@ -40,12 +103,12 @@ const RegisterForm4 = () => {
   
       <div className='mt-5'>
         <p className='text-dark font-[500] text-[14px] mb-2'>Tamil Month*</p>
-        <input placeholder='Enter Your Name' type={"password"}
+        <input placeholder='Enter Your Name' type={"text"} value={tamilMonth} onChange={(e)=>{setTamilMonth(e.target.value)}}
           className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
       </div>
       <div className='mt-5'>
         <p className='text-dark font-[500] text-[14px] mb-2'>Udayati Nazhikai *</p>
-        <input placeholder='Enter Your Name' type={"password"}
+        <input placeholder='Enter Your Name' type={"text"} value={udayatiNazhikai} onChange={(e)=>{setUdayatiNazhikai(e.target.value)}}
           className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
       </div>
   
@@ -55,12 +118,18 @@ const RegisterForm4 = () => {
   
       <div className='mt-5'>
         <p className='text-dark font-[500] text-[14px] mb-2'>Day *</p>
-        <input placeholder='Enter Your Name' type={"password"}
-          className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
+        <select value={day} onChange={(e)=>{setDay(e.target.value)}}
+          className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3'>
+            {daysOfWeek.map((item,index)=>{
+            return(
+              <option key={index} value={item}>{item}</option>
+            )
+          })}
+        </select>
       </div>
       <div className='mt-5'>
         <p className='text-dark font-[500] text-[14px] mb-2'>Birth Time *</p>
-        <input placeholder='Enter Your Name' type={"password"}
+        <input placeholder='Enter Your Name' type={"time"} value={birthTime} onChange={(e)=>{setBirthTime(e.target.value)}}
           className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
       </div>
   
@@ -70,13 +139,25 @@ const RegisterForm4 = () => {
   
       <div className='mt-5'>
         <p className='text-dark font-[500] text-[14px] mb-2'>Star / Foot *</p>
-        <input placeholder='Enter Your Name' type={"password"}
-          className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
+        <select value={starFoot} onChange={(e)=>{setStarFoot(e.target.value)}}
+          className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3'>
+            {signs.map((item,index)=>{
+            return(
+              <option key={index} value={item}>{item}</option>
+            )
+          })}
+        </select>
       </div>
       <div className='mt-5'>
         <p className='text-dark font-[500] text-[14px] mb-2'>Ascendant (Laknam) *</p>
-        <input placeholder='Enter Your Name' type={"password"}
-          className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
+        <select value={ascendant} onChange={(e)=>{setAscendant(e.target.value)}}
+          className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3'>
+            {signs.map((item,index)=>{
+            return(
+              <option key={index} value={item}>{item}</option>
+            )
+          })}
+        </select>
       </div>
   
     </div>
@@ -85,12 +166,12 @@ const RegisterForm4 = () => {
   
   <div className='mt-5'>
     <p className='text-dark font-[500] text-[14px] mb-2'>Birthplace*</p>
-    <input placeholder='Enter Your Name' type={"password"}
+    <input placeholder='Enter Your Name' type={"text"} value={birthplace} onChange={(e)=>{setBirthplace(e.target.value)}}
       className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
   </div>
   <div className='mt-5'>
     <p className='text-dark font-[500] text-[14px] mb-2'>Presence of natal Direction *</p>
-    <input placeholder='Enter Your Name' type={"password"}
+    <input placeholder='Enter Your Name' type={"text"} value={presenceOfNatalDirection} onChange={(e)=>{setPresenceOFNatalDirection(e.target.value)}}
       className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
   </div>
 
@@ -105,30 +186,35 @@ const RegisterForm4 = () => {
 
   <Files
           className='files-dropzone cursor-pointer'
-          onChange={onFilesChange}
-          onError={onFilesError}
+          onChange={onFilesChange1}
+          onError={onFilesError1}
           accepts={['image/png', 'image/jpg']}
           maxFileSize={10000000}
           minFileSize={0}
           clickable
         >
-  <Image src={fileInputImage} alt={"File Input Image"}/>
+  <Image src={file1?file1[0].preview.url:fileInputImage} alt={"File Input Image"} width={400} height={300}/>
   </Files>
   <Files
           className='files-dropzone cursor-pointer'
-          onChange={onFilesChange}
-          onError={onFilesError}
+          onChange={onFilesChange2}
+          onError={onFilesError2}
           accepts={['image/png', 'image/jpg']}
           maxFileSize={10000000}
           minFileSize={0}
           clickable
         >
-  <Image src={fileInputImage} alt={"File Input Image"}/>
+  <Image src={file2?file2[0].preview.url:fileInputImage} alt={"File Input Image"} width={400} height={300}/>
   </Files>
 
   </div>
 
 </div>
+<div className={`${screen!=1?"w-[800px]":"w-[400px]"} mx-auto flex justify-end my-3 gap-2`}>
+        {screen!=1&&<p className='text-main bg-white border-2 border-main py-2 px-5 rounded-md cursor-pointer max-w-max' onClick={()=>{setScreen(screen-1)}}>Back</p>}
+            <p className='text-white bg-main py-2 px-5 rounded-md cursor-pointer max-w-max' onClick={()=>{if(screen<=3){ setScreen(screen+1)}
+          beforeNextScreen();getAllDataAndPost();}}>Next</p>
+      </div>
 
 
     </>
