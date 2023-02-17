@@ -37,7 +37,7 @@ const Header = () => {
         </div>
       </Link>
       <div className="flex justify-center items-center gap-16 ">
-        <div className="flex justify-center items-center text-[16px] font-[400] gap-10 ">
+        <div className="flex justify-center items-center text-[16px] font-[400] gap-10">
           <p
             className="cursor-pointer"
             onClick={() => {
@@ -73,7 +73,7 @@ const Header = () => {
           </p>
           <div ref={dropdownRef1} className="relative">
             <p className="drop cursor-pointer" onMouseOver={() => setMenuDropDownOpen1(true)}>EN</p>
-            {isMenuDropDownOpen1 && (
+            {!isMenuDropDownOpen1 && (
             <div className="absolute bg-white right-2 shadow-lg top-12">
               <p className="m-3 w-[100px] cursor-pointer">
                 <i className=" mr-5 text-main text-center"></i>
@@ -87,7 +87,7 @@ const Header = () => {
         <div ref={dropdownRef} className="relative">
           <Image
             className="drop"
-            src={avatar}
+            // src={avatar}
             alt="avatar"
             onMouseOver={() => setMenuDropDownOpen(true)}
           />
