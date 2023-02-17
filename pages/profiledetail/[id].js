@@ -113,7 +113,7 @@ const Profiledetail = () => {
                                       Phone
                                     </span>
                                     <span>
-                                      {data.attributes.contact_number}
+                                      {data.attributes.phone_number}
                                     </span>
                                   </div>
                                 </div>

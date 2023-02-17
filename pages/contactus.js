@@ -1,19 +1,55 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import loc from "@/assets/SVG/location.svg";
-
+import axios from "axios";
 const ContactUs = () => {
-  const [name, setName] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [query, setQuery] = React.useState("");
   const [loading, setLoading] = React.useState(false);
+
+  const name = useRef();
+  const email = useRef();
+  const query = useRef();
+
+
+  const Postdata = async (e) => {
+    e.preventDefault();
+
+    var data = JSON.stringify({
+      data: {
+        name: name.current.value,
+        email: email.current.value,
+        message: query.current.value,
+      },
+    });
+
+    var config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: "http://172.105.57.17:1337/api/contacts/",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        alert("Message Sent Successfully");
+        name.current.value ='';
+        email.current.value ='';
+        query.current.value ='';
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
 
   return (
     <>
       <section className="text-gray-600 body-font relative">
         <div className="container px-5 py-24 mx-auto flex md:mb-40 sm:flex-nowrap flex-wrap">
           <div className="lg:w-2/3 md:w-1/2 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative">
-
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d60541.43450475207!2d73.80660490000002!3d18.4909208!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bf9ec7efff6d%3A0xa6b851f01122aad2!2sD%20Mart%20-%20Karve%20Nagar!5e0!3m2!1sen!2sin!4v1675871441996!5m2!1sen!2sin"
               width="100%"
@@ -90,7 +126,7 @@ const ContactUs = () => {
                   type="text"
                   id="name"
                   name="name"
-                  value={name}
+                  ref={name}
                   className="w-full bg-white rounded border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                 />
               </div>
@@ -105,7 +141,8 @@ const ContactUs = () => {
                   type="email"
                   id="email"
                   name="email"
-                  value={email}
+                  // value={email.Email}
+                  ref={email}
                   className="w-full bg-white rounded border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                 />
               </div>
@@ -119,11 +156,13 @@ const ContactUs = () => {
                 <textarea
                   id="message"
                   name="message"
-                  value={query}
+                  
+                  ref={query}
                   className="w-full bg-white rounded border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
                 ></textarea>
               </div>
               <button
+                onClick={Postdata}
                 type="submit"
                 className="text-white bg-yellow-500 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-400 rounded text-lg"
               >
