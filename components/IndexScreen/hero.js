@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import axios from "axios";
 import Hamburger from "@/assets/SVG/Hamburger";
+import vector from "@/assets/SVG/Vector.svg"
 // import { FaBars } from "@radix-ui/react-icons";
 
 const Hero = (props) => {
@@ -70,9 +71,8 @@ const Hero = (props) => {
         </div>
       </div>
 
-
       {/* dublicate div start here   */}
-      <div className="flex justify-center items-center absolute bottom-[16rem] right-[12rem] px-6 md:hidden max-md:block max-md:flex">
+      <div className="flex justify-center items-center absolute bottom-[16rem] left-[36rem]  px-6 md:hidden max-md:block max-md:flex">
         <p
           className="text-white bg-main py-2 px-5 rounded-md mx-2 cursor-pointer my-5"
           onClick={() => {
@@ -90,8 +90,8 @@ const Hero = (props) => {
           Register
         </p>
       </div>
+     
 
-    
       <div className="absolute right-10 top-14 hidden max-md:block max-sm:block">
         <Hamburger onClick={() => console.log("Clicked")} />
       </div>
@@ -99,9 +99,9 @@ const Hero = (props) => {
       <p className="text-white font-[700] text-[4vw] text-center absolute top-[36%] w-full max-md:text-6xl  ">
         {props.homedata.Hero_Title}
       </p>
-      {/* <div className="hidden max-md:block">
-          <p className="text-white">dhfsgihdifjgutdg </p>
-        </div> */}
+      <div className="hidden max-md:block">
+          <p className="text-white text-3xl">{vector.svg}EN</p>
+        </div>
     </div>
   );
 };

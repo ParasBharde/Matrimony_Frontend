@@ -20,8 +20,8 @@ const SignIn = () => {
           <Left />
         </div>
 
-        <div className="absolute top-[2rem] left-[3rem] m-4 max-md:text-white">
-          <div className="max-lg:text-4xl font-medium max-lg:mb-7">
+        <div className="absolute top-[2rem] left-[2.5rem] mr-5 max-md:text-white">
+          <div className="max-lg:text-4xl font-medium max-lg:mb-7 ml-3">
             <p>We Bring People Together,Love Unites Them....</p>
           </div>
           <Right />

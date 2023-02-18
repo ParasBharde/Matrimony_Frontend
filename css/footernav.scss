@@ -16,14 +16,18 @@
    //  position: fixed;
    left: 0;
    bottom: 0;
-   width: 100%;
+   width:100%;
    // height: auto;
    color: rgba(30, 30, 30, 0.5);
    text-align: center;
+
    padding: 0.5rem;
    font-size: 0.8rem;
    font-weight: 500;
    align-items: center;
+    @include breakpoint-down(small){
+      width:350vw;
+    }
 }
 .footer_main_1 {
    position: fixed;
