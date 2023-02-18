@@ -5,6 +5,8 @@ import RegisterForm2 from '@/components/registerScreen/registerForm2'
 import RegisterForm3 from '@/components/registerScreen/registerForm3'
 import RegisterForm4 from '@/components/registerScreen/registerForm4'
 
+import {toast} from "react-toastify"
+
 import { useRouter } from 'next/router'
 
 import axios from 'axios'
@@ -100,11 +102,17 @@ maxBodyLength: Infinity,
 axios(config)
 .then(function (response) {
  // console.log(response.data)
+  toast.success("Successfully Registered")
   router.push("/profiledetail/"+response.data.data.id)
   sessionStorage.clear()
 })
 .catch(function (error) {
-  console.log(error);
+  let e=error.response.data.error.details.errors;
+  console.log(e)
+  for(let i=0;i<e.length;i++)
+  {
+    toast.error(e[i].message)
+  }
 });
 
   }

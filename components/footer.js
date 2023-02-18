@@ -20,9 +20,9 @@ const Footer = () => {
         Copyright © Trichy Vayalur Road Reddy Trust All rights reserved. Theme Anews by themeuniver
         </p>
         <div className='flex justify-between text-white items-center'>
-        <i className="fa-brands fa-facebook mx-3"></i>
-        <i className="fa-brands fa-twitter mx-3"></i>
-        <i className="fa-brands fa-instagram mx-3"></i>
+        <i className="fa-brands fa-facebook mx-3 cursor-pointer"></i>
+        <i className="fa-brands fa-twitter mx-3 cursor-pointer"></i>
+        <i className="fa-brands fa-instagram mx-3 cursor-pointer"></i>
         </div>
     </div>}
     

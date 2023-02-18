@@ -2,6 +2,8 @@ import React, { useState,useEffect } from 'react'
 import Image from 'next/image'
 import fileInputImage from "@/assets/fileInput.png"
 
+import {toast} from "react-toastify"
+
 import Files from "react-files";
 
 const RegisterForm2 = ({screen,setScreen}) => {
@@ -102,6 +104,50 @@ const RegisterForm2 = ({screen,setScreen}) => {
   const beforeNextScreen=()=>{
     const rg2={file1,file2,file3,file4,firstName,groomOrBride,dateOfBirth,height,educationalQualifications,salary,expectation,caste,lastName,vegOrNonVeg,star,color,careerDetails,familyPropertyDetails,phoneNumber,marriageStatus}
     sessionStorage.setItem("rg2",JSON.stringify(rg2))
+  }
+
+  var nameRegex = /\d/g;
+  var phoneRegex = /^(0|91)?[6-9][0-9]{9}$/;
+
+  const validate=()=>{
+
+    if(!(firstName&&lastName&&height&&dateOfBirth&&color&&educationalQualifications&&careerDetails&&salary&&familyPropertyDetails&&expectation&&phoneNumber&&caste))
+    {
+      toast.error("Please Input all fields")
+      return false
+    }
+
+    if(!(file1&&file2&&file3&&file4))
+    {
+      toast.error("Please input all the files")
+      return false
+    }
+
+    if(nameRegex.test(firstName)||nameRegex.test(lastName))
+    {
+      toast.error("Name must not contain a number")
+      return false
+    }
+
+    if(nameRegex.test(color))
+    {
+      toast.error("Color must not contain a number")
+      return false
+    }
+
+    if(nameRegex.test(caste))
+    {
+      toast.error("Caste must not contain a number")
+      return false
+    }
+
+    if(!phoneRegex.test(phoneNumber))
+    {
+      toast.error("Please enter a valid phone number")
+      return false
+    }
+
+    return true
   }
 
 
@@ -280,8 +326,15 @@ const RegisterForm2 = ({screen,setScreen}) => {
       </div>
       <div className={`${screen!=1?"w-[800px]":"w-[400px]"} mx-auto flex justify-end my-3 gap-2`}>
         {screen!=1&&<p className='text-main bg-white border-2 border-main py-2 px-5 rounded-md cursor-pointer max-w-max' onClick={()=>{setScreen(screen-1)}}>Back</p>}
-            <p className='text-white bg-main py-2 px-5 rounded-md cursor-pointer max-w-max' onClick={()=>{if(screen<=3){ setScreen(screen+1)}
-          beforeNextScreen()}}>Next</p>
+            <p className='text-white bg-main py-2 px-5 rounded-md cursor-pointer max-w-max' onClick={()=>{
+              
+              if(validate())
+              {
+              if(screen<=3){ setScreen(screen+1)}
+          beforeNextScreen()
+              }
+          
+          }}>Next</p>
       </div>
       </>
   )
