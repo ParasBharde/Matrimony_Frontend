@@ -99,9 +99,9 @@ const Hero = (props) => {
       <p className="text-white font-[700] text-[4vw] text-center absolute top-[36%] w-full max-md:text-6xl  ">
         {props.homedata.Hero_Title}
       </p>
-      <div className="hidden max-md:block">
+      {/* <div className="hidden max-md:block">
           <p className="text-white text-3xl">{vector.svg}EN</p>
-        </div>
+        </div> */}
     </div>
   );
 };
