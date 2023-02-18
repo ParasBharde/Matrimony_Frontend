@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import profile from "@/assets/profile.png";
 import Link from "next/link";
 
 const Managelistdash = () => {
@@ -117,7 +118,9 @@ const Managelistdash = () => {
                     <Image
                     alt='user image'
                       className="w-6 h-6 rounded-full"
-                      src="https://randomuser.me/api/portraits/men/1.jpg"
+                      src={profile}
+                      width={100}
+                      height={100}
                     />
                   </div>
                   <span>Eshal Rosas</span>

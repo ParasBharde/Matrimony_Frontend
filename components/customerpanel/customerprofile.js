@@ -95,6 +95,8 @@ const Customerpofile = () => {
                                (max-width: 1200px) 50vw,
                                33vw"
                       src={profile}
+                      width={100}
+                      height={100}
                       alt="logo"
                     />
                     <div className="gap-2  flex">
