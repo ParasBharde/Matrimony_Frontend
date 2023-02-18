@@ -102,6 +102,7 @@ maxBodyLength: Infinity,
 axios(config)
 .then(function (response) {
  // console.log(response.data)
+  toast.success("Successfully Registered")
   router.push("/profiledetail/"+response.data.data.id)
   sessionStorage.clear()
 })
