@@ -37,14 +37,16 @@ useEffect(() => {
 
   return (
     <>
-       <Hero homedata={home}/>
-       <Heading homedata={home}/>
-       <AboutUs homedata={home}/>
-       <SuccessStories homedata={home}/>
-       <BestGiftFromYou homedata={home}/>
-       <ContactInformation homedata={home}/>
+      <div className='min-w-fit'>
+        <Hero homedata={home} />
+        <Heading homedata={home} />
+        <AboutUs homedata={home} />
+        <SuccessStories homedata={home} />
+        <BestGiftFromYou homedata={home} />
+        <ContactInformation homedata={home} /> 
+        </div>
     </>
-  )
+  );
 }
 
 export default Index

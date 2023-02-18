@@ -16,6 +16,15 @@
     background-position: center;
     background-repeat: no-repeat;
     height: 622px;
+ }
+ .aboutusresbg{
+    background: url('../assets/indexAssets/About_us_responsive.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    height:1000px;
+    background-size: 80% 80%;
+        
 }
 
 .signinbg{
@@ -25,3 +34,4 @@
     background-repeat: no-repeat;
     height: 100vh;
 }
+

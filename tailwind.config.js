@@ -6,6 +6,9 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    backgroundSize:{
+      '50%':'50%',
+    },
     extend: {
       colors: {
         'main':"#F98B1D",
