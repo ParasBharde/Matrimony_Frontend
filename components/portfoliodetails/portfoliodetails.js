@@ -53,365 +53,362 @@ const Portfoliodetails = ({ postId }) => {
     issetGrid(true);
   }, []);
   return (
-    <>
-    <div>
-      <div class="flex items-center justify-between px-4  py-3 sm:px-[6rem]">
-        <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
-          <div>
-            <span className="text-sm text-gray-700 dark:text-gray-400">
-              Showing{" "}
-              <span className="font-semibold text-gray-900 dark:text-white">
-                1-57
-              </span>{" "}
-              out{" "}
-              <span className="font-semibold text-gray-900 dark:text-white">
-                Profile
+    <>  
+        <div class=" px-4  py-3 sm:px-[6rem]">
+          <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+            <div>
+              <span className="text-sm text-gray-700 dark:text-gray-400">
+                Showing{" "}
+                <span className="font-semibold text-gray-900 dark:text-white">
+                  1-57
+                </span>{" "}
+                out{" "}
+                <span className="font-semibold text-gray-900 dark:text-white">
+                  Profile
+                </span>
               </span>
-            </span>
-          </div>
-          <div>
-            <nav
-              class="isolate inline-flex -space-x-px "
-              aria-label="Pagination"
-            >
-              <span className="px-2">View by :</span>
-              <button
-                className="flex"
-                onClick={() => {
-                  issetList(!isList);
-                  issetGrid(!isGrid);
-                }}
+            </div>
+            <div>
+              <nav
+                class="isolate inline-flex -space-x-px "
+                aria-label="Pagination"
               >
-                {isGrid ? (
-                  <>
-                    <svg
-                      width="34"
-                      height="34"
-                      viewBox="0 0 34 34"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g filter="url(#filter0_d_62_22856)">
-                        <rect
-                          x="2"
-                          y="2"
-                          width="30"
-                          height="30"
-                          rx="2"
-                          fill="white"
-                        />
-                        <g clip-path="url(#clip0_62_22856)">
-                          <path
-                            d="M9 13H13V9H9V13ZM15 25H19V21H15V25ZM9 25H13V21H9V25ZM9 19H13V15H9V19ZM15 19H19V15H15V19ZM21 9V13H25V9H21ZM15 13H19V9H15V13ZM21 19H25V15H21V19ZM21 25H25V21H21V25Z"
-                            fill="#F98B1D"
-                          />
-                        </g>
-                      </g>
-                      <defs>
-                        <filter
-                          id="filter0_d_62_22856"
-                          x="0"
-                          y="0"
-                          width="34"
-                          height="34"
-                          filterUnits="userSpaceOnUse"
-                          color-interpolation-filters="sRGB"
-                        >
-                          <feFlood
-                            flood-opacity="0"
-                            result="BackgroundImageFix"
-                          />
-                          <feColorMatrix
-                            in="SourceAlpha"
-                            type="matrix"
-                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                            result="hardAlpha"
-                          />
-                          <feOffset />
-                          <feGaussianBlur stdDeviation="1" />
-                          <feComposite in2="hardAlpha" operator="out" />
-                          <feColorMatrix
-                            type="matrix"
-                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"
-                          />
-                          <feBlend
-                            mode="normal"
-                            in2="BackgroundImageFix"
-                            result="effect1_dropShadow_62_22856"
-                          />
-                          <feBlend
-                            mode="normal"
-                            in="SourceGraphic"
-                            in2="effect1_dropShadow_62_22856"
-                            result="shape"
-                          />
-                        </filter>
-                        <clipPath id="clip0_62_22856">
+                <span className="px-2 py-1">View by :</span>
+                <button
+                  className="flex"
+                  onClick={() => {
+                    issetList(!isList);
+                    issetGrid(!isGrid);
+                  }}
+                >
+                  {isGrid ? (
+                    <>
+                      <svg
+                        width="34"
+                        height="34"
+                        viewBox="0 0 34 34"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g filter="url(#filter0_d_62_22856)">
                           <rect
-                            width="24"
-                            height="24"
+                            x="2"
+                            y="2"
+                            width="30"
+                            height="30"
+                            rx="2"
                             fill="white"
-                            transform="translate(5 5)"
                           />
-                        </clipPath>
-                      </defs>
-                    </svg>
-                  </>
-                ) : (
-                  <>
-                    <svg
-                      width="34"
-                      height="34"
-                      viewBox="0 0 34 34"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g filter="url(#filter0_d_313_5302)">
-                        <rect
-                          x="2"
-                          y="2"
-                          width="30"
-                          height="30"
-                          rx="2"
-                          fill="white"
-                        />
-                        <g clip-path="url(#clip0_313_5302)">
-                          <path
-                            d="M9 13H13V9H9V13ZM15 25H19V21H15V25ZM9 25H13V21H9V25ZM9 19H13V15H9V19ZM15 19H19V15H15V19ZM21 9V13H25V9H21ZM15 13H19V9H15V13ZM21 19H25V15H21V19ZM21 25H25V21H21V25Z"
-                            fill="#8E8E8E"
-                          />
+                          <g clip-path="url(#clip0_62_22856)">
+                            <path
+                              d="M9 13H13V9H9V13ZM15 25H19V21H15V25ZM9 25H13V21H9V25ZM9 19H13V15H9V19ZM15 19H19V15H15V19ZM21 9V13H25V9H21ZM15 13H19V9H15V13ZM21 19H25V15H21V19ZM21 25H25V21H21V25Z"
+                              fill="#F98B1D"
+                            />
+                          </g>
                         </g>
-                      </g>
-                      <defs>
-                        <filter
-                          id="filter0_d_313_5302"
-                          x="0"
-                          y="0"
-                          width="34"
-                          height="34"
-                          filterUnits="userSpaceOnUse"
-                          color-interpolation-filters="sRGB"
-                        >
-                          <feFlood
-                            flood-opacity="0"
-                            result="BackgroundImageFix"
-                          />
-                          <feColorMatrix
-                            in="SourceAlpha"
-                            type="matrix"
-                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                            result="hardAlpha"
-                          />
-                          <feOffset />
-                          <feGaussianBlur stdDeviation="1" />
-                          <feComposite in2="hardAlpha" operator="out" />
-                          <feColorMatrix
-                            type="matrix"
-                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"
-                          />
-                          <feBlend
-                            mode="normal"
-                            in2="BackgroundImageFix"
-                            result="effect1_dropShadow_313_5302"
-                          />
-                          <feBlend
-                            mode="normal"
-                            in="SourceGraphic"
-                            in2="effect1_dropShadow_313_5302"
-                            result="shape"
-                          />
-                        </filter>
-                        <clipPath id="clip0_313_5302">
+                        <defs>
+                          <filter
+                            id="filter0_d_62_22856"
+                            x="0"
+                            y="0"
+                            width="34"
+                            height="34"
+                            filterUnits="userSpaceOnUse"
+                            color-interpolation-filters="sRGB"
+                          >
+                            <feFlood
+                              flood-opacity="0"
+                              result="BackgroundImageFix"
+                            />
+                            <feColorMatrix
+                              in="SourceAlpha"
+                              type="matrix"
+                              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                              result="hardAlpha"
+                            />
+                            <feOffset />
+                            <feGaussianBlur stdDeviation="1" />
+                            <feComposite in2="hardAlpha" operator="out" />
+                            <feColorMatrix
+                              type="matrix"
+                              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"
+                            />
+                            <feBlend
+                              mode="normal"
+                              in2="BackgroundImageFix"
+                              result="effect1_dropShadow_62_22856"
+                            />
+                            <feBlend
+                              mode="normal"
+                              in="SourceGraphic"
+                              in2="effect1_dropShadow_62_22856"
+                              result="shape"
+                            />
+                          </filter>
+                          <clipPath id="clip0_62_22856">
+                            <rect
+                              width="24"
+                              height="24"
+                              fill="white"
+                              transform="translate(5 5)"
+                            />
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </>
+                  ) : (
+                    <>
+                      <svg
+                        width="34"
+                        height="34"
+                        viewBox="0 0 34 34"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g filter="url(#filter0_d_313_5302)">
                           <rect
-                            width="24"
-                            height="24"
+                            x="2"
+                            y="2"
+                            width="30"
+                            height="30"
+                            rx="2"
                             fill="white"
-                            transform="translate(5 5)"
                           />
-                        </clipPath>
-                      </defs>
-                    </svg>
-                  </>
-                )}
-              </button>
-              <button
-                onClick={() => {
-                  issetGrid(!isGrid);
-                  issetList(!isList);
-                }}
-              >
-                {isList ? (
-                  <>
-                    <svg
-                      width="34"
-                      height="34"
-                      viewBox="0 0 34 34"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g filter="url(#filter0_d_313_5306)">
-                        <rect
-                          x="2"
-                          y="2"
-                          width="30"
-                          height="30"
-                          rx="2"
-                          fill="white"
-                          shape-rendering="crispEdges"
-                        />
-                        <g clip-path="url(#clip0_313_5306)">
-                          <path
-                            d="M24 18H10C8.9 18 8 18.9 8 20V24C8 25.1 8.9 26 10 26H24C25.1 26 26 25.1 26 24V20C26 18.9 25.1 18 24 18ZM24 24H10V20H24V24Z"
-                            fill="#F98B1D"
-                          />
-                          <path
-                            d="M24 8H10C8.9 8 8 8.9 8 10V14C8 15.1 8.9 16 10 16H24C25.1 16 26 15.1 26 14V10C26 8.9 25.1 8 24 8ZM24 14H10V10H24V14Z"
-                            fill="#F98B1D"
-                          />
+                          <g clip-path="url(#clip0_313_5302)">
+                            <path
+                              d="M9 13H13V9H9V13ZM15 25H19V21H15V25ZM9 25H13V21H9V25ZM9 19H13V15H9V19ZM15 19H19V15H15V19ZM21 9V13H25V9H21ZM15 13H19V9H15V13ZM21 19H25V15H21V19ZM21 25H25V21H21V25Z"
+                              fill="#8E8E8E"
+                            />
+                          </g>
                         </g>
-                      </g>
-                      <defs>
-                        <filter
-                          id="filter0_d_313_5306"
-                          x="0"
-                          y="0"
-                          width="34"
-                          height="34"
-                          filterUnits="userSpaceOnUse"
-                          color-interpolation-filters="sRGB"
-                        >
-                          <feFlood
-                            flood-opacity="0"
-                            result="BackgroundImageFix"
-                          />
-                          <feColorMatrix
-                            in="SourceAlpha"
-                            type="matrix"
-                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                            result="hardAlpha"
-                          />
-                          <feOffset />
-                          <feGaussianBlur stdDeviation="1" />
-                          <feComposite in2="hardAlpha" operator="out" />
-                          <feColorMatrix
-                            type="matrix"
-                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"
-                          />
-                          <feBlend
-                            mode="normal"
-                            in2="BackgroundImageFix"
-                            result="effect1_dropShadow_313_5306"
-                          />
-                          <feBlend
-                            mode="normal"
-                            in="SourceGraphic"
-                            in2="effect1_dropShadow_313_5306"
-                            result="shape"
-                          />
-                        </filter>
-                        <clipPath id="clip0_313_5306">
+                        <defs>
+                          <filter
+                            id="filter0_d_313_5302"
+                            x="0"
+                            y="0"
+                            width="34"
+                            height="34"
+                            filterUnits="userSpaceOnUse"
+                            color-interpolation-filters="sRGB"
+                          >
+                            <feFlood
+                              flood-opacity="0"
+                              result="BackgroundImageFix"
+                            />
+                            <feColorMatrix
+                              in="SourceAlpha"
+                              type="matrix"
+                              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                              result="hardAlpha"
+                            />
+                            <feOffset />
+                            <feGaussianBlur stdDeviation="1" />
+                            <feComposite in2="hardAlpha" operator="out" />
+                            <feColorMatrix
+                              type="matrix"
+                              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"
+                            />
+                            <feBlend
+                              mode="normal"
+                              in2="BackgroundImageFix"
+                              result="effect1_dropShadow_313_5302"
+                            />
+                            <feBlend
+                              mode="normal"
+                              in="SourceGraphic"
+                              in2="effect1_dropShadow_313_5302"
+                              result="shape"
+                            />
+                          </filter>
+                          <clipPath id="clip0_313_5302">
+                            <rect
+                              width="24"
+                              height="24"
+                              fill="white"
+                              transform="translate(5 5)"
+                            />
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </>
+                  )}
+                </button>
+                <button
+                  onClick={() => {
+                    issetGrid(!isGrid);
+                    issetList(!isList);
+                  }}
+                >
+                  {isList ? (
+                    <>
+                      <svg
+                        width="34"
+                        height="34"
+                        viewBox="0 0 34 34"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g filter="url(#filter0_d_313_5306)">
                           <rect
-                            width="24"
-                            height="24"
+                            x="2"
+                            y="2"
+                            width="30"
+                            height="30"
+                            rx="2"
                             fill="white"
-                            transform="translate(5 5)"
+                            shape-rendering="crispEdges"
                           />
-                        </clipPath>
-                      </defs>
-                    </svg>
-                  </>
-                ) : (
-                  <>
-                    <svg
-                      width="34"
-                      height="34"
-                      viewBox="0 0 34 34"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g filter="url(#filter0_d_62_22860)">
-                        <rect
-                          x="2"
-                          y="2"
-                          width="30"
-                          height="30"
-                          rx="2"
-                          fill="white"
-                          shape-rendering="crispEdges"
-                        />
-                        <g clip-path="url(#clip0_62_22860)">
-                          <path
-                            d="M24 18H10C8.9 18 8 18.9 8 20V24C8 25.1 8.9 26 10 26H24C25.1 26 26 25.1 26 24V20C26 18.9 25.1 18 24 18ZM24 24H10V20H24V24Z"
-                            fill="#1E1E1E"
-                            fill-opacity="0.5"
-                          />
-                          <path
-                            d="M24 8H10C8.9 8 8 8.9 8 10V14C8 15.1 8.9 16 10 16H24C25.1 16 26 15.1 26 14V10C26 8.9 25.1 8 24 8ZM24 14H10V10H24V14Z"
-                            fill="#1E1E1E"
-                            fill-opacity="0.5"
-                          />
+                          <g clip-path="url(#clip0_313_5306)">
+                            <path
+                              d="M24 18H10C8.9 18 8 18.9 8 20V24C8 25.1 8.9 26 10 26H24C25.1 26 26 25.1 26 24V20C26 18.9 25.1 18 24 18ZM24 24H10V20H24V24Z"
+                              fill="#F98B1D"
+                            />
+                            <path
+                              d="M24 8H10C8.9 8 8 8.9 8 10V14C8 15.1 8.9 16 10 16H24C25.1 16 26 15.1 26 14V10C26 8.9 25.1 8 24 8ZM24 14H10V10H24V14Z"
+                              fill="#F98B1D"
+                            />
+                          </g>
                         </g>
-                      </g>
-                      <defs>
-                        <filter
-                          id="filter0_d_62_22860"
-                          x="0"
-                          y="0"
-                          width="34"
-                          height="34"
-                          filterUnits="userSpaceOnUse"
-                          color-interpolation-filters="sRGB"
-                        >
-                          <feFlood
-                            flood-opacity="0"
-                            result="BackgroundImageFix"
-                          />
-                          <feColorMatrix
-                            in="SourceAlpha"
-                            type="matrix"
-                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                            result="hardAlpha"
-                          />
-                          <feOffset />
-                          <feGaussianBlur stdDeviation="1" />
-                          <feComposite in2="hardAlpha" operator="out" />
-                          <feColorMatrix
-                            type="matrix"
-                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"
-                          />
-                          <feBlend
-                            mode="normal"
-                            in2="BackgroundImageFix"
-                            result="effect1_dropShadow_62_22860"
-                          />
-                          <feBlend
-                            mode="normal"
-                            in="SourceGraphic"
-                            in2="effect1_dropShadow_62_22860"
-                            result="shape"
-                          />
-                        </filter>
-                        <clipPath id="clip0_62_22860">
+                        <defs>
+                          <filter
+                            id="filter0_d_313_5306"
+                            x="0"
+                            y="0"
+                            width="34"
+                            height="34"
+                            filterUnits="userSpaceOnUse"
+                            color-interpolation-filters="sRGB"
+                          >
+                            <feFlood
+                              flood-opacity="0"
+                              result="BackgroundImageFix"
+                            />
+                            <feColorMatrix
+                              in="SourceAlpha"
+                              type="matrix"
+                              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                              result="hardAlpha"
+                            />
+                            <feOffset />
+                            <feGaussianBlur stdDeviation="1" />
+                            <feComposite in2="hardAlpha" operator="out" />
+                            <feColorMatrix
+                              type="matrix"
+                              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"
+                            />
+                            <feBlend
+                              mode="normal"
+                              in2="BackgroundImageFix"
+                              result="effect1_dropShadow_313_5306"
+                            />
+                            <feBlend
+                              mode="normal"
+                              in="SourceGraphic"
+                              in2="effect1_dropShadow_313_5306"
+                              result="shape"
+                            />
+                          </filter>
+                          <clipPath id="clip0_313_5306">
+                            <rect
+                              width="24"
+                              height="24"
+                              fill="white"
+                              transform="translate(5 5)"
+                            />
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </>
+                  ) : (
+                    <>
+                      <svg
+                        width="34"
+                        height="34"
+                        viewBox="0 0 34 34"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g filter="url(#filter0_d_62_22860)">
                           <rect
-                            width="24"
-                            height="24"
+                            x="2"
+                            y="2"
+                            width="30"
+                            height="30"
+                            rx="2"
                             fill="white"
-                            transform="translate(5 5)"
+                            shape-rendering="crispEdges"
                           />
-                        </clipPath>
-                      </defs>
-                    </svg>
-                  </>
-                )}
-              </button>
-            </nav>
+                          <g clip-path="url(#clip0_62_22860)">
+                            <path
+                              d="M24 18H10C8.9 18 8 18.9 8 20V24C8 25.1 8.9 26 10 26H24C25.1 26 26 25.1 26 24V20C26 18.9 25.1 18 24 18ZM24 24H10V20H24V24Z"
+                              fill="#1E1E1E"
+                              fill-opacity="0.5"
+                            />
+                            <path
+                              d="M24 8H10C8.9 8 8 8.9 8 10V14C8 15.1 8.9 16 10 16H24C25.1 16 26 15.1 26 14V10C26 8.9 25.1 8 24 8ZM24 14H10V10H24V14Z"
+                              fill="#1E1E1E"
+                              fill-opacity="0.5"
+                            />
+                          </g>
+                        </g>
+                        <defs>
+                          <filter
+                            id="filter0_d_62_22860"
+                            x="0"
+                            y="0"
+                            width="34"
+                            height="34"
+                            filterUnits="userSpaceOnUse"
+                            color-interpolation-filters="sRGB"
+                          >
+                            <feFlood
+                              flood-opacity="0"
+                              result="BackgroundImageFix"
+                            />
+                            <feColorMatrix
+                              in="SourceAlpha"
+                              type="matrix"
+                              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                              result="hardAlpha"
+                            />
+                            <feOffset />
+                            <feGaussianBlur stdDeviation="1" />
+                            <feComposite in2="hardAlpha" operator="out" />
+                            <feColorMatrix
+                              type="matrix"
+                              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"
+                            />
+                            <feBlend
+                              mode="normal"
+                              in2="BackgroundImageFix"
+                              result="effect1_dropShadow_62_22860"
+                            />
+                            <feBlend
+                              mode="normal"
+                              in="SourceGraphic"
+                              in2="effect1_dropShadow_62_22860"
+                              result="shape"
+                            />
+                          </filter>
+                          <clipPath id="clip0_62_22860">
+                            <rect
+                              width="24"
+                              height="24"
+                              fill="white"
+                              transform="translate(5 5)"
+                            />
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </>
+                  )}
+                </button>
+              </nav>
+            </div>
           </div>
-        </div>
-      </div>
-
-        {isList ? (
-          <>
-            <div className="list_data flex justify-center px-[5rem] pb-[4rem] ">
+       
+        {isList ? (     
+            <div className="list_data flex justify-center mt-[2rem] pb-[4rem] ">
               <table className=" text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead
                   style={{
@@ -458,11 +455,17 @@ const Portfoliodetails = ({ postId }) => {
                   </tr>
                 </thead>
                 {profiles.length > 0 &&
-                  profiles.map((itms,index) => {
+                  profiles.map((itms, index) => {
                     console.log("itmssss", itms);
                     return (
                       <tbody key={index}>
-                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 cursor-pointer"
+                        onClick={() => {
+                          router.push({
+                            pathname: "/profiledetail/[id]/",
+                            query: { id: itms.id },
+                          });
+                        }}>
                           <td className="px-6 py-4">
                             <input
                               placeholder="check box"
@@ -475,21 +478,26 @@ const Portfoliodetails = ({ postId }) => {
                           <td className="px-6 py-4">VRE223</td>
 
                           <td className="py-3 px-6 text-left">
-                            <div className="flex items-center">
+                            <div
+                              className="flex items-center"
+                              
+                            >
                               <div className="mr-2">
                                 <img
                                   alt="logo"
-                                  className="w-6 h-6 rounded-full"
+                                  className="w-6 h-6 rounded-full cusrsor-pointer"
                                   src={`http://172.105.57.17:1337${itms.attributes.profile_photo.data[0].attributes.url}`}
                                   width={100}
                                   height={100}
                                 />
                               </div>
-                              <span>{itms.attributes.first_name}{" "}
-                            {itms.attributes.last_name}</span>
+                              <span className="cusrsor-pointer">
+                                {itms.attributes.first_name}{" "}
+                                {itms.attributes.last_name}
+                              </span>
                             </div>
                           </td>
-                          
+
                           <td className="px-6 py-4">
                             {itms.attributes.father_name}
                           </td>
@@ -500,7 +508,6 @@ const Portfoliodetails = ({ postId }) => {
                             {itms.attributes.date_of_birth}
                           </td>
                           <td className="px-4 py-4 flex items-center justify-evenly">
-                        
                             <svg
                               width="20"
                               height="20"
@@ -519,21 +526,22 @@ const Portfoliodetails = ({ postId }) => {
                     );
                   })}
               </table>
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="container_card inline-grid grid-cols-4 gap-4">
+            </div>      
+        ) : (   
+            <div className="container_card inline-grid grid-cols-4 gap-[4rem] max-w-screen-2xl">
               {profiles.length > 0 &&
-                profiles.map((itms,index) => {
+                profiles.map((itms, index) => {
                   console.log("itmssss", itms);
                   return (
-                    <div key={index} className="max-w-xs mx-9 mb-2 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300">
+                    <div
+                      key={index}
+                      className=" mb-2 hover:transform hover:scale-105 duration-300"
+                    >
                       <div className="cards">
                         <div className="relative">
                           <picture>
                             <img
-                              className="img_card block h-auto w-60"
+                              className="img_card "
                               src={`http://172.105.57.17:1337${itms.attributes.profile_photo.data[0].attributes.url}`}
                               alt=""
                             />
@@ -547,12 +555,7 @@ const Portfoliodetails = ({ postId }) => {
                               top: "10",
                               right: "10",
                             }}
-                            // onClick={() =>
-                            //   router.push({ pathname: "/likedprofile/[id]/" ,
-                            //   query: { id: itms.id },
-                            // })
-                            // }
-
+                        
                             className="absolute top-0 right-0 m-2 rounded flex items-center justify-center w-10 h-11 text-white text-sm font-bold"
                           >
                             <svg
@@ -674,15 +677,13 @@ const Portfoliodetails = ({ postId }) => {
                     </div>
                   );
                 })}
-            </div>
-          </>
+            </div>       
         )}
-    </div>
+  </div>
       <style jsx>{`
-      .list_data{
-        margin-bottom: 4rem;
-      }
-
+        .list_data {
+          margin-bottom: 4rem;
+        }
       `}</style>
     </>
   );
