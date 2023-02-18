@@ -5,10 +5,9 @@ import Heart from "@/assets/SVG/heart.svg";
 import Download from "@/assets/SVG/downloadlogo.svg";
 import Share from "@/assets/SVG/share.svg";
 import Breadcrumb from "@/components/breadcrumb";
-
-import {
-  Modal,
-} from "reactstrap";
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import { Modal } from "reactstrap";
 import { useRouter } from "next/router";
 
 const Profiledetail = () => {
@@ -21,9 +20,7 @@ const Profiledetail = () => {
     async function getUser() {
       try {
         const response = await axios.get(
-        
           `http://172.105.57.17:1337/api/profiles/?populate=%2A`
-  
         );
         console.log("response", response.data.data);
         setprofilesdata(response.data.data.filter((u) => u.id == id.id));
@@ -35,6 +32,19 @@ const Profiledetail = () => {
   }, [id]);
 
   const [modalDefaultOpen, setModalDefaultOpen] = React.useState(false);
+
+
+  function downloadPdf() {
+    const input = document.getElementById('pdf-content');
+    html2canvas(input)
+      .then((canvas) => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF();
+        pdf.addImage(imgData, 'PNG', 0, 0);
+        pdf.save('download.pdf');
+      });
+  }
+
   return (
     <>
       {profilesdata.length > 0 &&
@@ -45,8 +55,8 @@ const Profiledetail = () => {
               <div className="container">
                 <Breadcrumb screens={["Home", "Search", "Profile Details"]} />
 
-                <div className="main_container flex justify-center overflow-auto">
-                  <table>
+                <div  className="main_container flex justify-center overflow-auto">
+                  <table >
                     <tr>
                       <td className="flex items-center w-full bg-main h-16 px-5">
                         <span className="text-white flex-1">
@@ -61,6 +71,7 @@ const Profiledetail = () => {
                             className="mx-2"
                           />
                           <Image
+                            onClick={downloadPdf}
                             src={Download}
                             width={24}
                             height={21}
@@ -77,13 +88,15 @@ const Profiledetail = () => {
                           />
                         </div>
                       </td>
-                    </tr>
-
-                    <tbody>
+                    </tr>     
+                    <tbody id="pdf-content">
                       <div className="profile_data table-fixed bg-white">
                         <div className="table_header flex ">
                           <thead className="block">
-                            <td className="font-bold">{data.attributes.first_name}{" "}{data.attributes.last_name}</td>
+                            <td className="font-bold">
+                              {data.attributes.first_name}{" "}
+                              {data.attributes.last_name}
+                            </td>
                             <div>
                               <td style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                                 Reg- No : VRE223
@@ -112,9 +125,7 @@ const Profiledetail = () => {
                                     >
                                       Phone
                                     </span>
-                                    <span>
-                                      {data.attributes.phone_number}
-                                    </span>
+                                    <span>{data.attributes.phone_number}</span>
                                   </div>
                                 </div>
                                 <div className="flex items-center justify-center h-24 rounded ">
@@ -133,7 +144,7 @@ const Profiledetail = () => {
                                       className=""
                                       type="button"
                                       onClick={() => setModalDefaultOpen(true)}
-                                    >                                  
+                                    >
                                       <picture>
                                         <img
                                           className="img_profile_portfolio object-contain w-40 min-h-full"
@@ -164,21 +175,19 @@ const Profiledetail = () => {
                                       </div>
 
                                       <div className="img_modal modal-body ">
-                                      <picture>
-                                      <img
-                                          alt=""
-                                          src={`http://172.105.57.17:1337${data.attributes.profile_photo.data[0].attributes.url}`}
-                                          
-                                          placeholder="image"
-                                          width={500}
-                                          height={500}
-                                        />
-                                      </picture>
-                                        
+                                        <picture>
+                                          <img
+                                            alt=""
+                                            src={`http://172.105.57.17:1337${data.attributes.profile_photo.data[0].attributes.url}`}
+                                            placeholder="image"
+                                            width={500}
+                                            height={500}
+                                          />
+                                        </picture>
                                       </div>
                                     </Modal>
-                                    <div className="flex justify-around"> 
-                                       <picture>
+                                    <div className="flex justify-around">
+                                      <picture>
                                         <img
                                           className="img_profile_g"
                                           object-fit
@@ -238,7 +247,9 @@ const Profiledetail = () => {
                                     >
                                       Marriage Status
                                     </span>
-                                    <span>{data.attributes.marriage_status}</span>
+                                    <span>
+                                      {data.attributes.marriage_status}
+                                    </span>
                                   </div>
                                 </div>
                               </div>
@@ -264,7 +275,12 @@ const Profiledetail = () => {
                                     >
                                       Qualification
                                     </span>
-                                    <span>{data.attributes.educational_qualification}</span>
+                                    <span>
+                                      {
+                                        data.attributes
+                                          .educational_qualification
+                                      }
+                                    </span>
                                   </div>
                                 </div>
                                 <div className="flex items-center justify-center h-24 rounded ">
@@ -300,7 +316,9 @@ const Profiledetail = () => {
                                     >
                                       Family Property
                                     </span>
-                                    <span>{data.attributes.family_property_details}</span>
+                                    <span>
+                                      {data.attributes.family_property_details}
+                                    </span>
                                   </div>
                                 </div>
                                 <div className="flex items-center justify-center h-24 rounded ">
@@ -310,7 +328,9 @@ const Profiledetail = () => {
                                     >
                                       Type of food
                                     </span>
-                                    <span>{data.attributes.Choose_veg_nonveg}</span>
+                                    <span>
+                                      {data.attributes.Choose_veg_nonveg}
+                                    </span>
                                   </div>
                                 </div>
                               </div>
@@ -336,7 +356,9 @@ const Profiledetail = () => {
                                     >
                                       Salary
                                     </span>
-                                    <span>{data.attributes.Salary_monthly_income}</span>
+                                    <span>
+                                      {data.attributes.Salary_monthly_income}
+                                    </span>
                                   </div>
                                 </div>
                                 <div className="flex items-center justify-center h-24 rounded ">
@@ -396,7 +418,9 @@ const Profiledetail = () => {
                                       >
                                         Father&apos;s Native
                                       </span>
-                                      <span>{data.attributes.father_native}</span>
+                                      <span>
+                                        {data.attributes.father_native}
+                                      </span>
                                     </div>
                                   </div>
                                   <div className="flex items-center justify-center h-24 ">
@@ -406,9 +430,11 @@ const Profiledetail = () => {
                                           color: "rgba(30, 30, 30, 0.5)",
                                         }}
                                       >
-                                       Mother&apos;s Native
+                                        Mother&apos;s Native
                                       </span>
-                                      <span>{data.attributes.mother_native}</span>
+                                      <span>
+                                        {data.attributes.mother_native}
+                                      </span>
                                     </div>
                                   </div>
                                 </div>
@@ -426,7 +452,9 @@ const Profiledetail = () => {
                                       >
                                         Father&apos;s Profession
                                       </span>
-                                      <span>{data.attributes.father_profession}</span>
+                                      <span>
+                                        {data.attributes.father_profession}
+                                      </span>
                                     </div>
                                   </div>
                                   <div className="flex items-center justify-center h-24 rounded ">
@@ -438,7 +466,9 @@ const Profiledetail = () => {
                                       >
                                         Mother&apos;s Profession
                                       </span>
-                                      <span>{data.attributes.mother_profession}</span>
+                                      <span>
+                                        {data.attributes.mother_profession}
+                                      </span>
                                     </div>
                                   </div>
                                   <div className="flex items-center justify-center h-24 rounded ">
@@ -450,7 +480,9 @@ const Profiledetail = () => {
                                       >
                                         Phone Number
                                       </span>
-                                      <span>{data.attributes.parents_contact_number}</span>
+                                      <span>
+                                        {data.attributes.parents_contact_number}
+                                      </span>
                                     </div>
                                   </div>
                                   <div className="flex items-center justify-center h-24 rounded ">
@@ -492,7 +524,9 @@ const Profiledetail = () => {
                                       >
                                         Elder Brother
                                       </span>
-                                      <span>{data.attributes.elder_brothers}</span>
+                                      <span>
+                                        {data.attributes.elder_brothers}
+                                      </span>
                                     </div>
                                   </div>
                                   <div className="flex items-center justify-center h-24 rounded ">
@@ -504,7 +538,9 @@ const Profiledetail = () => {
                                       >
                                         Younger Brother
                                       </span>
-                                      <span>{data.attributes.younger_brothers}</span>
+                                      <span>
+                                        {data.attributes.younger_brothers}
+                                      </span>
                                     </div>
                                   </div>
                                   <div className="flex items-center justify-center h-24 rounded ">
@@ -516,7 +552,9 @@ const Profiledetail = () => {
                                       >
                                         Married
                                       </span>
-                                      <span>{data.attributes.married_brothers}</span>
+                                      <span>
+                                        {data.attributes.married_brothers}
+                                      </span>
                                     </div>
                                   </div>
                                 </div>
@@ -532,7 +570,7 @@ const Profiledetail = () => {
                                           color: "rgba(30, 30, 30, 0.5)",
                                         }}
                                       >
-                                       Sisters
+                                        Sisters
                                       </span>
                                       <span>{data.attributes.sisters}</span>
                                     </div>
@@ -546,7 +584,9 @@ const Profiledetail = () => {
                                       >
                                         Elder Sister
                                       </span>
-                                      <span>{data.attributes.elder_sisters}</span>
+                                      <span>
+                                        {data.attributes.elder_sisters}
+                                      </span>
                                     </div>
                                   </div>
                                   <div className="flex items-center justify-center h-24 rounded ">
@@ -558,7 +598,9 @@ const Profiledetail = () => {
                                       >
                                         Younger Sister
                                       </span>
-                                      <span>{data.attributes.younger_sisters}</span>
+                                      <span>
+                                        {data.attributes.younger_sisters}
+                                      </span>
                                     </div>
                                   </div>
                                   <div className="flex items-center justify-center h-24 rounded ">
@@ -570,7 +612,9 @@ const Profiledetail = () => {
                                       >
                                         Married
                                       </span>
-                                      <span>{data.attributes.married_sisters}</span>
+                                      <span>
+                                        {data.attributes.married_sisters}
+                                      </span>
                                     </div>
                                   </div>
                                 </div>
@@ -583,7 +627,9 @@ const Profiledetail = () => {
 
                         {/* Horoscope Information */}
                         <div className="third_content">
-                          <span className="sec_text">Horoscope Information</span>
+                          <span className="sec_text">
+                            Horoscope Information
+                          </span>
                           <div>
                             <div className="first_content p-4 sm:ml-64 ">
                               <div className="p-4 ">
@@ -597,7 +643,9 @@ const Profiledetail = () => {
                                       >
                                         Zodiac Sign
                                       </span>
-                                      <span>{data.attributes.zodiacs_sign}</span>
+                                      <span>
+                                        {data.attributes.zodiacs_sign}
+                                      </span>
                                     </div>
                                   </div>
                                   <div className="flex items-center justify-center h-24 rounded ">
@@ -633,7 +681,9 @@ const Profiledetail = () => {
                                       >
                                         Udayati Nazhikai
                                       </span>
-                                      <span>{data.attributes.udayati_nazhikai}</span>
+                                      <span>
+                                        {data.attributes.udayati_nazhikai}
+                                      </span>
                                     </div>
                                   </div>
                                 </div>
@@ -685,7 +735,7 @@ const Profiledetail = () => {
                                           color: "rgba(30, 30, 30, 0.5)",
                                         }}
                                       >
-                                       Ascendant (Laknam)
+                                        Ascendant (Laknam)
                                       </span>
                                       <span>{data.attributes.ascendant}</span>
                                     </div>
@@ -717,7 +767,12 @@ const Profiledetail = () => {
                                       >
                                         Presence of natal direction
                                       </span>
-                                      <span>{data.attributes.presence_of_natal_direction}</span>
+                                      <span>
+                                        {
+                                          data.attributes
+                                            .presence_of_natal_direction
+                                        }
+                                      </span>
                                     </div>
                                   </div>
                                 </div>
@@ -732,22 +787,22 @@ const Profiledetail = () => {
                         <div className="fourth_content">
                           <span className="sec_text ">Horoscope Chart</span>
                           <div className="tb_dt flex ">
-                          <picture>
-                                        <img
-                                          className=""
-                                          object-fit
-                                          src={`http://172.105.57.17:1337${data.attributes.horoscope_document.data[0].attributes.url}`}
-                                          alt=""
-                                        />
-                                      </picture>
-                                      <picture>
-                                        <img
-                                          className=""
-                                          object-fit
-                                          src={`http://172.105.57.17:1337${data.attributes.horoscope_document.data[1].attributes.url}`}
-                                          alt=""
-                                        />
-                                      </picture>
+                            <picture>
+                              <img
+                                className=""
+                                object-fit
+                                src={`http://172.105.57.17:1337${data.attributes.horoscope_document.data[0].attributes.url}`}
+                                alt=""
+                              />
+                            </picture>
+                            <picture>
+                              <img
+                                className=""
+                                object-fit
+                                src={`http://172.105.57.17:1337${data.attributes.horoscope_document.data[1].attributes.url}`}
+                                alt=""
+                              />
+                            </picture>
                           </div>
                         </div>
                       </div>

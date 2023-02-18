@@ -537,7 +537,7 @@ const Portfoliodetails = ({ postId }) => {
                     className="relative mb-2 hover:transform hover:scale-105 duration-300"
                   >
                     <div className="cards blur-sm">
-                      <div className="relative ">
+                      <div className="relative">
                         <picture>
                           <img
                             className="img_card "
@@ -672,7 +672,7 @@ const Portfoliodetails = ({ postId }) => {
                         </p>
                       </footer>
                     </div>
-                     <div className="absolute grid place-items-center top-32 ml-16">
+                     <div className="absolute top-28 left-0 grid justify-items-center m-auto w-[100%]">
                      <svg
                           className="  flex justify-center items-center w-8 h-12 text-white"
                            
