@@ -73,21 +73,21 @@ const Header = () => {
           </p>
           <div ref={dropdownRef1} className="relative">
             <p className="drop cursor-pointer" onMouseOver={() => setMenuDropDownOpen1(true)}>EN</p>
-            {!isMenuDropDownOpen1 && (
-            <div className="absolute bg-white right-2 shadow-lg top-12">
-              <p className="m-3 w-[100px] cursor-pointer">
-                <i className=" mr-5 text-main text-center"></i>
-                TA
-              </p>
-              
-            </div>
-          )}
+            {isMenuDropDownOpen1 && (
+              <div className="absolute bg-white right-2 shadow-lg top-12">
+                <p className="m-3 w-[100px] cursor-pointer">
+                  <i className=" mr-5 text-main text-center"></i>
+                  TA
+                </p>
+
+              </div>
+            )}
           </div>
         </div>
         <div ref={dropdownRef} className="relative">
           <Image
             className="drop"
-            // src={avatar}
+            src={avatar}
             alt="avatar"
             onMouseOver={() => setMenuDropDownOpen(true)}
           />
@@ -101,10 +101,10 @@ const Header = () => {
                 <i className="fa-regular fa-heart mr-5 text-main"></i>Liked Profile
               </p>
               <p className="m-3 w-[200px] cursor-pointer">
-                  <i class="fa-solid fa-download mr-5 text-main"></i> Download Profile
+                <i class="fa-solid fa-download mr-5 text-main"></i> Download Profile
               </p>
               <p className="m-3 w-[200px] cursor-pointer">
-              <i class="fa-solid fa-lock mr-5 text-main"></i> Change Password
+                <i class="fa-solid fa-lock mr-5 text-main"></i> Change Password
               </p>
               <p className="m-3 w-[200px] cursor-pointer">
                 <i className="fa-solid fa-right-from-bracket mr-5 text-main"></i>

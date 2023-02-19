@@ -1,21 +1,49 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Sidenav from "@/components/customerpanel/sidenav";
 import Topnav from "@/components/customerpanel/topnav";
 import Footernav from "@/components/customerpanel/footernav";
 
-import Link from "next/link";
+import axios from "axios";
 
 const Dashboard = () => {
+
+  const [total, setTotal] = useState(0)
+
+  const getAllProfiles = () => {
+
+    var config = {
+      method: 'get',
+      maxBodyLength: Infinity,
+      url: 'http://172.105.57.17:1337/api/profiles',
+      headers: {}
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        setTotal(response.data.meta.pagination.total)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+  }
+
+  useEffect(() => {
+    getAllProfiles()
+  }, [])
+
+
   return (
     <>
-    <Sidenav/>
-    <Topnav/>
+      <Sidenav />
+      <Topnav />
       <div className="p-4 sm:ml-64">
         <div className="p-4 border-gray-200 rounded">
           <div className="grid grid-cols-4 gap-4 mb-4">
             <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
               <div className="grid grid-rows-2 gap-2 flex-1 justify-start align-middle ml-6">
-                <span style={{ fontSize: "1.5rem" }}>250</span>
+                <span style={{ fontSize: "1.5rem" }}>{total}</span>
                 <p className="text-sm">Total Profile</p>
               </div>
               <svg
@@ -46,7 +74,7 @@ const Dashboard = () => {
             </div>
             <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
               <div className="grid grid-rows-2 gap-2 flex-1 justify-start align-middle ml-6">
-                <span style={{ fontSize: "1.5rem" }}>250</span>
+                <span style={{ fontSize: "1.5rem" }}>{total}</span>
                 <p className="text-sm">Total Profile</p>
               </div>
               <svg
@@ -77,7 +105,7 @@ const Dashboard = () => {
             </div>
             <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
               <div className="grid grid-rows-2 gap-2 flex-1 justify-start align-middle ml-6">
-                <span style={{ fontSize: "1.5rem" }}>250</span>
+                <span style={{ fontSize: "1.5rem" }}>{total}</span>
                 <p className="text-sm">Total Profile</p>
               </div>
               <svg
@@ -108,7 +136,7 @@ const Dashboard = () => {
             </div>
             <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
               <div className="grid grid-rows-2 gap-2 flex-1 justify-start align-middle ml-6">
-                <span style={{ fontSize: "1.5rem" }}>250</span>
+                <span style={{ fontSize: "1.5rem" }}>{total}</span>
                 <p className="text-sm">Total Profile</p>
               </div>
               <svg
@@ -142,7 +170,7 @@ const Dashboard = () => {
 
           <div className="relative overflow-x-auto mt-8">
             <table className="text-sm text-left text-gray-500 dark:text-gray-400">
-              <thead style={{color: 'rgba(30, 30, 30, 0.5)',fontWeight:'400'}} className="text-xs  uppercase ">
+              <thead style={{ color: 'rgba(30, 30, 30, 0.5)', fontWeight: '400' }} className="text-xs  uppercase ">
                 <tr>
                   <th scope="col" className="px-6 py-3">
                     Reg.No
@@ -174,7 +202,7 @@ const Dashboard = () => {
                   <td className="px-6 py-4">$2999</td>
                   <td className="px-6 py-4">
                     <svg
-                    
+
                       width="24"
                       height="24"
                       viewBox="0 0 24 24"
@@ -188,13 +216,13 @@ const Dashboard = () => {
                     </svg>
                   </td>
                 </tr>
-          
+
               </tbody>
             </table>
           </div>
         </div>
       </div>
-    <Footernav/>
+      <Footernav />
     </>
   );
 };

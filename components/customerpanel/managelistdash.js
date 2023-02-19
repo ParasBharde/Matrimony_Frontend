@@ -22,7 +22,7 @@ const Managelistdash = () => {
                   <path
                     fill-rule="evenodd"
                     d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
                 </svg>
               </div>
@@ -116,7 +116,7 @@ const Managelistdash = () => {
                 <div className="flex items-center">
                   <div className="mr-2">
                     <Image
-                    alt='user image'
+                      alt='user image'
                       className="w-6 h-6 rounded-full"
                       src={profile}
                       width={100}
@@ -187,7 +187,7 @@ const Managelistdash = () => {
                     <path
                       fill-rule="evenodd"
                       d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     />
                   </svg>
                 </a>
@@ -247,7 +247,7 @@ const Managelistdash = () => {
                     <path
                       fill-rule="evenodd"
                       d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     />
                   </svg>
                 </a>
