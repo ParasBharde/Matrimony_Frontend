@@ -22,8 +22,9 @@
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    height:1000px;
-    background-size: 80% 80%;
+    height:100vh;
+    background-size: 90% 100%;
+    margin: 10px;
         
 }
 

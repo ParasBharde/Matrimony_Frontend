@@ -21,12 +21,12 @@ const Footer = () => {
           </div>
         </div>
       ) : (
-        <div className="footer_main bg-main flex max-md:h-56 ">
-          <p className="text-white text-base flex-3 pl-20 max-md:text-3xl max-md:w-[50%] max-md:ml-56">
+        <div className="footer_main bg-main flex max-md:min-w-min max-md:pb-5;">
+          <p className="text-white text-base flex-3 pl-15 max-md:text-3xl max-md:">
             Copyright © Trichy Vayalur Road Reddy Trust All rights reserved.
             Theme Anews by themeuniver
           </p>
-          <div className=" text-white text-2xl flex-1 max-md:absolute left-[36rem] max-md:text-3xl max-md:mb-44 max-md:flex flex-row">
+          <div className=" text-white text-2xl flex-1 max-md:absolute left-[15rem] max-md:text-3xl max-md:mb-44 max-md:flex flex-row">
             <i className="fa-brands fa-facebook mx-3"></i>
             <i className="fa-brands fa-twitter mx-3"></i>
             <i className="fa-brands fa-instagram mx-3"></i>

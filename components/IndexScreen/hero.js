@@ -72,7 +72,7 @@ const Hero = (props) => {
       </div>
 
       {/* dublicate div start here   */}
-      <div className="flex justify-center items-center absolute bottom-[16rem] left-[36rem]  px-6 md:hidden max-md:block max-md:flex">
+      <div className="flex justify-center items-center absolute bottom-[16rem] left-[14rem]  px-6 md:hidden max-md:block max-md:flex">
         <p
           className="text-white bg-main py-2 px-5 rounded-md mx-2 cursor-pointer my-5"
           onClick={() => {

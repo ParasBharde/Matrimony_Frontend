@@ -18,13 +18,15 @@ const AboutUs = (props) => {
       {/* // dublicate div for responsive  */}
 
       <div className="aboutusresbg break-all hidden max-md:block max-md:bg-cover ">
-        <div className="pt-40 pl-24 md: w-[40rem] max-md:relative left-[15rem] top-[20rem]">
-          <p className="font-semibold text-3xl md:max:text-4xl mt-10">About Us</p>
-          <p className="text-dark font-normal text-sm my-4 relative inline-flex max-md:w-[40rem] max-md:text-xl font-semibold ">
+        <div className="pt-40 pl-24 md: w-[40rem] max-md:relative left-[-2rem] top-[14rem]">
+          <p className="font-semibold text-3xl md:max:text-4xl mt-10">
+            About Us
+          </p>
+          <p className="text-dark font-normal text-sm my-4 relative inline-flex max-md:text-xl max-md:font-semibold">
             {props.homedata.About_desc}
           </p>
           <p className="text-white bg-main py-2 px-5 mt-6 rounded-md cursor-pointer max-w-max">
-            Read More 
+            Read More
           </p>
         </div>
       </div>

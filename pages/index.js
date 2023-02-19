@@ -37,7 +37,7 @@ useEffect(() => {
 
   return (
     <>
-      <div className='min-w-fit'>
+      <div className='min-w-min'>
         <Hero homedata={home} />
         <Heading homedata={home} />
         <AboutUs homedata={home} />
