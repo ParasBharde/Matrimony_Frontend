@@ -588,7 +588,7 @@ const Portfoliodetails = ({ postId }) => {
                         <h1 className="text-lg">
                           <span
                             className="no-underline hover:underline text-black cursor-pointer"
-                            href="#"
+
                           >
                             {itms.attributes.first_name}{" "}
                             {itms.attributes.last_name}

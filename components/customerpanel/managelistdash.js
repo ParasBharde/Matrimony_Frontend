@@ -1,9 +1,38 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import profile from "@/assets/profile.png";
 import Link from "next/link";
+import axios from "axios";
 
 const Managelistdash = () => {
+
+  const [profiles, setProfiles] = useState([])
+
+  const getAllProfiles = () => {
+
+    var config = {
+      method: 'get',
+      maxBodyLength: Infinity,
+      url: 'http://172.105.57.17:1337/api/profiles',
+      headers: {}
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        setProfiles(response.data.data)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+  }
+
+  useEffect(() => {
+    getAllProfiles()
+  }, [])
+
+
   return (
     <>
       <div className="txt flex justify-around  relative">
@@ -36,7 +65,7 @@ const Managelistdash = () => {
             </div>
           </form>
           <button className="px-5 rounded bg-orange-400 py-2">
-            <Link className="flex text-white" href="#">
+            <Link href={"#"} className="flex text-white" >
               <svg
                 className="mr-2 mt-1"
                 width="17"
@@ -97,61 +126,68 @@ const Managelistdash = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="bg-white border-b">
-              <td className="px-6 py-4">
-                <input
-                  placeholder="check box"
-                  type="checkbox"
-                  className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white focus:outline-none  focus:ring-2  focus:ring-gray-400"
-                  onclick="checkAll(this)"
-                />
-              </td>
-              <td
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-              >
-                00121
-              </td>
-              <td className="py-3 px-6 text-left">
-                <div className="flex items-center">
-                  <div className="mr-2">
-                    <Image
-                      alt='user image'
-                      className="w-6 h-6 rounded-full"
-                      src={profile}
-                      width={100}
-                      height={100}
-                    />
-                  </div>
-                  <span>Eshal Rosas</span>
-                </div>
-              </td>
-              <td className="px-6 py-4">Female</td>
-              <td className="px-6 py-4">$ABC</td>
-              <td className="px-6 py-4">$ABC</td>
-              <td className="px-6 py-4">123456789</td>
-              <td className="font-medium text-left px-2 py-4">
-                <span className="bg-purple-200 text-purple-600 py-2 px-4 rounded text-base">
-                  Active
-                </span>
-              </td>
-            </tr>
+            {
+              profiles.map((item, index) => {
+                return (
+                  <tr key={index} className="bg-white border-b">
+                    <td className="px-6 py-4">
+                      <input
+                        placeholder="check box"
+                        type="checkbox"
+                        className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white focus:outline-none  focus:ring-2  focus:ring-gray-400"
+                        onclick="checkAll(this)"
+                      />
+                    </td>
+                    <td
+                      scope="row"
+                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                    >
+                      {item.id}
+                    </td>
+                    <td className="py-3 px-6 text-left">
+                      <div className="flex items-center">
+                        <div className="mr-2">
+                          <Image
+                            alt='user image'
+                            className="w-6 h-6 rounded-full"
+                            src={profile}
+                            width={100}
+                            height={100}
+                          />
+                        </div>
+                        <span>{item.attributes.first_name + " " + item.attributes.last_name}</span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">{item.attributes.Chooese_groom_bride == "Bride" ? "Female" : "Male"}</td>
+                    <td className="px-6 py-4">{item.attributes.email}</td>
+                    <td className="px-6 py-4">{item.attributes.phone_number}</td>
+                    <td className="px-6 py-4">23/04/2002</td>
+                    <td className="font-medium text-left px-2 py-4">
+                      <span className="bg-purple-200 text-purple-600 py-2 px-4 rounded text-base">
+                        Active
+                      </span>
+                    </td>
+                  </tr>
+                )
+
+              }, [])
+            }
           </tbody>
         </table>
         <div className="flex items-center justify-between  px-4 py-3 sm:px-6">
           <div className="flex flex-1 justify-between sm:hidden">
-            <a
-              href="#"
+            <p
+
               className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
               Previous
-            </a>
-            <a
-              href="#"
+            </p>
+            <p
+
               className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
               Next
-            </a>
+            </p>
           </div>
           <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
             <div>
@@ -171,8 +207,8 @@ const Managelistdash = () => {
                 className="isolate inline-flex -space-x-px  rounded-md shadow-sm "
                 aria-label="Pagination"
               >
-                <a
-                  href="#"
+                <p
+
                   className="relative inline-flex items-center rounded-l-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
                 >
                   <span className="sr-only">Previous</span>
@@ -190,49 +226,49 @@ const Managelistdash = () => {
                       clipRule="evenodd"
                     />
                   </svg>
-                </a>
-                <a
-                  href="#"
+                </p>
+                <p
+
                   aria-current="page"
                   className="relative z-10 inline-flex items-center border border-gray-400 px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
                 >
                   1
-                </a>
-                <a
-                  href="#"
+                </p>
+                <p
+
                   className="relative inline-flex items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
                 >
                   2
-                </a>
-                <a
-                  href="#"
+                </p>
+                <p
+
                   className="relative hidden items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20 md:inline-flex"
                 >
                   3
-                </a>
+                </p>
                 <span className="relative inline-flex items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-700">
                   ...
                 </span>
-                <a
-                  href="#"
+                <p
+
                   className="relative hidden items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20 md:inline-flex"
                 >
                   8
-                </a>
-                <a
-                  href="#"
+                </p>
+                <p
+
                   className="relative inline-flex items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
                 >
                   9
-                </a>
-                <a
-                  href="#"
+                </p>
+                <p
+
                   className="relative inline-flex items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
                 >
                   10
-                </a>
-                <a
-                  href="#"
+                </p>
+                <p
+
                   className="relative inline-flex items-center rounded-r-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
                 >
                   <span className="sr-only">Next</span>
@@ -250,7 +286,7 @@ const Managelistdash = () => {
                       clipRule="evenodd"
                     />
                   </svg>
-                </a>
+                </p>
               </nav>
             </div>
           </div>

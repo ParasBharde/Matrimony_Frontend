@@ -1,15 +1,11 @@
 import React from "react";
-import Dashboard from "@/pages/admin/dashboard";
-import Sidenav from "@/components/customerpanel/sidenav";
-import Topnav from "@/components/customerpanel/topnav";
-import Footernav from "@/components/customerpanel/footernav";
+import Dashboard from "@/components/customerpanel/dashboard";
 
 const Adminpanel = () => {
   return (
     <>
 
       <Dashboard />
-      <Footernav />
       <style jsx>{`
         button {
           background: #f98b1d;

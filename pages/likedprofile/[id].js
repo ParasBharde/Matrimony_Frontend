@@ -126,7 +126,7 @@ const Likedprofile = () => {
                 <h1 className="text-lg">
                   <span
                     className="no-underline hover:underline text-black"
-                    href="#"
+
                   >
                     sdsa
                   </span>

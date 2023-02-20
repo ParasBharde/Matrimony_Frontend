@@ -61,7 +61,7 @@ const Sidenav = () => {
               </li>
               <li>
                 <Link
-                  href="/admin/dashboard"
+                  href="/admin"
                   className="hv_co flex items-center p-2 text-base font-normal text-white rounded hover:text-white"
                 >
                   <span className="flex-1 ml-3 whitespace-nowrap">
