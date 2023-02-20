@@ -118,8 +118,8 @@ axios(config)
   }
 
   return (
-    <div className='bg-[#E0E0E0] py-10 w-full'>
-      <div className='bg-white w-[85%] mx-auto pt-12 pb-10'>
+    <div className='bg-[#E0E0E0] py-10 w-full max-md:bg-white max-md:w-fit max-md:p-10   '>
+      <div className='bg-white w-[85%] mx-auto pt-12 pb-10 max-md:w-fit'>
         <RegisterHeader index={screen}/>
         {screen==1&&<RegisterForm1 screen={screen} setScreen={setScreen}/>}
         {screen==2&&<RegisterForm2 screen={screen} setScreen={setScreen}/>}

@@ -8,7 +8,8 @@ const Footer = () => {
     <>
       {router.pathname === "/portfolio/portfolioprofile" ||
       router.pathname === "/portfolio/portfolio" ||
-      router.pathname === "/likedprofile/[id]" ? (
+      router.pathname === "/likedprofile/[id]" ||
+      router.pathname === "/pricingPlan" ? (
         <div className="footer_main_1 bg-main flex flex-wrap justify-between items-center px-20  ">
           <p className="text-white text-base">
             Copyright © Trichy Vayalur Road Reddy Trust All rights reserved.
@@ -21,7 +22,7 @@ const Footer = () => {
           </div>
         </div>
       ) : (
-        <div className="footer_main bg-main flex max-md:min-w-min max-md:pb-5;">
+        <div className="footer_main bg-main flex max-md:pb-5;">
           <p className="text-white text-base flex-3 pl-15 max-md:text-3xl max-md:">
             Copyright © Trichy Vayalur Road Reddy Trust All rights reserved.
             Theme Anews by themeuniver

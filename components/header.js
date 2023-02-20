@@ -4,6 +4,7 @@ import headerLogo from "@/assets/headerLogo.png";
 import avatar from "@/assets/avatar.png";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Hamburger from "@/assets/SVG/Hamburger";
 
 import downloadIcon from "@/assets/SVG/downloadlogo.svg"
 
@@ -30,14 +31,14 @@ const Header = () => {
 
 
   return (
-    <div className="flex flex-row justify-between items-center mx-20 py-3">
+    <div className="flex flex-row justify-between items-center mx-5 max-md:pt-5 py-3 max-md:min-w-fit">
       <Link href="/">
         <div>
-          <Image src={headerLogo} alt={"Header Logo"} />
+          <Image src={headerLogo} alt={"Header Logo"}/>
         </div>
       </Link>
       <div className="flex justify-center items-center gap-16 ">
-        <div className="flex justify-center items-center text-[16px] font-[400] gap-10">
+        <div className="flex justify-center items-center text-[16px] font-[400] gap-10 max-md:hidden">
           <p
             className="cursor-pointer"
             onClick={() => {
@@ -71,23 +72,33 @@ const Header = () => {
           >
             Contact Us
           </p>
-          <div ref={dropdownRef1} className="relative">
-            <p className="drop cursor-pointer" onMouseOver={() => setMenuDropDownOpen1(true)}>EN</p>
+          <div ref={dropdownRef1} className="relative max-md:block max-md:text-2xl">
+            <p
+              className="drop cursor-pointer"
+              onMouseOver={() => setMenuDropDownOpen1(true)}
+            >
+              EN
+            </p>
             {!isMenuDropDownOpen1 && (
-            <div className="absolute bg-white right-2 shadow-lg top-12">
-              <p className="m-3 w-[100px] cursor-pointer">
-                <i className=" mr-5 text-main text-center"></i>
-                TA
-              </p>
-              
-            </div>
-          )}
+              <div className="absolute bg-white right-2 shadow-lg top-12">
+                <p className="m-3 w-[100px] cursor-pointer">
+                  <i className=" mr-5 text-main text-center"></i>
+                  TA
+                </p>
+              </div>
+            )}
           </div>
         </div>
-        <div ref={dropdownRef} className="relative">
+
+        {/* add for responsive screen  */}
+        <div className="absolute right-5  hidden max-md:block max-sm:block max-md:bg-black">
+          <Hamburger onClick={() => console.log("Clicked")} />
+        </div>
+        {/* ..................   */}
+        <div ref={dropdownRef} className="relative  max-md:right-10">
           <Image
-            className="drop"
-            // src={avatar}
+            className="drop "
+            src={avatar}
             alt="avatar"
             onMouseOver={() => setMenuDropDownOpen(true)}
           />
@@ -98,13 +109,15 @@ const Header = () => {
                 Profile
               </p>
               <p className="m-3 w-[200px] cursor-pointer">
-                <i className="fa-regular fa-heart mr-5 text-main"></i>Liked Profile
+                <i className="fa-regular fa-heart mr-5 text-main"></i>Liked
+                Profile
               </p>
               <p className="m-3 w-[200px] cursor-pointer">
-                  <i class="fa-solid fa-download mr-5 text-main"></i> Download Profile
+                <i class="fa-solid fa-download mr-5 text-main"></i> Download
+                Profile
               </p>
               <p className="m-3 w-[200px] cursor-pointer">
-              <i class="fa-solid fa-lock mr-5 text-main"></i> Change Password
+                <i class="fa-solid fa-lock mr-5 text-main"></i> Change Password
               </p>
               <p className="m-3 w-[200px] cursor-pointer">
                 <i className="fa-solid fa-right-from-bracket mr-5 text-main"></i>

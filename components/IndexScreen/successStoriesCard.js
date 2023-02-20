@@ -21,12 +21,12 @@ useEffect(() => {
 }, [])
   return (
     <>
-      <div className="w-max bg-white shadow-md rounded-md mx-5 max-md:w-full">
-        <div className="">
-          <Image src={ss} alt="ss" className="max-md:w-full" />
+      <div className="w-max bg-white shadow-md rounded-md m-5 max-md:w-full">
+        <div className="max-md:">
+          <Image src={ss} alt="ss" className="max-md:min-w-full " />
 
           <div className="flex justify-between items-center  px-5 max-md:justify-between  ">
-            <div className="flex justify-between max-md:w-full max-md:mx-9">
+            <div className="flex justify-between max-md:w-full max-md:m-6">
               <div className="flex flex-col items-start justify-center ">
                 <p className="text-dark text-sm font-extrabold items-center justify-center max-md:text-2xl ">
                   Guna & Aadanya

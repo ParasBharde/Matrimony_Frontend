@@ -5,7 +5,7 @@ import bgfy from "@/assets/indexAssets/bestGiftFromYou.png"
 
 const BestGiftFromYou = ({homedata}) => {
   return (
-    <Image width={1600} src={bgfy} alt="bgfy"/>
+    <Image width={1600} src={bgfy} alt="bgfy" className='max-md:min-w-full'/>
   )
 }
 
