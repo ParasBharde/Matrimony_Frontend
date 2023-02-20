@@ -1,37 +1,37 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
+import { toast } from "react-toastify"
 
-const RegisterForm3 = ({screen,setScreen}) => {
+const RegisterForm3 = ({ screen, setScreen }) => {
 
-  const [fatherName,setFatherName]=useState("")
-  const [motherName,setMotherName]=useState("")
+  const [fatherName, setFatherName] = useState("")
+  const [motherName, setMotherName] = useState("")
 
-  const [fatherNative,setFatherNative]=useState("")
-  const [motherNative,setMotherNative]=useState("")
+  const [fatherNative, setFatherNative] = useState("")
+  const [motherNative, setMotherNative] = useState("")
 
-  const [fatherProfession,setFatherProfession]=useState("")
-  const [motherProfession,setMotherProfession]=useState("")
+  const [fatherProfession, setFatherProfession] = useState("")
+  const [motherProfession, setMotherProfession] = useState("")
 
-  const [phoneNumber,setPhoneNumber]=useState("")
-  const [address,setAddress]=useState("")
+  const [phoneNumber, setPhoneNumber] = useState("")
+  const [address, setAddress] = useState("")
 
-  const [father,setFather]=useState(false)
-  const [mother,setMother]=useState(false)
+  const [father, setFather] = useState(false)
+  const [mother, setMother] = useState(false)
 
-  const [brothers,setBrothers]=useState(0)
-  const [youngerBrothers,setYoungerBrothers]=useState(0)
-  const [elderBrothers,setElderBrothers]=useState(0)
-  const [marriedBrothers,setMarriedBrothers]=useState(0)
+  const [brothers, setBrothers] = useState(0)
+  const [youngerBrothers, setYoungerBrothers] = useState(0)
+  const [elderBrothers, setElderBrothers] = useState(0)
+  const [marriedBrothers, setMarriedBrothers] = useState(0)
 
-  const [sisters,setSisters]=useState(0)
-  const [youngerSisters,setYoungerSisters]=useState(0)
-  const [elderSisters,setElderSisters]=useState(0)
-  const [marriedSisters,setMarriedSisters]=useState(0)
+  const [sisters, setSisters] = useState(0)
+  const [youngerSisters, setYoungerSisters] = useState(0)
+  const [elderSisters, setElderSisters] = useState(0)
+  const [marriedSisters, setMarriedSisters] = useState(0)
 
   useEffect(() => {
-    const rg=sessionStorage.getItem("rg3")
-    if(rg)
-    {
-      const jrg=JSON.parse(rg)
+    const rg = sessionStorage.getItem("rg3")
+    if (rg) {
+      const jrg = JSON.parse(rg)
 
       setFatherName(jrg.fatherName)
       setMotherName(jrg.motherName)
@@ -60,200 +60,235 @@ const RegisterForm3 = ({screen,setScreen}) => {
     }
   }, []);
 
-  const beforeNextScreen=()=>{
-    const rg3={fatherName,motherName,fatherNative,motherNative,fatherProfession,motherProfession,phoneNumber,address,father,mother,brothers,youngerBrothers,elderBrothers,marriedBrothers,sisters,youngerSisters,elderSisters,marriedSisters}
-    sessionStorage.setItem("rg3",JSON.stringify(rg3))
+  const beforeNextScreen = () => {
+    const rg3 = { fatherName, motherName, fatherNative, motherNative, fatherProfession, motherProfession, phoneNumber, address, father, mother, brothers, youngerBrothers, elderBrothers, marriedBrothers, sisters, youngerSisters, elderSisters, marriedSisters }
+    sessionStorage.setItem("rg3", JSON.stringify(rg3))
   }
 
-return (
-<>
-  <div className='w-[820px] mx-auto'>
-    <p className='font-[600] text-[18px]'>Parent Information</p>
-  </div>
+  var nameRegex = /\d/g;
+  var phoneRegex = /^(0|91)?[6-9][0-9]{9}$/;
 
-  <div className='flex justify-center items-center gap-5'>
+  const validate = () => {
 
-    <div className='mt-5'>
-      <p className='text-dark font-[500] text-[14px] mb-2'>Father&apos;s Name *</p>
-      <input placeholder='Enter Your Name' type={"text"} value={fatherName} onChange={(e)=>{setFatherName(e.target.value)}}
-        className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
-    </div>
-    <div className='mt-5'>
-      <p className='text-dark font-[500] text-[14px] mb-2'>Mother&apos;s name *</p>
-      <input placeholder='Enter Your Name' type={"text"} value={motherName} onChange={(e)=>{setMotherName(e.target.value)}}
-        className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
-    </div>
+    if (!(fatherName && motherName && fatherNative && motherNative && fatherProfession && motherProfession && phoneNumber && address)) {
+      toast.error("Please Input all fields")
+      return false
+    }
 
-  </div>
+    if (nameRegex.test(fatherName) || nameRegex.test(motherName)) {
+      toast.error("Name must not contain a number")
+      return false
+    }
 
-  <div className='flex justify-center items-center gap-5'>
+    if (nameRegex.test(fatherNative) || nameRegex.test(motherNative)) {
+      toast.error("Native must not contain a number")
+      return false
+    }
 
-    <div className='mt-5'>
-      <p className='text-dark font-[500] text-[14px] mb-2'>Father&apos;s Native *</p>
-      <input placeholder='Enter Your Name' type={"text"} value={fatherNative} onChange={(e)=>{setFatherNative(e.target.value)}}
-        className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
-    </div>
-    <div className='mt-5'>
-      <p className='text-dark font-[500] text-[14px] mb-2'>Mother&apos;s Native *</p>
-      <input placeholder='Enter Your Name' type={"text"} value={motherNative} onChange={(e)=>{setMotherNative(e.target.value)}}
-        className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
-    </div>
 
-  </div>
+    if (!phoneRegex.test(phoneNumber)) {
+      toast.error("Please enter a valid phone number")
+      return false
+    }
 
-  <div className='flex justify-center items-center gap-5'>
+    return true
 
-    <div className='mt-5'>
-      <p className='text-dark font-[500] text-[14px] mb-2'>Father&apos;s Profession *</p>
-      <input placeholder='Enter Your Name' type={"text"} value={fatherProfession} onChange={(e)=>{setFatherProfession(e.target.value)}}
-        className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
-    </div>
-    <div className='mt-5'>
-      <p className='text-dark font-[500] text-[14px] mb-2'>Mother&apos;s Profession *</p>
-      <input placeholder='Enter Your Name' type={"text"} value={motherProfession} onChange={(e)=>{setMotherProfession(e.target.value)}}
-        className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
-    </div>
+  }
 
-  </div>
-
-  <div className='flex justify-center items-center gap-5'>
-
-    <div className='mt-5'>
-      <p className='text-dark font-[500] text-[14px] mb-2'>Phone Number *</p>
-      <input placeholder='Enter Your Name' type={"text"} value={phoneNumber} onChange={(e)=>{setPhoneNumber(e.target.value)}}
-        className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
-    </div>
-    <div className='mt-5'>
-      <p className='text-dark font-[500] text-[14px] mb-2'>Address *</p>
-      <input placeholder='Enter Your Name' type={"text"} value={address} onChange={(e)=>{setAddress(e.target.value)}}
-        className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
-    </div>
-
-  </div>
-
-  <div className='w-[820px] flex justify-start mx-auto mt-5'>
-    <div>
-      <p className='font-[600] text-[18px] text-dark'>Family Members</p>
-      <div className='flex justify-start items-center gap-16 mt-3'>
-        <div>
-          <input type="checkbox" checked={father} onChange={(e)=>{setFather(e.target.checked)}} name="father" value="father" />
-          <label htmlFor="father"> Father</label>
-        </div>
-        <div>
-          <input type="checkbox" checked={mother} onChange={(e)=>{setMother(e.target.checked)}} name="mother" value="mother" />
-          <label htmlFor="mother"> Mother</label>
-        </div>
+  return (
+    <>
+      <div className='w-[820px] mx-auto'>
+        <p className='font-[600] text-[18px]'>Parent Information</p>
       </div>
-    </div>
 
-  </div>
+      <div className='flex justify-center items-center gap-5'>
 
-  <div className='flex justify-between items-center mt-5 w-[820px] mx-auto'>
-    <div>
-      <p className='text-dark font-[500] text-[14px] mb-2'>Brothers *</p>
-      <select value={brothers} onChange={(e)=>{setBrothers(e.target.value)}} name="brothers" className='border-gray-300 text-gray-400 border-2 rounded h-[40px] w-[190px] mt-2'>
-        <option value={0}>00</option>
-        <option value={1}>01</option>
-        <option value={2}>02</option>
-        <option value={3}>03</option>
-        <option value={4}>04</option>
-        <option value={5}>05</option>
-      </select>
-    </div>
-    <div>
-      <p className='text-dark font-[500] text-[14px] mb-2'>Younger Brothers *</p>
-      <select value={youngerBrothers} onChange={(e)=>{setYoungerBrothers(e.target.value)}} name="youngerBrothers" className='border-gray-300 text-gray-400 border-2 rounded h-[40px] w-[190px] mt-2'>
-        <option value={0}>00</option>
-        <option value={1}>01</option>
-        <option value={2}>02</option>
-        <option value={3}>03</option>
-        <option value={4}>04</option>
-        <option value={5}>05</option>
-      </select>
-    </div>
-    <div>
-      <p className='text-dark font-[500] text-[14px] mb-2'>Elder Brothers *</p>
-      <select value={elderBrothers} onChange={(e)=>{setElderBrothers(e.target.value)}} name="elderBrothers" className='border-gray-300 text-gray-400 border-2 rounded h-[40px] w-[190px] mt-2'>
-        <option value={0}>00</option>
-        <option value={1}>01</option>
-        <option value={2}>02</option>
-        <option value={3}>03</option>
-        <option value={4}>04</option>
-        <option value={5}>05</option>
-      </select>
-    </div>
-    <div>
-      <p className='text-dark font-[500] text-[14px] mb-2'>Married *</p>
-      <select value={marriedBrothers} onChange={(e)=>{setMarriedBrothers(e.target.value)}} name="marriedBrothers" className='border-gray-300 text-gray-400 border-2 rounded h-[40px] w-[190px] mt-2'>
-        <option value={0}>00</option>
-        <option value={1}>01</option>
-        <option value={2}>02</option>
-        <option value={3}>03</option>
-        <option value={4}>04</option>
-        <option value={5}>05</option>
-      </select>
-    </div>
-    
-  </div>
+        <div className='mt-5'>
+          <p className='text-dark font-[500] text-[14px] mb-2'>Father&apos;s Name *</p>
+          <input placeholder="Enter Your Father's Name" type={"text"} value={fatherName} onChange={(e) => { setFatherName(e.target.value) }}
+            className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
+        </div>
+        <div className='mt-5'>
+          <p className='text-dark font-[500] text-[14px] mb-2'>Mother&apos;s name *</p>
+          <input placeholder="Enter Your Mother's Name" type={"text"} value={motherName} onChange={(e) => { setMotherName(e.target.value) }}
+            className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
+        </div>
 
+      </div>
 
-  <div className='flex justify-between items-center mt-5 w-[820px] mx-auto mb-3'>
-    <div>
-      <p className='text-dark font-[500] text-[14px] mb-2'>Sisters *</p>
-      <select value={sisters} onChange={(e)=>{setSisters(e.target.value)}} name="sisters" className='border-gray-300 text-gray-400 border-2 rounded h-[40px] w-[190px] mt-2'>
-        <option value={0}>00</option>
-        <option value={1}>01</option>
-        <option value={2}>02</option>
-        <option value={3}>03</option>
-        <option value={4}>04</option>
-        <option value={5}>05</option>
-      </select>
-    </div>
-    <div>
-      <p className='text-dark font-[500] text-[14px] mb-2'>Younger Sisters *</p>
-      <select value={youngerSisters} onChange={(e)=>{setYoungerSisters(e.target.value)}} name="youngerSisters" className='border-gray-300 text-gray-400 border-2 rounded h-[40px] w-[190px] mt-2'>
-        <option value={0}>00</option>
-        <option value={1}>01</option>
-        <option value={2}>02</option>
-        <option value={3}>03</option>
-        <option value={4}>04</option>
-        <option value={5}>05</option>
-      </select>
-    </div>
-    <div>
-      <p className='text-dark font-[500] text-[14px] mb-2'>Elder Sisters *</p>
-      <select value={elderSisters} onChange={(e)=>{setElderSisters(e.target.value)}} name="elderSisters" className='border-gray-300 text-gray-400 border-2 rounded h-[40px] w-[190px] mt-2'>
-        <option value={0}>00</option>
-        <option value={1}>01</option>
-        <option value={2}>02</option>
-        <option value={3}>03</option>
-        <option value={4}>04</option>
-        <option value={5}>05</option>
-      </select>
-    </div>
-    <div>
-      <p className='text-dark font-[500] text-[14px] mb-2'>Married *</p>
-      <select value={marriedSisters} onChange={(e)=>{setMarriedSisters(e.target.value)}} name="marriedSisters" className='border-gray-300 text-gray-400 border-2 rounded h-[40px] w-[190px] mt-2'>
-        <option value={0}>00</option>
-        <option value={1}>01</option>
-        <option value={2}>02</option>
-        <option value={3}>03</option>
-        <option value={4}>04</option>
-        <option value={5}>05</option>
-      </select>
-    </div>
-    
-  </div>
-  <div className={`${screen!=1?"w-[800px]":"w-[400px]"} mx-auto flex justify-end my-3 gap-2`}>
-        {screen!=1&&<p className='text-main bg-white border-2 border-main py-2 px-5 rounded-md cursor-pointer max-w-max' onClick={()=>{setScreen(screen-1)}}>Back</p>}
-            <p className='text-white bg-main py-2 px-5 rounded-md cursor-pointer max-w-max' onClick={()=>{if(screen<=3){ setScreen(screen+1)}
-          beforeNextScreen()}}>Next</p>
+      <div className='flex justify-center items-center gap-5'>
+
+        <div className='mt-5'>
+          <p className='text-dark font-[500] text-[14px] mb-2'>Father&apos;s Native *</p>
+          <input placeholder="Enter Your Father's Native" type={"text"} value={fatherNative} onChange={(e) => { setFatherNative(e.target.value) }}
+            className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
+        </div>
+        <div className='mt-5'>
+          <p className='text-dark font-[500] text-[14px] mb-2'>Mother&apos;s Native *</p>
+          <input placeholder="Enter Your Mother's Native" type={"text"} value={motherNative} onChange={(e) => { setMotherNative(e.target.value) }}
+            className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
+        </div>
+
+      </div>
+
+      <div className='flex justify-center items-center gap-5'>
+
+        <div className='mt-5'>
+          <p className='text-dark font-[500] text-[14px] mb-2'>Father&apos;s Profession *</p>
+          <input placeholder="Enter Your Father's Profession" type={"text"} value={fatherProfession} onChange={(e) => { setFatherProfession(e.target.value) }}
+            className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
+        </div>
+        <div className='mt-5'>
+          <p className='text-dark font-[500] text-[14px] mb-2'>Mother&apos;s Profession *</p>
+          <input placeholder="Enter Your Mother's Profession" type={"text"} value={motherProfession} onChange={(e) => { setMotherProfession(e.target.value) }}
+            className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
+        </div>
+
+      </div>
+
+      <div className='flex justify-center items-center gap-5'>
+
+        <div className='mt-5'>
+          <p className='text-dark font-[500] text-[14px] mb-2'>Phone Number *</p>
+          <input placeholder="Enter Your Parent's Phone Number" type={"number"} value={phoneNumber} onChange={(e) => { if (e.target.value.length <= 10) setPhoneNumber(e.target.value) }}
+            className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3 appearance-none' />
+        </div>
+        <div className='mt-5'>
+          <p className='text-dark font-[500] text-[14px] mb-2'>Address *</p>
+          <input placeholder='Enter Your Address' type={"text"} value={address} onChange={(e) => { setAddress(e.target.value) }}
+            className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
+        </div>
+
+      </div>
+
+      <div className='w-[820px] flex justify-start mx-auto mt-5'>
+        <div>
+          <p className='font-[600] text-[18px] text-dark'>Family Members</p>
+          <div className='flex justify-start items-center gap-16 mt-3'>
+            <div>
+              <input type="checkbox" checked={father} onChange={(e) => { setFather(e.target.checked) }} name="father" value="father" />
+              <label htmlFor="father"> Father</label>
+            </div>
+            <div>
+              <input type="checkbox" checked={mother} onChange={(e) => { setMother(e.target.checked) }} name="mother" value="mother" />
+              <label htmlFor="mother"> Mother</label>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div className='flex justify-between items-center mt-5 w-[820px] mx-auto'>
+        <div>
+          <p className='text-dark font-[500] text-[14px] mb-2'>Brothers *</p>
+          <select value={brothers} onChange={(e) => { setBrothers(e.target.value) }} name="brothers" className='border-gray-300 text-gray-400 border-2 rounded h-[40px] w-[190px] mt-2'>
+            <option value={0}>00</option>
+            <option value={1}>01</option>
+            <option value={2}>02</option>
+            <option value={3}>03</option>
+            <option value={4}>04</option>
+            <option value={5}>05</option>
+          </select>
+        </div>
+        <div>
+          <p className='text-dark font-[500] text-[14px] mb-2'>Younger Brothers *</p>
+          <select value={youngerBrothers} onChange={(e) => { setYoungerBrothers(e.target.value) }} name="youngerBrothers" className='border-gray-300 text-gray-400 border-2 rounded h-[40px] w-[190px] mt-2'>
+            <option value={0}>00</option>
+            <option value={1}>01</option>
+            <option value={2}>02</option>
+            <option value={3}>03</option>
+            <option value={4}>04</option>
+            <option value={5}>05</option>
+          </select>
+        </div>
+        <div>
+          <p className='text-dark font-[500] text-[14px] mb-2'>Elder Brothers *</p>
+          <select value={elderBrothers} onChange={(e) => { setElderBrothers(e.target.value) }} name="elderBrothers" className='border-gray-300 text-gray-400 border-2 rounded h-[40px] w-[190px] mt-2'>
+            <option value={0}>00</option>
+            <option value={1}>01</option>
+            <option value={2}>02</option>
+            <option value={3}>03</option>
+            <option value={4}>04</option>
+            <option value={5}>05</option>
+          </select>
+        </div>
+        <div>
+          <p className='text-dark font-[500] text-[14px] mb-2'>Married *</p>
+          <select value={marriedBrothers} onChange={(e) => { setMarriedBrothers(e.target.value) }} name="marriedBrothers" className='border-gray-300 text-gray-400 border-2 rounded h-[40px] w-[190px] mt-2'>
+            <option value={0}>00</option>
+            <option value={1}>01</option>
+            <option value={2}>02</option>
+            <option value={3}>03</option>
+            <option value={4}>04</option>
+            <option value={5}>05</option>
+          </select>
+        </div>
+
       </div>
 
 
+      <div className='flex justify-between items-center mt-5 w-[820px] mx-auto mb-3'>
+        <div>
+          <p className='text-dark font-[500] text-[14px] mb-2'>Sisters *</p>
+          <select value={sisters} onChange={(e) => { setSisters(e.target.value) }} name="sisters" className='border-gray-300 text-gray-400 border-2 rounded h-[40px] w-[190px] mt-2'>
+            <option value={0}>00</option>
+            <option value={1}>01</option>
+            <option value={2}>02</option>
+            <option value={3}>03</option>
+            <option value={4}>04</option>
+            <option value={5}>05</option>
+          </select>
+        </div>
+        <div>
+          <p className='text-dark font-[500] text-[14px] mb-2'>Younger Sisters *</p>
+          <select value={youngerSisters} onChange={(e) => { setYoungerSisters(e.target.value) }} name="youngerSisters" className='border-gray-300 text-gray-400 border-2 rounded h-[40px] w-[190px] mt-2'>
+            <option value={0}>00</option>
+            <option value={1}>01</option>
+            <option value={2}>02</option>
+            <option value={3}>03</option>
+            <option value={4}>04</option>
+            <option value={5}>05</option>
+          </select>
+        </div>
+        <div>
+          <p className='text-dark font-[500] text-[14px] mb-2'>Elder Sisters *</p>
+          <select value={elderSisters} onChange={(e) => { setElderSisters(e.target.value) }} name="elderSisters" className='border-gray-300 text-gray-400 border-2 rounded h-[40px] w-[190px] mt-2'>
+            <option value={0}>00</option>
+            <option value={1}>01</option>
+            <option value={2}>02</option>
+            <option value={3}>03</option>
+            <option value={4}>04</option>
+            <option value={5}>05</option>
+          </select>
+        </div>
+        <div>
+          <p className='text-dark font-[500] text-[14px] mb-2'>Married *</p>
+          <select value={marriedSisters} onChange={(e) => { setMarriedSisters(e.target.value) }} name="marriedSisters" className='border-gray-300 text-gray-400 border-2 rounded h-[40px] w-[190px] mt-2'>
+            <option value={0}>00</option>
+            <option value={1}>01</option>
+            <option value={2}>02</option>
+            <option value={3}>03</option>
+            <option value={4}>04</option>
+            <option value={5}>05</option>
+          </select>
+        </div>
 
-</>
-)
+      </div>
+      <div className={`${screen != 1 ? "w-[800px]" : "w-[400px]"} mx-auto flex justify-end my-3 gap-2`}>
+        {screen != 1 && <p className='text-main bg-white border-2 border-main py-2 px-5 rounded-md cursor-pointer max-w-max' onClick={() => { setScreen(screen - 1) }}>Back</p>}
+        <p className='text-white bg-main py-2 px-5 rounded-md cursor-pointer max-w-max' onClick={() => {
+
+          if (validate()) {
+            if (screen <= 3) { setScreen(screen + 1) }
+            beforeNextScreen()
+          }
+        }}>Next</p>
+      </div>
+
+
+
+    </>
+  )
 }
 
 export default RegisterForm3

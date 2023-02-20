@@ -1,4 +1,6 @@
-import React,{useState,useEffect} from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @next/next/no-img-element */
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import profile from "@/assets/profile.png";
 import Link from "next/link";
@@ -25,7 +27,7 @@ const Managelistdash = () => {
       axios(config)
         .then(function (response) {
           setprofiles(response.data.data);
-        setVendorToShow(response.data.data)
+          setVendorToShow(response.data.data)
 
         })
         .catch(function (error) {
@@ -65,30 +67,30 @@ const Managelistdash = () => {
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                 <svg
                   aria-hidden="true"
-                  className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                  className="w-5 h-5 text-gray-500"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
                 </svg>
               </div>
               <input
                 type="text"
                 id="voice-search"
-                value={search} 
+                value={search}
                 onChange={(e) => { setSearch(e.target.value) }}
-                className="bg-gray-50 border px-5 border-gray-300 text-gray-900 text-sm rounded  focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="bg-gray-50 border px-5 border-gray-300 text-gray-900 text-sm rounded  focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
                 placeholder="Search..."
               />
             </div>
           </form>
           <button className="px-5 rounded bg-orange-400 py-2">
-            <Link className="flex text-white" href="#">
+            <Link href="#" className="flex text-white" >
               <svg
                 className="mr-2 mt-1"
                 width="17"
@@ -108,7 +110,7 @@ const Managelistdash = () => {
         </div>
       </div>
       <div className="user_dash relative overflow-x-auto">
-        <table className="text-sm text-left text-gray-500 dark:text-gray-400 ">
+        <table className="text-sm text-left text-gray-500">
           <thead
             style={{ color: "rgba(30, 30, 30, 0.5)", fontWeight: "400" }}
             className="text-xs  uppercase "
@@ -116,12 +118,12 @@ const Managelistdash = () => {
             <tr>
               <th
                 scope="col"
-                className="px-6 py-3 text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4"
+                className="px-6 py-3 text-gray-600font-normal pr-6 text-left text-sm tracking-normal leading-4"
               >
                 <input
                   placeholder="check box"
                   type="checkbox"
-                  className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white dark:bg-gray-800 focus:outline-none  focus:ring-2  focus:ring-gray-400"
+                  className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white focus:outline-none  focus:ring-2  focus:ring-gray-400"
                   onclick="checkAll(this)"
                 />
               </th>
@@ -199,28 +201,28 @@ const Managelistdash = () => {
         </table>
         <div className="flex items-center justify-between  px-4 py-3 sm:px-6">
           <div className="flex flex-1 justify-between sm:hidden">
-            <a
-              href="#"
+            <p
+
               className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
               Previous
-            </a>
-            <a
-              href="#"
+            </p>
+            <p
+
               className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
               Next
-            </a>
+            </p>
           </div>
           <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
             <div>
-              <span className="text-sm text-gray-700 dark:text-gray-400">
+              <span className="text-sm text-gray-700">
                 1-10{" "}
-                <span className="font-semibold text-gray-900 dark:text-white">
+                <span className="font-semibold text-gray-900">
                   of
                 </span>{" "}
                 50{" "}
-                <span className="font-semibold text-gray-900 dark:text-white">
+                <span className="font-semibold text-gray-900">
                   Pages
                 </span>
               </span>
@@ -230,8 +232,8 @@ const Managelistdash = () => {
                 className="isolate inline-flex -space-x-px  rounded-md shadow-sm "
                 aria-label="Pagination"
               >
-                <a
-                  href="#"
+                <p
+
                   className="relative inline-flex items-center rounded-l-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
                 >
                   <span className="sr-only">Previous</span>
@@ -244,54 +246,54 @@ const Managelistdash = () => {
                     aria-hidden="true"
                   >
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     />
                   </svg>
-                </a>
-                <a
-                  href="#"
+                </p>
+                <p
+
                   aria-current="page"
                   className="relative z-10 inline-flex items-center border border-gray-400 px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
                 >
                   1
-                </a>
-                <a
-                  href="#"
+                </p>
+                <p
+
                   className="relative inline-flex items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
                 >
                   2
-                </a>
-                <a
-                  href="#"
+                </p>
+                <p
+
                   className="relative hidden items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20 md:inline-flex"
                 >
                   3
-                </a>
+                </p>
                 <span className="relative inline-flex items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-700">
                   ...
                 </span>
-                <a
-                  href="#"
+                <p
+
                   className="relative hidden items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20 md:inline-flex"
                 >
                   8
-                </a>
-                <a
-                  href="#"
+                </p>
+                <p
+
                   className="relative inline-flex items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
                 >
                   9
-                </a>
-                <a
-                  href="#"
+                </p>
+                <p
+
                   className="relative inline-flex items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
                 >
                   10
-                </a>
-                <a
-                  href="#"
+                </p>
+                <p
+
                   className="relative inline-flex items-center rounded-r-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
                 >
                   <span className="sr-only">Next</span>
@@ -304,12 +306,12 @@ const Managelistdash = () => {
                     aria-hidden="true"
                   >
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     />
                   </svg>
-                </a>
+                </p>
               </nav>
             </div>
           </div>

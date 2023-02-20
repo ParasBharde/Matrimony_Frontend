@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from "react";
 import Sidenav from "@/components/customerpanel/sidenav";
 import Topnav from "@/components/customerpanel/topnav";
@@ -60,7 +61,7 @@ const Dashboard = () => {
       <div className="p-4 sm:ml-64">
         <div className="p-4 border-gray-200 rounded">
           <div className="grid grid-cols-4 gap-4 mb-4">
-            <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
+            <div className="flex items-center justify-center h-24 rounded bg-gray-50">
               <div className="grid grid-rows-2 gap-2 flex-1 justify-start align-middle ml-6">
                 <span style={{ fontSize: "1.5rem" }}>{profileslength}</span>
                 <p className="text-sm">Total Profile</p>
@@ -91,7 +92,7 @@ const Dashboard = () => {
                 />
               </svg>
             </div>
-            <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
+            <div className="flex items-center justify-center h-24 rounded bg-gray-50">
               <div className="grid grid-rows-2 gap-2 flex-1 justify-start align-middle ml-6">
                 <span style={{ fontSize: "1.5rem" }}>{filtersmale}</span>
                 <p className="text-sm">Total Male Profile</p>
@@ -113,7 +114,7 @@ const Dashboard = () => {
                   cy="25"
                   r="25"
                   fill="#F98B1D"
-                  fill-opacity="0.2"
+                  fillOpacity="0.2"
                 />
                 <path
                   d="M27.2798 10.7076L27.3552 10.6321C27.3552 10.6321 27.2798 10.6321 27.2798 10.5566V10.7076V10.7076Z"
@@ -157,7 +158,7 @@ const Dashboard = () => {
                 />
               </svg>
             </div>
-            <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
+            <div className="flex items-center justify-center h-24 rounded bg-gray-50">
               <div className="grid grid-rows-2 gap-2 flex-1 justify-start align-middle ml-6">
                 <span style={{ fontSize: "1.5rem" }}>{filtersfemale}</span>
                 <p className="text-sm">Total Female Profile</p>
@@ -179,7 +180,7 @@ const Dashboard = () => {
                   cy="25"
                   r="25"
                   fill="#F98B1D"
-                  fill-opacity="0.2"
+                  fillOpacity="0.2"
                 />
                 <path
                   d="M22.3989 17.4844C21.9481 17.4844 21.4972 17.86 21.4972 18.3861C21.4972 18.837 21.8729 19.2879 22.3989 19.2879C22.8498 19.2879 23.3007 18.9122 23.3007 18.3861C23.3007 17.9353 22.8498 17.4844 22.3989 17.4844Z"
@@ -215,7 +216,7 @@ const Dashboard = () => {
                 />
               </svg>
             </div>
-            <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
+            <div className="flex items-center justify-center h-24 rounded bg-gray-50">
               <div className="grid grid-rows-2 gap-2 flex-1 justify-start align-middle ml-6">
                 <span style={{ fontSize: "1.5rem" }}>250</span>
                 <p className="text-sm">Total Paid Members</p>
@@ -237,7 +238,7 @@ const Dashboard = () => {
                   cy="25"
                   r="25"
                   fill="#F98B1D"
-                  fill-opacity="0.2"
+                  fillOpacity="0.2"
                 />
                 <path
                   d="M15.7186 7.8651L19.173 17.1284C20.9539 16.3755 22.9142 15.9571 24.9702 15.9571C26.9184 15.9571 28.7711 16.3397 30.4806 17.0209L35.5727 8.9406C35.5727 8.9406 33.4211 7.32694 31.4609 9.1199C29.5004 10.9008 28.066 5.89258 26.4644 5.89258C24.8628 5.89258 23.0698 9.46647 20.9183 8.40272C18.7667 7.32694 17.1531 5.89258 15.7187 7.86483L15.7186 7.8651Z"
@@ -253,7 +254,7 @@ const Dashboard = () => {
           <h1 className="ml-3 text-lg">New Users</h1>
 
           <div className="relative overflow-x-auto mt-8 mb-[4rem]">
-            <table className="text-sm text-left text-gray-500 dark:text-gray-400 ">
+            <table className="text-sm text-left text-gray-500">
               <thead
                 style={{
                   color: "rgba(30, 30, 30, 0.5)",
@@ -284,10 +285,10 @@ const Dashboard = () => {
                   // console.log("itmssss", itms);
                   return (
                     <tbody key={index}>
-                      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                      <tr className="bg-white border-b">
                         <td
                           scope="row"
-                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                         >
                           01213
                         </td>
