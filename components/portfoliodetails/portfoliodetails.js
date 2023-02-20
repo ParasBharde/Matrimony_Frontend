@@ -57,13 +57,13 @@ const Portfoliodetails = ({ postId }) => {
       <div class=" px-4 py-3 sm:px-[6rem]">
         <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
           <div>
-            <span className="text-sm text-gray-700 dark:text-gray-400">
+            <span className="text-sm text-gray-700">
               Showing{" "}
-              <span className="font-semibold text-gray-900 dark:text-white">
+              <span className="font-semibold text-gray-900">
                 1-57
               </span>{" "}
               out{" "}
-              <span className="font-semibold text-gray-900 dark:text-white">
+              <span className="font-semibold text-gray-900">
                 Profile
               </span>
             </span>
@@ -409,7 +409,7 @@ const Portfoliodetails = ({ postId }) => {
 
         {isList ? (
           <div className="list_data flex justify-center mt-[2rem] pb-[4rem] ">
-            <table className=" text-sm text-left text-gray-500 dark:text-gray-400 divide-y-4 divide-slate-400/[3rem]">
+            <table className=" text-sm text-left text-gray-500 divide-y-4 divide-slate-400/[3rem]">
               <thead
                 style={{
                   color: "rgba(30, 30, 30, 0.5)",
@@ -422,12 +422,12 @@ const Portfoliodetails = ({ postId }) => {
                 <tr>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4"
+                    className="px-6 py-3 text-gray-600 font-normal pr-6 text-left text-sm tracking-normal leading-4"
                   >
                     <input
                       placeholder="check box"
                       type="checkbox"
-                      className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white dark:bg-gray-800 focus:outline-none  focus:ring-2  focus:ring-gray-400"
+                      className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white focus:outline-none  focus:ring-2  focus:ring-gray-400"
                       onclick="checkAll(this)"
                     />
                   </th>
@@ -460,7 +460,7 @@ const Portfoliodetails = ({ postId }) => {
                   return (
                     <tbody key={index}>
                       <tr
-                        className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 cursor-pointer"
+                        className="bg-white border-b cursor-pointer"
                         onClick={() => {
                           router.push({
                             pathname: "/profiledetail/[id]/",
@@ -472,7 +472,7 @@ const Portfoliodetails = ({ postId }) => {
                           <input
                             placeholder="check box"
                             type="checkbox"
-                            className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white dark:bg-gray-800  focus:outline-none focus:ring-2  focus:ring-gray-400"
+                            className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white  focus:outline-none focus:ring-2  focus:ring-gray-400"
                             onclick="checkAll(this)"
                           />
                         </td>

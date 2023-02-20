@@ -14,13 +14,13 @@ const Manageuserdash = () => {
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                 <svg
                   aria-hidden="true"
-                  className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                  className="w-5 h-5 text-gray-500"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
                     clipRule="evenodd"
                   ></path>
@@ -29,7 +29,7 @@ const Manageuserdash = () => {
               <input
                 type="text"
                 id="voice-search"
-                className="bg-gray-50  px-5 border-orange-300 text-gray-900 text-sm rounded  focus:ring-orange-500 focus:border-orange-500 block w-full pl-10 p-2.5  dark:bg-orange-400 dark:border-orange-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-orange-400"
+                className="bg-gray-50  px-5 border-orange-300 text-gray-900 text-sm rounded  focus:ring-orange-500 focus:border-orange-500 block w-full pl-10 p-2.5"
                 placeholder="Search..."
                 required
               />
@@ -56,7 +56,7 @@ const Manageuserdash = () => {
         </div>
       </div>
       <div className="user_dash relative overflow-x-auto mt-8">
-        <table className="text-sm text-left text-gray-500 dark:text-gray-400">
+        <table className="text-sm text-left text-gray-500">
           <thead
             style={{ color: "rgba(30, 30, 30, 0.5)", fontWeight: "400" }}
             className="text-xs  uppercase "
@@ -64,12 +64,12 @@ const Manageuserdash = () => {
             <tr>
               <th
                 scope="col"
-                className="px-6 py-3 text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4"
+                className="px-6 py-3 text-gray-600 font-normal pr-6 text-left text-sm tracking-normal leading-4"
               >
                 <input
                   placeholder="check box"
                   type="checkbox"
-                  className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white dark:bg-gray-800 focus:outline-none  focus:ring-2  focus:ring-gray-400"
+                  className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white focus:outline-none  focus:ring-2  focus:ring-gray-400"
                   onclick="checkAll(this)"
                 />
               </th>
@@ -100,18 +100,18 @@ const Manageuserdash = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+            <tr className="bg-white border-b">
               <td className="px-6 py-4">
                 <input
                   placeholder="check box"
                   type="checkbox"
-                  className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white dark:bg-gray-800  focus:outline-none focus:ring-2  focus:ring-gray-400"
+                  className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white focus:outline-none focus:ring-2  focus:ring-gray-400"
                   onclick="checkAll(this)"
                 />
               </td>
               <td
                 scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
               >
                 00121
               </td>
@@ -182,13 +182,13 @@ const Manageuserdash = () => {
           </div>
           <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
             <div>
-              <span className="text-sm text-gray-700 dark:text-gray-400">
+              <span className="text-sm text-gray-700">
                 1-10{" "}
-                <span className="font-semibold text-gray-900 dark:text-white">
+                <span className="font-semibold text-gray-900">
                   of
                 </span>{" "}
                 50{" "}
-                <span className="font-semibold text-gray-900 dark:text-white">
+                <span className="font-semibold text-gray-900">
                   Pages
                 </span>
               </span>
@@ -212,7 +212,7 @@ const Manageuserdash = () => {
                     aria-hidden="true"
                   >
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
                       clipRule="evenodd"
                     />
@@ -272,7 +272,7 @@ const Manageuserdash = () => {
                     aria-hidden="true"
                   >
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
                       clipRule="evenodd"
                     />

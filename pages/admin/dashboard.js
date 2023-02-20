@@ -41,7 +41,7 @@ const Dashboard = () => {
       <div className="p-4 sm:ml-64">
         <div className="p-4 border-gray-200 rounded">
           <div className="grid grid-cols-4 gap-4 mb-4">
-            <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
+            <div className="flex items-center justify-center h-24 rounded bg-gray-50">
               <div className="grid grid-rows-2 gap-2 flex-1 justify-start align-middle ml-6">
                 <span style={{ fontSize: "1.5rem" }}>{total}</span>
                 <p className="text-sm">Total Profile</p>
@@ -72,7 +72,7 @@ const Dashboard = () => {
                 />
               </svg>
             </div>
-            <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
+            <div className="flex items-center justify-center h-24 rounded bg-gray-50">
               <div className="grid grid-rows-2 gap-2 flex-1 justify-start align-middle ml-6">
                 <span style={{ fontSize: "1.5rem" }}>{total}</span>
                 <p className="text-sm">Total Profile</p>
@@ -103,7 +103,7 @@ const Dashboard = () => {
                 />
               </svg>
             </div>
-            <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
+            <div className="flex items-center justify-center h-24 rounded bg-gray-50">
               <div className="grid grid-rows-2 gap-2 flex-1 justify-start align-middle ml-6">
                 <span style={{ fontSize: "1.5rem" }}>{total}</span>
                 <p className="text-sm">Total Profile</p>
@@ -134,7 +134,7 @@ const Dashboard = () => {
                 />
               </svg>
             </div>
-            <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
+            <div className="flex items-center justify-center h-24 rounded bg-gray-50">
               <div className="grid grid-rows-2 gap-2 flex-1 justify-start align-middle ml-6">
                 <span style={{ fontSize: "1.5rem" }}>{total}</span>
                 <p className="text-sm">Total Profile</p>
@@ -169,7 +169,7 @@ const Dashboard = () => {
           <h1 className="ml-3 text-lg">New Users</h1>
 
           <div className="relative overflow-x-auto mt-8">
-            <table className="text-sm text-left text-gray-500 dark:text-gray-400">
+            <table className="text-sm text-left text-gray-500">
               <thead style={{ color: 'rgba(30, 30, 30, 0.5)', fontWeight: '400' }} className="text-xs  uppercase ">
                 <tr>
                   <th scope="col" className="px-6 py-3">
@@ -190,10 +190,10 @@ const Dashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <tr className="bg-white border-b">
                   <td
                     scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                   >
                     01213
                   </td>
