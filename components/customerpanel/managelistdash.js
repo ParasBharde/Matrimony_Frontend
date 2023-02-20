@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React,{useState,useEffect} from "react";
 import Image from "next/image";
 import profile from "@/assets/profile.png";
 import Link from "next/link";
@@ -6,33 +6,55 @@ import axios from "axios";
 
 const Managelistdash = () => {
 
-  const [profiles, setProfiles] = useState([])
-
-  const getAllProfiles = () => {
-
-    var config = {
-      method: 'get',
-      maxBodyLength: Infinity,
-      url: 'http://172.105.57.17:1337/api/profiles',
-      headers: {}
-    };
-
-    axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-        setProfiles(response.data.data)
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-  }
+  const [profiles, setprofiles] = useState([]);
+  const [search, setSearch] = useState('');
+  const [vendorToShow, setVendorToShow] = useState([])
 
   useEffect(() => {
-    getAllProfiles()
-  }, [])
+    async function getUser() {
+      var config = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: "http://172.105.57.17:1337/api/profiles/?populate=%2A",
+        headers: {
+          Authorization:
+            "Bearer Bearer 3ad527b6e04e45a25b5c7a57d8e796af06f0853e2fa7c4551566c2096b18b80500bdaf2fc61dace337df1dc8c2a0026075026b10589f9c9d009a72165635b72012c305bf52929b73a79c97e1e5a53e7193f812604f83fa679731fa19540e9ecd7112dc224f0cccd4624294b05ec2864b552bdf7905d65736410f0cf2774c3994",
+        },
+      };
 
+      axios(config)
+        .then(function (response) {
+          setprofiles(response.data.data);
+        setVendorToShow(response.data.data)
 
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+    console.log("profiles", profiles);
+    getUser();
+  }, []);
+
+  useEffect(() => {
+    if (!search) {
+      setVendorToShow(profiles)
+    }
+    else {
+      let a = []
+      for (let i = 0; i < profiles.length; i++) {
+        if (profiles[i].attributes.first_name) {
+          console.log((profiles[i].attributes.first_name).toLowerCase().includes(search.toLowerCase()), 'first_name')
+          if ((profiles[i].attributes.first_name).toLowerCase().includes(search.toLowerCase())) {
+            a.push(profiles[i])
+          }
+        }
+      }
+      console.log("Filtered Vendors", a)
+      setVendorToShow(a)
+    }
+  }
+    , [search])
   return (
     <>
       <div className="txt flex justify-around  relative">
@@ -43,29 +65,30 @@ const Managelistdash = () => {
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                 <svg
                   aria-hidden="true"
-                  className="w-5 h-5 text-gray-500"
+                  className="w-5 h-5 text-gray-500 dark:text-gray-400"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    fillRule="evenodd"
+                    fill-rule="evenodd"
                     d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                    clipRule="evenodd"
+                    clip-rule="evenodd"
                   ></path>
                 </svg>
               </div>
               <input
                 type="text"
                 id="voice-search"
-                className="bg-gray-50 border px-5 border-gray-300 text-gray-900 text-sm rounded  focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 "
-                placeholder="Search Mockups, Logos, Design Templates..."
-                required
+                value={search} 
+                onChange={(e) => { setSearch(e.target.value) }}
+                className="bg-gray-50 border px-5 border-gray-300 text-gray-900 text-sm rounded  focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Search..."
               />
             </div>
           </form>
           <button className="px-5 rounded bg-orange-400 py-2">
-            <Link href={"#"} className="flex text-white" >
+            <Link className="flex text-white" href="#">
               <svg
                 className="mr-2 mt-1"
                 width="17"
@@ -84,8 +107,8 @@ const Managelistdash = () => {
           </button>
         </div>
       </div>
-      <div className="user_dash relative overflow-x-auto mt-8">
-        <table className="text-sm text-left text-gray-500">
+      <div className="user_dash relative overflow-x-auto">
+        <table className="text-sm text-left text-gray-500 dark:text-gray-400 ">
           <thead
             style={{ color: "rgba(30, 30, 30, 0.5)", fontWeight: "400" }}
             className="text-xs  uppercase "
@@ -93,12 +116,12 @@ const Managelistdash = () => {
             <tr>
               <th
                 scope="col"
-                className="px-6 py-3 text-gray-600 font-normal pr-6 text-left text-sm tracking-normal leading-4"
+                className="px-6 py-3 text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4"
               >
                 <input
                   placeholder="check box"
                   type="checkbox"
-                  className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-whitefocus:outline-none  focus:ring-2  focus:ring-gray-400"
+                  className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white dark:bg-gray-800 focus:outline-none  focus:ring-2  focus:ring-gray-400"
                   onclick="checkAll(this)"
                 />
               </th>
@@ -127,7 +150,7 @@ const Managelistdash = () => {
           </thead>
           <tbody>
             {
-              profiles.map((item, index) => {
+              vendorToShow.map((item, index) => {
                 return (
                   <tr key={index} className="bg-white border-b">
                     <td className="px-6 py-4">
@@ -146,11 +169,11 @@ const Managelistdash = () => {
                     </td>
                     <td className="py-3 px-6 text-left">
                       <div className="flex items-center">
-                        <div className="mr-2">
-                          <Image
+                        <div className="mr-2 hover:transform hover:scale-150 duration-300">
+                          <img
                             alt='user image'
                             className="w-6 h-6 rounded-full"
-                            src={profile}
+                            src={`http://172.105.57.17:1337${item.attributes.profile_photo.data[0].attributes.url}`}
                             width={100}
                             height={100}
                           />
@@ -163,7 +186,7 @@ const Managelistdash = () => {
                     <td className="px-6 py-4">{item.attributes.phone_number}</td>
                     <td className="px-6 py-4">23/04/2002</td>
                     <td className="font-medium text-left px-2 py-4">
-                      <span className="bg-purple-200 text-purple-600 py-2 px-4 rounded text-base">
+                      <span className="bg-purple-200 text-purple-600 py-2 px-4 rounded text-base cursor-pointer">
                         Active
                       </span>
                     </td>
@@ -176,28 +199,28 @@ const Managelistdash = () => {
         </table>
         <div className="flex items-center justify-between  px-4 py-3 sm:px-6">
           <div className="flex flex-1 justify-between sm:hidden">
-            <p
-
+            <a
+              href="#"
               className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
               Previous
-            </p>
-            <p
-
+            </a>
+            <a
+              href="#"
               className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
               Next
-            </p>
+            </a>
           </div>
           <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
             <div>
-              <span className="text-sm text-gray-700">
+              <span className="text-sm text-gray-700 dark:text-gray-400">
                 1-10{" "}
-                <span className="font-semibold text-gray-900">
+                <span className="font-semibold text-gray-900 dark:text-white">
                   of
                 </span>{" "}
                 50{" "}
-                <span className="font-semibold text-gray-900">
+                <span className="font-semibold text-gray-900 dark:text-white">
                   Pages
                 </span>
               </span>
@@ -207,8 +230,8 @@ const Managelistdash = () => {
                 className="isolate inline-flex -space-x-px  rounded-md shadow-sm "
                 aria-label="Pagination"
               >
-                <p
-
+                <a
+                  href="#"
                   className="relative inline-flex items-center rounded-l-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
                 >
                   <span className="sr-only">Previous</span>
@@ -221,54 +244,54 @@ const Managelistdash = () => {
                     aria-hidden="true"
                   >
                     <path
-                      fillRule="evenodd"
+                      fill-rule="evenodd"
                       d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
-                      clipRule="evenodd"
+                      clip-rule="evenodd"
                     />
                   </svg>
-                </p>
-                <p
-
+                </a>
+                <a
+                  href="#"
                   aria-current="page"
                   className="relative z-10 inline-flex items-center border border-gray-400 px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
                 >
                   1
-                </p>
-                <p
-
+                </a>
+                <a
+                  href="#"
                   className="relative inline-flex items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
                 >
                   2
-                </p>
-                <p
-
+                </a>
+                <a
+                  href="#"
                   className="relative hidden items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20 md:inline-flex"
                 >
                   3
-                </p>
+                </a>
                 <span className="relative inline-flex items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-700">
                   ...
                 </span>
-                <p
-
+                <a
+                  href="#"
                   className="relative hidden items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20 md:inline-flex"
                 >
                   8
-                </p>
-                <p
-
+                </a>
+                <a
+                  href="#"
                   className="relative inline-flex items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
                 >
                   9
-                </p>
-                <p
-
+                </a>
+                <a
+                  href="#"
                   className="relative inline-flex items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
                 >
                   10
-                </p>
-                <p
-
+                </a>
+                <a
+                  href="#"
                   className="relative inline-flex items-center rounded-r-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
                 >
                   <span className="sr-only">Next</span>
@@ -281,12 +304,12 @@ const Managelistdash = () => {
                     aria-hidden="true"
                   >
                     <path
-                      fillRule="evenodd"
+                      fill-rule="evenodd"
                       d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-                      clipRule="evenodd"
+                      clip-rule="evenodd"
                     />
                   </svg>
-                </p>
+                </a>
               </nav>
             </div>
           </div>

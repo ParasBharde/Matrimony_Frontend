@@ -7,20 +7,24 @@ import profile from "@/assets/profile.png"
 const Manageuserdash = () => {
 
   const [profiles, setProfiles] = useState([])
+  const [search, setSearch] = useState('');
+  const [vendorToShow, setVendorToShow] = useState([])
+
 
   const getAllProfiles = () => {
 
     var config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: 'http://172.105.57.17:1337/api/profiles',
+      url: 'http://172.105.57.17:1337/api/profiles?populate=%2A',
       headers: {}
     };
 
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
+        // console.log(JSON.stringify(response.data));
         setProfiles(response.data.data)
+        setVendorToShow(response.data.data)
       })
       .catch(function (error) {
         console.log(error);
@@ -32,7 +36,27 @@ const Manageuserdash = () => {
     getAllProfiles()
   }, [])
 
+  useEffect(() => {
+    if (!search) {
+      setVendorToShow(profiles)
+    }
+    else {
+      let a = []
+      for (let i = 0; i < profiles.length; i++) {
+        if (profiles[i].attributes.first_name) {
+          console.log((profiles[i].attributes.first_name).toLowerCase().includes(search.toLowerCase()), 'first_name')
+          if ((profiles[i].attributes.first_name).toLowerCase().includes(search.toLowerCase())) {
+            a.push(profiles[i])
+          }
+        }
+      }
+      console.log("Filtered Vendors", a)
+      setVendorToShow(a)
+    }
+  }
+    , [search])
 
+    console.log(vendorToShow, 'vendorToShow')
   return (
     <>
       <div className="txt flex justify-around mx-22 relative mt-10 ">
@@ -57,10 +81,11 @@ const Manageuserdash = () => {
               </div>
               <input
                 type="text"
+                value={search} 
+                onChange={(e) => { setSearch(e.target.value) }}
                 id="voice-search"
                 className="bg-gray-50  px-5 border-orange-300 text-gray-900 text-sm rounded  focus:ring-orange-500 focus:border-orange-500 block w-full pl-10 p-2.5"
                 placeholder="Search..."
-                required
               />
             </div>
           </form>
@@ -84,8 +109,8 @@ const Manageuserdash = () => {
           </button>
         </div>
       </div>
-      <div className="user_dash relative overflow-x-auto mt-8">
-        <table className="text-sm text-left text-gray-500">
+      <div className="user_dash relative overflow-x-auto mt-8 ">
+        <table className="text-sm text-left text-gray-500 overflow-y-scroll">
           <thead
             style={{ color: "rgba(30, 30, 30, 0.5)", fontWeight: "400" }}
             className="text-xs  uppercase "
@@ -129,7 +154,7 @@ const Manageuserdash = () => {
             </tr>
           </thead>
           <tbody>
-            {profiles.map((item, index) => {
+            {vendorToShow.map((item, index) => {
               return (
                 <tr key={index} className="bg-white border-b">
                   <td className="px-6 py-4">
@@ -148,11 +173,11 @@ const Manageuserdash = () => {
                   </td>
                   <td className="py-3 px-6 text-left">
                     <div className="flex items-center">
-                      <div className="mr-2">
-                        <Image
+                      <div className="mr-2 hover:transform hover:scale-150 duration-300">
+                        <img
                           alt="logo"
                           className="w-6 h-6 rounded-full"
-                          src={profile}
+                          src={`http://172.105.57.17:1337${item.attributes.profile_photo.data[0].attributes.url}`}
                           width={100}
                           height={100}
                         />
@@ -199,7 +224,7 @@ const Manageuserdash = () => {
             })}
           </tbody>
         </table>
-        <div className="flex items-center px-4 py-3 sm:px-6">
+        <div className="flex items-center px-4 py-[2rem] sm:px-6 mb-[2rem]">
           <div className="flex flex-1 justify-between sm:hidden">
             <Link
               href="#"
