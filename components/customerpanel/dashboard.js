@@ -15,7 +15,6 @@ const Dashboard = () => {
   const [filtersmale, setfiltermale] = useState([]);
   const [filtersfemale, setfilterfemale] = useState([]);
 
-
   useEffect(() => {
     async function getUser() {
       var config = {
@@ -43,7 +42,7 @@ const Dashboard = () => {
               female.push(profile_data[i]);
             }
           }
-          setfilterfemale(female.length)
+          setfilterfemale(female.length);
           setfiltermale(male.length);
         })
         .catch(function (error) {

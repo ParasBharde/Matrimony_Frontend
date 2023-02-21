@@ -8,34 +8,33 @@ import axios from "axios";
 const Aboutus = () => {
   const [about, setabout] = useState([]);
 
-  useEffect(() => {
-    const About = () => {
-      var config = {
-        method: "get",
-        maxBodyLength: Infinity,
-        url: "http://172.105.57.17:1337/api/about-page/?populate=%2A",
-        headers: {
-          Authorization:
-            "Bearer 3ad527b6e04e45a25b5c7a57d8e796af06f0853e2fa7c4551566c2096b18b80500bdaf2fc61dace337df1dc8c2a0026075026b10589f9c9d009a72165635b72012c305bf52929b73a79c97e1e5a53e7193f812604f83fa679731fa19540e9ecd7112dc224f0cccd4624294b05ec2864b552bdf7905d65736410f0cf2774c3994",
-        },
-      };
-
-      axios(config)
-        .then(function (response) {
-          setabout(response.data.data.attributes);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+  const About = () => {
+    var config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: "http://172.105.57.17:1337/api/about-page?populate=%2A",
+      headers: {},
     };
-    console.log("about", about);
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        setabout(response.data.data.attributes);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  console.log("about", about);
+
+  useEffect(() => {
     About();
   }, []);
 
   return (
     <>
       <Head>
-        <title>About Us | Youji</title>
+        <title>About Us | Matrimony</title>
         <meta
           name="description"
           content="Shop for healthy and fresh kampung poultry and farm grown poultry products at your door step"
@@ -195,7 +194,7 @@ const Aboutus = () => {
         </div>
         <div className="md:flex md:flex-col md:justify-center mr-5">
           <div className="md:self-end md:mt-20 md:block flex flex-col justify-center items-center">
-            <div className="border-8 border-gray-200 xls:h-l-img xls:w-l-img xs:h-m-img xs:w-96 w-72 h-s-img">
+            <div className="border-8 border-gray-200 xls:h-l-img xls:w-l-img xs:h-m-img xs:w-96 w-82 h-s-img">
               <picture>
                 <img
                   className="img_profile_portfolio object-contain w-40 min-h-full"
@@ -221,7 +220,7 @@ const Aboutus = () => {
       </div>
       <div className="mt-6 md:mt-10 mb-12 grid grid-cols-1 ml-5 md:grid-cols-2 gap-y-6 gap-x-6 xl:ml-44 xl:mr-44 lg:ml-24 lg:mr-24 md:ml-4 md:mr-4">
         <div className="md:block flex flex-col justify-center items-center mr-5">
-          <div className="border-8 border-gray-200 md:mt-20 xls:h-l-img xls:w-l-img xs:h-m-img xs:w-96 w-72 h-s-img">
+          <div className="border-8 border-gray-200 md:mt-20 xls:h-l-img xls:w-l-img xs:h-m-img xs:w-96 w-[20.2rem] h-s-img">
             <picture>
               <img
                 className="img_profile_portfolio object-contain w-40 min-h-full"

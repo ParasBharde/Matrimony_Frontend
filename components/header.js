@@ -79,7 +79,7 @@ const Header = () => {
             >
               EN
             </p>
-            {!isMenuDropDownOpen1 && (
+            {isMenuDropDownOpen1 && (
               <div className="absolute bg-white right-2 shadow-lg top-12">
                 <p className="m-3 w-[100px] cursor-pointer">
                   <i className=" mr-5 text-main text-center"></i>
