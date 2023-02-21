@@ -249,7 +249,7 @@ const Managelistdash = () => {
               Next
             </p>
           </div>
-          <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+          <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between mb-20">
             <div>
               <span className="text-sm text-gray-700">
               {currentPage==1?"1":`${((currentPage-1)*10)+1}`}-{total<=(currentPage*10)?total:(currentPage*10)}{" "}
