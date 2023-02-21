@@ -74,7 +74,7 @@ const RegisterForm1 = ({screen,setScreen}) => {
 
   return (
     <>
-    <div className='w-[400px] mx-auto'>
+    <div className='w-[400px] mx-auto max-md:ml-5'>
           <p className='font-[600] text-[18px]'>Account Information</p>
         </div>
         <div className='mt-5 max-w-min mx-auto'>
