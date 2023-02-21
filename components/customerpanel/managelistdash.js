@@ -147,7 +147,7 @@ const Managelistdash = () => {
                   type="checkbox"
                   className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white dark:bg-gray-800 focus:outline-none  focus:ring-2  focus:ring-gray-400"
                   id="header-checkbox"
-                  onClick={(e) => Selects(e)}
+                  onClick={Selects()}
                 />
               </th>
               <th scope="col" className="px-6 py-3 ">

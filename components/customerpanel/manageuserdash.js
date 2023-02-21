@@ -109,9 +109,7 @@ const Manageuserdash = () => {
               <input
                 type="text"
                 value={search}
-                onChange={(e) => {
-                  setSearch(e.target.value);
-                }}
+                onChange={() => {setSearch();}}
                 id="voice-search"
                 className="bg-gray-50  px-5 border-orange-300 text-gray-900 text-sm rounded  focus:ring-orange-500 focus:border-orange-500 block w-full pl-10 p-2.5"
                 placeholder="Search..."
@@ -155,7 +153,7 @@ const Manageuserdash = () => {
                   name="chk"
                   id="header-checkbox"
                   className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white focus:outline-none  focus:ring-2  focus:ring-gray-400"
-                  onClick={(e) => Selects(e)}
+                  onClick={Selects()}
                 />
               </th>
               <th scope="col" className="px-6 py-3">
