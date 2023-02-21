@@ -2,61 +2,79 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
-import profile from "@/assets/profile.png"
+import profile from "@/assets/profile.png";
 
 const Manageuserdash = () => {
-
-  const [profiles, setProfiles] = useState([])
-  const [search, setSearch] = useState('');
-  const [vendorToShow, setVendorToShow] = useState([])
-
+  const [profiles, setProfiles] = useState([]);
+  const [search, setSearch] = useState("");
+  const [vendorToShow, setVendorToShow] = useState([]);
 
   const getAllProfiles = () => {
-
     var config = {
-      method: 'get',
+      method: "get",
       maxBodyLength: Infinity,
-      url: 'http://172.105.57.17:1337/api/profiles?populate=%2A',
-      headers: {}
+      url: "http://172.105.57.17:1337/api/profiles?populate=%2A",
+      headers: {},
     };
 
     axios(config)
       .then(function (response) {
         // console.log(JSON.stringify(response.data));
-        setProfiles(response.data.data)
-        setVendorToShow(response.data.data)
+        setProfiles(response.data.data);
+        setVendorToShow(response.data.data);
       })
       .catch(function (error) {
         console.log(error);
       });
-
-  }
+  };
 
   useEffect(() => {
-    getAllProfiles()
-  }, [])
+    getAllProfiles();
+  }, []);
 
   useEffect(() => {
     if (!search) {
-      setVendorToShow(profiles)
-    }
-    else {
-      let a = []
+      setVendorToShow(profiles);
+    } else {
+      let a = [];
       for (let i = 0; i < profiles.length; i++) {
         if (profiles[i].attributes.first_name) {
-          console.log((profiles[i].attributes.first_name).toLowerCase().includes(search.toLowerCase()), 'first_name')
-          if ((profiles[i].attributes.first_name).toLowerCase().includes(search.toLowerCase())) {
-            a.push(profiles[i])
+          console.log(
+            profiles[i].attributes.first_name
+              .toLowerCase()
+              .includes(search.toLowerCase()),
+            "first_name"
+          );
+          if (
+            profiles[i].attributes.first_name
+              .toLowerCase()
+              .includes(search.toLowerCase())
+          ) {
+            a.push(profiles[i]);
           }
         }
       }
-      console.log("Filtered Vendors", a)
-      setVendorToShow(a)
+      console.log("Filtered Vendors", a);
+      setVendorToShow(a);
     }
-  }
-    , [search])
+  }, [search]);
 
-    console.log(vendorToShow, 'vendorToShow')
+  function Selects() {
+    const headerCheckbox = document.getElementById("header-checkbox");
+    const rowCheckboxes = document.querySelectorAll(".row-checkbox");
+    headerCheckbox.addEventListener("click", function() {
+      if (headerCheckbox.checked) {
+        rowCheckboxes.forEach(function(rowCheckbox) {
+          rowCheckbox.checked = true;
+        });
+      } 
+      else {
+        rowCheckboxes.forEach(function(rowCheckbox) {
+          rowCheckbox.checked = false;
+        });
+      }
+    });
+  }
   return (
     <>
       <div className="txt flex justify-around mx-22 relative mt-10 ">
@@ -81,8 +99,10 @@ const Manageuserdash = () => {
               </div>
               <input
                 type="text"
-                value={search} 
-                onChange={(e) => { setSearch(e.target.value) }}
+                value={search}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                }}
                 id="voice-search"
                 className="bg-gray-50  px-5 border-orange-300 text-gray-900 text-sm rounded  focus:ring-orange-500 focus:border-orange-500 block w-full pl-10 p-2.5"
                 placeholder="Search..."
@@ -123,8 +143,10 @@ const Manageuserdash = () => {
                 <input
                   placeholder="check box"
                   type="checkbox"
+                  name="chk"
+                  id="header-checkbox"
                   className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white focus:outline-none  focus:ring-2  focus:ring-gray-400"
-                  onclick="checkAll(this)"
+                  onClick={(e) => Selects(e)}
                 />
               </th>
               <th scope="col" className="px-6 py-3">
@@ -161,8 +183,8 @@ const Manageuserdash = () => {
                     <input
                       placeholder="check box"
                       type="checkbox"
-                      className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white focus:outline-none focus:ring-2  focus:ring-gray-400"
-                      onclick="checkAll(this)"
+                      className="row-checkbox cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white focus:outline-none focus:ring-2  focus:ring-gray-400"
+                      onClick={Selects()}
                     />
                   </td>
                   <td
@@ -182,11 +204,19 @@ const Manageuserdash = () => {
                           height={100}
                         />
                       </div>
-                      <span>{item.attributes.first_name + " " + item.attributes.last_name}</span>
+                      <span>
+                        {item.attributes.first_name +
+                          " " +
+                          item.attributes.last_name}
+                      </span>
                     </div>
                   </td>
                   {/* <td className="px-20 py-4">Sliver</td> */}
-                  <td className="px-6 py-4">{item.attributes.Chooese_groom_bride == "Bride" ? "Female" : "Male"}</td>
+                  <td className="px-6 py-4">
+                    {item.attributes.Chooese_groom_bride == "Bride"
+                      ? "Female"
+                      : "Male"}
+                  </td>
                   <td className="px-6 py-4">{item.attributes.father_name}</td>
                   <td className="px-6 py-4">{item.attributes.date_of_birth}</td>
                   <td className="px-6 py-4">{item.attributes.phone_number}</td>
@@ -219,8 +249,7 @@ const Manageuserdash = () => {
                     </svg>
                   </td>
                 </tr>
-              )
-
+              );
             })}
           </tbody>
         </table>
@@ -242,14 +271,8 @@ const Manageuserdash = () => {
           <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
             <div>
               <span className="text-sm text-gray-700">
-                1-10{" "}
-                <span className="font-semibold text-gray-900">
-                  of
-                </span>{" "}
-                50{" "}
-                <span className="font-semibold text-gray-900">
-                  Pages
-                </span>
+                1-10 <span className="font-semibold text-gray-900">of</span> 50{" "}
+                <span className="font-semibold text-gray-900">Pages</span>
               </span>
             </div>
             <div>

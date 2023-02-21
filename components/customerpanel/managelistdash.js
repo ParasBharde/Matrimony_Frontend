@@ -1,14 +1,13 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import profile from "@/assets/profile.png";
 import Link from "next/link";
 import axios from "axios";
 
 const Managelistdash = () => {
-
   const [profiles, setprofiles] = useState([]);
-  const [search, setSearch] = useState('');
-  const [vendorToShow, setVendorToShow] = useState([])
+  const [search, setSearch] = useState("");
+  const [vendorToShow, setVendorToShow] = useState([]);
 
   useEffect(() => {
     async function getUser() {
@@ -25,8 +24,7 @@ const Managelistdash = () => {
       axios(config)
         .then(function (response) {
           setprofiles(response.data.data);
-        setVendorToShow(response.data.data)
-
+          setVendorToShow(response.data.data);
         })
         .catch(function (error) {
           console.log(error);
@@ -38,23 +36,46 @@ const Managelistdash = () => {
 
   useEffect(() => {
     if (!search) {
-      setVendorToShow(profiles)
-    }
-    else {
-      let a = []
+      setVendorToShow(profiles);
+    } else {
+      let a = [];
       for (let i = 0; i < profiles.length; i++) {
         if (profiles[i].attributes.first_name) {
-          console.log((profiles[i].attributes.first_name).toLowerCase().includes(search.toLowerCase()), 'first_name')
-          if ((profiles[i].attributes.first_name).toLowerCase().includes(search.toLowerCase())) {
-            a.push(profiles[i])
+          console.log(
+            profiles[i].attributes.first_name
+              .toLowerCase()
+              .includes(search.toLowerCase()),
+            "first_name"
+          );
+          if (
+            profiles[i].attributes.first_name
+              .toLowerCase()
+              .includes(search.toLowerCase())
+          ) {
+            a.push(profiles[i]);
           }
         }
       }
-      console.log("Filtered Vendors", a)
-      setVendorToShow(a)
+      console.log("Filtered Vendors", a);
+      setVendorToShow(a);
     }
+  }, [search]);
+
+  function Selects() {
+    const headerCheckbox = document.getElementById("header-checkbox");
+    const rowCheckboxes = document.querySelectorAll(".row-checkbox");
+    headerCheckbox.addEventListener("click", function () {
+      if (headerCheckbox.checked) {
+        rowCheckboxes.forEach(function (rowCheckbox) {
+          rowCheckbox.checked = true;
+        });
+      } else {
+        rowCheckboxes.forEach(function (rowCheckbox) {
+          rowCheckbox.checked = false;
+        });
+      }
+    });
   }
-    , [search])
   return (
     <>
       <div className="txt flex justify-around  relative">
@@ -80,8 +101,10 @@ const Managelistdash = () => {
               <input
                 type="text"
                 id="voice-search"
-                value={search} 
-                onChange={(e) => { setSearch(e.target.value) }}
+                value={search}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                }}
                 className="bg-gray-50 border px-5 border-gray-300 text-gray-900 text-sm rounded  focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Search..."
               />
@@ -122,7 +145,8 @@ const Managelistdash = () => {
                   placeholder="check box"
                   type="checkbox"
                   className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white dark:bg-gray-800 focus:outline-none  focus:ring-2  focus:ring-gray-400"
-                  onclick="checkAll(this)"
+                  id="header-checkbox"
+                  onClick={(e) => Selects(e)}
                 />
               </th>
               <th scope="col" className="px-6 py-3 ">
@@ -149,52 +173,57 @@ const Managelistdash = () => {
             </tr>
           </thead>
           <tbody>
-            {
-              vendorToShow.map((item, index) => {
-                return (
-                  <tr key={index} className="bg-white border-b">
-                    <td className="px-6 py-4">
-                      <input
-                        placeholder="check box"
-                        type="checkbox"
-                        className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white focus:outline-none  focus:ring-2  focus:ring-gray-400"
-                        onclick="checkAll(this)"
-                      />
-                    </td>
-                    <td
-                      scope="row"
-                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                    >
-                      {item.id}
-                    </td>
-                    <td className="py-3 px-6 text-left">
-                      <div className="flex items-center">
-                        <div className="mr-2 hover:transform hover:scale-150 duration-300">
-                          <img
-                            alt='user image'
-                            className="w-6 h-6 rounded-full"
-                            src={`http://172.105.57.17:1337${item.attributes.profile_photo.data[0].attributes.url}`}
-                            width={100}
-                            height={100}
-                          />
-                        </div>
-                        <span>{item.attributes.first_name + " " + item.attributes.last_name}</span>
+            {vendorToShow.map((item, index) => {
+              return (
+                <tr key={index} className="bg-white border-b">
+                  <td className="px-6 py-4">
+                    <input
+                      placeholder="check box"
+                      className="row-checkbox cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white focus:outline-none  focus:ring-2  focus:ring-gray-400"
+                      type="checkbox"
+                      onClick={Selects()}
+                    />
+                  </td>
+                  <td
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                  >
+                    {item.id}
+                  </td>
+                  <td className="py-3 px-6 text-left">
+                    <div className="flex items-center">
+                      <div className="mr-2 hover:transform hover:scale-150 duration-300">
+                        <img
+                          alt="user image"
+                          className="w-6 h-6 rounded-full"
+                          src={`http://172.105.57.17:1337${item.attributes.profile_photo.data[0].attributes.url}`}
+                          width={100}
+                          height={100}
+                        />
                       </div>
-                    </td>
-                    <td className="px-6 py-4">{item.attributes.Chooese_groom_bride == "Bride" ? "Female" : "Male"}</td>
-                    <td className="px-6 py-4">{item.attributes.email}</td>
-                    <td className="px-6 py-4">{item.attributes.phone_number}</td>
-                    <td className="px-6 py-4">23/04/2002</td>
-                    <td className="font-medium text-left px-2 py-4">
-                      <span className="bg-purple-200 text-purple-600 py-2 px-4 rounded text-base cursor-pointer">
-                        Active
+                      <span>
+                        {item.attributes.first_name +
+                          " " +
+                          item.attributes.last_name}
                       </span>
-                    </td>
-                  </tr>
-                )
-
-              }, [])
-            }
+                    </div>
+                  </td>
+                  <td className="px-6 py-4">
+                    {item.attributes.Chooese_groom_bride == "Bride"
+                      ? "Female"
+                      : "Male"}
+                  </td>
+                  <td className="px-6 py-4">{item.attributes.email}</td>
+                  <td className="px-6 py-4">{item.attributes.phone_number}</td>
+                  <td className="px-6 py-4">23/04/2002</td>
+                  <td className="font-medium text-left px-2 py-4">
+                    <span className="bg-purple-200 text-purple-600 py-2 px-4 rounded text-base cursor-pointer">
+                      Active
+                    </span>
+                  </td>
+                </tr>
+              );
+            }, [])}
           </tbody>
         </table>
         <div className="flex items-center justify-between  px-4 py-3 sm:px-6">
