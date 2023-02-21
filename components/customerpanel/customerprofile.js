@@ -8,10 +8,10 @@ import Link from "next/link";
 const Customerpofile = () => {
   return (
     <>
-      <div className="parent">
-        <table className="child table-fixed">
-          <div className="table_header flex ">
-            <thead>
+      <div className="parent ">
+        <table className="child table-auto">
+          <div className="table_header flex">
+            <thead className="">
               <td className="font-bold">Paras Bharde</td>
               <div>
                 <td style={{ color: "rgba(30, 30, 30, 0.5)" }}>
@@ -19,7 +19,7 @@ const Customerpofile = () => {
                 </td>
               </div>
             </thead>
-            <div className="flex space-x-2 mt-2">
+            <div className="flex space-x-2 mt-2 max-md:hidden">
               <button className="px-5 rounded  bg-orange-400 py-1.5">
                 <Link className="flex text-white" href="#">
                   <svg
@@ -59,8 +59,8 @@ const Customerpofile = () => {
             </div>
           </div>
 
-          <div className="first_content p-4 sm:ml-64 ">
-            <div className="p-4 ">
+          <div className="first_content p-4 sm:ml-64">
+            <div className="p-4">
               <div className="grid grid-cols-4 gap-10 ">
                 <div className="flex items-center justify-center h-24 rounded ">
                   <div className="first_row">
@@ -86,8 +86,8 @@ const Customerpofile = () => {
                     <span>04 Feb 2023</span>
                   </div>
                 </div>
-                <div className="flex items-center justify-center h-24 ">
-                  <div className="second_item relative">
+                <div className="flex items-center justify-center h-24 max-md:hidden">
+                  <div className="second_item relative  max-md:w-full">
                     <Image
                       className="img_profile object-contain w-40 h-60"
                       object-fit
@@ -243,7 +243,7 @@ const Customerpofile = () => {
           </div>
 
           {/*Family Information */}
-          <div className="second_content">
+          <div className="second_content ">
             <span className="sec_text">Family Information</span>
 
             <div className="first_content p-4 sm:ml-64 ">
@@ -502,12 +502,11 @@ const Customerpofile = () => {
                         </span>
                         <span>BCCA, MCA</span>
                       </div>
-                    </div>  
+                    </div>
                   </div>
                 </div>
               </div>
-              <div className="first_content p-4 sm:ml-64 ">
-              </div>
+              <div className="first_content p-4 sm:ml-64 "></div>
             </div>
           </div>
 
@@ -519,8 +518,8 @@ const Customerpofile = () => {
           <div className="fourth_content">
             <span className="sec_text ">Horoscope Chart</span>
             <div className="tb_dt flex ">
-              <Image src={horos} width={500} alt='img' height={500} />
-              <Image src={horos1} width={500} alt='img' height={500} />
+              <Image src={horos} width={500} alt="img" height={500} />
+              <Image src={horos1} width={500} alt="img" height={500} />
             </div>
           </div>
         </table>

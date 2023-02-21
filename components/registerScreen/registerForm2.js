@@ -153,191 +153,377 @@ const RegisterForm2 = ({screen,setScreen}) => {
 
   return (
     <>
-    <div className='flex justify-center items-center gap-5'>
+      <div className="flex justify-center items-center p-4 max-lg:min-w-min max-lg:flex max-lg:flex-col max-lg:items-center">
         <div>
-        <div className='mt-5 max-w-min mx-auto'>
-        <p className='text-dark font-[500] text-[14px] mb-2'>First Name *</p>
-        <input placeholder='Enter Your Name' value={firstName} onChange={(e)=>{setFirstName(e.target.value)}} type={"text"} className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3'/>
-      </div>
+          <div className="mt-5 max-w-min mx-auto">
+            <p className="text-dark font-[500] text-[14px] mb-2">
+              First Name *
+            </p>
+            <input
+              placeholder="Enter Your Name"
+              value={firstName}
+              onChange={(e) => {
+                setFirstName(e.target.value);
+              }}
+              type={"text"}
+              className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
+            />
+          </div>
 
-      <div>
-        <p className='my-4'>Choose your type</p>
-      <div className='flex items-center gap-[60px]'>
-        <div className='flex items-center gap-[10px]'>
-            <input type={"radio"} checked={groomOrBride=="Groom"} onClick={()=>{setGroomOrBride("Groom")}} className="h-[20px] w-[20px]"/>
-            <label>Groom</label>
-        </div>
-        <div className='flex items-center gap-[10px]'>
-            <input type={"radio"} checked={groomOrBride=="Bride"} onClick={()=>{setGroomOrBride("Bride")}} className="h-[20px] w-[20px]"/>
-            <label>Bride</label>
-        </div>
-      </div>
+          <div>
+            <p className="my-4">Choose your type</p>
+            <div className="flex items-center gap-[60px]">
+              <div className="flex items-center gap-[10px]">
+                <input
+                  type={"radio"}
+                  checked={groomOrBride == "Groom"}
+                  onClick={() => {
+                    setGroomOrBride("Groom");
+                  }}
+                  className="h-[20px] w-[20px]"
+                />
+                <label>Groom</label>
+              </div>
+              <div className="flex items-center gap-[10px]">
+                <input
+                  type={"radio"}
+                  checked={groomOrBride == "Bride"}
+                  onClick={() => {
+                    setGroomOrBride("Bride");
+                  }}
+                  className="h-[20px] w-[20px]"
+                />
+                <label>Bride</label>
+              </div>
+            </div>
+          </div>
 
-      </div>
+          <div className="mt-5 max-w-min mx-auto">
+            <p className="text-dark font-[500] text-[14px] mb-2">
+              Date Of Birth *
+            </p>
+            <input
+              placeholder="Enter Your Name"
+              value={dateOfBirth}
+              onChange={(e) => {
+                setDateOfBirth(e.target.value);
+              }}
+              type={"date"}
+              className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
+            />
+          </div>
+          <div className="mt-5 max-w-min mx-auto">
+            <p className="text-dark font-[500] text-[14px] mb-2">Height *</p>
+            <input
+              placeholder="Enter Your Name"
+              type={"number"}
+              value={height}
+              onChange={(e) => {
+                setHeight(e.target.value);
+              }}
+              className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
+            />
+          </div>
+          <div className="mt-5 max-w-min mx-auto">
+            <p className="text-dark font-[500] text-[14px] mb-2">
+              Educational Qualification *
+            </p>
+            <input
+              placeholder="Enter Your Name"
+              type={"text"}
+              value={educationalQualifications}
+              onChange={(e) => {
+                setEducationalQualifications(e.target.value);
+              }}
+              className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
+            />
+          </div>
 
-      <div className='mt-5 max-w-min mx-auto'>
-        <p className='text-dark font-[500] text-[14px] mb-2'>Date Of Birth *</p>
-        <input placeholder='Enter Your Name' value={dateOfBirth} onChange={(e)=>{setDateOfBirth(e.target.value)}} type={"date"} className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3'/>
-      </div>
-      <div className='mt-5 max-w-min mx-auto'>
-        <p className='text-dark font-[500] text-[14px] mb-2'>Height *</p>
-        <input placeholder='Enter Your Name' type={"number"} value={height} onChange={(e)=>{setHeight(e.target.value)}} className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3'/>
-      </div>
-      <div className='mt-5 max-w-min mx-auto'>
-        <p className='text-dark font-[500] text-[14px] mb-2'>Educational Qualification *</p>
-        <input placeholder='Enter Your Name' type={"text"} value={educationalQualifications} onChange={(e)=>{setEducationalQualifications(e.target.value)}} className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3'/>
-      </div>
-
-      <div className='mt-5 max-w-min mx-auto'>
-        <p className='text-dark font-[500] text-[14px] mb-2'>Salary / Monthly Earnings *</p>
-        <input placeholder='Enter Your Name' type={"number"} value={salary} onChange={(e)=>{setSalary(e.target.value)}} className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3'/>
-      </div>
-      <div className='mt-5 max-w-min mx-auto'>
-        <p className='text-dark font-[500] text-[14px] mb-2'>Expectation *</p>
-        <input placeholder='Enter Your Name' type={"text"}  value={expectation} onChange={(e)=>{setExpectation(e.target.value)}} className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3'/>
-      </div>
-      <div className='mt-5 max-w-min mx-auto'>
-        <p className='text-dark font-[500] text-[14px] mb-2'>Caste *</p>
-        <input placeholder='Enter Your Name' type={"text"} value={caste} onChange={(e)=>{setCaste(e.target.value)}} className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3'/>
-      </div>
-
-
+          <div className="mt-5 max-w-min mx-auto">
+            <p className="text-dark font-[500] text-[14px] mb-2">
+              Salary / Monthly Earnings *
+            </p>
+            <input
+              placeholder="Enter Your Name"
+              type={"number"}
+              value={salary}
+              onChange={(e) => {
+                setSalary(e.target.value);
+              }}
+              className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
+            />
+          </div>
+          <div className="mt-5 max-w-min mx-auto">
+            <p className="text-dark font-[500] text-[14px] mb-2">
+              Expectation *
+            </p>
+            <input
+              placeholder="Enter Your Name"
+              type={"text"}
+              value={expectation}
+              onChange={(e) => {
+                setExpectation(e.target.value);
+              }}
+              className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
+            />
+          </div>
+          <div className="mt-5 max-w-min mx-auto">
+            <p className="text-dark font-[500] text-[14px] mb-2">Caste *</p>
+            <input
+              placeholder="Enter Your Name"
+              type={"text"}
+              value={caste}
+              onChange={(e) => {
+                setCaste(e.target.value);
+              }}
+              className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
+            />
+          </div>
         </div>
         <div>
+          <div className="mt-5 max-w-min mx-auto">
+            <p className="text-dark font-[500] text-[14px] mb-2">Last Name *</p>
+            <input
+              placeholder="Enter Your Name"
+              type={"text"}
+              value={lastName}
+              onChange={(e) => {
+                setLastName(e.target.value);
+              }}
+              className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
+            />
+          </div>
 
-        <div className='mt-5 max-w-min mx-auto'>
-        <p className='text-dark font-[500] text-[14px] mb-2'>Last Name *</p>
-        <input placeholder='Enter Your Name' type={"text"} value={lastName} onChange={(e)=>{setLastName(e.target.value)}} className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3'/>
-      </div>
+          <div>
+            <p className="my-4">Choose your type</p>
+            <div className="flex items-center gap-[60px]">
+              <div className="flex items-center gap-[10px]">
+                <input
+                  type={"radio"}
+                  checked={vegOrNonVeg == "Vegetarian"}
+                  onClick={() => {
+                    setVegOrNonVeg("Vegetarian");
+                  }}
+                  className="h-[20px] w-[20px]"
+                />
+                <label>Vegetarian</label>
+              </div>
+              <div className="flex items-center gap-[10px]">
+                <input
+                  type={"radio"}
+                  checked={vegOrNonVeg == "Non-Vegetarian"}
+                  onClick={() => {
+                    setVegOrNonVeg("Non-Vegetarian");
+                  }}
+                  className="h-[20px] w-[20px]"
+                />
+                <label>Non - Vegetarian</label>
+              </div>
+            </div>
+          </div>
 
-      <div>
-        <p className='my-4'>Choose your type</p>
-       <div className='flex items-center gap-[60px]'>
-        <div className='flex items-center gap-[10px]'>
-            <input type={"radio"} checked={vegOrNonVeg=="Vegetarian"} onClick={()=>{setVegOrNonVeg("Vegetarian")}} className="h-[20px] w-[20px]"/>
-            <label>Vegetarian</label>
+          <div className="mt-5 max-w-min mx-auto">
+            <p className="text-dark font-[500] text-[14px] mb-2">Star *</p>
+            <select
+              value={star}
+              onChange={(e) => {
+                setStar(e.target.value);
+              }}
+              className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
+            >
+              {signs.map((item, index) => {
+                return (
+                  <option key={index} value={item}>
+                    {item}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <div className="mt-5 max-w-min mx-auto">
+            <p className="text-dark font-[500] text-[14px] mb-2">Color *</p>
+            <input
+              placeholder="Enter Your Name"
+              type={"text"}
+              value={color}
+              onChange={(e) => {
+                setColor(e.target.value);
+              }}
+              className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
+            />
+          </div>
+          <div className="mt-5 max-w-min mx-auto">
+            <p className="text-dark font-[500] text-[14px] mb-2">
+              Career Details *
+            </p>
+            <input
+              placeholder="Enter Your Name"
+              type={"text"}
+              value={careerDetails}
+              onChange={(e) => {
+                setCareerDetails(e.target.value);
+              }}
+              className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
+            />
+          </div>
+
+          <div className="mt-5 max-w-min mx-auto">
+            <p className="text-dark font-[500] text-[14px] mb-2">
+              Family Property Details *
+            </p>
+            <input
+              placeholder="Enter Your Name"
+              type={"text"}
+              value={familyPropertyDetails}
+              onChange={(e) => {
+                setFamilyPropertyDetails(e.target.value);
+              }}
+              className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
+            />
+          </div>
+          <div className="mt-5 max-w-min mx-auto">
+            <p className="text-dark font-[500] text-[14px] mb-2">
+              Phone Number *
+            </p>
+            <input
+              placeholder="Enter Your Name"
+              type={"number"}
+              value={phoneNumber}
+              onChange={(e) => {
+                setPhoneNumber(e.target.value);
+              }}
+              className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
+            />
+          </div>
+          <div className="mt-5 max-w-min mx-auto">
+            <p className="text-dark font-[500] text-[14px] mb-2">
+              Marriage Status *
+            </p>
+            <select
+              value={marriageStatus}
+              onChange={(e) => {
+                setMarriageStatus(e.target.value);
+              }}
+              className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
+            >
+              {marriageStatuses.map((item, index) => {
+                return (
+                  <option key={index} value={item}>
+                    {item}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
         </div>
-        <div className='flex items-center gap-[10px]'>
-            <input type={"radio"} checked={vegOrNonVeg=="Non-Vegetarian"} onClick={()=>{setVegOrNonVeg("Non-Vegetarian")}} className="h-[20px] w-[20px]"/>
-            <label>Non - Vegetarian</label>
+      </div>
+
+      <div className="w-[auto] mx-auto  ">
+        <p className="h-[10px] my-6">Profile Photo *</p>
+        <div className="flex justify-between items-center max-lg:flex-col space-y-5 max-lg:flex max-lg:justify-start ">
+          <Files
+            className="files-dropzone cursor-pointer"
+            onChange={onFilesChange1}
+            onError={onFilesError1}
+            accepts={["image/png", "image/jpg"]}
+            maxFileSize={10000000}
+            minFileSize={0}
+            clickable
+          >
+            <Image
+              src={file1 ? file1[0].preview.url : fileInputImage}
+              // width={190}
+              // height={190}
+              className="md:w-[190] h-[190] max-lg:w-[22rem] max-lg:h-[22rem]"
+              alt={"File Input Image"}
+            />
+          </Files>
+
+          <Files
+            className="files-dropzone cursor-pointer"
+            onChange={onFilesChange2}
+            onError={onFilesError2}
+            accepts={["image/png", "image/jpg"]}
+            maxFileSize={10000000}
+            minFileSize={0}
+            clickable
+          >
+            <Image
+              src={file2 ? file2[0].preview.url : fileInputImage}
+              // width={190}
+              // height={190}
+              className="md:w-[190] h-[190] max-lg:w-[22rem] max-lg:h-[22rem]"
+              alt={"File Input Image"}
+            />
+          </Files>
+
+          <Files
+            className="files-dropzone cursor-pointer"
+            onChange={onFilesChange3}
+            onError={onFilesError3}
+            accepts={["image/png", "image/jpg"]}
+            maxFileSize={10000000}
+            minFileSize={0}
+            clickable
+          >
+            <Image
+              src={file3 ? file3[0].preview.url : fileInputImage}
+              // width={190}
+              // height={190}
+              alt={"File Input Image"}
+              className="md:w-[190] h-[190] max-lg:w-[22rem] max-lg:h-[22rem]"
+            />
+          </Files>
+          <Files
+            className="files-dropzone cursor-pointer"
+            onChange={onFilesChange4}
+            onError={onFilesError4}
+            accepts={["image/png", "image/jpg"]}
+            maxFileSize={10000000}
+            minFileSize={0}
+            clickable
+          >
+            <Image
+              src={file4 ? file4[0].preview.url : fileInputImage}
+              // width={190}
+              // height={190}
+              alt={"File Input Image"}
+              className="md:w-[190] h-[190] max-lg:w-[22rem] max-lg:h-[22rem]"
+            />
+          </Files>
         </div>
       </div>
-      </div>
-
-      <div className='mt-5 max-w-min mx-auto'>
-        <p className='text-dark font-[500] text-[14px] mb-2'>Star *</p>
-        <select value={star} onChange={(e)=>{setStar(e.target.value)}} className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3'>
-          {signs.map((item,index)=>{
-            return(
-              <option key={index} value={item}>{item}</option>
-            )
-          })}
-        </select>
-      </div>
-      <div className='mt-5 max-w-min mx-auto'>
-        <p className='text-dark font-[500] text-[14px] mb-2'>Color *</p>
-        <input placeholder='Enter Your Name' type={"text"} value={color} onChange={(e)=>{setColor(e.target.value)}} className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3'/>
-      </div>
-      <div className='mt-5 max-w-min mx-auto'>
-        <p className='text-dark font-[500] text-[14px] mb-2'>Career Details *</p>
-        <input placeholder='Enter Your Name' type={"text"} value={careerDetails} onChange={(e)=>{setCareerDetails(e.target.value)}} className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3'/>
-      </div>
-
-
-      <div className='mt-5 max-w-min mx-auto'>
-        <p className='text-dark font-[500] text-[14px] mb-2'>Family Property Details *</p>
-        <input placeholder='Enter Your Name' type={"text"} value={familyPropertyDetails} onChange={(e)=>{setFamilyPropertyDetails(e.target.value)}} className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3'/>
-      </div>
-      <div className='mt-5 max-w-min mx-auto'>
-        <p className='text-dark font-[500] text-[14px] mb-2'>Phone Number *</p>
-        <input placeholder='Enter Your Name' type={"number"} value={phoneNumber} onChange={(e)=>{setPhoneNumber(e.target.value)}} className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3'/>
-      </div>
-      <div className='mt-5 max-w-min mx-auto'>
-        <p className='text-dark font-[500] text-[14px] mb-2'>Marriage Status *</p>
-        <select value={marriageStatus} onChange={(e)=>{setMarriageStatus(e.target.value)}} className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3'>
-          {marriageStatuses.map((item,index)=>{
-            return(
-              <option key={index} value={item}>{item}</option>
-            )
-          })}
-        </select>
-      </div>
-
-        </div>
-        
-
-       
-      
-      </div>
-
-      <div className='w-[800px] mx-auto'>
-        <p className='h-[10px] my-6'>Profile Photo *</p>
-        <div className='flex justify-between items-center'>
-
-        <Files
-          className='files-dropzone cursor-pointer'
-          onChange={onFilesChange1}
-          onError={onFilesError1}
-          accepts={['image/png', 'image/jpg']}
-          maxFileSize={10000000}
-          minFileSize={0}
-          clickable
-        >
-        <Image src={file1?file1[0].preview.url:fileInputImage} width={190} height={190} alt={"File Input Image"}/>
-        </Files>
-
- 
-        <Files
-          className='files-dropzone cursor-pointer'
-          onChange={onFilesChange2}
-          onError={onFilesError2}
-          accepts={['image/png', 'image/jpg']}
-          maxFileSize={10000000}
-          minFileSize={0}
-          clickable
-        >
-        <Image src={file2?file2[0].preview.url:fileInputImage} width={190} height={190} alt={"File Input Image"}/>
-        </Files>
-
-        <Files
-          className='files-dropzone cursor-pointer'
-          onChange={onFilesChange3}
-          onError={onFilesError3}
-          accepts={['image/png', 'image/jpg']}
-          maxFileSize={10000000}
-          minFileSize={0}
-          clickable
-        >
-        <Image src={file3?file3[0].preview.url:fileInputImage} width={190} height={190} alt={"File Input Image"}/>
-        </Files>
-        <Files
-          className='files-dropzone cursor-pointer'
-          onChange={onFilesChange4}
-          onError={onFilesError4}
-          accepts={['image/png', 'image/jpg']}
-          maxFileSize={10000000}
-          minFileSize={0}
-          clickable
-        >
-        <Image src={file4?file4[0].preview.url:fileInputImage} width={190} height={190} alt={"File Input Image"}/>
-        </Files>
-
-        </div>
-      </div>
-      <div className={`${screen!=1?"w-[800px]":"w-[400px]"} mx-auto flex justify-end my-3 gap-2`}>
-        {screen!=1&&<p className='text-main bg-white border-2 border-main py-2 px-5 rounded-md cursor-pointer max-w-max' onClick={()=>{setScreen(screen-1)}}>Back</p>}
-            <p className='text-white bg-main py-2 px-5 rounded-md cursor-pointer max-w-max' onClick={()=>{
-              
-              if(validate())
-              {
-              if(screen<=3){ setScreen(screen+1)}
-          beforeNextScreen()
+      <div
+        className={`${
+          screen != 1 ? "w-[800px]" : "w-[400px]"
+        } mx-auto flex justify-end my-3 gap-2 max-lg:flex max-lg:justify-center max-lg:w-44 max-md:gap-8`}
+      >
+        {screen != 1 && (
+          <p
+            className="text-main bg-white border-2 border-main py-2 px-5 rounded-md cursor-pointer max-w-max"
+            onClick={() => {
+              setScreen(screen - 1);
+            }}
+          >
+            Back
+          </p>
+        )}
+        <p
+          className="text-white bg-main py-2 px-5 rounded-md cursor-pointer max-w-max"
+          onClick={() => {
+            if (validate()) {
+              if (screen <= 3) {
+                setScreen(screen + 1);
               }
-          
-          }}>Next</p>
+              beforeNextScreen();
+            }
+          }}
+        >
+          Next
+        </p>
       </div>
-      </>
-  )
+    </>
+  );
 }
 
 export default RegisterForm2

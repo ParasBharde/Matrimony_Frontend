@@ -9,7 +9,8 @@ const Footer = () => {
       {router.pathname === "/portfolio/portfolioprofile" ||
       router.pathname === "/portfolio/portfolio" ||
       router.pathname === "/likedprofile/[id]" ||
-      router.pathname === "/pricingPlan" ? (
+      router.pathname === "/pricingPlan" ||
+      router.pathname === "/register" ? (
         <div className="footer_main_1 bg-main flex flex-wrap justify-between items-center px-20  ">
           <p className="text-white text-base">
             Copyright © Trichy Vayalur Road Reddy Trust All rights reserved.

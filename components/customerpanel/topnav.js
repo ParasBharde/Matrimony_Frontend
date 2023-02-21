@@ -6,11 +6,10 @@ import Link from "next/link";
 const Topnav = () => {
   return (
     <>
-
       <nav
         className="
         top_navv
-
+max-md:hidden
   flex flex-wrap
   items-center
   justify-between
@@ -23,7 +22,7 @@ const Topnav = () => {
   navbar navbar-expand-lg navbar-light
   "
       >
-        <div className="container-fluid w-full px-6 container flex flex-wrap items-center justify-between mx-auto">
+        <div className="container-fluid w-full px-6 container flex flex-wrap items-center justify-between mx-auto ">
           <h1 classNameName="flex justify-start items-center ">
             Welcome 👋 Jenny Wilson
           </h1>
@@ -60,7 +59,10 @@ const Topnav = () => {
                 />
               </button>
 
-              <div className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700" id="language-dropdown-menu">
+              <div
+                className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700"
+                id="language-dropdown-menu"
+              >
                 <ul className="py-2" role="none">
                   <li>
                     <Link
@@ -69,7 +71,6 @@ const Topnav = () => {
                       role="menuitem"
                     >
                       <div className="inline-flex items-center">
-                   
                         English (US)
                       </div>
                     </Link>
@@ -80,10 +81,16 @@ const Topnav = () => {
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
                       role="menuitem"
                     >
-                      <div className="inline-flex items-center">
-                   
-                        Deutsch
-                      </div>
+                      <div className="inline-flex items-center">Deutsch</div>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="#"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                      role="menuitem"
+                    >
+                      <div className="inline-flex items-center">Italiano</div>
                     </Link>
                   </li>
                   <li>
@@ -93,19 +100,6 @@ const Topnav = () => {
                       role="menuitem"
                     >
                       <div className="inline-flex items-center">
-                       
-                        Italiano
-                      </div>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
-                      role="menuitem"
-                    >
-                      <div className="inline-flex items-center">
-                    
                         中文 (繁體)
                       </div>
                     </Link>

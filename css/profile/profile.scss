@@ -2,6 +2,7 @@
     // position: relative;
     width: 100%;
     height: 100%;
+  
 }
 .child {
     position: absolute;
@@ -31,6 +32,11 @@
     padding: 2rem;
     align-content: flex-end;
     flex-direction: column;
+
+    @include breakpoint-down(small) {
+           
+    
+        }
 }
 .first_item {
     display: flex;
