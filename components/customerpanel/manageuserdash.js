@@ -9,12 +9,13 @@ import { useRouter } from "next/router";
 
 
 const Manageuserdash = () => {
-  const [vendorToShow, setVendorToShow] = useState([]);
   const router = useRouter()
 
   const [profiles, setProfiles] = useState([])
   const [search, setSearch] = useState('');
   const [profileToShow, setProfileToShow] = useState([])
+  const [vendorToShow, setVendorToShow] = useState([]);
+
 
 
   const getAllProfiles = () => {
@@ -184,7 +185,7 @@ const Manageuserdash = () => {
             </tr>
           </thead>
           <tbody>
-            {profileToShow.map((item, index) => {
+            {vendorToShow.map((item, index) => {
               return (
                 <tr key={index} className="bg-white border-b">
                   <td className="px-6 py-4">
