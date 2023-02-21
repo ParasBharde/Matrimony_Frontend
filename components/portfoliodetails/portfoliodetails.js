@@ -484,7 +484,7 @@ const Portfoliodetails = ({ postId }) => {
                             <div className="mr-2 hover:transform hover:scale-150 duration-300">
                               <img
                                 alt="logo"
-                                className="w-6 h-6 rounded-full cusrsor-pointer"
+                                className="w-6 h-6 rounded-full cusrsor-pointer "
                                 src={`http://172.105.57.17:1337${itms.attributes.profile_photo.data[0].attributes.url}`}
                                 width={100}
                                 height={100}
@@ -527,14 +527,14 @@ const Portfoliodetails = ({ postId }) => {
             </table>
           </div>
         ) : (
-          <div className="container_card inline-grid grid-cols-4 gap-[4rem] max-w-screen-2xl">
+          <div className="container_card inline-grid grid-cols-4 gap-[4rem] max-w-screen-2xl max-lg:flex max-lg:flex-col max-lg:min-w-fit">
             {profiles.length > 0 &&
               profiles.map((itms, index) => {
                 console.log("itmssss", itms);
                 return (
                   <div
                     key={index}
-                    className="relative mb-2 hover:transform hover:scale-105 duration-300"
+                    className="relative mb-2 hover:transform hover:scale-105 duration-300 max-lg:min-w-fit"
                   >
                     <div className="cards blur-sm">
                       <div className="relative">
@@ -672,10 +672,9 @@ const Portfoliodetails = ({ postId }) => {
                         </p>
                       </footer>
                     </div>
-                    <div className="absolute top-28 left-0 grid justify-items-center m-auto w-[100%]">
+                    <div className="absolute grid place-items-center top-32 ml-16">
                       <svg
                         className="  flex justify-center items-center w-8 h-12 text-white"
-
                         viewBox="0 0 26 34"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
@@ -689,7 +688,6 @@ const Portfoliodetails = ({ postId }) => {
                         Purchase Plan
                       </button>
                     </div>
-
                   </div>
                 );
               })}

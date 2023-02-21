@@ -21,17 +21,17 @@ useEffect(() => {
 }, [])
   return (
     <>
-      <div className="w-max bg-white shadow-md rounded-md mx-5" >
-        <div className="">
-          <Image src={ss} alt="ss" />
+      <div className="w-max bg-white shadow-md rounded-md m-5 max-md:w-full">
+        <div className="max-md:">
+          <Image src={ss} alt="ss" className="max-md:min-w-full " />
 
-          <div className="flex justify-between items-center  px-5 max-md:justify-between ">
-            <div className="flex justify-between">
-              <div className='flex flex-col items-start justify-center '>
-                <p className="text-dark text-sm font-extrabold items-center justify-center  ">
+          <div className="flex justify-between items-center  px-5 max-md:justify-between  ">
+            <div className="flex justify-between max-md:w-full max-md:m-6">
+              <div className="flex flex-col items-start justify-center ">
+                <p className="text-dark text-sm font-extrabold items-center justify-center max-md:text-2xl ">
                   Guna & Aadanya
                 </p>
-                <p className="text-[14px] text-dark">12 apr 2020</p>
+                <p className="text-[14px] text-dark max-md:text-xl">12 apr 2020</p>
               </div>
               <p className="text-white bg-main py-2 px-5 rounded-md my-4 ml-14 cursor-pointer ">
                 View

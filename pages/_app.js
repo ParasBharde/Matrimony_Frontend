@@ -13,12 +13,25 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <ToastContainer />
-      {(router.pathname == "/" || router.pathname == "/signIn" || router.pathname == "/admin" ||
-        router.pathname == "/admin/manageuser" || router.pathname == "/admin/managelist" || router.pathname == "/admin/profile" || router.pathname == "/admin") ? null : <Header />}
+      {router.pathname == "/" ||
+      router.pathname == "/signIn" ||
+      router.pathname == "/admin/adminpanel" ||
+      router.pathname == "/admin/manageuser" ||
+      router.pathname == "/admin/managelist" ||
+      router.pathname == "/admin/profile" ||
+      router.pathname == "/admin/dashboard" ? null : (
+        <Header />
+      )}
       <Component {...pageProps} />
-      {(router.pathname == "/signIn" || router.pathname == "/admin" || router.pathname == "/admin/manageuser"
-        || router.pathname == "/admin/managelist" || router.pathname == "/admin/profile" || router.pathname == "/admin") ? null : <Footer />}
+      {router.pathname == "/signIn" ||
+      router.pathname == "/admin/adminpanel" ||
+      router.pathname == "/admin/manageuser" ||
+      router.pathname == "/admin/managelist" ||
+      router.pathname == "/admin/profile" ||
+      router.pathname == "/admin/dashboard" ? null : (
+        <Footer />
+      )}
     </>
-  )
+  );
 
 }

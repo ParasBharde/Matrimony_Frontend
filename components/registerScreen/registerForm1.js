@@ -67,10 +67,10 @@ const RegisterForm1 = ({ screen, setScreen }) => {
 
   return (
     <>
-      <div className='w-[400px] mx-auto'>
-        <p className='font-[600] text-[18px]'>Account Information</p>
-      </div>
-      <div className='mt-5 max-w-min mx-auto'>
+    <div className='w-[400px] mx-auto max-md:ml-5'>
+          <p className='font-[600] text-[18px]'>Account Information</p>
+        </div>
+        <div className='mt-5 max-w-min mx-auto'>
         <p className='text-dark font-[500] text-[14px] mb-2'>User*</p>
         <input placeholder='Enter Username' value={user} onChange={(e) => { setUser(e.target.value) }} type={"text"} className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
       </div>

@@ -66,7 +66,7 @@ const ContactInformation = () => {
       <div className="max-md:w-full ">
         <Image src={contactInfo} alt="Contact Info" className="max-md:w-full" />
       </div>
-      <div className="pt-10 max-md:w-full max-md:pl-60 max-md:text-3xl ">
+      <div className="pt-10 max-md:w-full max-md:pl-20 max-md:text-3xl ">
         <p className="text-dark text-3xl font-semibold max-md:mb-11 max-md:text-5xl">
           Contact Information
         </p>

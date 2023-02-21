@@ -32,17 +32,17 @@ useEffect(() => {
   getUser();
 }, [])
   return (
-    <div className="bg-[#E0E0E0] max-md:bg-white">
-      <div className="max-md:hidden">
+    <div className="bg-[#E0E0E0] max-md:bg-[#E0E0E0]  max-md:p-7">
+      <div className="max-md:hidden max-md:bg-[#E0E0E0]">
         <Breadcrumb screens={["Home", "Search", "Pricing Plan"]} />
       </div>
-      <p className="font-[500] text-dark text-[30px] text-center mt-20 mb-3 max-md:pt-5">
+      <p className="font-[500] text-dark text-[30px] text-center mb-3 max-md:pt-5">
         Choose your Pricing Plan
       </p>
       <p className="font-[400] text-dark text-[14px] opacity-50 text-center pb-16 max-md:text-xl">
         {pricing.Pricing_Label}
       </p>
-      <div className="flex justify-center items-center gap-16 pb-20 max-md:flex-col max-md:w-full">
+      <div className="flex justify-center items-center gap-16 pb-20 max-md:flex-col max-md:w-full max-md:bg-[#E0E0E0]">
         <LeftPricingPlanComponent pricing={pricing} />
         <RightPricingPlanComponent pricing={pricing} />
       </div>

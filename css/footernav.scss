@@ -22,14 +22,17 @@
    text-align: center;
 
    padding: 0.5rem;
+   
    font-size: 0.8rem;
    font-weight: 500;
    align-items: center;
     @include breakpoint-down(small){
-      width:84rem;
+      width:39rem;
+      // width:auto;
+      padding-top: 5rem;
     }
-            @include breakpoint-down(medium) {
-               width: 84rem
+            @include breakpoint-up(medium) {
+               width:86rem;
             }
 
 }
@@ -45,6 +48,13 @@
    font-size: 0.8rem;
    font-weight: 500;
    align-items: center;
+   @include breakpoint-down(small) {
+         display: none;
+      }
+   
+      @include breakpoint-down(medium) {
+         width: 84rem
+      }
 }
 
 footer,
