@@ -9,12 +9,7 @@ import axios from "axios";
 const Managelistdash = () => {
   const [profiles, setprofiles] = useState([]);
   const [search, setSearch] = useState("");
-  const [profileToShow, setProfileToShow] = useState([])
-
-  const [length,setLength]=useState(0)
-  const [total,setTotal]=useState(0)
-
-  const [currentPage,setCurrentPage]=useState(1)
+  const [vendorToShow, setVendorToShow] = useState([]);
 
   useEffect(() => {
     async function getUser() {
@@ -30,9 +25,7 @@ const Managelistdash = () => {
       axios(config)
         .then(function (response) {
           setprofiles(response.data.data);
-          setProfileToShow(response.data.data);
-          setLength(Math.ceil(response.data.data.length/10))
-          setTotal(response.data.data.length)
+          setVendorToShow(response.data.data);
         })
         .catch(function (error) {
           console.log(error);
@@ -44,7 +37,7 @@ const Managelistdash = () => {
 
   useEffect(() => {
     if (!search) {
-      setProfileToShow(profiles);
+      setVendorToShow(profiles);
     } else {
       let a = [];
       for (let i = 0; i < profiles.length; i++) {
@@ -65,7 +58,7 @@ const Managelistdash = () => {
         }
       }
       console.log("Filtered Vendors", a);
-      setProfileToShow(a);
+      setVendorToShow(a);
     }
   }, [search]);
 
@@ -154,7 +147,7 @@ const Managelistdash = () => {
                   type="checkbox"
                   className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white dark:bg-gray-800 focus:outline-none  focus:ring-2  focus:ring-gray-400"
                   id="header-checkbox"
-                  onClick={Selects()}
+                  onClick={(e) => Selects(e)}
                 />
               </th>
               <th scope="col" className="px-6 py-3 ">
@@ -181,7 +174,7 @@ const Managelistdash = () => {
             </tr>
           </thead>
           <tbody>
-            {profileToShow.map((item, index) => {
+            {vendorToShow.map((item, index) => {
               return (
                 <tr key={index} className="bg-white border-b">
                   <td className="px-6 py-4">
@@ -249,14 +242,14 @@ const Managelistdash = () => {
               Next
             </p>
           </div>
-          <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between mb-20">
+          <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
             <div>
               <span className="text-sm text-gray-700">
-              {currentPage==1?"1":`${((currentPage-1)*10)+1}`}-{total<=(currentPage*10)?total:(currentPage*10)}{" "}
+                1-10{" "}
                 <span className="font-semibold text-gray-900">
                   of
                 </span>{" "}
-                {total}{" "}
+                50{" "}
                 <span className="font-semibold text-gray-900">
                   Pages
                 </span>
@@ -287,17 +280,46 @@ const Managelistdash = () => {
                     />
                   </svg>
                 </p>
-                {Array(length).fill(0).map((item,index)=>{
-                  return(
-                    <p
-                    key={index}
-                    aria-current="page"
-                    className="relative z-10 inline-flex items-center border border-gray-400 px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
-                  >
-                    {index+1}
-                  </p>
-                  )
-                })}    
+                <p
+
+                  aria-current="page"
+                  className="relative z-10 inline-flex items-center border border-gray-400 px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
+                >
+                  1
+                </p>
+                <p
+
+                  className="relative inline-flex items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
+                >
+                  2
+                </p>
+                <p
+
+                  className="relative hidden items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20 md:inline-flex"
+                >
+                  3
+                </p>
+                <span className="relative inline-flex items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-700">
+                  ...
+                </span>
+                <p
+
+                  className="relative hidden items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20 md:inline-flex"
+                >
+                  8
+                </p>
+                <p
+
+                  className="relative inline-flex items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
+                >
+                  9
+                </p>
+                <p
+
+                  className="relative inline-flex items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
+                >
+                  10
+                </p>
                 <p
 
                   className="relative inline-flex items-center rounded-r-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"

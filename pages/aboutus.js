@@ -22,7 +22,8 @@ const Aboutus = () => {
 
       axios(config)
         .then(function (response) {
-          setabout(response.data.data.attributes);
+          console.log(JSON.stringify(response.data));
+          setabout(response.data.data);
         })
         .catch(function (error) {
           console.log(error);
@@ -190,18 +191,17 @@ const Aboutus = () => {
       </div>
       <div className="grid grid-cols-1 ml-5 md:grid-cols-2 gap-y-6 gap-x-6 xl:ml-44 xl:mr-44 lg:ml-24 lg:mr-24 md:ml-4 md:mr-4 mt-8">
         <div>
-          <h2 className="text-2xl mb-6  md:mt-24">{about.label1} </h2>
-          <p className="pr-5 text-lg">{about.label1_desc}</p>
+          <h2 className="text-2xl mb-6  md:mt-24">{about.attributes.label1} </h2>
+          <p className="pr-5 text-lg">{about.attributes.label1_desc}</p>
         </div>
         <div className="md:flex md:flex-col md:justify-center mr-5">
           <div className="md:self-end md:mt-20 md:block flex flex-col justify-center items-center">
-            <div className="border-8 border-gray-200 xls:h-l-img xls:w-l-img xs:h-m-img xs:w-96 w-72 h-s-img">
+            <div className="border-8 border-gray-200 xls:h-l-img xls:w-l-img xs:h-m-img xs:w-96 w-82 h-s-img">
               <picture>
                 <img
                   className="img_profile_portfolio object-contain w-40 min-h-full"
                   object-fit
-                  src={profile}
-                  // {`http://172.105.57.17:1337${about.founder_image1.data.attributes.url}`}
+                  src={`http://172.105.57.17:1337${about.attributes.founder_image1.data.attributes.url}`}
                   alt=""
                 />
               </picture>
@@ -215,33 +215,32 @@ const Aboutus = () => {
       <br></br>
       <div className="flex">
         <div className="flex-auto ml-5 xl:ml-44 xl:mr-44 lg:ml-24 lg:mr-24 md:ml-4 md:mr-4">
-          <h2 className="text-2xl mb-6 mt-2 md:mt-16 ">{about.label2}</h2>
-          <p className="pr-5 text-lg">{about.label2_desc}</p>
+          <h2 className="text-2xl mb-6 mt-2 md:mt-16 ">{about.attributes.label2}</h2>
+          <p className="pr-5 text-lg">{about.attributes.label2_desc}</p>
         </div>
       </div>
       <div className="mt-6 md:mt-10 mb-12 grid grid-cols-1 ml-5 md:grid-cols-2 gap-y-6 gap-x-6 xl:ml-44 xl:mr-44 lg:ml-24 lg:mr-24 md:ml-4 md:mr-4">
         <div className="md:block flex flex-col justify-center items-center mr-5">
-          <div className="border-8 border-gray-200 md:mt-20 xls:h-l-img xls:w-l-img xs:h-m-img xs:w-96 w-72 h-s-img">
+          <div className="border-8 border-gray-200 md:mt-20 xls:h-l-img xls:w-l-img xs:h-m-img xs:w-96 w-[20.2rem] h-s-img">
             <picture>
               <img
                 className="img_profile_portfolio object-contain w-40 min-h-full"
                 object-fit
-                src={profile}
-                // {`http://172.105.57.17:1337${about.founder_image2.data.attributes.url}`}
+                src={`http://172.105.57.17:1337${about.attributes.founder_image2.data.attributes.url}`}
                 alt=""
               />
             </picture>
           </div>
         </div>
         <div className="">
-          <h2 className="text-2xl mb-6 mt-4 md:mt-24 ">{about.label3}</h2>
-          <p className="pr-5 text-lg">{about.label3_desc}</p>
+          <h2 className="text-2xl mb-6 mt-4 md:mt-24 ">{about.attributes.label3}</h2>
+          <p className="pr-5 text-lg">{about.attributes.label3_desc}</p>
         </div>
       </div>
       <div className="flex ml-5">
         <div className="flex-auto xl:ml-44 xl:mr-44 lg:ml-24 lg:mr-24 md:ml-4 md:mr-4 ">
-          <h2 className="text-2xl mb-6 md:mt-16 ">{about.label4}</h2>
-          <p className="pr-5 text-lg">{about.label4_desc}</p>
+          <h2 className="text-2xl mb-6 md:mt-16 ">{about.attributes.label4}</h2>
+          <p className="pr-5 text-lg">{about.attributes.label4_desc}</p>
         </div>
       </div>
       <br></br> <br></br>
@@ -256,7 +255,7 @@ const Aboutus = () => {
           <div className="p-8">
             <blockquote className="text-lg">
               {" "}
-              {about.aboutus_thought}
+              {about.attributes.aboutus_thought}
             </blockquote>
           </div>
         </div>
