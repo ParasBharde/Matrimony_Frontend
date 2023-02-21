@@ -14,8 +14,11 @@ const Manageuserdash = () => {
   const [profiles, setProfiles] = useState([])
   const [search, setSearch] = useState('');
   const [profileToShow, setProfileToShow] = useState([])
-  const [vendorToShow, setVendorToShow] = useState([]);
 
+  const [length,setLength]=useState(0)
+  const [total,setTotal]=useState(0)
+
+  const [currentPage,setCurrentPage]=useState(1)
 
 
   const getAllProfiles = () => {
@@ -30,7 +33,9 @@ const Manageuserdash = () => {
       .then(function (response) {
         // console.log(JSON.stringify(response.data));
         setProfiles(response.data.data);
-        setVendorToShow(response.data.data);
+        setProfileToShow(response.data.data);
+        setLength(Math.ceil(response.data.data.length/10))
+        setTotal(response.data.data.length)
       })
       .catch(function (error) {
         console.log(error);
@@ -43,7 +48,7 @@ const Manageuserdash = () => {
 
   useEffect(() => {
     if (!search) {
-      setVendorToShow(profiles);
+      setProfileToShow(profiles);
     } else {
       let a = [];
       for (let i = 0; i < profiles.length; i++) {
@@ -63,8 +68,7 @@ const Manageuserdash = () => {
           }
         }
       }
-      console.log("Filtered Vendors", a);
-      setVendorToShow(a);
+      setProfileToShow(a);
     }
   }, [search]);
 
@@ -183,7 +187,7 @@ const Manageuserdash = () => {
             </tr>
           </thead>
           <tbody>
-            {vendorToShow.map((item, index) => {
+            {profileToShow.map((item, index) => {
               return (
                 <tr key={index} className="bg-white border-b">
                   <td className="px-6 py-4">
@@ -285,7 +289,7 @@ const Manageuserdash = () => {
           <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
             <div>
               <span className="text-sm text-gray-700">
-                1-10 <span className="font-semibold text-gray-900">of</span> 50{" "}
+                {currentPage==1?"1":`${((currentPage-1)*10)+1}`}-{total<=(currentPage*10)?total:(currentPage*10)} <span className="font-semibold text-gray-900">of</span> {total}{" "}
                 <span className="font-semibold text-gray-900">Pages</span>
               </span>
             </div>
@@ -314,46 +318,18 @@ const Manageuserdash = () => {
                     />
                   </svg>
                 </Link>
-                <Link
-                  href="#"
-                  aria-current="page"
-                  className="relative z-10 inline-flex items-center border border-gray-400 px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
-                >
-                  1
-                </Link>
-                <Link
-                  href="#"
-                  className="relative inline-flex items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
-                >
-                  2
-                </Link>
-                <Link
-                  href="#"
-                  className="relative hidden items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20 md:inline-flex"
-                >
-                  3
-                </Link>
-                <span className="relative inline-flex items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-700">
-                  ...
-                </span>
-                <Link
-                  href="#"
-                  className="relative hidden items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20 md:inline-flex"
-                >
-                  8
-                </Link>
-                <Link
-                  href="#"
-                  className="relative inline-flex items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
-                >
-                  9
-                </Link>
-                <Link
-                  href="#"
-                  className="relative inline-flex items-center border border-gray-400  px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
-                >
-                  10
-                </Link>
+
+                {Array(length).fill(0).map((item,index)=>{
+                  return(
+                    <p
+                    key={index}
+                    aria-current="page"
+                    className="relative z-10 inline-flex items-center border border-gray-400 px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
+                  >
+                    {index+1}
+                  </p>
+                  )
+                })}    
                 <Link
                   href="#"
                   className="relative inline-flex items-center rounded-r-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"

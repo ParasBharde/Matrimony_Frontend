@@ -23,7 +23,7 @@ max-md:hidden
   "
       >
         <div className="container-fluid w-full px-6 container flex flex-wrap items-center justify-between mx-auto ">
-          <h1 classNameName="flex justify-start items-center ">
+          <h1 className="flex justify-start items-center ">
             Welcome 👋 Jenny Wilson
           </h1>
 
