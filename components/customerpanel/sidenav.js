@@ -1,7 +1,15 @@
 import React from "react";
 import Link from "next/link";
+import { useRouter } from 'next/router';
 
 const Sidenav = () => {
+  const router = useRouter();
+
+  const defaultPage = 'admin';
+  const isActive = (page) => {
+    return router.pathname === `/${page}`;
+  };
+
   return (
     <>
       <div className=" ">
@@ -59,34 +67,19 @@ const Sidenav = () => {
                   </svg>
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/admin"
-                  className="hv_co flex items-center p-2 text-base font-normal text-white rounded hover:text-white"
-                >
-                  <span className="flex-1 ml-3 whitespace-nowrap">
-                    Dashboard
-                  </span>
+              <li className={isActive(defaultPage) ? "flex items-center p-2 text-base rounded text-black bg-white left-0 right-[1196px] bottom-[664px] top-[228px] font-bold" : "flex items-center p-2 text-base font-normal text-white rounded hover:text-white"}>
+                <Link href={`/${defaultPage}`} className=" " >
+                  <span className="flex-1 ml-3 whitespace-nowrap">Dashboard</span>
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/admin/manageuser"
-                  className="hv_co flex items-center p-2 text-base font-normal text-white rounded hover:text-white"
-                >
-                  <span className="flex-1 ml-3 whitespace-nowrap">
-                    Manage Users
-                  </span>
+              <li className={isActive("admin/manageuser") ? "flex items-center p-2 text-base rounded text-black bg-white left-0 right-[1196px] bottom-[664px] top-[228px] font-bold" : "flex items-center p-2 text-base font-normal text-white rounded hover:text-white"} >
+                <Link href="/admin/manageuser">
+                  <span className="flex-1 ml-3 whitespace-nowrap">Manage Users</span>
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/admin/managelist"
-                  className="hv_co flex items-center p-2 text-base font-normal text-white rounded hover:text-white"
-                >
-                  <span className="flex-1 ml-3 whitespace-nowrap">
-                    Manage List
-                  </span>
+              <li className={isActive("admin/managelist") ? "flex items-center p-2 text-base rounded text-black bg-white left-0 right-[1196px] bottom-[664px] top-[228px] font-bold" : "flex items-center p-2 text-base font-normal text-white rounded hover:text-white"}>
+                <Link href="/admin/managelist" >
+                  <span className="flex-1 ml-3 whitespace-nowrap">Manage List</span>
                 </Link>
               </li>
             </ul>

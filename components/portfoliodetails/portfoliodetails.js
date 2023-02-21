@@ -11,17 +11,18 @@ import Redheart from "@/assets/redheart.png";
 const Portfoliodetails = ({ postId }) => {
   const router = useRouter();
   const dropdownRef = useRef(null);
+  const [profiles, setprofiles] = useState([]);
+  const [active, setActive] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [length, setLength] = useState(0);
+  const [total, setTotal] = useState(0);
+  const [isList, issetList] = useState(false);
+  const [isGrid, issetGrid] = useState(false);
 
   const closeHoverMenu = () => {
     setActive(false);
   };
   useOnHoverOutside(dropdownRef, closeHoverMenu);
-
-  const [profiles, setprofiles] = useState([]);
-  const [active, setActive] = useState(false);
-
-  const [isList, issetList] = useState(false);
-  const [isGrid, issetGrid] = useState(false);
 
   async function getUser() {
     var config = {
@@ -38,6 +39,8 @@ const Portfoliodetails = ({ postId }) => {
       .then(function (response) {
         console.log(JSON.stringify(response.data));
         setprofiles(response.data.data);
+        setLength(Math.ceil(response.data.data.length / 10));
+        setTotal(response.data.data.length);
       })
       .catch(function (error) {
         console.log(error);
@@ -52,16 +55,27 @@ const Portfoliodetails = ({ postId }) => {
     issetList(false);
     issetGrid(true);
   }, []);
+
+  const [selectedRows, setSelectedRows] = useState(
+    Array(profiles.length).fill(false)
+  );
+
+  const handleHeaderCheckboxChange = (event) => {
+    const isChecked = event.target.checked;
+    setSelectedRows(Array(profiles.length).fill(isChecked));
+  };
   return (
     <>
       <div className=" px-4 py-3 sm:px-[6rem] ">
         <div className="lg:flex lg:flex-1 lg:items-center lg:justify-between sm:flex sm:flex-1 sm:items-center sm:justify-between ">
-          <div>
-            <span className="text-sm text-gray-700">
-              Showing <span className="font-semibold text-gray-900">1-57</span>{" "}
-              out <span className="font-semibold text-gray-900">Profile</span>
-            </span>
-          </div>
+        <div>
+              <span className="text-sm text-gray-700">
+                {currentPage == 1 ? "1" : `${(currentPage - 1) * 10 + 1}`}-
+                {total <= currentPage * 10 ? total : currentPage * 10}{" "}
+                <span className="font-semibold text-gray-900">of</span> {total}{" "}
+                <span className="font-semibold text-gray-900">Pages</span>
+              </span>
+            </div>
           <div>
             <nav
               className="isolate inline-flex -space-x-px max-md:relative max-md:top-[-2rem] left-[18rem] max-md:gap-2  "
@@ -422,8 +436,10 @@ const Portfoliodetails = ({ postId }) => {
                     <input
                       placeholder="check box"
                       type="checkbox"
+                      name="chk"
+                      id="header-checkbox"
                       className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white focus:outline-none  focus:ring-2  focus:ring-gray-400"
-                      onclick="checkAll(this)"
+                      onChange={handleHeaderCheckboxChange}
                     />
                   </th>
                   <th scope="col" className="px-6 py-3">
@@ -468,7 +484,12 @@ const Portfoliodetails = ({ postId }) => {
                             placeholder="check box"
                             type="checkbox"
                             className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white  focus:outline-none focus:ring-2  focus:ring-gray-400"
-                            onclick="checkAll(this)"
+                            checked={selectedRows[index]}
+                            onChange={() => {
+                              const newSelectedRows = [...selectedRows];
+                              newSelectedRows[index] = !newSelectedRows[index];
+                              setSelectedRows(newSelectedRows);
+                            }}
                           />
                         </td>
                         <td className="px-6 py-4">{itms.id}</td>
@@ -676,7 +697,10 @@ const Portfoliodetails = ({ postId }) => {
                           fill="#F98B1D"
                         />
                       </svg>
-                      <button className="border-2 border-main bg-main rounded mt-5 flex justify-center items-center  h-10 p-4 text-white">
+                      <button
+                        className="border-2 border-main bg-main rounded mt-5 flex justify-center items-center  h-10 p-4 text-white"
+                        onClick={() => router.push("/pricingPlan/")}
+                      >
                         Purchase Plan
                       </button>
                     </div>
@@ -685,69 +709,96 @@ const Portfoliodetails = ({ postId }) => {
               })}
           </div>
         )}
-      </div>
-      {/* ............ this is for pagination for responsive part ...  */}
+        {/* ............ this is for pagination for responsive part ...  */}
 
-      <nav
-        aria-label="Page navigation example "
-        className="hidden max-md:block max-md:pl-10 pb-10"
-      >
-        <ul className="inline-flex -space-x-px ">
-          <li>
-            <a
+        <div className="flex items-center px-4 py-[2rem] sm:px-6 mb-[2rem]">
+          <div className="flex flex-1 justify-between sm:hidden">
+            <Link
               href="#"
-              className="px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
               Previous
-            </a>
-            
-
-          </li>
-          <li>
-            <a
+            </Link>
+            <Link
               href="#"
-              className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              1
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              2
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              aria-current="page"
-              className="px-3 py-2 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-            >
-            ...
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              13
-            </a>
-          </li>
-      
-          <li>
-            <a
-              href="#"
-              className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
               Next
-            </a>
-          </li>
-        </ul>
-      </nav>
+            </Link>
+          </div>
+          <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+            <div>
+              <span className="text-sm text-gray-700">
+                {currentPage == 1 ? "1" : `${(currentPage - 1) * 10 + 1}`}-
+                {total <= currentPage * 10 ? total : currentPage * 10}{" "}
+                <span className="font-semibold text-gray-900">of</span> {total}{" "}
+                <span className="font-semibold text-gray-900">Pages</span>
+              </span>
+            </div>
+            <div>
+              <nav
+                className="isolate inline-flex -space-x-px  rounded-md shadow-sm "
+                aria-label="Pagination"
+              >
+                <Link
+                  href="#"
+                  className="relative inline-flex items-center rounded-l-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
+                >
+                  <span className="sr-only">Previous</span>
 
+                  <svg
+                    className="h-5 w-5"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </Link>
+
+                {Array(length)
+                  .fill(0)
+                  .map((item, index) => {
+                    return (
+                      <p
+                        key={index}
+                        aria-current="page"
+                        className="relative z-10 inline-flex items-center border border-gray-400 px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
+                      >
+                        {index + 1}
+                      </p>
+                    );
+                  })}
+                <Link
+                  href="#"
+                  className="relative inline-flex items-center rounded-r-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
+                >
+                  <span className="sr-only">Next</span>
+
+                  <svg
+                    className="h-5 w-5"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </Link>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
       <style jsx>{`
         .list_data {
           margin-bottom: 4rem;

@@ -72,22 +72,12 @@ const Manageuserdash = () => {
     }
   }, [search]);
 
-  function Selects() {
-    const headerCheckbox = document.getElementById("header-checkbox");
-    const rowCheckboxes = document.querySelectorAll(".row-checkbox");
-    headerCheckbox.addEventListener("click", function() {
-      if (headerCheckbox.checked) {
-        rowCheckboxes.forEach(function(rowCheckbox) {
-          rowCheckbox.checked = true;
-        });
-      } 
-      else {
-        rowCheckboxes.forEach(function(rowCheckbox) {
-          rowCheckbox.checked = false;
-        });
-      }
-    });
-  }
+  const [selectedRows, setSelectedRows] = useState(Array(profileToShow.length).fill(false));
+
+  const handleHeaderCheckboxChange = (event) => {
+    const isChecked = event.target.checked;
+    setSelectedRows(Array(profileToShow.length).fill(isChecked));
+  };
   return (
     <>
       <div className="txt flex justify-around mx-22 relative mt-10 ">
@@ -159,7 +149,7 @@ const Manageuserdash = () => {
                   name="chk"
                   id="header-checkbox"
                   className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white focus:outline-none  focus:ring-2  focus:ring-gray-400"
-                  onClick={(e) => Selects(e)}
+                  onChange={handleHeaderCheckboxChange}
                 />
               </th>
               <th scope="col" className="px-6 py-3">
@@ -197,7 +187,12 @@ const Manageuserdash = () => {
                       placeholder="check box"
                       type="checkbox"
                       className="row-checkbox cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white focus:outline-none focus:ring-2  focus:ring-gray-400"
-                      onClick={Selects()}
+                      checked={selectedRows[index]}
+                      onChange={() => {
+                        const newSelectedRows = [...selectedRows];
+                        newSelectedRows[index] = !newSelectedRows[index];
+                        setSelectedRows(newSelectedRows);
+                      }}
                     />
                   </td>
                   <td

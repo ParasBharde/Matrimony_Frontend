@@ -80,7 +80,7 @@ const Header = () => {
               EN
             </p>
             {isMenuDropDownOpen1 && (
-              <div className="absolute bg-white right-2 shadow-lg top-12">
+              <div className="absolute bg-white right-2 shadow-lg top-5">
                 <p className="m-3 w-[100px] cursor-pointer">
                   <i className=" mr-5 text-main text-center"></i>
                   TA
@@ -95,7 +95,7 @@ const Header = () => {
           <Hamburger onClick={() => console.log("Clicked")} />
         </div>
         {/* ..................   */}
-        <div ref={dropdownRef} className="relative  max-md:right-10">
+        <div ref={dropdownRef} className="relative  max-md:right-10 right-[2rem]">
           <Image
             className="drop "
             src={avatar}
@@ -103,8 +103,8 @@ const Header = () => {
             onMouseOver={() => setMenuDropDownOpen(true)}
           />
           {isMenuDropDownOpen && (
-            <div className="absolute bg-white right-2 shadow-lg top-12">
-              <p className="m-3 w-[200px] cursor-pointer">
+            <div className="absolute bg-white right-2 shadow-lg top-11">
+              <p className="m-3 w-[200px] cursor-pointer" onClick={() => router.push('/profile/')}>
                 <i className="fa-regular fa-circle-user mr-5 text-main"></i>
                 Profile
               </p>
@@ -116,7 +116,7 @@ const Header = () => {
                 <i class="fa-solid fa-download mr-5 text-main"></i> Download
                 Profile
               </p>
-              <p className="m-3 w-[200px] cursor-pointer">
+              <p className="m-3 w-[200px] cursor-pointer" onClick={() => router.push('/setNewPassword/')}>
                 <i class="fa-solid fa-lock mr-5 text-main"></i> Change Password
               </p>
               <p className="m-3 w-[200px] cursor-pointer">

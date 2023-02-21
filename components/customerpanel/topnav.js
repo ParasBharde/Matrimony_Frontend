@@ -2,8 +2,12 @@ import React from "react";
 import Image from "next/image";
 import profile from "@/assets/profile.png";
 import Link from "next/link";
+import { useOnHoverOutside } from "@/hooks/useOnHoverOutside";
+import { useRouter } from "next/router";
 
 const Topnav = () => {
+
+
   return (
     <>
       <nav
