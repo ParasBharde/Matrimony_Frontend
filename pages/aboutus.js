@@ -8,35 +8,33 @@ import axios from "axios";
 const Aboutus = () => {
   const [about, setabout] = useState([]);
 
-  useEffect(() => {
-    const About = () => {
-      var config = {
-        method: "get",
-        maxBodyLength: Infinity,
-        url: "http://172.105.57.17:1337/api/about-page/?populate=%2A",
-        headers: {
-          Authorization:
-            "Bearer 3ad527b6e04e45a25b5c7a57d8e796af06f0853e2fa7c4551566c2096b18b80500bdaf2fc61dace337df1dc8c2a0026075026b10589f9c9d009a72165635b72012c305bf52929b73a79c97e1e5a53e7193f812604f83fa679731fa19540e9ecd7112dc224f0cccd4624294b05ec2864b552bdf7905d65736410f0cf2774c3994",
-        },
-      };
-
-      axios(config)
-        .then(function (response) {
-          console.log(JSON.stringify(response.data));
-          setabout(response.data.data);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+  const About = () => {
+    var config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: "http://172.105.57.17:1337/api/about-page?populate=%2A",
+      headers: {},
     };
-    console.log("about", about);
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        setabout(response.data.data.attributes);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  console.log("about", about);
+
+  useEffect(() => {
     About();
   }, []);
 
   return (
     <>
       <Head>
-        <title>About Us | Youji</title>
+        <title>About Us | Matrimony</title>
         <meta
           name="description"
           content="Shop for healthy and fresh kampung poultry and farm grown poultry products at your door step"
@@ -191,8 +189,8 @@ const Aboutus = () => {
       </div>
       <div className="grid grid-cols-1 ml-5 md:grid-cols-2 gap-y-6 gap-x-6 xl:ml-44 xl:mr-44 lg:ml-24 lg:mr-24 md:ml-4 md:mr-4 mt-8">
         <div>
-          <h2 className="text-2xl mb-6  md:mt-24">{about.attributes.label1} </h2>
-          <p className="pr-5 text-lg">{about.attributes.label1_desc}</p>
+          <h2 className="text-2xl mb-6  md:mt-24">{about.label1} </h2>
+          <p className="pr-5 text-lg">{about.label1_desc}</p>
         </div>
         <div className="md:flex md:flex-col md:justify-center mr-5">
           <div className="md:self-end md:mt-20 md:block flex flex-col justify-center items-center">
@@ -201,7 +199,8 @@ const Aboutus = () => {
                 <img
                   className="img_profile_portfolio object-contain w-40 min-h-full"
                   object-fit
-                  src={`http://172.105.57.17:1337${about.attributes.founder_image1.data.attributes.url}`}
+                  src={profile}
+                  // {`http://172.105.57.17:1337${about.founder_image1.data.attributes.url}`}
                   alt=""
                 />
               </picture>
@@ -215,8 +214,8 @@ const Aboutus = () => {
       <br></br>
       <div className="flex">
         <div className="flex-auto ml-5 xl:ml-44 xl:mr-44 lg:ml-24 lg:mr-24 md:ml-4 md:mr-4">
-          <h2 className="text-2xl mb-6 mt-2 md:mt-16 ">{about.attributes.label2}</h2>
-          <p className="pr-5 text-lg">{about.attributes.label2_desc}</p>
+          <h2 className="text-2xl mb-6 mt-2 md:mt-16 ">{about.label2}</h2>
+          <p className="pr-5 text-lg">{about.label2_desc}</p>
         </div>
       </div>
       <div className="mt-6 md:mt-10 mb-12 grid grid-cols-1 ml-5 md:grid-cols-2 gap-y-6 gap-x-6 xl:ml-44 xl:mr-44 lg:ml-24 lg:mr-24 md:ml-4 md:mr-4">
@@ -226,21 +225,22 @@ const Aboutus = () => {
               <img
                 className="img_profile_portfolio object-contain w-40 min-h-full"
                 object-fit
-                src={`http://172.105.57.17:1337${about.attributes.founder_image2.data.attributes.url}`}
+                src={profile}
+                // {`http://172.105.57.17:1337${about.founder_image2.data.attributes.url}`}
                 alt=""
               />
             </picture>
           </div>
         </div>
         <div className="">
-          <h2 className="text-2xl mb-6 mt-4 md:mt-24 ">{about.attributes.label3}</h2>
-          <p className="pr-5 text-lg">{about.attributes.label3_desc}</p>
+          <h2 className="text-2xl mb-6 mt-4 md:mt-24 ">{about.label3}</h2>
+          <p className="pr-5 text-lg">{about.label3_desc}</p>
         </div>
       </div>
       <div className="flex ml-5">
         <div className="flex-auto xl:ml-44 xl:mr-44 lg:ml-24 lg:mr-24 md:ml-4 md:mr-4 ">
-          <h2 className="text-2xl mb-6 md:mt-16 ">{about.attributes.label4}</h2>
-          <p className="pr-5 text-lg">{about.attributes.label4_desc}</p>
+          <h2 className="text-2xl mb-6 md:mt-16 ">{about.label4}</h2>
+          <p className="pr-5 text-lg">{about.label4_desc}</p>
         </div>
       </div>
       <br></br> <br></br>
@@ -255,7 +255,7 @@ const Aboutus = () => {
           <div className="p-8">
             <blockquote className="text-lg">
               {" "}
-              {about.attributes.aboutus_thought}
+              {about.aboutus_thought}
             </blockquote>
           </div>
         </div>
