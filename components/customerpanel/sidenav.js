@@ -1,7 +1,15 @@
 import React from "react";
 import Link from "next/link";
+import { useRouter } from 'next/router';
 
 const Sidenav = () => {
+  const router = useRouter();
+
+  // const defaultPage = 'admin';
+  // const isActive = (page) => {
+  //   return router.pathname === `/${page}`;
+  // };
+
   return (
     <>
       <div className=" ">
@@ -59,12 +67,27 @@ const Sidenav = () => {
                   </svg>
                 </Link>
               </li>
+              {/* <li className={isActive(defaultPage) ? "active" : ""}>
+                <Link href={`/${defaultPage}`} className=" flex items-center p-2 text-base rounded text-black bg-white left-0 right-[1196px] bottom-[664px] top-[228px] font-bold" >
+                  <span className="flex-1 ml-3 whitespace-nowrap">Dashboard</span>
+                </Link>
+              </li>
+              <li className={isActive("about") ? "active" : ""} >
+                <Link href="/admin/manageuser" className="hv_co flex items-center p-2 text-base font-normal text-white rounded hover:text-white">
+                  <span className="flex-1 ml-3 whitespace-nowrap">Manage Users</span>
+                </Link>
+              </li>
+              <li className={isActive("contact") ? "active" : ""}>
+                <Link href="/admin/managelist" className="hv_co flex items-center p-2 text-base font-normal text-white rounded hover:text-white">
+                  <span className="flex-1 ml-3 whitespace-nowrap">Manage List</span>
+                </Link>
+              </li> */}
               <li>
                 <Link
                   href="/admin"
                   className="hv_co flex items-center p-2 text-base font-normal text-white rounded hover:text-white"
                 >
-                  <span className="flex-1 ml-3 whitespace-nowrap">
+                  <span className="active flex-1 ml-3 whitespace-nowrap">
                     Dashboard
                   </span>
                 </Link>

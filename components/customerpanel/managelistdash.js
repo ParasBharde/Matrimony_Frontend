@@ -69,21 +69,28 @@ const Managelistdash = () => {
     }
   }, [search]);
 
-  function Selects() {
-    const headerCheckbox = document.getElementById("header-checkbox");
-    const rowCheckboxes = document.querySelectorAll(".row-checkbox");
-    headerCheckbox.addEventListener("click", function () {
-      if (headerCheckbox.checked) {
-        rowCheckboxes.forEach(function (rowCheckbox) {
-          rowCheckbox.checked = true;
-        });
-      } else {
-        rowCheckboxes.forEach(function (rowCheckbox) {
-          rowCheckbox.checked = false;
-        });
-      }
-    });
-  }
+  // function Selects() {
+  //   const headerCheckbox = document.getElementById("header-checkbox");
+  //   const rowCheckboxes = document.querySelectorAll(".row-checkbox");
+  //   headerCheckbox.addEventListener("click", function () {
+  //     if (headerCheckbox.checked) {
+  //       rowCheckboxes.forEach(function (rowCheckbox) {
+  //         rowCheckbox.checked = true;
+  //       });
+  //     } else {
+  //       rowCheckboxes.forEach(function (rowCheckbox) {
+  //         rowCheckbox.checked = false;
+  //       });
+  //     }
+  //   });
+  // }
+
+  const [selectedRows, setSelectedRows] = useState(Array(profileToShow.length).fill(false));
+
+  const handleHeaderCheckboxChange = (event) => {
+    const isChecked = event.target.checked;
+    setSelectedRows(Array(profileToShow.length).fill(isChecked));
+  };
   return (
     <>
       <div className="txt flex justify-around  relative">
@@ -154,7 +161,8 @@ const Managelistdash = () => {
                   type="checkbox"
                   className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white dark:bg-gray-800 focus:outline-none  focus:ring-2  focus:ring-gray-400"
                   id="header-checkbox"
-                  onClick={(e) => Selects(e)}
+                  // onClick={(e) => Selects(e)}
+                  onChange={handleHeaderCheckboxChange}
                 />
               </th>
               <th scope="col" className="px-6 py-3 ">
@@ -189,7 +197,12 @@ const Managelistdash = () => {
                       placeholder="check box"
                       className="row-checkbox cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white focus:outline-none  focus:ring-2  focus:ring-gray-400"
                       type="checkbox"
-                      onClick={Selects()}
+                      checked={selectedRows[index]}
+                      onChange={() => {
+                        const newSelectedRows = [...selectedRows];
+                        newSelectedRows[index] = !newSelectedRows[index];
+                        setSelectedRows(newSelectedRows);
+                      }}
                     />
                   </td>
                   <td
