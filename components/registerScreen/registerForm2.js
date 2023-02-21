@@ -153,7 +153,7 @@ const RegisterForm2 = ({screen,setScreen}) => {
 
   return (
     <>
-      <div className="flex justify-center items-center p-4 max-lg:min-w-min max-lg:flex max-lg:flex-col max-lg:items-center">
+      <div className="flex justify-center gap-5 items-center p-4 max-lg:min-w-min max-lg:flex max-lg:flex-col max-lg:items-center">
         <div>
           <div className="mt-5 max-w-min mx-auto">
             <p className="text-dark font-[500] text-[14px] mb-2">
@@ -418,7 +418,7 @@ const RegisterForm2 = ({screen,setScreen}) => {
         </div>
       </div>
 
-      <div className="w-[auto] mx-auto  ">
+      <div className="w-[auto] mx-auto lg:w-[51rem] ">
         <p className="h-[10px] my-6">Profile Photo *</p>
         <div className="flex justify-between items-center max-lg:flex-col space-y-5 max-lg:flex max-lg:justify-start ">
           <Files
