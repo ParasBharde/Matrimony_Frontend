@@ -476,8 +476,8 @@ const RegisterForm2 = ({ screen, setScreen }) => {
           >
             <Image
               src={file1 ? file1[0].preview.url : fileInputImage}
-              // width={190}
-              // height={190}
+              width={190}
+              height={190}
               className="md:w-[190] h-[190] max-lg:w-[22rem] max-lg:h-[22rem]"
               alt={"File Input Image"}
             />
@@ -494,8 +494,8 @@ const RegisterForm2 = ({ screen, setScreen }) => {
           >
             <Image
               src={file2 ? file2[0].preview.url : fileInputImage}
-              // width={190}
-              // height={190}
+              width={190}
+              height={190}
               className="md:w-[190] h-[190] max-lg:w-[22rem] max-lg:h-[22rem]"
               alt={"File Input Image"}
             />
@@ -512,8 +512,8 @@ const RegisterForm2 = ({ screen, setScreen }) => {
           >
             <Image
               src={file3 ? file3[0].preview.url : fileInputImage}
-              // width={190}
-              // height={190}
+              width={190}
+              height={190}
               alt={"File Input Image"}
               className="md:w-[190] h-[190] max-lg:w-[22rem] max-lg:h-[22rem]"
             />
@@ -529,8 +529,8 @@ const RegisterForm2 = ({ screen, setScreen }) => {
           >
             <Image
               src={file4 ? file4[0].preview.url : fileInputImage}
-              // width={190}
-              // height={190}
+              width={190}
+              height={190}
               alt={"File Input Image"}
               className="md:w-[190] h-[190] max-lg:w-[22rem] max-lg:h-[22rem]"
             />

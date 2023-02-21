@@ -268,11 +268,9 @@ const Managelistdash = () => {
                 aria-label="Pagination"
               >
                 <p
-
                   className="relative inline-flex items-center rounded-l-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
                 >
                   <span className="sr-only">Previous</span>
-
                   <svg
                     className="h-5 w-5"
                     xmlns="http://www.w3.org/2000/svg"
@@ -299,11 +297,9 @@ const Managelistdash = () => {
                   )
                 })}    
                 <p
-
                   className="relative inline-flex items-center rounded-r-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
                 >
                   <span className="sr-only">Next</span>
-
                   <svg
                     className="h-5 w-5"
                     xmlns="http://www.w3.org/2000/svg"
