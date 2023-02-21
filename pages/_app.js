@@ -19,7 +19,7 @@ export default function App({ Component, pageProps }) {
       router.pathname == "/admin/manageuser" ||
       router.pathname == "/admin/managelist" ||
       router.pathname == "/admin/profile" ||
-      router.pathname == "/admin/dashboard" ? null : (
+      router.pathname == "/admin" ? null : (
         <Header />
       )}
       <Component {...pageProps} />
@@ -28,7 +28,7 @@ export default function App({ Component, pageProps }) {
       router.pathname == "/admin/manageuser" ||
       router.pathname == "/admin/managelist" ||
       router.pathname == "/admin/profile" ||
-      router.pathname == "/admin/dashboard" ? null : (
+      router.pathname == "/admin" ? null : (
         <Footer />
       )}
     </>
