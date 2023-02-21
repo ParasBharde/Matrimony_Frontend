@@ -54,28 +54,22 @@ const Portfoliodetails = ({ postId }) => {
   }, []);
   return (
     <>
-      <div class=" px-4 py-3 sm:px-[6rem]">
-        <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+      <div className=" px-4 py-3 sm:px-[6rem] ">
+        <div className="lg:flex lg:flex-1 lg:items-center lg:justify-between sm:flex sm:flex-1 sm:items-center sm:justify-between ">
           <div>
             <span className="text-sm text-gray-700">
-              Showing{" "}
-              <span className="font-semibold text-gray-900">
-                1-57
-              </span>{" "}
-              out{" "}
-              <span className="font-semibold text-gray-900">
-                Profile
-              </span>
+              Showing <span className="font-semibold text-gray-900">1-57</span>{" "}
+              out <span className="font-semibold text-gray-900">Profile</span>
             </span>
           </div>
           <div>
             <nav
-              class="isolate inline-flex -space-x-px "
+              className="isolate inline-flex -space-x-px max-md:relative max-md:top-[-2rem] left-[18rem] max-md:gap-2  "
               aria-label="Pagination"
             >
-              <span className="px-2 py-1">View by :</span>
+              <span className="px-2 py-1 max-md:hidden ">View by :</span>
               <button
-                className="flex"
+                className="flex max-md:flex "
                 onClick={() => {
                   issetList(!isList);
                   issetGrid(!isGrid);
@@ -98,6 +92,7 @@ const Portfoliodetails = ({ postId }) => {
                           height="30"
                           rx="2"
                           fill="white"
+                          // className="max-md:bg-red-800"
                         />
                         <g clip-path="url(#clip0_62_22856)">
                           <path
@@ -409,7 +404,7 @@ const Portfoliodetails = ({ postId }) => {
 
         {isList ? (
           <div className="list_data flex justify-center mt-[2rem] pb-[4rem] ">
-            <table className=" text-sm text-left text-gray-500 divide-y-4 divide-slate-400/[3rem]">
+            <table className=" text-sm text-left text-gray-500 divide-y-4 divide-slate-400/[3rem] max-md:hidden  ">
               <thead
                 style={{
                   color: "rgba(30, 30, 30, 0.5)",
@@ -586,10 +581,7 @@ const Portfoliodetails = ({ postId }) => {
                         }}
                       >
                         <h1 className="text-lg">
-                          <span
-                            className="no-underline hover:underline text-black cursor-pointer"
-
-                          >
+                          <span className="no-underline hover:underline text-black cursor-pointer">
                             {itms.attributes.first_name}{" "}
                             {itms.attributes.last_name}
                           </span>
@@ -694,6 +686,68 @@ const Portfoliodetails = ({ postId }) => {
           </div>
         )}
       </div>
+      {/* ............ this is for pagination for responsive part ...  */}
+
+      <nav
+        aria-label="Page navigation example "
+        className="hidden max-md:block max-md:pl-10 pb-10"
+      >
+        <ul className="inline-flex -space-x-px ">
+          <li>
+            <a
+              href="#"
+              className="px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >
+              Previous
+            </a>
+            
+
+          </li>
+          <li>
+            <a
+              href="#"
+              className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >
+              1
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >
+              2
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              aria-current="page"
+              className="px-3 py-2 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
+            >
+            ...
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >
+              13
+            </a>
+          </li>
+      
+          <li>
+            <a
+              href="#"
+              className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >
+              Next
+            </a>
+          </li>
+        </ul>
+      </nav>
+
       <style jsx>{`
         .list_data {
           margin-bottom: 4rem;

@@ -29,16 +29,15 @@ const SuccessStories = (props) => {
           {props.homedata.Success_Story_desc}
         </p>
         <div className="flex justify-start items-center carousel space-x-4 mt-10 max-md:flex-row max-md:overflow-x-auto">
-          <div className="max-md:w-[40rem]">
+          <div className="max-md:w-[40rem] max-md:mr-9 max-md:">
             <SuccessStoriesCard />
-          </div>  
-          {/* <div className="max-md:w-[40rem]">
-            <SuccessStoriesCard />
-          </div> */}
-
-          {/* <div className="max-md:min-w-full">
-            <SuccessStoriesCard />
-          </div> */}
+            {/* <div className="max-md:w-[40rem]">
+              <SuccessStoriesCard />
+            </div>
+            <div className="max-md:min-w-full">
+              <SuccessStoriesCard />
+            </div> */}
+          </div>
         </div>
       </div>
     </>

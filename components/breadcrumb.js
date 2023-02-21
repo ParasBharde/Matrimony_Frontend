@@ -1,7 +1,7 @@
 import React from 'react'
 const Breadcrumb = ({ screens }) => {
   return (
-    <nav className="flex ml-20 py-5">
+    <nav className="flex ml-20 py-5 max-md:hidden">
       <ol className="inline-flex items-center space-x-1 md:space-x-3">
         <li className="inline-flex items-center">
           <p className="inline-flex items-center text-[14px] font-[400] text-dark opacity-50 hover:text-main">

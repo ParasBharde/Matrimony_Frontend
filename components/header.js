@@ -31,10 +31,10 @@ const Header = () => {
 
 
   return (
-    <div className="flex flex-row justify-between items-center mx-5 max-md:pt-5 py-3 max-md:min-w-fit">
+    <div className="flex flex-row justify-between items-center  max-md:pt-5 py-3 max-md:w-full max-md:border-solid border-y-2 max-md:px-5">
       <Link href="/">
         <div>
-          <Image src={headerLogo} alt={"Header Logo"}/>
+          <Image src={headerLogo} alt={"Header Logo"} className="pl-5"/>
         </div>
       </Link>
       <div className="flex justify-center items-center gap-16 ">
@@ -91,7 +91,7 @@ const Header = () => {
         </div>
 
         {/* add for responsive screen  */}
-        <div className="absolute right-5  hidden max-md:block max-sm:block max-md:bg-black">
+        <div className="absolute right-2 hidden max-md:block max-sm:block max-md:bg-black">
           <Hamburger onClick={() => console.log("Clicked")} />
         </div>
         {/* ..................   */}

@@ -12,24 +12,31 @@ const SetNewPassword = () => {
 
   const [nextScreen,setNextScreen]=useState(false)
   return (
-
-    <div className='bg-[#E0E0E0] pb-16'>
-      <Breadcrumb screens={["Home","Change Password"]}/>
-      {!nextScreen?(
+    <div className="bg-[#E0E0E0] pb-16 max-md:h-[90vh]">
+      <Breadcrumb
+        screens={["Home", "Change Password"]}
+        // className="max-md:bg-[#E0E0E0]"
+      />
+      {!nextScreen ? (
         <>
-        <SnpHeader image={snpH}/>
-        <p className='text-white bg-main py-2 px-5 rounded-md cursor-pointer mt-5  w-[400px] text-center mx-auto' onClick={()=>{setNextScreen(true)}}>Continue</p></>
-      )
-      :
-      (
-      <>
-      <SnpHeader image={snpL}/>
-      <SnpForm/>
-      </>
-      )
-      }
+          <SnpHeader image={snpH} />
+          <p
+            className="text-white bg-main py-2 px-5 rounded-md cursor-pointer mt-5  w-[400px] text-center mx-auto max-md:w-auto max-md:mt-20 max-md:mx-4"
+            onClick={() => {
+              setNextScreen(true);
+            }}
+          >
+            Continue
+          </p>
+        </>
+      ) : (
+        <>
+          <SnpHeader image={snpL} />
+          <SnpForm />
+        </>
+      )}
     </div>
-  )
+  );
 }
 
 export default SetNewPassword
