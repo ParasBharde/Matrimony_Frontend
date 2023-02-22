@@ -96,156 +96,262 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
 
   return (
     <>
-      <div className='w-[820px] mx-auto'>
-        <p className='font-[600] text-[18px]'>Horoscope Information</p>
+      <div className="max-md:flex max-md:flex-col">
+        <div className="w-auto mx-auto">
+          <p className="font-[600] text-[18px]">Horoscope Information</p>
+        </div>
+
+        <div className="flex justify-center items-center gap-5 max-md:flex max-md:flex-col w-auto">
+          <div className="mt-5">
+            <p className="text-dark font-[500] text-[14px] mb-2">
+              Zodiac Sign *
+            </p>
+            <select
+              value={zodiacSign}
+              onChange={(e) => {
+                setZodiacSign(e.target.value);
+              }}
+              className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3 "
+            >
+              {signs.map((item, index) => {
+                return (
+                  <option key={index} value={item}>
+                    {item}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <div className="mt-5">
+            <p className="text-dark font-[500] text-[14px] mb-2">
+              Tamil Year *
+            </p>
+            <input
+              placeholder="Enter Tamil Year"
+              type={"text"}
+              value={tamilYear}
+              onChange={(e) => {
+                setTamilYear(e.target.value);
+              }}
+              className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3 "
+            />
+          </div>
+        </div>
+        <div className='max-md:m-4'>
+          <div className="flex justify-center items-center gap-5 max-md:flex max-md:flex-col">
+            <div className="mt-5">
+              <p className="text-dark font-[500] text-[14px] mb-2">
+                Tamil Month*
+              </p>
+              <input
+                placeholder="Enter Tamil Month"
+                type={"text"}
+                value={tamilMonth}
+                onChange={(e) => {
+                  setTamilMonth(e.target.value);
+                }}
+                className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
+              />
+            </div>
+            <div className="mt-5">
+              <p className="text-dark font-[500] text-[14px] mb-2">
+                Udayati Nazhikai *
+              </p>
+              <input
+                placeholder="Enter Udayati Nazhikai"
+                type={"text"}
+                value={udayatiNazhikai}
+                onChange={(e) => {
+                  setUdayatiNazhikai(e.target.value);
+                }}
+                className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
+              />
+            </div>
+          </div>
+
+          <div className="flex justify-center items-center gap-5 max-md:flex max-md:flex-col">
+            <div className="mt-5">
+              <p className="text-dark font-[500] text-[14px] mb-2">Day *</p>
+              <select
+                value={day}
+                onChange={(e) => {
+                  setDay(e.target.value);
+                }}
+                className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
+              >
+                {daysOfWeek.map((item, index) => {
+                  return (
+                    <option key={index} value={item}>
+                      {item}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            <div className="mt-5">
+              <p className="text-dark font-[500] text-[14px] mb-2">
+                Birth Time *
+              </p>
+              <input
+                type={"time"}
+                value={birthTime}
+                onChange={(e) => {
+                  setBirthTime(e.target.value);
+                }}
+                className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
+              />
+            </div>
+          </div>
+
+          <div className="flex justify-center items-center gap-5 max-md:flex max-md:flex-col ">
+            <div className="mt-5">
+              <p className="text-dark font-[500] text-[14px] mb-2">
+                Star / Foot *
+              </p>
+              <select
+                value={starFoot}
+                onChange={(e) => {
+                  setStarFoot(e.target.value);
+                }}
+                className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
+              >
+                {signs.map((item, index) => {
+                  return (
+                    <option key={index} value={item}>
+                      {item}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            <div className="mt-5">
+              <p className="text-dark font-[500] text-[14px] mb-2">
+                Ascendant (Laknam) *
+              </p>
+              <select
+                value={ascendant}
+                onChange={(e) => {
+                  setAscendant(e.target.value);
+                }}
+                className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
+              >
+                {signs.map((item, index) => {
+                  return (
+                    <option key={index} value={item}>
+                      {item}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+          </div>
+
+          <div className="flex justify-center items-center gap-5 max-md:flex max-md:flex-col">
+            <div className="mt-5">
+              <p className="text-dark font-[500] text-[14px] mb-2">
+                Birthplace*
+              </p>
+              <input
+                placeholder="Enter Your Birthplace"
+                type={"text"}
+                value={birthplace}
+                onChange={(e) => {
+                  setBirthplace(e.target.value);
+                }}
+                className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
+              />
+            </div>
+            <div className="mt-5">
+              <p className="text-dark font-[500] text-[14px] mb-2">
+                Presence of Natal Direction *
+              </p>
+              <input
+                placeholder="Enter Your Presence of Natal Direction"
+                type={"text"}
+                value={presenceOfNatalDirection}
+                onChange={(e) => {
+                  setPresenceOFNatalDirection(e.target.value);
+                }}
+                className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="w-auto mx-auto mt-5 ">
+          <div className="w-full flex justify-between items-center">
+            <p className="text-dark font-[500] text-[14px]">
+              Horoscope Doucment
+            </p>
+            <p className="text-main font-[400] text-[14px]">Add more</p>
+          </div>
+          <div className="w-full flex justify-between items-center mt-3 max-md:flex max-md:flex-col max-md:gap-4 ">
+            <Files
+              className="files-dropzone cursor-pointer"
+              onChange={onFilesChange1}
+              onError={onFilesError1}
+              accepts={["image"]}
+              maxFileSize={10000000}
+              minFileSize={0}
+              clickable
+            >
+              <Image
+                src={file1 ? file1[0].preview.url : fileInputImage}
+                alt={"File Input Image"}
+                width={400}
+                height={300}
+              />
+            </Files>
+            <Files
+              className="files-dropzone cursor-pointer"
+              onChange={onFilesChange2}
+              onError={onFilesError2}
+              accepts={["image"]}
+              maxFileSize={10000000}
+              minFileSize={0}
+              clickable
+            >
+              <Image
+                src={file2 ? file2[0].preview.url : fileInputImage}
+                alt={"File Input Image"}
+                width={400}
+                height={300}
+              />
+            </Files>
+          </div>
+        </div>
       </div>
-
-      <div className='flex justify-center items-center gap-5'>
-
-        <div className='mt-5'>
-          <p className='text-dark font-[500] text-[14px] mb-2'>Zodiac Sign *</p>
-          <select value={zodiacSign} onChange={(e) => { setZodiacSign(e.target.value) }}
-            className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3'>
-            {signs.map((item, index) => {
-              return (
-                <option key={index} value={item}>{item}</option>
-              )
-            })}
-          </select>
-        </div>
-        <div className='mt-5'>
-          <p className='text-dark font-[500] text-[14px] mb-2'>Tamil Year *</p>
-          <input placeholder='Enter Tamil Year' type={"text"} value={tamilYear} onChange={(e) => { setTamilYear(e.target.value) }}
-            className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
-        </div>
-
-      </div>
-
-      <div className='flex justify-center items-center gap-5'>
-
-        <div className='mt-5'>
-          <p className='text-dark font-[500] text-[14px] mb-2'>Tamil Month*</p>
-          <input placeholder='Enter Tamil Month' type={"text"} value={tamilMonth} onChange={(e) => { setTamilMonth(e.target.value) }}
-            className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
-        </div>
-        <div className='mt-5'>
-          <p className='text-dark font-[500] text-[14px] mb-2'>Udayati Nazhikai *</p>
-          <input placeholder='Enter Udayati Nazhikai' type={"text"} value={udayatiNazhikai} onChange={(e) => { setUdayatiNazhikai(e.target.value) }}
-            className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
-        </div>
-
-      </div>
-
-      <div className='flex justify-center items-center gap-5'>
-
-        <div className='mt-5'>
-          <p className='text-dark font-[500] text-[14px] mb-2'>Day *</p>
-          <select value={day} onChange={(e) => { setDay(e.target.value) }}
-            className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3'>
-            {daysOfWeek.map((item, index) => {
-              return (
-                <option key={index} value={item}>{item}</option>
-              )
-            })}
-          </select>
-        </div>
-        <div className='mt-5'>
-          <p className='text-dark font-[500] text-[14px] mb-2'>Birth Time *</p>
-          <input type={"time"} value={birthTime} onChange={(e) => { setBirthTime(e.target.value) }}
-            className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
-        </div>
-
-      </div>
-
-      <div className='flex justify-center items-center gap-5'>
-
-        <div className='mt-5'>
-          <p className='text-dark font-[500] text-[14px] mb-2'>Star / Foot *</p>
-          <select value={starFoot} onChange={(e) => { setStarFoot(e.target.value) }}
-            className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3'>
-            {signs.map((item, index) => {
-              return (
-                <option key={index} value={item}>{item}</option>
-              )
-            })}
-          </select>
-        </div>
-        <div className='mt-5'>
-          <p className='text-dark font-[500] text-[14px] mb-2'>Ascendant (Laknam) *</p>
-          <select value={ascendant} onChange={(e) => { setAscendant(e.target.value) }}
-            className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3'>
-            {signs.map((item, index) => {
-              return (
-                <option key={index} value={item}>{item}</option>
-              )
-            })}
-          </select>
-        </div>
-
-      </div>
-
-      <div className='flex justify-center items-center gap-5'>
-
-        <div className='mt-5'>
-          <p className='text-dark font-[500] text-[14px] mb-2'>Birthplace*</p>
-          <input placeholder='Enter Your Birthplace' type={"text"} value={birthplace} onChange={(e) => { setBirthplace(e.target.value) }}
-            className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
-        </div>
-        <div className='mt-5'>
-          <p className='text-dark font-[500] text-[14px] mb-2'>Presence of Natal Direction *</p>
-          <input placeholder='Enter Your Presence of Natal Direction' type={"text"} value={presenceOfNatalDirection} onChange={(e) => { setPresenceOFNatalDirection(e.target.value) }}
-            className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
-        </div>
-
-      </div>
-
-      <div className='w-[820px] mx-auto mt-5'>
-        <div className='w-full flex justify-between items-center'>
-          <p className='text-dark font-[500] text-[14px]'>Horoscope Doucment</p>
-          <p className='text-main font-[400] text-[14px]'>Add more</p>
-        </div>
-        <div className='w-full flex justify-between items-center mt-3'>
-
-          <Files
-            className='files-dropzone cursor-pointer'
-            onChange={onFilesChange1}
-            onError={onFilesError1}
-            accepts={['image']}
-            maxFileSize={10000000}
-            minFileSize={0}
-            clickable
+      <div
+        className={`${
+          screen != 1 ? "w-[800px]" : "w-[400px]"
+        } mx-auto flex justify-end my-3 gap-2 max-md:w-auto max-md:mr -3`}
+      >
+        {screen != 1 && (
+          <p
+            className="text-main bg-white border-2 border-main py-2 px-5 rounded-md cursor-pointer max-w-max"
+            onClick={() => {
+              setScreen(screen - 1);
+            }}
           >
-            <Image src={file1 ? file1[0].preview.url : fileInputImage} alt={"File Input Image"} width={400} height={300} />
-          </Files>
-          <Files
-            className='files-dropzone cursor-pointer'
-            onChange={onFilesChange2}
-            onError={onFilesError2}
-            accepts={['image']}
-            maxFileSize={10000000}
-            minFileSize={0}
-            clickable
-          >
-            <Image src={file2 ? file2[0].preview.url : fileInputImage} alt={"File Input Image"} width={400} height={300} />
-          </Files>
-
-        </div>
-
+            Back
+          </p>
+        )}
+        <p
+          className="text-white bg-main py-2 px-5 rounded-md cursor-pointer max-w-max"
+          onClick={() => {
+            if (validate()) {
+              if (screen <= 3) {
+                setScreen(screen + 1);
+              }
+              beforeNextScreen();
+              getAllDataAndPost();
+            }
+          }}
+        >
+          Next
+        </p>
       </div>
-      <div className={`${screen != 1 ? "w-[800px]" : "w-[400px]"} mx-auto flex justify-end my-3 gap-2`}>
-        {screen != 1 && <p className='text-main bg-white border-2 border-main py-2 px-5 rounded-md cursor-pointer max-w-max' onClick={() => { setScreen(screen - 1) }}>Back</p>}
-        <p className='text-white bg-main py-2 px-5 rounded-md cursor-pointer max-w-max' onClick={() => {
-
-          if (validate()) {
-            if (screen <= 3) { setScreen(screen + 1) }
-            beforeNextScreen(); getAllDataAndPost();
-          }
-        }}>Next</p>
-      </div>
-
-
     </>
-  )
+  );
 }
 
 export default RegisterForm4

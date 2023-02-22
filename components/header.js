@@ -31,7 +31,7 @@ const Header = () => {
 
 
   return (
-    <div className="flex flex-row justify-between items-center  max-md:pt-5 py-3 max-md:w-full max-md:border-solid border-y-2 max-md:px-5">
+    <div className="flex flex-row justify-between items-center  max-md:pt-5 py-3 max-md:w-auto max-md:border-solid border-y-2 max-md:px-5">
       <Link href="/">
         <div>
           <Image src={headerLogo} alt={"Header Logo"} className="pl-5"/>
