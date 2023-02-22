@@ -172,7 +172,6 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
       toast.error("Please Enter A Valid Tamil Year");
       return false;
     }
-
     return true;
   };
 
