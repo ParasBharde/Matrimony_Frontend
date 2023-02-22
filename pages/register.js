@@ -45,12 +45,7 @@ var data = JSON.stringify({
     "phone_number": rg2.phoneNumber,
     "caste": rg2.caste,
     "marriage_status": rg2.marriageStatus,
-    "profile_photo": [
-      2,
-      3,
-      4,
-      5
-    ],
+    "profile_photo":rg2.profileImages,
     "father_name": rg3.fatherName,
     "mother_name": rg3.motherName,
     "father_native": rg3.fatherNative,
@@ -79,10 +74,7 @@ var data = JSON.stringify({
     "ascendant": rg4.ascendant,
     "birthplace": rg4.birthplace,
     "presence_of_natal_direction":rg4.presenceOfNatalDirection,
-    "horoscope_document": [
-      7,
-      8
-    ],
+    "horoscope_document": rg4.horrorscopeImages,
     "username": rg1.user,
     "email": rg1.email,
     "password": rg1.pass
