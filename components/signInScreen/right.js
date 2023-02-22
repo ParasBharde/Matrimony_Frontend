@@ -31,8 +31,27 @@ const Right = () => {
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
-        toast.success("Successfully Logged In")
-        router.push("/profiledetail/" + 3)
+
+var config2 = {
+  method: 'get',
+maxBodyLength: Infinity,
+  url: 'http://172.105.57.17:1337/api/users/me?populate=user_profile',
+  headers: { 
+    'Authorization': 'Bearer '+response.data.jwt
+  }
+};
+
+axios(config2)
+.then(function (response) {
+  
+  toast.success("Successfully Logged In")
+  router.push("/profiledetail/" + response.data.user_profile.id)
+})
+.catch(function (error) {
+  console.log(error);
+});
+
+        
       })
       .catch(function (error) {
         console.log(error);
