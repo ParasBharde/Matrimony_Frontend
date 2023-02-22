@@ -1,4 +1,5 @@
-import React,{useState} from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React,{useState,useEffect} from 'react'
 import RegisterHeader from '@/components/registerScreen/registerHeader'
 import RegisterForm1 from '@/components/registerScreen/registerForm1'
 import RegisterForm2 from '@/components/registerScreen/registerForm2'
@@ -9,6 +10,8 @@ import {toast} from "react-toastify"
 
 import { useRouter } from 'next/router'
 
+import { useStorage } from '@/hooks/useStorage'
+
 import axios from 'axios'
 
 
@@ -17,6 +20,15 @@ const Register = () => {
   const router=useRouter()
 
   const [screen,setScreen]=useState(1)
+  const storageData=useStorage()
+
+  useEffect(()=>{
+    if(storageData)
+    {
+      toast.info("User Already Logged In")
+      router.push("/profiledetail/" + storageData.user_profile.id)
+    }
+  },[storageData])
 
   const getAllDataAndPost=()=>{
 
@@ -117,8 +129,10 @@ const Register = () => {
       .then(function (response) {
        // console.log(response.data)
         toast.success("Profile Registered")
-        router.push("/profiledetail/"+response.data.data.id)
         sessionStorage.clear()
+
+        router.push("/profiledetail/"+response.data.data.id)
+       
       })
       .catch(function (error) {
         let e=error.response.data.error.details.errors;

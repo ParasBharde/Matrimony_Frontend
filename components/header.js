@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState,useRef } from "react";
 import Image from "next/image";
 import headerLogo from "@/assets/headerLogo.png";
 import avatar from "@/assets/avatar.png";
@@ -6,9 +6,10 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Hamburger from "@/assets/SVG/Hamburger";
 
-import downloadIcon from "@/assets/SVG/downloadlogo.svg"
-
 import { useOnHoverOutside } from "@/hooks/useOnHoverOutside";
+import { useStorage } from "@/hooks/useStorage";
+
+import {toast} from "react-toastify"
 
 const Header = () => {
   const router = useRouter();
@@ -29,6 +30,15 @@ const Header = () => {
   useOnHoverOutside(dropdownRef, closeHoverMenu);
   useOnHoverOutside(dropdownRef1, closeHoverMenu1);
 
+  const data=useStorage()
+
+  const logout=()=>{
+    localStorage.clear()
+    sessionStorage.clear()
+    toast.success("Logged Out")
+    router.push("/")
+  }
+
 
   return (
     <div className="flex flex-row justify-between items-center  max-md:pt-5 py-3 max-md:w-auto max-md:border-solid border-y-2 max-md:px-5">
@@ -37,7 +47,7 @@ const Header = () => {
           <Image src={headerLogo} alt={"Header Logo"} className="pl-5"/>
         </div>
       </Link>
-      <div className="flex justify-center items-center gap-16 ">
+      <div className="flex justify-center items-center gap-16 pr-10">
         <div className="flex justify-center items-center text-[16px] font-[400] gap-10 max-md:hidden">
           <p
             className="cursor-pointer"
@@ -95,7 +105,7 @@ const Header = () => {
           <Hamburger onClick={() => console.log("Clicked")} />
         </div>
         {/* ..................   */}
-        <div ref={dropdownRef} className="relative  max-md:right-10 right-[2rem]">
+        {data&&<div ref={dropdownRef} className="relative  max-md:right-10 right-[2rem]">
           <Image
             className="drop "
             src={avatar}
@@ -104,7 +114,10 @@ const Header = () => {
           />
           {isMenuDropDownOpen && (
             <div className="absolute bg-white right-2 shadow-lg top-11">
-              <p className="m-3 w-[200px] cursor-pointer" onClick={() => router.push('/profile/')}>
+              <p className="m-3 w-[200px] cursor-pointer" 
+              //onClick={() => router.push('/profile/')}
+              onClick={()=>{router.push("/profiledetail/" + data.user_profile.id)}}
+              >
                 <i className="fa-regular fa-circle-user mr-5 text-main"></i>
                 Profile
               </p>
@@ -119,13 +132,15 @@ const Header = () => {
               <p className="m-3 w-[200px] cursor-pointer" onClick={() => router.push('/setNewPassword/')}>
                 <i class="fa-solid fa-lock mr-5 text-main"></i> Change Password
               </p>
-              <p className="m-3 w-[200px] cursor-pointer">
+              <p className="m-3 w-[200px] cursor-pointer"
+              onClick={logout}
+              >
                 <i className="fa-solid fa-right-from-bracket mr-5 text-main"></i>
                 Logout
               </p>
             </div>
           )}
-        </div>
+        </div>}
       </div>
     </div>
   );

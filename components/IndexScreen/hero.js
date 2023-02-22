@@ -1,16 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Image from "next/image";
 import logo from "@/assets/indexAssets/headerLogo.png";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import axios from "axios";
 import Hamburger from "@/assets/SVG/Hamburger";
-import vector from "@/assets/SVG/Vector.svg"
-// import { FaBars } from "@radix-ui/react-icons";
+import { useStorage } from "@/hooks/useStorage";
+import {toast} from "react-toastify"
 
 const Hero = (props) => {
-  //console.log('props',props)
+
   const router = useRouter();
+  const data=useStorage()
+
+  const logout=()=>{
+    localStorage.clear()
+    sessionStorage.clear()
+    toast.success("Logged Out")
+    router.push("/")
+  }
 
   return (
     <div className="relative h-[829.2px]">
@@ -52,7 +59,7 @@ const Hero = (props) => {
         </div>
         <div></div>
         <div className="flex justify-center items-center  max-md:hidden">
-          <p
+          {!data?<><p
             className="text-white bg-main py-2 px-5 rounded-md mx-2 cursor-pointer"
             onClick={() => {
               router.push("/signIn");
@@ -67,7 +74,12 @@ const Hero = (props) => {
             }}
           >
             Register
-          </p>
+          </p></>:<p
+            className="text-main bg-white py-2 px-5 rounded-md mx-2 cursor-pointer"
+            onClick={logout}
+          >
+            Logout
+          </p>}
         </div>
       </div>
 

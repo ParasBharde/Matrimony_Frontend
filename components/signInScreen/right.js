@@ -11,6 +11,7 @@ const Right = () => {
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [rememberMe,setRememberMe]=useState(false)
 
   const login = () => {
 
@@ -43,19 +44,28 @@ maxBodyLength: Infinity,
 
 axios(config2)
 .then(function (response) {
+
+  if(rememberMe)
+  {
+    localStorage.setItem("user",JSON.stringify(response.data))
+  }
+  else
+  {
+    sessionStorage.setItem("user",JSON.stringify(response.data))
+  }
   
   toast.success("Successfully Logged In")
   router.push("/profiledetail/" + response.data.user_profile.id)
 })
 .catch(function (error) {
-  console.log(error);
+  toast.error(error.response.data.error.message)
 });
 
         
       })
       .catch(function (error) {
         console.log(error);
-        toast.error("Some error occured")
+        toast.error(error.response.data.error.message)
       });
   }
 
@@ -132,13 +142,13 @@ axios(config2)
       </div>
       <div className="lg:w-[400px] sm:w-[300px] w-[90%] mx-auto flex justify-between items-center mt-2">
         <div>
-          <input type="checkbox" name="rememberMe" value="true" />
-          <label for="rememberMe" className="text-[#B6B3BE]">
+          <input type="checkbox" name="rememberMe" value={rememberMe} onChange={(e)=>{setRememberMe(e.target.checked)}} />
+          <label for="rememberMe" className="text-[#B6B3BE] ml-2">
             Remember Me
           </label>
         </div>
 
-        <div className="lg:w-[400px] sm:w-[300px] w-[90%] mx-auto flex justify-between items-center mt-2">
+        <div className="lg:w-[250px] sm:w-[300px] w-[90%] mx-auto flex justify-between items-center">
           <p
             className="text-[#B6B3BE] cursor-pointer ml-32"
             onClick={() => {

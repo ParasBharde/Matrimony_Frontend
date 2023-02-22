@@ -1,6 +1,9 @@
 import React from "react";
+import { useRouter } from "next/router";
 
 const AboutUs = (props) => {
+
+  const router=useRouter()
   //console.log("props", props);
   return (
     <>
@@ -10,7 +13,7 @@ const AboutUs = (props) => {
           <p className="text-dark font-normal text-sm my-4 relative inline-flex max-md:w-52">
             {props.homedata.About_desc}
           </p>
-          <p className="text-white bg-main py-2 px-5 rounded-md cursor-pointer max-w-max">
+          <p className="text-white bg-main py-2 px-5 rounded-md cursor-pointer max-w-max" onClick={()=>{router.push("/aboutus")}}>
             Read More
           </p>
         </div>

@@ -1,9 +1,25 @@
-import React from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React,{useEffect} from 'react'
 import Left from '@/components/signInScreen/left'
 import Right from '@/components/signInScreen/right'
+import { useRouter } from 'next/router'
+import { useStorage } from '@/hooks/useStorage'
+import {toast} from "react-toastify"
 
 
 const SignIn = () => {
+
+  const router=useRouter()
+  const storageData=useStorage()
+
+  useEffect(()=>{
+    if(storageData)
+    {
+      toast.info("User Already Logged In")
+      router.push("/profiledetail/" + storageData.user_profile.id)
+    }
+  },[storageData])
+
   return (
     <>
       <div className="flex justify-center items-center overflow-y-hidden max-lg:hidden">
