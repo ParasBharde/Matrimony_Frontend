@@ -13,6 +13,9 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
   const [file1, setFile1] = useState(null)
   const [file2, setFile2] = useState(null)
 
+  const [file1ID, setFile1ID] = useState(null)
+  const [file2ID, setFile2ID] = useState(null)
+
   function onFilesChange1(files) {
     console.log("Files 1 : ", files)
     setFile1(files)
@@ -66,8 +69,50 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
     }
   }, []);
 
+  useEffect(()=>{
+    if(file1)
+    {
+      var formdata = new FormData();
+    formdata.append("files", file1[0], file1[0].preview.url);
+var requestOptions = {
+  method: 'POST',
+  body: formdata,
+  redirect: 'follow'
+};
+fetch("http://172.105.57.17:1337/api/upload", requestOptions)
+  .then(response => response.json())
+  .then((result) => {console.log(result)
+    setFile1ID(result[0].id)
+  })
+  .catch((error) => {console.log('error', error)
+  setFile1ID(7)
+});
+    }
+  },[file1])
+
+  useEffect(()=>{
+    if(file2)
+    {
+      var formdata = new FormData();
+    formdata.append("files", file2[0], file2[0].preview.url);
+var requestOptions = {
+  method: 'POST',
+  body: formdata,
+  redirect: 'follow'
+};
+fetch("http://172.105.57.17:1337/api/upload", requestOptions)
+  .then(response => response.json())
+  .then((result) => {console.log(result)
+    setFile2ID(result[0].id)
+  })
+  .catch((error) => {console.log('error', error)
+  setFile2ID(8)
+});
+    }
+  },[file2])
+
   const beforeNextScreen = () => {
-    const rg4 = { file1, file2, zodiacSign, tamilYear, tamilMonth, udayatiNazhikai, day, birthTime, starFoot, ascendant, birthplace, presenceOfNatalDirection }
+    const rg4 = { horrorscopeImages:[file1ID,file2ID], zodiacSign, tamilYear, tamilMonth, udayatiNazhikai, day, birthTime, starFoot, ascendant, birthplace, presenceOfNatalDirection }
     sessionStorage.setItem("rg4", JSON.stringify(rg4))
   }
 
@@ -210,7 +255,7 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
             className='files-dropzone cursor-pointer'
             onChange={onFilesChange1}
             onError={onFilesError1}
-            accepts={['image']}
+            accepts={['image/png']}
             maxFileSize={10000000}
             minFileSize={0}
             clickable
@@ -221,7 +266,7 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
             className='files-dropzone cursor-pointer'
             onChange={onFilesChange2}
             onError={onFilesError2}
-            accepts={['image']}
+            accepts={['image/png']}
             maxFileSize={10000000}
             minFileSize={0}
             clickable

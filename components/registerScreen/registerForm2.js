@@ -12,6 +12,11 @@ const RegisterForm2 = ({ screen, setScreen }) => {
   const [file3, setFile3] = useState(null);
   const [file4, setFile4] = useState(null);
 
+  const [file1ID, setFile1ID] = useState(4);
+  const [file2ID, setFile2ID] = useState(4);
+  const [file3ID, setFile3ID] = useState(4);
+  const [file4ID, setFile4ID] = useState(4);
+
   const signs = [
     "Aries",
     "Taurus",
@@ -117,12 +122,93 @@ const RegisterForm2 = ({ screen, setScreen }) => {
     }
   }, []);
 
+  useEffect(()=>{
+    if(file1)
+    {
+      var formdata = new FormData();
+    formdata.append("files", file1[0], file1[0].preview.url);
+var requestOptions = {
+  method: 'POST',
+  body: formdata,
+  redirect: 'follow'
+};
+fetch("http://172.105.57.17:1337/api/upload", requestOptions)
+  .then(response => response.json())
+  .then((result) => {console.log(result)
+    setFile1ID(result[0].id)
+  })
+  .catch((error) => {console.log('error', error)
+  setFile1ID(4)
+});
+    }
+  },[file1])
+
+  useEffect(()=>{
+    if(file2)
+    {
+      var formdata = new FormData();
+    formdata.append("files", file2[0], file2[0].preview.url);
+var requestOptions = {
+  method: 'POST',
+  body: formdata,
+  redirect: 'follow'
+};
+fetch("http://172.105.57.17:1337/api/upload", requestOptions)
+  .then(response => response.json())
+  .then((result) => {console.log(result)
+    setFile2ID(result[0].id)
+  })
+  .catch((error) => {console.log('error', error)
+  setFile2ID(4)
+});
+    }
+  },[file2])
+
+  useEffect(()=>{
+    if(file3)
+    {
+      var formdata = new FormData();
+    formdata.append("files", file3[0], file3[0].preview.url);
+var requestOptions = {
+  method: 'POST',
+  body: formdata,
+  redirect: 'follow'
+};
+fetch("http://172.105.57.17:1337/api/upload", requestOptions)
+  .then(response => response.json())
+  .then((result) => {console.log(result)
+    setFile3ID(result[0].id)
+  })
+  .catch((error) => {console.log('error', error)
+  setFile3ID(4)
+});
+    }
+  },[file3])
+
+  useEffect(()=>{
+    if(file4)
+    {
+      var formdata = new FormData();
+    formdata.append("files", file4[0], file4[0].preview.url);
+var requestOptions = {
+  method: 'POST',
+  body: formdata,
+  redirect: 'follow'
+};
+fetch("http://172.105.57.17:1337/api/upload", requestOptions)
+  .then(response => response.json())
+  .then((result) => {console.log(result)
+    setFile4ID(result[0].id)
+  })
+  .catch((error) => {console.log('error', error)
+  setFile4ID(4)
+});
+    }
+  },[file4])
+
   const beforeNextScreen = () => {
     const rg2 = {
-      file1,
-      file2,
-      file3,
-      file4,
+      profileImages:[file1ID,file2ID,file3ID,file4ID],
       firstName,
       groomOrBride,
       dateOfBirth,
@@ -204,7 +290,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
               First Name *
             </p>
             <input
-              placeholder="Enter Your Name"
+              placeholder="Enter Your First Name"
               value={firstName}
               onChange={(e) => {
                 setFirstName(e.target.value);
@@ -247,7 +333,6 @@ const RegisterForm2 = ({ screen, setScreen }) => {
               Date Of Birth *
             </p>
             <input
-              placeholder="Enter Your Name"
               value={dateOfBirth}
               onChange={(e) => {
                 setDateOfBirth(e.target.value);
@@ -259,7 +344,6 @@ const RegisterForm2 = ({ screen, setScreen }) => {
           <div className="mt-5 max-w-min mx-auto">
             <p className="text-dark font-[500] text-[14px] mb-2">Height *</p>
             <input
-              placeholder="Enter Your Name"
               type={"number"}
               value={height}
               onChange={(e) => {
@@ -273,7 +357,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
               Educational Qualification *
             </p>
             <input
-              placeholder="Enter Your Name"
+              placeholder="Enter Your Educational Qualification"
               type={"text"}
               value={educationalQualifications}
               onChange={(e) => {
@@ -288,7 +372,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
               Salary / Monthly Earnings *
             </p>
             <input
-              placeholder="Enter Your Name"
+              placeholder="Enter Your Salary"
               type={"number"}
               value={salary}
               onChange={(e) => {
@@ -302,7 +386,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
               Expectation *
             </p>
             <input
-              placeholder="Enter Your Name"
+              placeholder="Enter Your Expectation"
               type={"text"}
               value={expectation}
               onChange={(e) => {
@@ -314,7 +398,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
           <div className="mt-5 max-w-min mx-auto">
             <p className="text-dark font-[500] text-[14px] mb-2">Caste *</p>
             <input
-              placeholder="Enter Your Name"
+              placeholder="Enter Your Caste"
               type={"text"}
               value={caste}
               onChange={(e) => {
@@ -328,7 +412,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
           <div className="mt-5 max-w-min mx-auto">
             <p className="text-dark font-[500] text-[14px] mb-2">Last Name *</p>
             <input
-              placeholder="Enter Your Name"
+              placeholder="Enter Your Last Name"
               type={"text"}
               value={lastName}
               onChange={(e) => {
@@ -387,7 +471,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
           <div className="mt-5 max-w-min mx-auto">
             <p className="text-dark font-[500] text-[14px] mb-2">Color *</p>
             <input
-              placeholder="Enter Your Name"
+              placeholder="Enter Your Color"
               type={"text"}
               value={color}
               onChange={(e) => {
@@ -416,7 +500,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
               Family Property Details *
             </p>
             <input
-              placeholder="Enter Your Name"
+              placeholder="Enter Your Family Property Details"
               type={"text"}
               value={familyPropertyDetails}
               onChange={(e) => {
@@ -430,11 +514,13 @@ const RegisterForm2 = ({ screen, setScreen }) => {
               Phone Number *
             </p>
             <input
-              placeholder="Enter Your Name"
               type={"number"}
               value={phoneNumber}
               onChange={(e) => {
-                setPhoneNumber(e.target.value);
+                if(e.target.value.length<=10)
+                {
+                setPhoneNumber(e.target.value)
+                }
               }}
               className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
             />
@@ -476,8 +562,8 @@ const RegisterForm2 = ({ screen, setScreen }) => {
           >
             <Image
               src={file1 ? file1[0].preview.url : fileInputImage}
-              // width={190}
-              // height={190}
+              width={190}
+              height={190}
               className="md:w-[190] h-[190] max-lg:w-[22rem] max-lg:h-[22rem]"
               alt={"File Input Image"}
             />
@@ -494,8 +580,8 @@ const RegisterForm2 = ({ screen, setScreen }) => {
           >
             <Image
               src={file2 ? file2[0].preview.url : fileInputImage}
-              // width={190}
-              // height={190}
+              width={190}
+              height={190}
               className="md:w-[190] h-[190] max-lg:w-[22rem] max-lg:h-[22rem]"
               alt={"File Input Image"}
             />
@@ -512,8 +598,8 @@ const RegisterForm2 = ({ screen, setScreen }) => {
           >
             <Image
               src={file3 ? file3[0].preview.url : fileInputImage}
-              // width={190}
-              // height={190}
+              width={190}
+              height={190}
               alt={"File Input Image"}
               className="md:w-[190] h-[190] max-lg:w-[22rem] max-lg:h-[22rem]"
             />
@@ -529,8 +615,8 @@ const RegisterForm2 = ({ screen, setScreen }) => {
           >
             <Image
               src={file4 ? file4[0].preview.url : fileInputImage}
-              // width={190}
-              // height={190}
+              width={190}
+              height={190}
               alt={"File Input Image"}
               className="md:w-[190] h-[190] max-lg:w-[22rem] max-lg:h-[22rem]"
             />
