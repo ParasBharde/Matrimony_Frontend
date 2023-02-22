@@ -14,6 +14,7 @@ const Portfolioheader = () => {
 
   const stars = [
     "Choose",
+    "Aries",
     "Taurus",
     "Gemini",
     "Cancer",
