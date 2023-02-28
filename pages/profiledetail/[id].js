@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 const Profiledetail = () => {
   const router = useRouter();
   const id = router.query;
+  console.log("user id",id);
 
   const [profilesdata, setprofilesdata] = useState([]);
 
@@ -36,11 +37,19 @@ const Profiledetail = () => {
 
   function downloadPdf() {
     const input = document.getElementById('pdf-content');
-    html2canvas(input)
+    html2canvas(input, {
+      useCORS: true
+    })
       .then((canvas) => {
         const imgData = canvas.toDataURL('image/png');
         const pdf = new jsPDF();
-        pdf.addImage(imgData, 'PNG', 0, 0);
+        // pdf.addImage(imgData, 'PNG', 10, 10);
+        // pdf.save('download.pdf');
+
+        const imgProps= pdf.getImageProperties(imgData);
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = pdf.internal.pageSize.getHeight();
+        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
         pdf.save('download.pdf');
       });
   }
@@ -55,7 +64,7 @@ const Profiledetail = () => {
               <div className="container">
                 <Breadcrumb screens={["Home", "Search", "Profile Details"]} />
 
-                <div  className="main_container flex justify-center overflow-auto">
+                <div className="main_container flex justify-center overflow-auto">
                   <table >
                     <tr>
                       <td className="flex items-center w-full bg-main h-16 px-5">

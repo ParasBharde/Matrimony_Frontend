@@ -4,12 +4,34 @@ import Image from "next/image";
 import horos from "@/assets/horos.png";
 import horos1 from "@/assets/horos1.png";
 import Link from "next/link";
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 const Customerpofile = () => {
+
+  function downloadPdf() {
+    const input = document.getElementById('pdf-content');
+    html2canvas(input, {
+      useCORS: true
+    })
+      .then((canvas) => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF();
+        // pdf.addImage(imgData, 'PNG', 10, 10);
+        // pdf.save('download.pdf');
+
+        const imgProps= pdf.getImageProperties(imgData);
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = pdf.internal.pageSize.getHeight();
+        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        pdf.save('download.pdf');
+      });
+  }
+
   return (
     <>
       <div className="parent ">
-        <table className="child table-auto">
+        <table className="child table-auto" id="pdf-content">
           <div className="table_header flex">
             <thead className="">
               <td className="font-bold">Paras Bharde</td>
@@ -20,7 +42,7 @@ const Customerpofile = () => {
               </div>
             </thead>
             <div className="flex space-x-2 mt-2 max-md:hidden">
-              <button className="px-5 rounded  bg-orange-400 py-1.5">
+              <button className="px-5 rounded  bg-orange-400 py-1.5" onClick={downloadPdf}>
                 <Link className="flex text-white" href="#">
                   <svg
                     className="mr-2 mt-1"
@@ -99,22 +121,46 @@ const Customerpofile = () => {
                       height={100}
                       alt="logo"
                     />
-                    <div className="gap-2  flex">
-                      <Image
-                        className="img_profile_g w-40 h-26"
+                    <div className="flex max-w-max">
+                      <div className="grow max-w-full">
+                        <Image
+                          className="img_profile_g"
+                          src={profile}
+                          width={100}
+                          alt="logo"
+                        />
+                      </div>
+                      <div className="grow max-w-full">
+                        <Image
+                          className="img_profile_g"
+                          src={profile}
+                          width={100}
+                          alt="logo"
+                        />
+                      </div>
+                      <div className="grow max-w-full">
+                        <Image
+                          className="img_profile_g"
+                          src={profile}
+                          width={100}
+                          alt="logo"
+                      />
+                      </div>
+                      {/* <Image
+                        className="img_profile_g max-w-10 max-h-26"
                         src={profile}
                         alt="logo"
                       />
                       <Image
-                        className="img_profile_g w-40 h-26"
+                        className="img_profile_g w-30 h-26"
                         src={profile}
                         alt="logo"
                       />
                       <Image
-                        className="img_profile_g w-40 h-26"
+                        className="img_profile_g w-30 h-26"
                         src={profile}
                         alt="logo"
-                      />
+                      /> */}
                     </div>
                   </div>
                 </div>
@@ -518,6 +564,8 @@ const Customerpofile = () => {
           <div className="fourth_content">
             <span className="sec_text ">Horoscope Chart</span>
             <div className="tb_dt flex ">
+              {/* <Image src={horos} alt="img" />
+              <Image src={horos1} alt="img" /> */}
               <Image src={horos} width={500} alt="img" height={500} />
               <Image src={horos1} width={500} alt="img" height={500} />
             </div>

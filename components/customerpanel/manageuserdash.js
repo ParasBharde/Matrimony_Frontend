@@ -212,11 +212,13 @@ const Manageuserdash = () => {
                           height={100}
                         />
                       </div>
-                      <span>
-                        {item.attributes.first_name +
-                          " " +
-                          item.attributes.last_name}
-                      </span>
+                      <Link href="profile">
+                        <span>
+                          {item.attributes.first_name +
+                            " " +
+                            item.attributes.last_name}
+                        </span>
+                      </Link>
                     </div>
                   </td>
                   {/* <td className="px-20 py-4">Sliver</td> */}
