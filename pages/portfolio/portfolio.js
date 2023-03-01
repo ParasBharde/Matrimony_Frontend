@@ -90,7 +90,7 @@ const Portfolio = () => {
     <>
       <div className="colo" style={{}}>
         <Portfolioheader handleFilterQuery={handleFilterQuery}/>
-        <Portfoliodetails profiles={filteredProfiles} length={length} total={total} />
+        <Portfoliodetails allprofiles={filteredProfiles} length={length} total={total} />
       </div>
       <style jsx>{`
         .colo {

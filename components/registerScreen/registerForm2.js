@@ -294,9 +294,7 @@ fetch("http://172.105.57.17:1337/api/upload", requestOptions)
               placeholder="Enter Your First Name"
               value={firstName}
               onChange={(e) => {
-                if(nameRegex.test(e.target.value)) {
-                  setFirstName(e.target.value);
-                }
+                setFirstName(e.target.value)
               }}
               type={"text"}
               className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
