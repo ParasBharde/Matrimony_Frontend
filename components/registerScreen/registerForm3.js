@@ -104,7 +104,7 @@ const RegisterForm3 = ({ screen, setScreen }) => {
         <div className=" flex justify-center items-center gap-5 max-md:flex max-md:flex-col max-md:items-center max-md:mr-6 max-md:w-auto">
           <div className="mt-5 max-md:ml-6">
             <p className="text-dark font-[500] text-[14px] mb-2">
-              Father&apos;s Nam
+              Father&apos;s Name
             </p>
             <input
               placeholder="Enter Your Father's Name"
@@ -201,7 +201,7 @@ const RegisterForm3 = ({ screen, setScreen }) => {
             </p>
             <input
               placeholder="Enter Your Parent's Phone Number"
-              type={"number"}
+              type={"text"}
               value={phoneNumber}
               onChange={(e) => {
                 if (e.target.value.length <= 10) setPhoneNumber(e.target.value);

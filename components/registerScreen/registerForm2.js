@@ -345,7 +345,8 @@ fetch("http://172.105.57.17:1337/api/upload", requestOptions)
           <div className="mt-5 max-w-min mx-auto">
             <p className="text-dark font-[500] text-[14px] mb-2">Height *</p>
             <input
-              type={"number"}
+              placeholder="Enter height in cm"
+              type={"text"}
               value={height}
               onChange={(e) => {
                 setHeight(e.target.value);
@@ -446,7 +447,7 @@ fetch("http://172.105.57.17:1337/api/upload", requestOptions)
                   }}
                   className="h-[20px] w-[20px]"
                 />
-                <label>Non - Vegetarian</label>
+                <label>Non-Vegetarian</label>
               </div>
             </div>
           </div>
@@ -486,7 +487,7 @@ fetch("http://172.105.57.17:1337/api/upload", requestOptions)
               Career Details *
             </p>
             <input
-              placeholder="Enter Your Name"
+              placeholder="Enter Career Details"
               type={"text"}
               value={careerDetails}
               onChange={(e) => {
@@ -515,7 +516,8 @@ fetch("http://172.105.57.17:1337/api/upload", requestOptions)
               Phone Number *
             </p>
             <input
-              type={"number"}
+              // type={"number"}
+              type={"text"}
               value={phoneNumber}
               onChange={(e) => {
                 if(e.target.value.length<=10)
