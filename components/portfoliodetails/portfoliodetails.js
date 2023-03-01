@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { useOnHoverOutside } from "@/hooks/useOnHoverOutside";
 import Redheart from "@/assets/redheart.png";
 
-const Portfoliodetails = ({ allprofiles, length, total }) => {
+const Portfoliodetails = ({ allprofiles, total }) => {
 
   const router = useRouter();
   const dropdownRef = useRef(null);
@@ -34,23 +34,31 @@ const Portfoliodetails = ({ allprofiles, length, total }) => {
     }
   },[allprofiles, profilePerPage]);
 
+  const handlePagination = (currentPage) => {
+    let indexOfLastProfile = currentPage * profilePerPage;
+    let indexOfFirstProfile = indexOfLastProfile - profilePerPage;
+    setProfiles(allprofiles.slice(indexOfFirstProfile, indexOfLastProfile));
+  }
+
   const nextPage = () => {
     console.log("nextpage");
     if(currentPage < totalPage){
       setCurrentPage(currentPage + 1);
-      let indexOfLastProfile = (currentPage + 1) * profilePerPage;
-      let indexOfFirstProfile = indexOfLastProfile - profilePerPage;
-      setProfiles(allprofiles.slice(indexOfFirstProfile, indexOfLastProfile));
+      handlePagination(currentPage + 1);
     }
   }
   const previousPage = () => {
     console.log("previousPage");
     if(currentPage > 1){
       setCurrentPage(currentPage - 1);
-      let indexOfLastProfile = (currentPage - 1) * profilePerPage;
-      let indexOfFirstProfile = indexOfLastProfile - profilePerPage;
-      setProfiles(allprofiles.slice(indexOfFirstProfile, indexOfLastProfile));
+      handlePagination(currentPage - 1);
     }
+  }
+
+  const handlePageNumberClick = (page) => {
+    console.log("page number", page);
+    setCurrentPage(page);
+    handlePagination(page);
   }
 // pagination code end
 
@@ -91,7 +99,7 @@ const handleLike = (id) => {
               <span className="text-sm text-gray-700">
                 {currentPage == 1 ? "1" : `${(currentPage - 1) * 10 + 1}`}-
                 {total <= currentPage * 10 ? total : currentPage * 10}{" "}
-                <span className="font-semibold text-gray-900">of</span> {total}{" "}
+                <span className="font-semibold text-gray-900">of</span> {totalPage}{" "}
                 <span className="font-semibold text-gray-900">Pages</span>
               </span>
             </div>
@@ -127,7 +135,7 @@ const handleLike = (id) => {
                           fill="white"
                           // className="max-md:bg-red-800"
                         />
-                        <g clip-path="url(#clip0_62_22856)">
+                        <g clipPath="url(#clip0_62_22856)">
                           <path
                             d="M9 13H13V9H9V13ZM15 25H19V21H15V25ZM9 25H13V21H9V25ZM9 19H13V15H9V19ZM15 19H19V15H15V19ZM21 9V13H25V9H21ZM15 13H19V9H15V13ZM21 19H25V15H21V19ZM21 25H25V21H21V25Z"
                             fill="#F98B1D"
@@ -142,10 +150,10 @@ const handleLike = (id) => {
                           width="34"
                           height="34"
                           filterUnits="userSpaceOnUse"
-                          color-interpolation-filters="sRGB"
+                          colorInterpolationFilters="sRGB"
                         >
                           <feFlood
-                            flood-opacity="0"
+                            floodOpacity="0"
                             result="BackgroundImageFix"
                           />
                           <feColorMatrix
@@ -202,7 +210,7 @@ const handleLike = (id) => {
                           rx="2"
                           fill="white"
                         />
-                        <g clip-path="url(#clip0_313_5302)">
+                        <g clipPath="url(#clip0_313_5302)">
                           <path
                             d="M9 13H13V9H9V13ZM15 25H19V21H15V25ZM9 25H13V21H9V25ZM9 19H13V15H9V19ZM15 19H19V15H15V19ZM21 9V13H25V9H21ZM15 13H19V9H15V13ZM21 19H25V15H21V19ZM21 25H25V21H21V25Z"
                             fill="#8E8E8E"
@@ -217,10 +225,10 @@ const handleLike = (id) => {
                           width="34"
                           height="34"
                           filterUnits="userSpaceOnUse"
-                          color-interpolation-filters="sRGB"
+                          colorInterpolationFilters="sRGB"
                         >
                           <feFlood
-                            flood-opacity="0"
+                            floodOpacity="0"
                             result="BackgroundImageFix"
                           />
                           <feColorMatrix
@@ -284,9 +292,9 @@ const handleLike = (id) => {
                           height="30"
                           rx="2"
                           fill="white"
-                          shape-rendering="crispEdges"
+                          shapeRendering="crispEdges"
                         />
-                        <g clip-path="url(#clip0_313_5306)">
+                        <g clipPath="url(#clip0_313_5306)">
                           <path
                             d="M24 18H10C8.9 18 8 18.9 8 20V24C8 25.1 8.9 26 10 26H24C25.1 26 26 25.1 26 24V20C26 18.9 25.1 18 24 18ZM24 24H10V20H24V24Z"
                             fill="#F98B1D"
@@ -305,10 +313,10 @@ const handleLike = (id) => {
                           width="34"
                           height="34"
                           filterUnits="userSpaceOnUse"
-                          color-interpolation-filters="sRGB"
+                          colorInterpolationFilters="sRGB"
                         >
                           <feFlood
-                            flood-opacity="0"
+                            floodOpacity="0"
                             result="BackgroundImageFix"
                           />
                           <feColorMatrix
@@ -364,9 +372,9 @@ const handleLike = (id) => {
                           height="30"
                           rx="2"
                           fill="white"
-                          shape-rendering="crispEdges"
+                          shapeRendering="crispEdges"
                         />
-                        <g clip-path="url(#clip0_62_22860)">
+                        <g clipPath="url(#clip0_62_22860)">
                           <path
                             d="M24 18H10C8.9 18 8 18.9 8 20V24C8 25.1 8.9 26 10 26H24C25.1 26 26 25.1 26 24V20C26 18.9 25.1 18 24 18ZM24 24H10V20H24V24Z"
                             fill="#1E1E1E"
@@ -387,10 +395,10 @@ const handleLike = (id) => {
                           width="34"
                           height="34"
                           filterUnits="userSpaceOnUse"
-                          color-interpolation-filters="sRGB"
+                          colorInterpolationFilters="sRGB"
                         >
                           <feFlood
-                            flood-opacity="0"
+                            floodOpacity="0"
                             result="BackgroundImageFix"
                           />
                           <feColorMatrix
@@ -565,15 +573,14 @@ const handleLike = (id) => {
           <div className="container_card inline-grid grid-cols-4 gap-[4rem] max-w-screen-2xl max-lg:flex max-lg:flex-col max-lg:min-w-fit">
             {profiles.length > 0 &&
               profiles.map((itms, index) => {
-                console.log("itmssss", itms.attributes);
+                // console.log("itmssss", itms.attributes);
                 const age = calculateAge(itms.attributes.date_of_birth);
                 return (
                   <div
                     key={index}
                     className="relative mb-2 hover:transform hover:scale-105 duration-300 max-lg:min-w-fit"
                   >
-                    <div className="cards">
-                    {/* <div className="cards blur-sm"> */}
+                    <div className="cards blur-sm">
                       <div className="relative">
                         <picture>
                           <img
@@ -597,7 +604,7 @@ const handleLike = (id) => {
                           <svg
                             className="absolute rounded cursor-pointer"
                             id="heart"
-                            onmouseover='this.src="/assets/redheart.png"'
+                            // onMouseOver={() => src="/assets/redheart.png"}
                             width="24"
                             height="21"
                             viewBox="0 0 24 21"
@@ -607,9 +614,9 @@ const handleLike = (id) => {
                             <path
                               d="M20.8401 2.61085C20.3294 2.09985 19.7229 1.6945 19.0555 1.41793C18.388 1.14137 17.6726 0.999023 16.9501 0.999023C16.2276 0.999023 15.5122 1.14137 14.8448 1.41793C14.1773 1.6945 13.5709 2.09985 13.0601 2.61085L12.0001 3.67085L10.9401 2.61085C9.90843 1.57916 8.50915 0.999558 7.05012 0.999558C5.59109 0.999558 4.19181 1.57916 3.16012 2.61085C2.12843 3.64254 1.54883 5.04182 1.54883 6.50085C1.54883 7.95988 2.12843 9.35916 3.16012 10.3908L4.22012 11.4508L12.0001 19.2308L19.7801 11.4508L20.8401 10.3908C21.3511 9.88009 21.7565 9.27366 22.033 8.6062C22.3096 7.93875 22.4519 7.22334 22.4519 6.50085C22.4519 5.77836 22.3096 5.06295 22.033 4.39549C21.7565 3.72803 21.3511 3.12161 20.8401 2.61085V2.61085Z"
                               stroke="white"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
                             />
                           </svg>
                         </div>
@@ -755,7 +762,7 @@ const handleLike = (id) => {
               <span className="text-sm text-gray-700">
                 {currentPage == 1 ? "1" : `${(currentPage - 1) * 10 + 1}`}-
                 {total <= currentPage * 10 ? total : currentPage * 10}{" "}
-                <span className="font-semibold text-gray-900">of</span> {total}{" "}
+                <span className="font-semibold text-gray-900">of</span> {totalPage}{" "}
                 <span className="font-semibold text-gray-900">Pages</span>
               </span>
             </div>
@@ -786,19 +793,23 @@ const handleLike = (id) => {
                   </svg>
                 </Link>
 
-                {Array(length)
+                {Array(Math.ceil(total / 10))
                   .fill(0)
                   .map((item, index) => {
                     return (
                       <p
                         key={index}
                         aria-current="page"
+                        onClick={() => handlePageNumberClick(index + 1)}
                         className="relative z-10 inline-flex items-center border border-gray-400 px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
                       >
-                        {index + 1}
+                        <span>
+                          {index + 1}
+                        </span>
                       </p>
                     );
                   })}
+
                 <Link
                   href="#"
                   className="relative inline-flex items-center rounded-r-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
