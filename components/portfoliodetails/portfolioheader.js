@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import Breadcrumb from "@/components/breadcrumb";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 
-const Portfolioheader = () => {
+const Portfolioheader = ({handleFilterQuery}) => {
   const [bookmarksChecked, setBookmarksChecked] = React.useState(true);
   const [urlsChecked, setUrlsChecked] = React.useState(false);
   const [person, setPerson] = React.useState("pedro");
 
   const [star, setStar] = useState("Choose");
-  const [age, setAge] = useState("Choose");
+  const [ageFrom, setAgeFrom] = useState();
+  const [ageTo, setAgeTo] = useState();
   const [looking, setlooking] = useState("Choose");
   const [marriageStatus, setMarriageStatus] = useState("Choose");
 
@@ -52,6 +53,17 @@ const Portfolioheader = () => {
   //     );
   //   }
   // }, [selectedOption]);
+
+  const search = () => {
+    const query = {
+      looking,
+      star,
+      ageFrom,
+      ageTo,
+      marriageStatus
+    }
+    handleFilterQuery(query);
+  };
 
   return (
     <>
@@ -146,11 +158,19 @@ const Portfolioheader = () => {
                 <input
                   type="text"
                   placeholder="From"
+                  value={ageFrom}
+                  onChange={(e) => {
+                    setAgeFrom(e.target.value);
+                  }}
                   className="border-gray-200 w-[100px] mx-1 py-2 mb-3 text-violet11 h-[2.5rem] rounded bg-white border-2 outline-none hover:bg-violet3 focus:shadow-[0_0_0_2px]"
                 />
                 <input
                   type="text"
-                  placeholder="From"
+                  placeholder="To"
+                  value={ageTo}
+                  onChange={(e) => {
+                    setAgeTo(e.target.value);
+                  }}
                   className="border-gray-200 w-[100px] py-2 mb-3 text-violet11 h-[2.5rem] rounded bg-white border-2 outline-none hover:bg-violet3 focus:shadow-[0_0_0_2px]"
                 />
               </div>
@@ -178,7 +198,7 @@ const Portfolioheader = () => {
             <div className="mt-3 text-center grid max-w-min mx-10">
               <span className="text-white">b</span>
               <div className="">
-                <button className="port_button">Search</button>
+                <button className="port_button" onClick={search}>Search</button>
               </div>
             </div>
             {/* <div className="text-center grid">

@@ -229,8 +229,8 @@ fetch("http://172.105.57.17:1337/api/upload", requestOptions)
     sessionStorage.setItem("rg2", JSON.stringify(rg2));
   };
 
-  var nameRegex = /[A-Za-z]+/g;
-  // var nameRegex = /\d/g;
+  // var nameRegex = /[A-Za-z]+/g;
+  var nameRegex = /\d/g;
   var phoneRegex = /^(0|91)?[6-9][0-9]{9}$/;
 
   const validate = () => {
@@ -294,7 +294,7 @@ fetch("http://172.105.57.17:1337/api/upload", requestOptions)
               placeholder="Enter Your First Name"
               value={firstName}
               onChange={(e) => {
-                setFirstName(e.target.value);
+                setFirstName(e.target.value)
               }}
               type={"text"}
               className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"

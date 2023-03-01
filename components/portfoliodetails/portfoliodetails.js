@@ -3,56 +3,65 @@ import React, { useState, useEffect, useRef } from "react";
 import profile from "@/assets/profile.png";
 import Image from "next/image";
 import Link from "next/link";
-import axios from "axios";
 import { useRouter } from "next/router";
 import { useOnHoverOutside } from "@/hooks/useOnHoverOutside";
 import Redheart from "@/assets/redheart.png";
 
-const Portfoliodetails = ({ postId }) => {
-
-
+const Portfoliodetails = ({ allprofiles, length, total }) => {
 
   const router = useRouter();
   const dropdownRef = useRef(null);
-  const [profiles, setprofiles] = useState([]);
+  // const [filteredProfiles, setFilteredProfiles] = useState([]);
   const [active, setActive] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [length, setLength] = useState(0);
-  const [total, setTotal] = useState(0);
+  const [profilePerPage, setProfilePerPage] = useState(10);
+  const [totalPage, setTotalPage] = useState(0);
   const [isList, issetList] = useState(false);
   const [isGrid, issetGrid] = useState(false);
+  const [profiles, setProfiles] = useState([]);
 
   const closeHoverMenu = () => {
     setActive(false);
   };
   useOnHoverOutside(dropdownRef, closeHoverMenu);
+  // console.log("total profile",typeof allprofiles);
 
-  async function getUser() {
-    var config = {
-      method: "get",
-      maxBodyLength: Infinity,
-      url: "http://172.105.57.17:1337/api/profiles/?populate=%2A",
-      headers: {
-        Authorization:
-          "Bearer Bearer 3ad527b6e04e45a25b5c7a57d8e796af06f0853e2fa7c4551566c2096b18b80500bdaf2fc61dace337df1dc8c2a0026075026b10589f9c9d009a72165635b72012c305bf52929b73a79c97e1e5a53e7193f812604f83fa679731fa19540e9ecd7112dc224f0cccd4624294b05ec2864b552bdf7905d65736410f0cf2774c3994",
-      },
-    };
+  // pagination code
+  useEffect(()=>{
+    if(allprofiles.length > 0) {
+      setTotalPage(Math.ceil(allprofiles.length / profilePerPage));
+      setProfiles(allprofiles.slice(0, profilePerPage));
+    }
+  },[allprofiles, profilePerPage]);
 
-    axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-        setprofiles(response.data.data);
-        setLength(Math.ceil(response.data.data.length / 10));
-        setTotal(response.data.data.length);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+  const nextPage = () => {
+    console.log("nextpage");
+    if(currentPage < totalPage){
+      setCurrentPage(currentPage + 1);
+      let indexOfLastProfile = (currentPage + 1) * profilePerPage;
+      let indexOfFirstProfile = indexOfLastProfile - profilePerPage;
+      setProfiles(allprofiles.slice(indexOfFirstProfile, indexOfLastProfile));
+    }
   }
-  //console.log("profiles", profiles);
-  useEffect(() => {
-    getUser();
-  }, []);
+  const previousPage = () => {
+    console.log("previousPage");
+    if(currentPage > 1){
+      setCurrentPage(currentPage - 1);
+      let indexOfLastProfile = (currentPage - 1) * profilePerPage;
+      let indexOfFirstProfile = indexOfLastProfile - profilePerPage;
+      setProfiles(allprofiles.slice(indexOfFirstProfile, indexOfLastProfile));
+    }
+  }
+// pagination code end
+
+// like profile code start
+
+const handleLike = (id) => {
+  console.log("like profile", id);
+}
+
+// like profile code end
+
 
   useEffect(() => {
     issetList(false);
@@ -60,13 +69,20 @@ const Portfoliodetails = ({ postId }) => {
   }, []);
 
   const [selectedRows, setSelectedRows] = useState(
-    Array(profiles.length).fill(false)
+    Array(profiles?.length).fill(false)
   );
 
   const handleHeaderCheckboxChange = (event) => {
     const isChecked = event.target.checked;
     setSelectedRows(Array(profiles.length).fill(isChecked));
   };
+
+  const calculateAge = (dateOfBirth) => {
+    const birthYear = Number(dateOfBirth.slice(0,4));
+    const currentYear = new Date().getFullYear();
+    return currentYear - birthYear;
+  }
+  
   return (
     <>
       <div className=" px-4 py-3 sm:px-[6rem] ">
@@ -549,13 +565,15 @@ const Portfoliodetails = ({ postId }) => {
           <div className="container_card inline-grid grid-cols-4 gap-[4rem] max-w-screen-2xl max-lg:flex max-lg:flex-col max-lg:min-w-fit">
             {profiles.length > 0 &&
               profiles.map((itms, index) => {
-                console.log("itmssss", itms);
+                console.log("itmssss", itms.attributes);
+                const age = calculateAge(itms.attributes.date_of_birth);
                 return (
                   <div
                     key={index}
                     className="relative mb-2 hover:transform hover:scale-105 duration-300 max-lg:min-w-fit"
                   >
-                    <div className="cards blur-sm">
+                    <div className="cards">
+                    {/* <div className="cards blur-sm"> */}
                       <div className="relative">
                         <picture>
                           <img
@@ -573,10 +591,11 @@ const Portfoliodetails = ({ postId }) => {
                             top: "10",
                             right: "10",
                           }}
+                          onClick={() => handleLike(itms.id)}
                           className="absolute top-0 right-0 m-2 rounded flex items-center justify-center w-10 h-11 text-white text-sm font-bold"
                         >
                           <svg
-                            className="absolute rounded "
+                            className="absolute rounded cursor-pointer"
                             id="heart"
                             onmouseover='this.src="/assets/redheart.png"'
                             width="24"
@@ -659,7 +678,9 @@ const Portfoliodetails = ({ postId }) => {
                           />
                         </svg>
                         <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                          20 Years
+                          {/* 20 Years */}
+                          {/* {itms.attributes.date_of_birth} */}
+                          {age}
                         </p>
                         <svg
                           width="2"
@@ -746,6 +767,7 @@ const Portfoliodetails = ({ postId }) => {
                 <Link
                   href="#"
                   className="relative inline-flex items-center rounded-l-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
+                  onClick={previousPage}
                 >
                   <span className="sr-only">Previous</span>
 
@@ -780,6 +802,7 @@ const Portfoliodetails = ({ postId }) => {
                 <Link
                   href="#"
                   className="relative inline-flex items-center rounded-r-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
+                  onClick={nextPage}
                 >
                   <span className="sr-only">Next</span>
 
