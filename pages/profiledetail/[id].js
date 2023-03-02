@@ -9,13 +9,16 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { Modal } from "reactstrap";
 import { useRouter } from "next/router";
+import {ShareSocial} from 'react-share-social' 
 
 const Profiledetail = () => {
+  const [profilesdata, setprofilesdata] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+
   const router = useRouter();
   const id = router.query;
-  console.log("user id",id);
+  // console.log("user id",id);
 
-  const [profilesdata, setprofilesdata] = useState([]);
 
   useEffect(() => {
     async function getUser() {
@@ -34,7 +37,7 @@ const Profiledetail = () => {
 
   const [modalDefaultOpen, setModalDefaultOpen] = React.useState(false);
 
-
+  // download pdf of profile
   function downloadPdf() {
     const input = document.getElementById('pdf-content');
     html2canvas(input, {
@@ -54,11 +57,70 @@ const Profiledetail = () => {
       });
   }
 
+  // share profile
+  const shareProfile = () => {
+    console.log("share profile");
+    setModalOpen(true);
+  }
+
+  const style = {
+    root: {
+      background: 'linear-gradient(45deg, #F98B1D 30%, #FF8E53 90%)',
+      borderRadius: 3,
+      border: 0,
+      boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+      color: 'white',
+      padding: "1rem 2rem"
+  
+    },
+    copyContainer: {
+      border: '1px solid blue',
+      background: 'rgb(0,0,0,0.7)',
+      padding: '0.5rem'
+    },
+    title: {
+      color: 'aquamarine',
+      fontStyle: 'italic'
+    }
+  };
+
   return (
     <>
+      {modalOpen && 
+        <div className="w-screen h-screen fixed flex justify-center items-center z-50 backdrop-blur-sm">
+          <div className="bg-slate-100 border border-black rounded-md px-4">
+            <div className="py-2 flex justify-between items-center">
+              <h3 className="font-semibold">Share Profile</h3>
+              <span 
+                className="cursor-pointer bg-slate-200 px-2 rounded-md"
+                onClick={() => {setModalOpen(!modalOpen)}}
+              >
+                <i className="fa-solid fa-xmark text-xl"></i>
+              </span>
+            </div>
+            <hr />
+            <div>
+              <div className="flex py-6">
+                {/* <i className="fa-brands fa-facebook mx-3 text-blue-700 text-5xl"></i>
+                <i className="fa-brands fa-whatsapp mx-3 text-green-700 text-5xl"></i>
+                <i className="fa-brands fa-instagram mx-3 text-purple-700 text-5xl"></i>
+                <i className="fa-brands fa-twitter mx-3 text-blue-700 text-5xl"></i> */}
+                <ShareSocial 
+                  title={'Mwtrimony Profile'}
+                  // url ={`${window.location.href}`}
+                  url ={`http://172.105.57.17:3000/profiledetail/${id.id}`}
+                  socialTypes={['facebook','whatsapp','twitter','linkedin']}
+                  onSocialButtonClicked={ data => console.log(data)} 
+                  style={style}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      }
       {profilesdata.length > 0 &&
         profilesdata.map((data) => {
-          console.log("data", data);
+          // console.log("data", data);
           return (
             <>
               <div className="container">
@@ -89,6 +151,7 @@ const Profiledetail = () => {
                           />
 
                           <Image
+                            onClick={shareProfile}
                             src={Share}
                             width={24}
                             height={21}

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useOnHoverOutside } from "@/hooks/useOnHoverOutside";
 import Redheart from "@/assets/redheart.png";
+import axios from "axios";
 
 const Portfoliodetails = ({ allprofiles, total }) => {
 
@@ -27,6 +28,19 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   // console.log("total profile",typeof allprofiles);
 
   // pagination code
+  // const getLikedProfiles = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `http://172.105.57.17:1337/api/liked-profiles`
+  //     );
+  //     console.log("liked profiles response", response);
+  //     // setprofilesdata(response.data.data.filter((u) => u.id == id.id));
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
+  // getLikedProfiles();
+
   useEffect(()=>{
     if(allprofiles.length > 0) {
       setTotalPage(Math.ceil(allprofiles.length / profilePerPage));
@@ -66,6 +80,33 @@ const Portfoliodetails = ({ allprofiles, total }) => {
 
 const handleLike = (id) => {
   console.log("like profile", id);
+
+  var data = JSON.stringify({
+    "data": {
+      "user_profiles": [
+        {"id":id}
+      ],
+      "locale": "en",
+    }
+  });
+  
+  var config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: 'http://172.105.57.17:1337/api/liked-profiles',
+    headers: { 
+      'Content-Type': 'application/json'
+    },
+    data : data
+  };
+  axios(config)
+  .then((response) => {
+    console.log(response.data);
+  })
+  .catch((error) => {
+    console.error("liked error: ",error);
+  })
+  
 }
 
 // like profile code end
@@ -494,7 +535,7 @@ const handleLike = (id) => {
               </thead>
               {profiles.length > 0 &&
                 profiles.map((itms, index) => {
-                  console.log("itmssss", itms);
+                  console.log("itmssss", itms)
                   return (
                     <tbody key={index}>
                       <tr
@@ -573,7 +614,7 @@ const handleLike = (id) => {
           <div className="container_card inline-grid grid-cols-4 gap-[4rem] max-w-screen-2xl max-lg:flex max-lg:flex-col max-lg:min-w-fit">
             {profiles.length > 0 &&
               profiles.map((itms, index) => {
-                // console.log("itmssss", itms.attributes);
+                console.log("itmssss", itms);
                 const age = calculateAge(itms.attributes.date_of_birth);
                 return (
                   <div

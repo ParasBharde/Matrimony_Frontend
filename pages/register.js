@@ -47,7 +47,7 @@ const Register = () => {
     
     var config = {
       method: 'post',
-    maxBodyLength: Infinity,
+      maxBodyLength: Infinity,
       url: 'http://172.105.57.17:1337/api/auth/local/register',
       headers: { 
         'Content-Type': 'application/json'
