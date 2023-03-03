@@ -110,27 +110,30 @@ const Header = () => {
             className="drop "
             src={avatar}
             alt="avatar"
+            // onClick={() => setMenuDropDownOpen(true)}
             onMouseOver={() => setMenuDropDownOpen(true)}
           />
           {isMenuDropDownOpen && (
             <div className="absolute bg-white right-2 shadow-lg top-11">
               <p className="m-3 w-[200px] cursor-pointer" 
               //onClick={() => router.push('/profile/')}
-              onClick={()=>{router.push("/profiledetail/" + data.user_profile.id)}}
+                onClick={()=>{router.push("/profiledetail/" + data.user_profile.id)}}
               >
                 <i className="fa-regular fa-circle-user mr-5 text-main"></i>
                 Profile
               </p>
-              <p className="m-3 w-[200px] cursor-pointer">
-                <i className="fa-regular fa-heart mr-5 text-main"></i>Liked
-                Profile
+              <p className="m-3 w-[200px] cursor-pointer"
+                onClick={()=>{router.push("/likedprofile/"+data.user_profile.id)}}
+              >
+                <i className="fa-regular fa-heart mr-5 text-main"></i>
+                Liked Profile
               </p>
               <p className="m-3 w-[200px] cursor-pointer">
-                <i class="fa-solid fa-download mr-5 text-main"></i> Download
-                Profile
+                <i className="fa-solid fa-download mr-5 text-main"></i> 
+                Download Profile
               </p>
               <p className="m-3 w-[200px] cursor-pointer" onClick={() => router.push('/setNewPassword/')}>
-                <i class="fa-solid fa-lock mr-5 text-main"></i> Change Password
+                <i className="fa-solid fa-lock mr-5 text-main"></i> Change Password
               </p>
               <p className="m-3 w-[200px] cursor-pointer"
               onClick={logout}

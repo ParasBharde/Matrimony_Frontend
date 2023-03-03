@@ -9,7 +9,7 @@ const Portfolio = () => {
   const router = useRouter();
   const [filteredProfiles, setFilteredProfiles] = useState({});
   const [profiles, setprofiles] = useState([]);
-  const [length, setLength] = useState(0);
+  // const [length, setLength] = useState(0);
   const [total, setTotal] = useState(0);
 
 
@@ -30,7 +30,7 @@ const Portfolio = () => {
         // console.log(JSON.stringify(response.data));
         setprofiles(response.data.data);
         setFilteredProfiles(response.data.data);
-        setLength(Math.ceil(response.data.data.length / 10));
+        // setLength(Math.ceil(response.data.data.length / 10));
         setTotal(response.data.data.length);
       })
       .catch(function (error) {
@@ -90,7 +90,7 @@ const Portfolio = () => {
     <>
       <div className="colo" style={{}}>
         <Portfolioheader handleFilterQuery={handleFilterQuery}/>
-        <Portfoliodetails allprofiles={filteredProfiles} length={length} total={total} />
+        <Portfoliodetails allprofiles={filteredProfiles} total={total} />
       </div>
       <style jsx>{`
         .colo {

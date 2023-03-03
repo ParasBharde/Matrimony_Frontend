@@ -8,10 +8,25 @@ import Breadcrumb from "@/components/breadcrumb";
 
 const Likedprofile = () => {
   const router = useRouter();
-  const id = router.query;
+  // const id = router.query;
   const [isLiked, setIsLiked] = useState(false);
   const [likedprofiles, setlikedprofiles] = useState([]);
   const [active, setActive] = useState(false);
+
+  const getLikedProfiles = async () => {
+    const id = router.query;
+    console.log("id",id.id);
+
+      try {
+        const response = await axios.get(`http://172.105.57.17:1337/api/liked-profiles/${id.id}`);
+        console.log("liked profiles response", response);
+      } catch (error) {
+        console.error(error);
+      }
+  }
+  useEffect(() => {
+    getLikedProfiles();
+  },[])
 
 
   return (
@@ -45,7 +60,7 @@ const Likedprofile = () => {
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <g clip-path="url(#clip0_62_21301)">
+                <g clipPath="url(#clip0_62_21301)">
                   <path
                     d="M19 13H5C3.9 13 3 13.9 3 15V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V15C21 13.9 20.1 13 19 13ZM19 19H5V15H19V19Z"
                     fill="#1E1E1E"
@@ -97,7 +112,7 @@ const Likedprofile = () => {
                   <svg
                     className="absolute rounded "
                     id="heart"
-                    onmouseover='this.src="/assets/redheart.png"'
+                    // onMouseOver='this.src="/assets/redheart.png"'
                     width="24"
                     height="21"
                     viewBox="0 0 24 21"
@@ -107,9 +122,9 @@ const Likedprofile = () => {
                     <path
                       d="M20.8401 2.61085C20.3294 2.09985 19.7229 1.6945 19.0555 1.41793C18.388 1.14137 17.6726 0.999023 16.9501 0.999023C16.2276 0.999023 15.5122 1.14137 14.8448 1.41793C14.1773 1.6945 13.5709 2.09985 13.0601 2.61085L12.0001 3.67085L10.9401 2.61085C9.90843 1.57916 8.50915 0.999558 7.05012 0.999558C5.59109 0.999558 4.19181 1.57916 3.16012 2.61085C2.12843 3.64254 1.54883 5.04182 1.54883 6.50085C1.54883 7.95988 2.12843 9.35916 3.16012 10.3908L4.22012 11.4508L12.0001 19.2308L19.7801 11.4508L20.8401 10.3908C21.3511 9.88009 21.7565 9.27366 22.033 8.6062C22.3096 7.93875 22.4519 7.22334 22.4519 6.50085C22.4519 5.77836 22.3096 5.06295 22.033 4.39549C21.7565 3.72803 21.3511 3.12161 20.8401 2.61085V2.61085Z"
                       stroke="white"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                   </svg>
                 </div>
@@ -126,7 +141,6 @@ const Likedprofile = () => {
                 <h1 className="text-lg">
                   <span
                     className="no-underline hover:underline text-black"
-
                   >
                     sdsa
                   </span>
