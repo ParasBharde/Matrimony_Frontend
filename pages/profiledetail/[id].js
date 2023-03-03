@@ -101,10 +101,6 @@ const Profiledetail = () => {
             <hr />
             <div>
               <div className="flex py-6">
-                {/* <i className="fa-brands fa-facebook mx-3 text-blue-700 text-5xl"></i>
-                <i className="fa-brands fa-whatsapp mx-3 text-green-700 text-5xl"></i>
-                <i className="fa-brands fa-instagram mx-3 text-purple-700 text-5xl"></i>
-                <i className="fa-brands fa-twitter mx-3 text-blue-700 text-5xl"></i> */}
                 <ShareSocial 
                   title={'Mwtrimony Profile'}
                   // url ={`${window.location.href}`}

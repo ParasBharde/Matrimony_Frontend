@@ -8,10 +8,14 @@ import { useOnHoverOutside } from "@/hooks/useOnHoverOutside";
 import Redheart from "@/assets/redheart.png";
 import axios from "axios";
 
-const Portfoliodetails = ({ allprofiles, total }) => {
+import { useStorage } from "@/hooks/useStorage";
+import {useCalculateAge} from "@/hooks/useCalculateAge";
 
+
+const Portfoliodetails = ({ allprofiles, total }) => {
   const router = useRouter();
   const dropdownRef = useRef(null);
+  const calculateAge = useCalculateAge();
   // const [filteredProfiles, setFilteredProfiles] = useState([]);
   const [active, setActive] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -28,89 +32,86 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   // console.log("total profile",typeof allprofiles);
 
   // pagination code
-  // const getLikedProfiles = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       `http://172.105.57.17:1337/api/liked-profiles`
-  //     );
-  //     console.log("liked profiles response", response);
-  //     // setprofilesdata(response.data.data.filter((u) => u.id == id.id));
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
-  // getLikedProfiles();
-
-  useEffect(()=>{
-    if(allprofiles.length > 0) {
+  useEffect(() => {
+    if (allprofiles.length > 0) {
       setTotalPage(Math.ceil(allprofiles.length / profilePerPage));
       setProfiles(allprofiles.slice(0, profilePerPage));
     }
-  },[allprofiles, profilePerPage]);
+  }, [allprofiles, profilePerPage]);
 
   const handlePagination = (currentPage) => {
     let indexOfLastProfile = currentPage * profilePerPage;
     let indexOfFirstProfile = indexOfLastProfile - profilePerPage;
     setProfiles(allprofiles.slice(indexOfFirstProfile, indexOfLastProfile));
-  }
+  };
 
   const nextPage = () => {
     console.log("nextpage");
-    if(currentPage < totalPage){
+    if (currentPage < totalPage) {
       setCurrentPage(currentPage + 1);
       handlePagination(currentPage + 1);
     }
-  }
+  };
   const previousPage = () => {
     console.log("previousPage");
-    if(currentPage > 1){
+    if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
       handlePagination(currentPage - 1);
     }
-  }
+  };
 
   const handlePageNumberClick = (page) => {
     console.log("page number", page);
     setCurrentPage(page);
     handlePagination(page);
-  }
-// pagination code end
-
-// like profile code start
-
-const handleLike = (id) => {
-  console.log("like profile", id);
-
-  var data = JSON.stringify({
-    "data": {
-      "user_profiles": [
-        {"id":id}
-      ],
-      "locale": "en",
-    }
-  });
-  
-  var config = {
-    method: 'post',
-    maxBodyLength: Infinity,
-    url: 'http://172.105.57.17:1337/api/liked-profiles',
-    headers: { 
-      'Content-Type': 'application/json'
-    },
-    data : data
   };
-  axios(config)
-  .then((response) => {
-    console.log(response.data);
-  })
-  .catch((error) => {
-    console.error("liked error: ",error);
-  })
-  
-}
+  // pagination code end
 
-// like profile code end
+  // like profile code start
+  const storageData = useStorage();
 
+  const handleLike = (id) => {
+    console.log("storageData : ", storageData.id);
+    console.log("like profile", id);
+
+    let data = JSON.stringify({
+      data: {
+        user: storageData.id,
+        user_profile: id,
+      },
+    });
+
+    var config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: `http://172.105.57.17:1337/api/liked-profiles?populate=user_profile&user=${storageData.id}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+    axios(config)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.error("like error: ", error);
+      });
+
+    // get liked profile
+    // const getLikedProfiles = async () => {
+    //   try {
+    //     const response = await axios.get(`http://172.105.57.17:1337/api/liked-profiles?populate=user_profile&user=${storageData.id}`);
+    //     console.log("liked profiles response", response);
+    //     // setprofilesdata(response.data.data.filter((u) => u.id == id.id));
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // }
+    // getLikedProfiles();
+  };
+
+  // like profile code end
 
   useEffect(() => {
     issetList(false);
@@ -126,24 +127,25 @@ const handleLike = (id) => {
     setSelectedRows(Array(profiles.length).fill(isChecked));
   };
 
-  const calculateAge = (dateOfBirth) => {
-    const birthYear = Number(dateOfBirth.slice(0,4));
-    const currentYear = new Date().getFullYear();
-    return currentYear - birthYear;
-  }
-  
+  // const calculateAge = (dateOfBirth) => {
+  //   const birthYear = Number(dateOfBirth.slice(0, 4));
+  //   const currentYear = new Date().getFullYear();
+  //   return currentYear - birthYear;
+  // };
+
   return (
     <>
       <div className=" px-4 py-3 sm:px-[6rem] ">
         <div className="lg:flex lg:flex-1 lg:items-center lg:justify-between sm:flex sm:flex-1 sm:items-center sm:justify-between ">
-        <div>
-              <span className="text-sm text-gray-700">
-                {currentPage == 1 ? "1" : `${(currentPage - 1) * 10 + 1}`}-
-                {total <= currentPage * 10 ? total : currentPage * 10}{" "}
-                <span className="font-semibold text-gray-900">of</span> {totalPage}{" "}
-                <span className="font-semibold text-gray-900">Pages</span>
-              </span>
-            </div>
+          <div>
+            <span className="text-sm text-gray-700">
+              {currentPage == 1 ? "1" : `${(currentPage - 1) * 10 + 1}`}-
+              {total <= currentPage * 10 ? total : currentPage * 10}{" "}
+              <span className="font-semibold text-gray-900">of</span>{" "}
+              {totalPage}{" "}
+              <span className="font-semibold text-gray-900">Pages</span>
+            </span>
+          </div>
           <div>
             <nav
               className="isolate inline-flex -space-x-px max-md:relative max-md:top-[-2rem] left-[18rem] max-md:gap-2  "
@@ -535,7 +537,7 @@ const handleLike = (id) => {
               </thead>
               {profiles.length > 0 &&
                 profiles.map((itms, index) => {
-                  console.log("itmssss", itms)
+                  console.log("itmssss", itms);
                   return (
                     <tbody key={index}>
                       <tr
@@ -621,7 +623,8 @@ const handleLike = (id) => {
                     key={index}
                     className="relative mb-2 hover:transform hover:scale-105 duration-300 max-lg:min-w-fit"
                   >
-                    <div className="cards blur-sm">
+                    <div className="cards">
+                    {/* <div className="cards blur-sm"> */}
                       <div className="relative">
                         <picture>
                           <img
@@ -639,12 +642,16 @@ const handleLike = (id) => {
                             top: "10",
                             right: "10",
                           }}
-                          onClick={() => handleLike(itms.id)}
+                          // onClick={() => handleLike(itms.id)}
                           className="absolute top-0 right-0 m-2 rounded flex items-center justify-center w-10 h-11 text-white text-sm font-bold"
                         >
                           <svg
-                            className="absolute rounded cursor-pointer"
+                            className={`absolute rounded cursor-pointer fill-current hover:text-[#F98B1D] ${itms.attributes.liked_profile.data != null && "text-[#F98B1D]"}`}
                             id="heart"
+                            onClick={(e) => {
+                              handleLike(itms.id);
+                              e.target.classList.add("text-[#F98B1D]");
+                            }}
                             // onMouseOver={() => src="/assets/redheart.png"}
                             width="24"
                             height="21"
@@ -803,7 +810,8 @@ const handleLike = (id) => {
               <span className="text-sm text-gray-700">
                 {currentPage == 1 ? "1" : `${(currentPage - 1) * 10 + 1}`}-
                 {total <= currentPage * 10 ? total : currentPage * 10}{" "}
-                <span className="font-semibold text-gray-900">of</span> {totalPage}{" "}
+                <span className="font-semibold text-gray-900">of</span>{" "}
+                {totalPage}{" "}
                 <span className="font-semibold text-gray-900">Pages</span>
               </span>
             </div>
@@ -844,9 +852,7 @@ const handleLike = (id) => {
                         onClick={() => handlePageNumberClick(index + 1)}
                         className="relative z-10 inline-flex items-center border border-gray-400 px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
                       >
-                        <span>
-                          {index + 1}
-                        </span>
+                        <span>{index + 1}</span>
                       </p>
                     );
                   })}
