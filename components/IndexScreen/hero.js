@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Image from "next/image";
 import logo from "@/assets/indexAssets/headerLogo.png";
 import { useRouter } from "next/router";
@@ -8,15 +8,23 @@ import { useStorage } from "@/hooks/useStorage";
 import {toast} from "react-toastify"
 
 const Hero = (props) => {
+  const [loginLogout, setLoginLogout] = useState(true);
 
   const router = useRouter();
-  const data=useStorage()
+  const data=useStorage();
+
+  useEffect(()=> {
+    if(data) {
+      setLoginLogout(true);
+    }
+  },[data]);
 
   const logout=()=>{
-    localStorage.clear()
-    sessionStorage.clear()
-    toast.success("Logged Out")
-    router.push("/")
+    localStorage.clear();
+    sessionStorage.clear();
+    setLoginLogout(false);
+    toast.success("Logged Out");
+    router.push("/");
   }
 
   return (
@@ -59,7 +67,7 @@ const Hero = (props) => {
         </div>
         <div></div>
         <div className="flex justify-center items-center  max-md:hidden">
-          {!data?<><p
+          {!loginLogout?<><p
             className="text-white bg-main py-2 px-5 rounded-md mx-2 cursor-pointer"
             onClick={() => {
               router.push("/signIn");

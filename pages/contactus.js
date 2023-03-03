@@ -2,6 +2,8 @@ import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import loc from "@/assets/SVG/location.svg";
 import axios from "axios";
+import { toast } from "react-toastify"
+
 const ContactUs = () => {
   const [loading, setLoading] = React.useState(false);
 
@@ -34,7 +36,8 @@ const ContactUs = () => {
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
-        alert("Message Sent Successfully");
+        toast.success("Message Sent!");
+        // alert("Message Sent Successfully");
         name.current.value ='';
         email.current.value ='';
         query.current.value ='';
