@@ -19,15 +19,15 @@ const Header = () => {
   const [isMenuDropDownOpen, setMenuDropDownOpen] = useState(false);
   const [isMenuDropDownOpen1, setMenuDropDownOpen1] = useState(false);
 
-  const closeHoverMenu = () => {
-    setMenuDropDownOpen(false);
+  // const closeHoverMenu = () => {
+  //   setMenuDropDownOpen(false);
+  // };
 
-  };
   const closeHoverMenu1 = () => {
-
     setMenuDropDownOpen1(false);
   };
-  useOnHoverOutside(dropdownRef, closeHoverMenu);
+
+  // useOnHoverOutside(dropdownRef, closeHoverMenu);
   useOnHoverOutside(dropdownRef1, closeHoverMenu1);
 
   const data=useStorage()
@@ -105,25 +105,32 @@ const Header = () => {
           <Hamburger onClick={() => console.log("Clicked")} />
         </div>
         {/* ..................   */}
-        {data&&<div ref={dropdownRef} className="relative  max-md:right-10 right-[2rem]">
+        {data && <div ref={dropdownRef} className="relative max-md:right-10 right-[2rem]">
           <Image
             className="drop "
             src={avatar}
             alt="avatar"
-            // onClick={() => setMenuDropDownOpen(true)}
             onMouseOver={() => setMenuDropDownOpen(true)}
           />
           {isMenuDropDownOpen && (
-            <div className="absolute bg-white right-2 shadow-lg top-11">
+            <div 
+              className="absolute bg-white right-2 shadow-lg top-11 z-50"
+              onMouseLeave={() => setMenuDropDownOpen(false)}
+            >
               <p className="m-3 w-[200px] cursor-pointer" 
               //onClick={() => router.push('/profile/')}
-                onClick={()=>{router.push("/profiledetail/" + data.user_profile.id)}}
+                onClick={() => 
+                  {
+                    router.push("/profiledetail/" + data.user_profile.id)
+                    // setMenuDropDownOpen(false)
+                  }
+                }
               >
                 <i className="fa-regular fa-circle-user mr-5 text-main"></i>
                 Profile
               </p>
               <p className="m-3 w-[200px] cursor-pointer"
-                onClick={()=>{router.push("/likedprofile/"+data.user_profile.id)}}
+                onClick={()=>{router.push("/likedprofile/"+data.id)}}
               >
                 <i className="fa-regular fa-heart mr-5 text-main"></i>
                 Liked Profile

@@ -28,6 +28,7 @@ const Portfolio = () => {
     axios(config)
       .then(function (response) {
         // console.log(JSON.stringify(response.data));
+        // console.log("portfolio all: ",response.data);
         setprofiles(response.data.data);
         setFilteredProfiles(response.data.data);
         // setLength(Math.ceil(response.data.data.length / 10));
