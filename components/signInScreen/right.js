@@ -143,7 +143,7 @@ axios(config2)
       <div className="lg:w-[400px] sm:w-[300px] w-[90%] mx-auto flex justify-between items-center mt-2">
         <div>
           <input type="checkbox" name="rememberMe" value={rememberMe} onChange={(e)=>{setRememberMe(e.target.checked)}} />
-          <label for="rememberMe" className="text-[#B6B3BE] ml-2">
+          <label htmlFor="rememberMe" className="text-[#B6B3BE] ml-2">
             Remember Me
           </label>
         </div>

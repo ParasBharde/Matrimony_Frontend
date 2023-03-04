@@ -30,20 +30,20 @@ const Likedprofile = () => {
     }
   };
 
-  const filterMyLikedProfiles = (likedprofiles) => {
-    console.log(likedprofiles);
-    let data = likedprofiles.filter((profile) => {
-      return profile.attributes.user.data.id == storageData.id;
-    });
-    setMyLikedprofiles(data);
-    console.log("myLikedprofiles: ",data);
-  }
 
   useEffect(() => {
+    const filterMyLikedProfiles = (likedprofiles) => {
+      console.log(likedprofiles);
+      let data = likedprofiles.filter((profile) => {
+        return profile.attributes.user.data.id == storageData.id;
+      });
+      setMyLikedprofiles(data);
+      console.log("myLikedprofiles: ",data);
+    }
     if(likedprofiles.length > 0){
       filterMyLikedProfiles(likedprofiles);
     }
-  },[likedprofiles]);
+  },[likedprofiles, storageData?.id]);
 
   useEffect(() => {
     getLikedProfiles(storageData?.id);
@@ -114,7 +114,7 @@ const Likedprofile = () => {
                 marriage_status,
                 profile_photo
               } = profile.attributes.user_profile.data?.attributes;
-              console.log(profile_photo.data[0].attributes.url);
+              // console.log(profile_photo.data[0].attributes.url);
               return (
                 <div
                   key={index}

@@ -43,20 +43,21 @@ const Portfoliodetails = ({ allprofiles, total }) => {
     }
   };
 
-  const filterMyLikedProfiles = (likedprofiles) => {
-    // console.log(likedprofiles);
-    let data = likedprofiles.filter((profile) => {
-      return profile.attributes.user.data.id == storageData.id;
-    });
-    setMyLikedprofiles(data);
-    console.log("myLikedprofiles: ", data);
-  };
+  
 
   useEffect(() => {
+    const filterMyLikedProfiles = (likedprofiles) => {
+      // console.log(likedprofiles);
+      let data = likedprofiles.filter((profile) => {
+        return profile.attributes.user.data.id == storageData?.id;
+      });
+      setMyLikedprofiles(data);
+      console.log("myLikedprofiles: ", data);
+    };
     if (likedprofiles.length > 0) {
       filterMyLikedProfiles(likedprofiles);
     }
-  }, [likedprofiles]);
+  }, [likedprofiles, storageData?.id]);
 
   useEffect(() => {
     getLikedProfiles(storageData?.id);
@@ -157,12 +158,6 @@ const Portfoliodetails = ({ allprofiles, total }) => {
     const isChecked = event.target.checked;
     setSelectedRows(Array(profiles.length).fill(isChecked));
   };
-
-  // const calculateAge = (dateOfBirth) => {
-  //   const birthYear = Number(dateOfBirth.slice(0, 4));
-  //   const currentYear = new Date().getFullYear();
-  //   return currentYear - birthYear;
-  // };
 
   return (
     <>

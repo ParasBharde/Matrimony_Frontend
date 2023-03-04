@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Portfoliodetails from "@/components/portfoliodetails/portfoliodetails";
 import Portfolioheader from "@/components/portfoliodetails/portfolioheader";
 import { useRouter } from "next/router";
@@ -12,8 +12,6 @@ const Portfolio = () => {
   // const [length, setLength] = useState(0);
   const [total, setTotal] = useState(0);
 
-
-  
   async function getUser() {
     var config = {
       method: "get",
@@ -27,11 +25,8 @@ const Portfolio = () => {
 
     axios(config)
       .then(function (response) {
-        // console.log(JSON.stringify(response.data));
-        // console.log("portfolio all: ",response.data);
         setprofiles(response.data.data);
         setFilteredProfiles(response.data.data);
-        // setLength(Math.ceil(response.data.data.length / 10));
         setTotal(response.data.data.length);
       })
       .catch(function (error) {
@@ -44,53 +39,53 @@ const Portfolio = () => {
   }, []);
 
   const calculateAge = (dateOfBirth) => {
-    const birthYear = Number(dateOfBirth.slice(0,4));
+    const birthYear = Number(dateOfBirth.slice(0, 4));
     const currentYear = new Date().getFullYear();
     return currentYear - birthYear;
-  }
+  };
 
   const handleFilterQuery = (query) => {
     let filteredProfiles = profiles;
-    if(query.looking != "Choose") {
+    if (query.looking != "Choose") {
       filteredProfiles = filteredProfiles.filter((profile) => {
         return profile.attributes.Chooese_groom_bride == query.looking;
-      })
+      });
     }
 
-    if(query.star != "Choose") {
+    if (query.star != "Choose") {
       filteredProfiles = filteredProfiles.filter((profile) => {
         return profile.attributes.star == query.star;
-      })
+      });
     }
 
-    if(query.ageFrom != undefined) {
+    if (query.ageFrom != undefined) {
       let queryAgeFrom = Number(query.ageFrom);
       filteredProfiles = filteredProfiles.filter((profile) => {
-        const age = calculateAge(profile.attributes.date_of_birth)
+        const age = calculateAge(profile.attributes.date_of_birth);
         return age >= queryAgeFrom;
-      })
+      });
     }
 
-    if(query.ageTo != undefined) {
+    if (query.ageTo != undefined) {
       let queryAgeTo = Number(query.ageTo);
       filteredProfiles = filteredProfiles.filter((profile) => {
-        const age = calculateAge(profile.attributes.date_of_birth)
+        const age = calculateAge(profile.attributes.date_of_birth);
         return age <= queryAgeTo;
-      })
+      });
     }
 
-    if(query.marriageStatus != "Choose") {
+    if (query.marriageStatus != "Choose") {
       filteredProfiles = filteredProfiles.filter((profile) => {
         return profile.attributes.marriage_status == query.marriageStatus;
-      })
+      });
     }
-    
+
     setFilteredProfiles(filteredProfiles);
-  }
+  };
   return (
     <>
       <div className="colo" style={{}}>
-        <Portfolioheader handleFilterQuery={handleFilterQuery}/>
+        <Portfolioheader handleFilterQuery={handleFilterQuery} />
         <Portfoliodetails allprofiles={filteredProfiles} total={total} />
       </div>
       <style jsx>{`
