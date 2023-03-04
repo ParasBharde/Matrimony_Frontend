@@ -8,21 +8,21 @@ import { useStorage } from "@/hooks/useStorage";
 import {toast} from "react-toastify"
 
 const Hero = (props) => {
-  const [loginLogout, setLoginLogout] = useState(true);
+  const [login, setLogin] = useState(false);
 
   const router = useRouter();
   const data=useStorage();
 
   useEffect(()=> {
     if(data) {
-      setLoginLogout(true);
+      setLogin(true);
     }
   },[data]);
 
   const logout=()=>{
     localStorage.clear();
     sessionStorage.clear();
-    setLoginLogout(false);
+    setLogin(false);
     toast.success("Logged Out");
     router.push("/");
   }
@@ -67,7 +67,7 @@ const Hero = (props) => {
         </div>
         <div></div>
         <div className="flex justify-center items-center  max-md:hidden">
-          {!loginLogout?<><p
+          {!login?<><p
             className="text-white bg-main py-2 px-5 rounded-md mx-2 cursor-pointer"
             onClick={() => {
               router.push("/signIn");

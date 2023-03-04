@@ -22,8 +22,6 @@ const Likedprofile = () => {
     try {
       const response = await axios.get(
         'http://172.105.57.17:1337/api/liked-profiles?populate=user&populate=user_profile.profile_photo'
-        // `http://172.105.57.17:1337/api/liked-profiles?populate=*`
-        // `http://172.105.57.17:1337/api/liked-profiles?populate=user_profile&user=${id}`
       );
       // console.log("liked profiles response", response.data.data);
       setlikedprofiles(response.data.data);

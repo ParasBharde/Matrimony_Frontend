@@ -1,22 +1,19 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect, useRef } from "react";
-import profile from "@/assets/profile.png";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useOnHoverOutside } from "@/hooks/useOnHoverOutside";
-import Redheart from "@/assets/redheart.png";
 import axios from "axios";
 
 import { useStorage } from "@/hooks/useStorage";
-import {useCalculateAge} from "@/hooks/useCalculateAge";
-
+import { useCalculateAge } from "@/hooks/useCalculateAge";
 
 const Portfoliodetails = ({ allprofiles, total }) => {
   const router = useRouter();
   const dropdownRef = useRef(null);
+  const storageData = useStorage();
+
   const calculateAge = useCalculateAge();
-  // const [filteredProfiles, setFilteredProfiles] = useState([]);
   const [active, setActive] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [profilePerPage, setProfilePerPage] = useState(10);
@@ -25,17 +22,65 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   const [isGrid, issetGrid] = useState(false);
   const [profiles, setProfiles] = useState([]);
 
+  const [likedprofiles, setlikedprofiles] = useState([]);
+  const [myLikedprofiles, setMyLikedprofiles] = useState([]);
+
   const closeHoverMenu = () => {
     setActive(false);
   };
   useOnHoverOutside(dropdownRef, closeHoverMenu);
-  // console.log("total profile",typeof allprofiles);
+
+  // get my all liked profiles code start
+  const getLikedProfiles = async () => {
+    try {
+      const response = await axios.get(
+        "http://172.105.57.17:1337/api/liked-profiles?populate=user&populate=user_profile.profile_photo"
+      );
+      // console.log("liked profiles response", response.data.data);
+      setlikedprofiles(response.data.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const filterMyLikedProfiles = (likedprofiles) => {
+    // console.log(likedprofiles);
+    let data = likedprofiles.filter((profile) => {
+      return profile.attributes.user.data.id == storageData.id;
+    });
+    setMyLikedprofiles(data);
+    console.log("myLikedprofiles: ", data);
+  };
+
+  useEffect(() => {
+    if (likedprofiles.length > 0) {
+      filterMyLikedProfiles(likedprofiles);
+    }
+  }, [likedprofiles]);
+
+  useEffect(() => {
+    getLikedProfiles(storageData?.id);
+  }, [storageData?.id]);
+  // get my all liked profiles code end
+
+  const isProfileLiked = (id) => {
+    for(let prop of myLikedprofiles) {
+      if(prop.attributes?.user_profile?.data?.id == id) {
+        // console.log("yes");
+        return true;
+      }
+    }
+    return false;
+  }
 
   // pagination code
   useEffect(() => {
+    console.log("allprofiles", allprofiles);
     if (allprofiles.length > 0) {
       setTotalPage(Math.ceil(allprofiles.length / profilePerPage));
-      setProfiles(allprofiles.slice(0, profilePerPage));
+      let totalProfiles = allprofiles.slice(0, profilePerPage);
+      // console.log("totalProfiles",totalProfiles);
+      setProfiles(totalProfiles);
     }
   }, [allprofiles, profilePerPage]);
 
@@ -52,6 +97,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
       handlePagination(currentPage + 1);
     }
   };
+
   const previousPage = () => {
     console.log("previousPage");
     if (currentPage > 1) {
@@ -68,8 +114,6 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   // pagination code end
 
   // like profile code start
-  const storageData = useStorage();
-
   const handleLike = (id) => {
     console.log("storageData : ", storageData.id);
     console.log("like profile", id);
@@ -97,20 +141,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
       .catch((error) => {
         console.error("like error: ", error);
       });
-
-    // get liked profile
-    // const getLikedProfiles = async () => {
-    //   try {
-    //     const response = await axios.get(`http://172.105.57.17:1337/api/liked-profiles?populate=user_profile&user=${storageData.id}`);
-    //     console.log("liked profiles response", response);
-    //     // setprofilesdata(response.data.data.filter((u) => u.id == id.id));
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-    // }
-    // getLikedProfiles();
   };
-
   // like profile code end
 
   useEffect(() => {
@@ -616,7 +647,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
           <div className="container_card inline-grid grid-cols-4 gap-[4rem] max-w-screen-2xl max-lg:flex max-lg:flex-col max-lg:min-w-fit">
             {profiles.length > 0 &&
               profiles.map((itms, index) => {
-                console.log("itmssss", itms);
+                // console.log("itmssss", itms);
                 const age = calculateAge(itms.attributes.date_of_birth);
                 return (
                   <div
@@ -624,7 +655,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                     className="relative mb-2 hover:transform hover:scale-105 duration-300 max-lg:min-w-fit"
                   >
                     <div className="cards">
-                    {/* <div className="cards blur-sm"> */}
+                      {/* <div className="cards blur-sm"> */}
                       <div className="relative">
                         <picture>
                           <img
@@ -646,7 +677,11 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                           className="absolute top-0 right-0 m-2 rounded flex items-center justify-center w-10 h-11 text-white text-sm font-bold"
                         >
                           <svg
-                            className={`absolute rounded cursor-pointer fill-current hover:text-[#F98B1D] ${itms.attributes.liked_profile.data != null && "text-[#F98B1D]"}`}
+                            className={`absolute rounded cursor-pointer fill-current hover:text-[#F98B1D] ${
+                              // itms.attributes.liked_profile.data != null &&
+                              isProfileLiked(itms.id) &&
+                              "text-[#F98B1D]"
+                            }`}
                             id="heart"
                             onClick={(e) => {
                               handleLike(itms.id);
