@@ -1,6 +1,7 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { toast } from "react-toastify"
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { useRouter } from "next/router";
 
 // import axios from 'axios';
 
@@ -8,8 +9,15 @@ const SnpForm = () => {
   const [pass, setPass] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
   const [code, setCode] = useState("zertyoaizndoianzodianzdonaizdoinaozdnia");
+  const router = useRouter();
 
-  const resetPassword = (pass, confirmPass) => {
+  let queryCode = router.query.code;
+  console.log("code", queryCode);
+  useEffect(() => {
+    setCode(queryCode)
+  },[queryCode])
+
+  const resetPassword = (pass, confirmPass, code) => {
     var values = JSON.stringify({
       "password": pass,
       "passwordConfirmation": confirmPass,
@@ -28,7 +36,7 @@ const SnpForm = () => {
 
     axios(config)
     .then((response) => {
-      console.log(response);
+      console.log("reset password",response);
     })
     .catch((error) => {
       console.error("reset password error: ",error);
@@ -47,14 +55,14 @@ const SnpForm = () => {
       return false
     }
     console.log(pass, confirmPass);
-    resetPassword(pass, confirmPass);
+    resetPassword(pass, confirmPass, code);
   }
   return (
     <>
       <div className="mt-10 max-w-min mx-auto  ">
         <p className="text-dark font-[500] text-[14px] mb-2">Password</p>
         <input
-          placeholder="Enter Your Name"
+          placeholder="Enter New Password"
           type={"password"}
           className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3 max-md:w-[22rem]"
           value={pass}
@@ -69,7 +77,7 @@ const SnpForm = () => {
           Confirm Password
         </p>
         <input
-          placeholder="Enter Your Name"
+          placeholder="Confirm Password"
           type={"password"}
           className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3 max-md:w-[22rem]"
           value={confirmPass}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Portfoliodetails from "@/components/portfoliodetails/portfoliodetails";
 import Portfolioheader from "@/components/portfoliodetails/portfolioheader";
 import { useRouter } from "next/router";
+import { useCalculateAge } from "@/hooks/useCalculateAge";
 
 import axios from "axios";
 
@@ -38,11 +39,7 @@ const Portfolio = () => {
     getUser();
   }, []);
 
-  const calculateAge = (dateOfBirth) => {
-    const birthYear = Number(dateOfBirth.slice(0, 4));
-    const currentYear = new Date().getFullYear();
-    return currentYear - birthYear;
-  };
+  const calculateAge = useCalculateAge();
 
   const handleFilterQuery = (query) => {
     let filteredProfiles = profiles;

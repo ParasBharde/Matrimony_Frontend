@@ -17,8 +17,6 @@ const Profiledetail = () => {
 
   const router = useRouter();
   const id = router.query;
-  // console.log("user id",id);
-
 
   useEffect(() => {
     async function getUser() {

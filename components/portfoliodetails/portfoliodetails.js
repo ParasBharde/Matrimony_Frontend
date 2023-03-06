@@ -7,6 +7,7 @@ import axios from "axios";
 
 import { useStorage } from "@/hooks/useStorage";
 import { useCalculateAge } from "@/hooks/useCalculateAge";
+import { useLikedProfiles } from "@/hooks/useLikedProfiles";
 
 const Portfoliodetails = ({ allprofiles, total }) => {
   const router = useRouter();
@@ -22,47 +23,13 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   const [isGrid, issetGrid] = useState(false);
   const [profiles, setProfiles] = useState([]);
 
-  const [likedprofiles, setlikedprofiles] = useState([]);
-  const [myLikedprofiles, setMyLikedprofiles] = useState([]);
+  const myLikedprofiles = useLikedProfiles();
+
 
   const closeHoverMenu = () => {
     setActive(false);
   };
   useOnHoverOutside(dropdownRef, closeHoverMenu);
-
-  // get my all liked profiles code start
-  const getLikedProfiles = async () => {
-    try {
-      const response = await axios.get(
-        "http://172.105.57.17:1337/api/liked-profiles?populate=user&populate=user_profile.profile_photo"
-      );
-      // console.log("liked profiles response", response.data.data);
-      setlikedprofiles(response.data.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  
-
-  useEffect(() => {
-    const filterMyLikedProfiles = (likedprofiles) => {
-      // console.log(likedprofiles);
-      let data = likedprofiles.filter((profile) => {
-        return profile.attributes.user.data.id == storageData?.id;
-      });
-      setMyLikedprofiles(data);
-      console.log("myLikedprofiles: ", data);
-    };
-    if (likedprofiles.length > 0) {
-      filterMyLikedProfiles(likedprofiles);
-    }
-  }, [likedprofiles, storageData?.id]);
-
-  useEffect(() => {
-    getLikedProfiles(storageData?.id);
-  }, [storageData?.id]);
-  // get my all liked profiles code end
 
   const isProfileLiked = (id) => {
     for(let prop of myLikedprofiles) {
@@ -116,9 +83,6 @@ const Portfoliodetails = ({ allprofiles, total }) => {
 
   // like profile code start
   const handleLike = (id) => {
-    console.log("storageData : ", storageData.id);
-    console.log("like profile", id);
-
     let data = JSON.stringify({
       data: {
         user: storageData.id,

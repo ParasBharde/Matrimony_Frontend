@@ -7,47 +7,35 @@ import { useRouter } from "next/router";
 import Breadcrumb from "@/components/breadcrumb";
 import { useStorage } from "@/hooks/useStorage";
 import { useCalculateAge } from "@/hooks/useCalculateAge";
+import { useLikedProfiles } from "@/hooks/useLikedProfiles";
 
 const Likedprofile = () => {
   const [isLiked, setIsLiked] = useState(false);
   const [likedprofiles, setlikedprofiles] = useState([]);
-  const [myLikedprofiles, setMyLikedprofiles] = useState([]);
   const [active, setActive] = useState(false);
 
   const router = useRouter();
   const storageData = useStorage();
   const calculateAge = useCalculateAge();
 
-  const getLikedProfiles = async () => {
-    try {
-      const response = await axios.get(
-        'http://172.105.57.17:1337/api/liked-profiles?populate=user&populate=user_profile.profile_photo'
-      );
-      // console.log("liked profiles response", response.data.data);
-      setlikedprofiles(response.data.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const myLikedprofiles = useLikedProfiles();
+  console.log("mlp",myLikedprofiles);
 
-
-  useEffect(() => {
-    const filterMyLikedProfiles = (likedprofiles) => {
-      console.log(likedprofiles);
-      let data = likedprofiles.filter((profile) => {
-        return profile.attributes.user.data.id == storageData.id;
+  // dislike function
+  const handleDislike = (id) => {
+    console.log("dislike profile id: ", id);
+    axios.delete(`http://172.105.57.17:1337/api/liked-profiles/${id}`)
+      .then((response) => {
+        console.log("dislike:",response);
+      })
+      .catch((error) => {
+        console.error("dislike like error: ", error);
       });
-      setMyLikedprofiles(data);
-      console.log("myLikedprofiles: ",data);
-    }
-    if(likedprofiles.length > 0){
-      filterMyLikedProfiles(likedprofiles);
-    }
-  },[likedprofiles, storageData?.id]);
-
-  useEffect(() => {
-    getLikedProfiles(storageData?.id);
-  }, [storageData?.id]);
+  };
+  const handleHideDislikeProfile = (id) => {
+    let profile = document.getElementById(id);
+    profile.classList.add('hidden');
+  }
 
   return (
     <>
@@ -102,7 +90,7 @@ const Likedprofile = () => {
         <div className="container_card grid lg:grid-cols-4">
           {myLikedprofiles.length > 0 &&
             myLikedprofiles.map((profile, index) => {
-              if(profile.attributes.user_profile.data == null) {
+              if (profile.attributes.user_profile.data == null) {
                 return;
               }
               const {
@@ -112,12 +100,13 @@ const Likedprofile = () => {
                 star,
                 date_of_birth,
                 marriage_status,
-                profile_photo
+                profile_photo,
               } = profile.attributes.user_profile.data?.attributes;
-              // console.log(profile_photo.data[0].attributes.url);
+              console.log(profile.attributes.user_profile.data?.id);
               return (
                 <div
                   key={index}
+                  id={`liked-profile-${profile.id}`}
                   className="max-w-xs mx-9 mb-4 hover:transform hover:scale-105 duration-300"
                 >
                   <div className="cards_like">
@@ -141,7 +130,7 @@ const Likedprofile = () => {
                         }}
                         onClick={() =>
                           router.push({
-                            query: { id: itms.id },
+                            query: { id: profile.id },
                           })
                         }
                         className="absolute top-0 right-0 m-2 rounded flex items-center justify-center w-10 h-11 text-white text-sm font-bold"
@@ -149,6 +138,10 @@ const Likedprofile = () => {
                         <svg
                           className="absolute rounded"
                           id="heart"
+                          onClick={() => {
+                            handleDislike(profile.id);
+                            handleHideDislikeProfile(`liked-profile-${profile.id}`);
+                          }}
                           // onMouseOver='this.src="/assets/redheart.png"'
                           width="24"
                           height="21"
@@ -172,7 +165,9 @@ const Likedprofile = () => {
                       onClick={() => {
                         router.push({
                           pathname: "/profiledetail/[id]/",
-                          query: { id: profile.attributes.user_profile.data.id },
+                          query: {
+                            id: profile.attributes.user_profile.data.id
+                          },
                         });
                       }}
                     >

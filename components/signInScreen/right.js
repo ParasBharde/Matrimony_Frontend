@@ -1,94 +1,86 @@
-import React, { useState } from 'react'
-import Image from 'next/image'
-import a2 from "@/assets/signUpAssets/a2.png"
-import { useRouter } from 'next/router'
-import axios from "axios"
-import { toast } from "react-toastify"
+import React, { useState } from "react";
+import Image from "next/image";
+import a2 from "@/assets/signUpAssets/a2.png";
+import { useRouter } from "next/router";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Right = () => {
+  const router = useRouter();
 
-  const router = useRouter()
-
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [rememberMe,setRememberMe]=useState(false)
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
 
   const login = () => {
-
     var data = JSON.stringify({
-      "identifier": email,
-      "password": password
+      identifier: email,
+      password: password,
     });
 
     var config = {
-      method: 'post',
-      url: 'http://172.105.57.17:1337/api/auth/local',
+      method: "post",
+      url: "http://172.105.57.17:1337/api/auth/local",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      data: data
+      data: data,
     };
 
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
 
-var config2 = {
-  method: 'get',
-maxBodyLength: Infinity,
-  url: 'http://172.105.57.17:1337/api/users/me?populate=user_profile',
-  headers: { 
-    'Authorization': 'Bearer '+response.data.jwt
-  }
-};
+        var config2 = {
+          method: "get",
+          maxBodyLength: Infinity,
+          url: "http://172.105.57.17:1337/api/users/me?populate=user_profile",
+          headers: {
+            Authorization: "Bearer " + response.data.jwt,
+          },
+        };
 
-axios(config2)
-.then(function (response) {
+        axios(config2)
+          .then(function (response) {
+            if (rememberMe) {
+              localStorage.setItem("user", JSON.stringify(response.data));
+            } else {
+              sessionStorage.setItem("user", JSON.stringify(response.data));
+            }
 
-  if(rememberMe)
-  {
-    localStorage.setItem("user",JSON.stringify(response.data))
-  }
-  else
-  {
-    sessionStorage.setItem("user",JSON.stringify(response.data))
-  }
-  
-  toast.success("Successfully Logged In")
-  router.push("/profiledetail/" + response.data.user_profile.id)
-})
-.catch(function (error) {
-  toast.error(error.response.data.error.message)
-});
-
-        
+            toast.success("Successfully Logged In");
+            router.push("/profiledetail/" + response.data.user_profile.id);
+          })
+          .catch(function (error) {
+            toast.error(error.response.data.error.message);
+          });
       })
       .catch(function (error) {
         console.log(error);
-        toast.error(error.response.data.error.message)
+        toast.error(error.response.data.error.message);
       });
-  }
+  };
 
   var emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
   const validate = () => {
     if (!(email && password)) {
-      toast.error("Enter All Fields")
-      return false
+      toast.error("Enter All Fields");
+      return false;
     }
 
     if (!emailRegex.test(email)) {
-      toast.error("Enter Valid Email")
-      return false
+      toast.error("Enter Valid Email");
+      return false;
     }
 
     if (password.length < 8) {
-      toast.error("Password must contain 8 or more characters")
-      return false
+      toast.error("Password must contain 8 or more characters");
+      return false;
     }
 
-    return true
-  }
+    return true;
+  };
 
   return (
     <div className="xl:w-[40%] lg:w-[50%] sm:w-[60%] w-full flex flex-col justify-center items-center ">
@@ -142,7 +134,14 @@ axios(config2)
       </div>
       <div className="lg:w-[400px] sm:w-[300px] w-[90%] mx-auto flex justify-between items-center mt-2">
         <div>
-          <input type="checkbox" name="rememberMe" value={rememberMe} onChange={(e)=>{setRememberMe(e.target.checked)}} />
+          <input
+            type="checkbox"
+            name="rememberMe"
+            value={rememberMe}
+            onChange={(e) => {
+              setRememberMe(e.target.checked);
+            }}
+          />
           <label htmlFor="rememberMe" className="text-[#B6B3BE] ml-2">
             Remember Me
           </label>
@@ -152,7 +151,7 @@ axios(config2)
           <p
             className="text-[#B6B3BE] cursor-pointer ml-32"
             onClick={() => {
-              router.push("/setNewPassword");
+              router.push("/forgotPassword");
             }}
           >
             Forgot Password
@@ -178,9 +177,7 @@ axios(config2)
         New User Register Here
       </p>
     </div>
-
-
   );
-}
+};
 
-export default Right
+export default Right;
