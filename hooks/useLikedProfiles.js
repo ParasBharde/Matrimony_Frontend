@@ -12,7 +12,7 @@ export const useLikedProfiles = () => {
     const filterMyLikedProfiles = (likedprofiles) => {
       console.log(likedprofiles);
       let data = likedprofiles.filter((profile) => {
-        return profile.attributes.user.data.id == storageData.id;
+        return profile?.attributes?.user?.data?.id == storageData?.id;
       });
       setMyLikedprofiles(data);
       // console.log("myLikedprofiles: ", data);

@@ -122,9 +122,11 @@ const Register = () => {
 
         axios(config2)
           .then(function (response) {
-            // console.log(response.data)
+            console.log("response",response)
             toast.success("Profile Registered");
             sessionStorage.clear();
+            localStorage.clear();
+            localStorage.setItem("user", JSON.stringify(response.data));
 
             router.push("/profiledetail/" + response.data.data.id);
           })
