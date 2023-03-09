@@ -1,27 +1,44 @@
-import React, { useState,useRef } from "react";
+import React, { useState,useRef, useEffect } from "react";
 import Image from "next/image";
 import headerLogo from "@/assets/headerLogo.png";
 import avatar from "@/assets/avatar.png";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Hamburger from "@/assets/SVG/Hamburger";
+import {toast} from "react-toastify";
+import axios from "axios";
 
 import { useOnHoverOutside } from "@/hooks/useOnHoverOutside";
 import { useStorage } from "@/hooks/useStorage";
 
-import {toast} from "react-toastify"
 
 const Header = () => {
   const router = useRouter();
+  const storage = useStorage();
+  let id = storage?.user_profile;
 
   const dropdownRef = useRef(null);
   const dropdownRef1 = useRef(null);
   const [isMenuDropDownOpen, setMenuDropDownOpen] = useState(false);
   const [isMenuDropDownOpen1, setMenuDropDownOpen1] = useState(false);
+  const [userProfile, setUserProfile] = useState(null);
 
-  // const closeHoverMenu = () => {
-  //   setMenuDropDownOpen(false);
-  // };
+  useEffect(() => {
+    async function getUser() {
+      try {
+        const response = await axios.get(
+          `http://172.105.57.17:1337/api/profiles/?populate=%2A`
+        );
+        console.log("response", response.data.data);
+        let userProfile = response.data.data.filter((u) => u.id == id?.id);
+        setUserProfile(userProfile?.[0]?.attributes?.profile_photo?.data?.[0]?.attributes?.url);
+        console.log("propd ",userProfile);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getUser();
+  }, [id]);
 
   const closeHoverMenu1 = () => {
     setMenuDropDownOpen1(false);
@@ -30,13 +47,19 @@ const Header = () => {
   // useOnHoverOutside(dropdownRef, closeHoverMenu);
   useOnHoverOutside(dropdownRef1, closeHoverMenu1);
 
-  const data=useStorage()
+  const data=useStorage();
 
   const logout=()=>{
     localStorage.clear()
     sessionStorage.clear()
     toast.success("Logged Out")
     router.push("/")
+  };
+
+  const imgLoader = () => {
+    if(userProfile) {
+      return `http://172.105.57.17:1337${userProfile}`
+    }
   }
 
 
@@ -107,8 +130,12 @@ const Header = () => {
         {/* ..................   */}
         {data && <div ref={dropdownRef} className="relative max-md:right-10 right-[2rem]">
           <Image
-            className="drop "
-            src={avatar}
+            className="drop max-w-[40px]"
+            loader={imgLoader}
+            src={userProfile != null ? `http://172.105.57.17:1337${userProfile}` : avatar}
+            width="100"
+            height="100"
+            unoptimized
             alt="avatar"
             onMouseOver={() => setMenuDropDownOpen(true)}
           />

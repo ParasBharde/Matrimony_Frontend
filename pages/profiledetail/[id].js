@@ -25,7 +25,8 @@ const Profiledetail = () => {
           `http://172.105.57.17:1337/api/profiles/?populate=%2A`
         );
         console.log("response", response.data.data);
-        setprofilesdata(response.data.data.filter((u) => u.id == id.id));
+        let userProfile = response.data.data.filter((u) => u.id == id.id);
+        setprofilesdata(userProfile);
       } catch (error) {
         console.error(error);
       }
@@ -44,9 +45,6 @@ const Profiledetail = () => {
       .then((canvas) => {
         const imgData = canvas.toDataURL('image/png');
         const pdf = new jsPDF();
-        // pdf.addImage(imgData, 'PNG', 10, 10);
-        // pdf.save('download.pdf');
-
         const imgProps= pdf.getImageProperties(imgData);
         const pdfWidth = pdf.internal.pageSize.getWidth();
         const pdfHeight = pdf.internal.pageSize.getHeight();
@@ -57,7 +55,6 @@ const Profiledetail = () => {
 
   // share profile
   const shareProfile = () => {
-    console.log("share profile");
     setModalOpen(true);
   }
 
@@ -113,11 +110,11 @@ const Profiledetail = () => {
         </div>
       }
       {profilesdata.length > 0 &&
-        profilesdata.map((data) => {
+        profilesdata.map((data, index) => {
           // console.log("data", data);
           return (
             <>
-              <div className="container">
+              <div className="container" key={index}>
                 <Breadcrumb screens={["Home", "Search", "Profile Details"]} />
 
                 <div className="main_container flex justify-center overflow-auto">

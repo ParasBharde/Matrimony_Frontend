@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import "@/css/allfile.scss";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useState } from "react";
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();

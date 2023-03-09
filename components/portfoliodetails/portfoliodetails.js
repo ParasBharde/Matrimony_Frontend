@@ -8,6 +8,7 @@ import axios from "axios";
 import { useStorage } from "@/hooks/useStorage";
 import { useCalculateAge } from "@/hooks/useCalculateAge";
 import { useLikedProfiles } from "@/hooks/useLikedProfiles";
+import { toast } from "react-toastify";
 
 const Portfoliodetails = ({ allprofiles, total }) => {
   const router = useRouter();
@@ -25,21 +26,20 @@ const Portfoliodetails = ({ allprofiles, total }) => {
 
   const myLikedprofiles = useLikedProfiles();
 
-
   const closeHoverMenu = () => {
     setActive(false);
   };
   useOnHoverOutside(dropdownRef, closeHoverMenu);
 
+  // check profile is liked or not
   const isProfileLiked = (id) => {
-    for(let prop of myLikedprofiles) {
-      if(prop.attributes?.user_profile?.data?.id == id) {
-        // console.log("yes");
+    for (let prop of myLikedprofiles) {
+      if (prop.attributes?.user_profile?.data?.id == id) {
         return true;
       }
     }
     return false;
-  }
+  };
 
   // pagination code
   useEffect(() => {
@@ -99,13 +99,14 @@ const Portfoliodetails = ({ allprofiles, total }) => {
       },
       data: data,
     };
-    axios(config)
+    let res = axios(config)
       .then((response) => {
         console.log(response);
       })
       .catch((error) => {
         console.error("like error: ", error);
       });
+    console.log("res ", res);
   };
   // like profile code end
 
@@ -638,13 +639,16 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                           <svg
                             className={`absolute rounded cursor-pointer fill-current hover:text-[#F98B1D] ${
                               // itms.attributes.liked_profile.data != null &&
-                              isProfileLiked(itms.id) &&
-                              "text-[#F98B1D]"
+                              isProfileLiked(itms.id) && "text-[#F98B1D]"
                             }`}
                             id="heart"
                             onClick={(e) => {
-                              handleLike(itms.id);
-                              e.target.classList.add("text-[#F98B1D]");
+                              if (storageData != null) {
+                                handleLike(itms.id);
+                                e.target.classList.add("text-[#F98B1D]");
+                              } else {
+                                toast.error("You must be login first!");
+                              }
                             }}
                             // onMouseOver={() => src="/assets/redheart.png"}
                             width="24"

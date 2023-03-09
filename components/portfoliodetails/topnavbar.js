@@ -78,8 +78,6 @@ const Topnavbar = () => {
   "
       >
         <div className="container-fluid w-full flex flex-wrap items-center justify-between px-6">
-
-
           <h1 className="flex justify-start items-center ">
             Welcome 👋 Jenny Wilson
           </h1>
@@ -124,7 +122,6 @@ const Topnavbar = () => {
             </Link>
           </div>
         </div>
-
       </nav>
     </>
   );
