@@ -148,8 +148,8 @@ const Header = () => {
               //onClick={() => router.push('/profile/')}
                 onClick={() => 
                   {
-                    // router.push("/profile");
-                    router.push("/profiledetail/" + data.user_profile.id || data.id);
+                    router.push("/profile");
+                    // router.push("/profiledetail/" + data.user_profile.id || data.id);
                     // setMenuDropDownOpen(false)
                   }
                 }
