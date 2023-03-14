@@ -29,10 +29,10 @@ const Header = () => {
         const response = await axios.get(
           `http://172.105.57.17:1337/api/profiles/?populate=%2A`
         );
-        console.log("response", response.data.data);
+        // console.log("response", response.data.data);
         let userProfile = response.data.data.filter((u) => u.id == id?.id);
         setUserProfile(userProfile?.[0]?.attributes?.profile_photo?.data?.[0]?.attributes?.url);
-        console.log("propd ",userProfile);
+        // console.log("propd ",userProfile);
       } catch (error) {
         console.error(error);
       }
@@ -148,7 +148,8 @@ const Header = () => {
               //onClick={() => router.push('/profile/')}
                 onClick={() => 
                   {
-                    router.push("/profiledetail/" + data.user_profile.id)
+                    // router.push("/profile");
+                    router.push("/profiledetail/" + data.user_profile.id || data.id);
                     // setMenuDropDownOpen(false)
                   }
                 }

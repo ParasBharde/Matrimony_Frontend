@@ -1,6 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: '172.105.57.17',
+        port: '1337',
+        pathname: '/uploads/*',
+      },
+    ],
+  },
 }
 const path = require('path')
 
@@ -29,7 +39,14 @@ module.exports = {
     IMAGES_DOMAIN: process.env.IMAGES_DOMAIN,
   },
   images: {
+    domains: ['172.105.57.17'],
     remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: '172.105.57.17',
+        port: '1337',
+        pathname: '/uploads/*',
+      },
       {
         protocol: 'http',
         hostname: 'localhost',

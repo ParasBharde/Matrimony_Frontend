@@ -10,7 +10,7 @@ export const useLikedProfiles = () => {
 
   useEffect(() => {
     const filterMyLikedProfiles = (likedprofiles) => {
-      console.log(likedprofiles);
+      // console.log(likedprofiles);
       let data = likedprofiles.filter((profile) => {
         return profile?.attributes?.user?.data?.id == storageData?.id;
       });

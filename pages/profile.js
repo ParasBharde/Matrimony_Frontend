@@ -1,10 +1,10 @@
 import React from "react";
-import ProfileEdit from '@/components/profileEdit/profileEdit'
+import EditProfile from '@/components/editProfile/EditProfile'
 
 const Profile = () =>{
 return(
     <div>
-     <ProfileEdit/>
+     <EditProfile/>
     </div>
 )
 }

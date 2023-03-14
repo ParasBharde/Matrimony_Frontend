@@ -5,8 +5,14 @@ import fileInputImage from "@/assets/fileInput.png";
 import { toast } from "react-toastify";
 
 import Files from "react-files";
+import axios from "axios";
 
-const RegisterForm2 = ({ screen, setScreen }) => {
+const EditProfileForm2 = ({ screen, setScreen, userData }) => {
+  const [img1, setImg1] = useState();
+  const [img2, setImg2] = useState();
+  const [img3, setImg3] = useState();
+  const [img4, setImg4] = useState();
+
   const [file1, setFile1] = useState(null);
   const [file2, setFile2] = useState(null);
   const [file3, setFile3] = useState(null);
@@ -77,7 +83,8 @@ const RegisterForm2 = ({ screen, setScreen }) => {
   const [groomOrBride, setGroomOrBride] = useState("Groom");
   const [dateOfBirth, setDateOfBirth] = useState(null);
   const [height, setHeight] = useState(0);
-  const [educationalQualifications, setEducationalQualifications] = useState("");
+  const [educationalQualifications, setEducationalQualifications] =
+    useState("");
   const [salary, setSalary] = useState(0);
   const [expectation, setExpectation] = useState("");
   const [caste, setCaste] = useState("");
@@ -92,9 +99,43 @@ const RegisterForm2 = ({ screen, setScreen }) => {
   const [marriageStatus, setMarriageStatus] = useState("Single");
 
   useEffect(() => {
-    const rg = sessionStorage.getItem("rg2");
-    if (rg) {
-      const jrg = JSON.parse(rg);
+    // console.log("userData", userData);
+    if (userData) {
+      setFirstName(userData.first_name);
+      setGroomOrBride(userData.Chooese_groom_bride);
+      setDateOfBirth(userData.date_of_birth);
+      setHeight(userData.Height);
+      setEducationalQualifications(userData.educational_qualification);
+      setSalary(userData.Salary_monthly_income);
+      setExpectation(userData.Expection);
+      setCaste(userData.caste);
+
+      setLastName(userData.last_name);
+      setVegOrNonVeg(userData.Choose_veg_nonveg);
+      setStar(userData.star);
+      setColor(userData.Color);
+      setCareerDetails(userData.career_detail);
+      setFamilyPropertyDetails(userData.family_property_details);
+      setPhoneNumber(userData.phone_number);
+      setMarriageStatus(userData.marriage_status);
+
+      setImg1(userData.profile_photo?.data?.[0]?.attributes.url);
+      setImg2(userData.profile_photo?.data?.[1]?.attributes.url);
+      setImg3(userData.profile_photo?.data?.[2]?.attributes.url);
+      setImg4(userData.profile_photo?.data?.[3]?.attributes.url);
+
+      setFile1ID(userData.profile_photo?.data?.[0]?.id);
+      setFile2ID(userData.profile_photo?.data?.[1]?.id);
+      setFile3ID(userData.profile_photo?.data?.[2]?.id);
+      setFile4ID(userData.profile_photo?.data?.[3]?.id);
+      // console.log("url", userData.profile_photo?.data?.[0]?.attributes.url);
+    }
+  }, [userData]);
+
+  useEffect(() => {
+    const edit = sessionStorage.getItem("edit2");
+    if (edit) {
+      const jrg = JSON.parse(edit);
 
       setFile1(jrg.file1);
       setFile2(jrg.file2);
@@ -121,93 +162,99 @@ const RegisterForm2 = ({ screen, setScreen }) => {
     }
   }, []);
 
-  useEffect(()=>{
-    if(file1)
-    {
+  useEffect(() => {
+    if (file1) {
       var formdata = new FormData();
-    formdata.append("files", file1[0], file1[0].preview.url);
-var requestOptions = {
-  method: 'POST',
-  body: formdata,
-  redirect: 'follow'
-};
-fetch("http://172.105.57.17:1337/api/upload", requestOptions)
-  .then(response => response.json())
-  .then((result) => {console.log(result)
-    setFile1ID(result[0].id)
-  })
-  .catch((error) => {console.log('error', error)
-  setFile1ID(4)
-});
+      formdata.append("files", file1[0], file1[0].preview.url);
+      var requestOptions = {
+        method: "POST",
+        body: formdata,
+        redirect: "follow",
+      };
+      fetch("http://172.105.57.17:1337/api/upload", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+          setFile1ID(result[0].id);
+        })
+        .catch((error) => {
+          console.log("error", error);
+          setFile1ID(4);
+        });
     }
-  },[file1])
+  }, [file1]);
 
-  useEffect(()=>{
-    if(file2)
-    {
+  useEffect(() => {
+    if (file2) {
       var formdata = new FormData();
-    formdata.append("files", file2[0], file2[0].preview.url);
-var requestOptions = {
-  method: 'POST',
-  body: formdata,
-  redirect: 'follow'
-};
-fetch("http://172.105.57.17:1337/api/upload", requestOptions)
-  .then(response => response.json())
-  .then((result) => {console.log(result)
-    setFile2ID(result[0].id)
-  })
-  .catch((error) => {console.log('error', error)
-  setFile2ID(4)
-});
+      formdata.append("files", file2[0], file2[0].preview.url);
+      var requestOptions = {
+        method: "POST",
+        body: formdata,
+        redirect: "follow",
+      };
+      fetch("http://172.105.57.17:1337/api/upload", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+          setFile2ID(result[0].id);
+        })
+        .catch((error) => {
+          console.log("error", error);
+          setFile2ID(4);
+        });
     }
-  },[file2])
+  }, [file2]);
 
-  useEffect(()=>{
-    if(file3)
-    {
+  useEffect(() => {
+    if (file3) {
       var formdata = new FormData();
-    formdata.append("files", file3[0], file3[0].preview.url);
-var requestOptions = {
-  method: 'POST',
-  body: formdata,
-  redirect: 'follow'
-};
-fetch("http://172.105.57.17:1337/api/upload", requestOptions)
-  .then(response => response.json())
-  .then((result) => {console.log(result)
-    setFile3ID(result[0].id)
-  })
-  .catch((error) => {console.log('error', error)
-  setFile3ID(4)
-});
+      formdata.append("files", file3[0], file3[0].preview.url);
+      var requestOptions = {
+        method: "POST",
+        body: formdata,
+        redirect: "follow",
+      };
+      fetch("http://172.105.57.17:1337/api/upload", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+          setFile3ID(result[0].id);
+        })
+        .catch((error) => {
+          console.log("error", error);
+          setFile3ID(4);
+        });
     }
-  },[file3])
+  }, [file3]);
 
-  useEffect(()=>{
-    if(file4)
-    {
+  useEffect(() => {
+    if (file4) {
+      console.log("file4 changed");
       var formdata = new FormData();
-    formdata.append("files", file4[0], file4[0].preview.url);
-var requestOptions = {
-  method: 'POST',
-  body: formdata,
-  redirect: 'follow'
-};
-fetch("http://172.105.57.17:1337/api/upload", requestOptions)
-  .then(response => response.json())
-  .then((result) => {console.log(result)
-    setFile4ID(result[0].id)
-  })
-  .catch((error) => {console.log('error', error)
-  setFile4ID(4)
-});
+      formdata.append("files", file4[0], file4[0].preview.url);
+      var requestOptions = {
+        method: "POST",
+        body: formdata,
+        redirect: "follow",
+      };
+      fetch("http://172.105.57.17:1337/api/upload", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+          setFile4ID(result[0].id);
+        })
+        .catch((error) => {
+          console.log("error", error);
+          setFile4ID(4);
+        });
     }
-  },[file4])
+  }, [file4]);
 
   const beforeNextScreen = () => {
-    const rg2 = {
-      profileImages:[file1ID,file2ID,file3ID,file4ID],
+    console.log("file4ID", file4ID);
+    const edit2 = {
+      profileImages: [file1ID, file2ID, file3ID, file4ID],
       firstName,
       groomOrBride,
       dateOfBirth,
@@ -225,7 +272,7 @@ fetch("http://172.105.57.17:1337/api/upload", requestOptions)
       phoneNumber,
       marriageStatus,
     };
-    sessionStorage.setItem("rg2", JSON.stringify(rg2));
+    sessionStorage.setItem("edit2", JSON.stringify(edit2));
   };
 
   // var nameRegex = /[A-Za-z]+/g;
@@ -253,7 +300,7 @@ fetch("http://172.105.57.17:1337/api/upload", requestOptions)
       return false;
     }
 
-    if (!(file1 && file2 && file3 && file4)) {
+    if (!((file1 || img1) && (file2 || img2) && (file3 || img3) && (file4 || img4))) {
       toast.error("Please input all the files");
       return false;
     }
@@ -281,6 +328,23 @@ fetch("http://172.105.57.17:1337/api/upload", requestOptions)
     return true;
   };
 
+
+  const deleteImage = (e) => {
+    console.log("image", e.target.id);
+    axios
+      .delete(`http://172.105.57.17:1337/api/upload/files/${e.target.id}`)
+      .then((res) => {
+        console.log("img deleted", res);
+      })
+      .catch((error) => {
+        console.log("image error", error);
+      });
+  };
+
+  if (!userData) {
+    return;
+  }
+
   return (
     <>
       <div className="flex justify-center gap-5 items-center p-4 max-lg:min-w-min max-lg:flex max-lg:flex-col max-lg:items-center">
@@ -293,7 +357,7 @@ fetch("http://172.105.57.17:1337/api/upload", requestOptions)
               placeholder="Enter Your First Name"
               value={firstName}
               onChange={(e) => {
-                setFirstName(e.target.value)
+                setFirstName(e.target.value);
               }}
               type={"text"}
               className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
@@ -519,9 +583,8 @@ fetch("http://172.105.57.17:1337/api/upload", requestOptions)
               type={"text"}
               value={phoneNumber}
               onChange={(e) => {
-                if(e.target.value.length<=10)
-                {
-                setPhoneNumber(e.target.value)
+                if (e.target.value.length <= 10) {
+                  setPhoneNumber(e.target.value);
                 }
               }}
               className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
@@ -553,76 +616,167 @@ fetch("http://172.105.57.17:1337/api/upload", requestOptions)
       <div className="w-[auto] mx-auto lg:w-[51rem] ">
         <p className="h-[10px] my-6">Profile Photo *</p>
         <div className="flex justify-between items-center max-lg:flex-col space-y-5 max-lg:flex max-lg:justify-start ">
-          <Files
-            className="files-dropzone cursor-pointer"
-            onChange={onFilesChange1}
-            onError={onFilesError1}
-            accepts={["image/png", "image/jpg"]}
-            maxFileSize={10000000}
-            minFileSize={0}
-            clickable
-          >
-            <Image
-              src={file1 ? file1[0].preview.url : fileInputImage}
-              width={190}
-              height={190}
-              className="md:w-[190] h-[190] max-lg:w-[22rem] max-lg:h-[22rem]"
-              alt={"File Input Image"}
-            />
-          </Files>
+          <div className="relative">
+            {img1 && (
+              <div className="absolute w-full h-full flex justify-center items-center">
+                <span
+                  className="cursor-pointer p-1 bg-red-500 "
+                  id={userData.profile_photo?.data?.[0]?.id}
+                  onClick={(e) => {
+                    deleteImage(e);
+                    setImg1(null);
+                  }}
+                >
+                  change image
+                </span>
+              </div>
+            )}
 
-          <Files
-            className="files-dropzone cursor-pointer"
-            onChange={onFilesChange2}
-            onError={onFilesError2}
-            accepts={["image/png", "image/jpg"]}
-            maxFileSize={10000000}
-            minFileSize={0}
-            clickable
-          >
-            <Image
-              src={file2 ? file2[0].preview.url : fileInputImage}
-              width={190}
-              height={190}
-              className="md:w-[190] h-[190] max-lg:w-[22rem] max-lg:h-[22rem]"
-              alt={"File Input Image"}
-            />
-          </Files>
+            <Files
+              className="files-dropzone cursor-pointer"
+              onChange={onFilesChange1}
+              onError={onFilesError1}
+              accepts={["image/png", "image/jpg"]}
+              maxFileSize={10000000}
+              minFileSize={0}
+              clickable
+            >
+              <Image
+                src={
+                  file1
+                    ? file1[0].preview.url
+                    : img1
+                    ? `http://172.105.57.17:1337${img1}`
+                    : fileInputImage
+                }
+                width={190}
+                height={190}
+                className="md:w-[190] h-[190] max-lg:w-[22rem] max-lg:h-[22rem]"
+                alt={"File Input Image"}
+              />
+            </Files>
+          </div>
 
-          <Files
-            className="files-dropzone cursor-pointer"
-            onChange={onFilesChange3}
-            onError={onFilesError3}
-            accepts={["image/png", "image/jpg"]}
-            maxFileSize={10000000}
-            minFileSize={0}
-            clickable
-          >
-            <Image
-              src={file3 ? file3[0].preview.url : fileInputImage}
-              width={190}
-              height={190}
-              alt={"File Input Image"}
-              className="md:w-[190] h-[190] max-lg:w-[22rem] max-lg:h-[22rem]"
-            />
-          </Files>
-          <Files
-            className="files-dropzone cursor-pointer"
-            onChange={onFilesChange4}
-            onError={onFilesError4}
-            accepts={["image/png", "image/jpg"]}
-            maxFileSize={10000000}
-            minFileSize={0}
-            clickable
-          >
-            <Image
-              src={file4 ? file4[0].preview.url : fileInputImage}
-              width={190}
-              height={190}
-              alt={"File Input Image"}
-              className="md:w-[190] h-[190] max-lg:w-[22rem] max-lg:h-[22rem]"
-            />
-          </Files>
+          <div className="relative">
+            {img2 && (
+              <div className="absolute w-full h-full flex justify-center items-center">
+                <span
+                  className="cursor-pointer p-1 bg-red-500 "
+                  id={userData.profile_photo?.data?.[1]?.id}
+                  onClick={(e) => {
+                    deleteImage(e);
+                    setImg2(null);
+                  }}
+                >
+                  change image
+                </span>
+              </div>
+            )}
+
+            <Files
+              className="files-dropzone cursor-pointer"
+              onChange={onFilesChange2}
+              onError={onFilesError2}
+              accepts={["image/png", "image/jpg"]}
+              maxFileSize={10000000}
+              minFileSize={0}
+              clickable
+            >
+              <Image
+                src={
+                  file2
+                    ? file2[0].preview.url
+                    : img2
+                    ? `http://172.105.57.17:1337${img2}`
+                    : fileInputImage
+                }
+                width={190}
+                height={190}
+                className="md:w-[190] h-[190] max-lg:w-[22rem] max-lg:h-[22rem]"
+                alt={"File Input Image"}
+              />
+            </Files>
+          </div>
+
+          <div className="relative">
+            {img3 && (
+              <div className="absolute w-full h-full flex justify-center items-center">
+                <span
+                  className="cursor-pointer p-1 bg-red-500 "
+                  id={userData.profile_photo?.data?.[2]?.id}
+                  onClick={(e) => {
+                    deleteImage(e);
+                    setImg3(null);
+                  }}
+                >
+                  change image
+                </span>
+              </div>
+            )}
+
+            <Files
+              className="files-dropzone cursor-pointer"
+              onChange={onFilesChange3}
+              onError={onFilesError3}
+              accepts={["image/png", "image/jpg"]}
+              maxFileSize={10000000}
+              minFileSize={0}
+              clickable
+            >
+              <Image
+                src={
+                  file3
+                    ? file3[0].preview.url
+                    : img3
+                    ? `http://172.105.57.17:1337${img3}`
+                    : fileInputImage
+                }
+                width={190}
+                height={190}
+                alt={"File Input Image"}
+                className="md:w-[190] h-[190] max-lg:w-[22rem] max-lg:h-[22rem]"
+              />
+            </Files>
+          </div>
+          <div className="relative">
+            {img4 && (
+              <div className="absolute w-full h-full flex justify-center items-center">
+                <span
+                  className="cursor-pointer p-1 bg-red-500 "
+                  id={userData.profile_photo?.data?.[3]?.id}
+                  onClick={(e) => {
+                    deleteImage(e);
+                    setImg4(null);
+                  }}
+                >
+                  change image
+                </span>
+              </div>
+            )}
+            <Files
+              className="files-dropzone cursor-pointer"
+              onChange={onFilesChange4}
+              onError={onFilesError4}
+              accepts={["image/png", "image/jpg"]}
+              maxFileSize={10000000}
+              minFileSize={0}
+              clickable
+            >
+              <Image
+                src={
+                  file4
+                    ? file4[0].preview.url
+                    : img4
+                    ? `http://172.105.57.17:1337${img4}`
+                    : fileInputImage
+                }
+                width={190}
+                height={190}
+                alt={"File Input Image"}
+                className="md:w-[190] h-[190] max-lg:w-[22rem] max-lg:h-[22rem]"
+              />
+            </Files>
+          </div>
         </div>
       </div>
       <div
@@ -658,4 +812,4 @@ fetch("http://172.105.57.17:1337/api/upload", requestOptions)
   );
 };
 
-export default RegisterForm2;
+export default EditProfileForm2;

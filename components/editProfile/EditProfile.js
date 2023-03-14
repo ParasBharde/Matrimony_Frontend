@@ -11,9 +11,11 @@ import Share from "@/assets/SVG/share.svg";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { Modal } from "reactstrap";
+import { useRouter } from "next/router";
 
-const ProfileEdit = () => {
+const EditProfile = () => {
   const [modalDefaultOpen, setModalDefaultOpen] = React.useState(false);
+  const router = useRouter();
 
   function downloadPdf() {
     const input = document.getElementById("pdf-content");
@@ -35,7 +37,7 @@ const ProfileEdit = () => {
             <div className="flex items-center w-full bg-main h-16 px-5">
               <span className="text-white flex-1">Profile Detail</span>
               <div className="flex items-center ">
-                <button className="bg-white text-main md:px-[2rem] rounded md:py-[5px]">
+                <button className="bg-white text-main md:px-[2rem] rounded md:py-[5px]" onClick={() => router.push('/editProfile')}>
                   Edit
                 </button>
               </div>
@@ -623,4 +625,4 @@ const ProfileEdit = () => {
     </>
   );
 };
-export default ProfileEdit;
+export default EditProfile;

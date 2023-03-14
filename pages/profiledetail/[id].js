@@ -111,7 +111,7 @@ const Profiledetail = () => {
       }
       {profilesdata.length > 0 &&
         profilesdata.map((data, index) => {
-          // console.log("data", data);
+          console.log("data", data);
           return (
             <>
               <div className="container" key={index}>
@@ -212,7 +212,7 @@ const Profiledetail = () => {
                                         <img
                                           className="img_profile_portfolio object-contain w-40 min-h-full"
                                           object-fit
-                                          src={`http://172.105.57.17:1337${data.attributes.profile_photo.data[0].attributes.url}`}
+                                          src={`http://172.105.57.17:1337${data.attributes.profile_photo?.data?.[0]?.attributes.url}`}
                                           alt=""
                                         />
                                       </picture>
@@ -241,7 +241,7 @@ const Profiledetail = () => {
                                         <picture>
                                           <img
                                             alt=""
-                                            src={`http://172.105.57.17:1337${data.attributes.profile_photo.data[0].attributes.url}`}
+                                            src={`http://172.105.57.17:1337${data.attributes.profile_photo?.data?.[0]?.attributes.url}`}
                                             placeholder="image"
                                             width={500}
                                             height={500}
@@ -254,7 +254,7 @@ const Profiledetail = () => {
                                         <img
                                           className="img_profile_g"
                                           object-fit
-                                          src={`http://172.105.57.17:1337${data.attributes.profile_photo.data[1].attributes.url}`}
+                                          src={`http://172.105.57.17:1337${data.attributes.profile_photo?.data?.[1]?.attributes.url}`}
                                           alt=""
                                         />
                                       </picture>
@@ -262,7 +262,7 @@ const Profiledetail = () => {
                                         <img
                                           className="img_profile_g w-40 h-26"
                                           object-fit
-                                          src={`http://172.105.57.17:1337${data.attributes.profile_photo.data[2].attributes.url}`}
+                                          src={`http://172.105.57.17:1337${data.attributes.profile_photo?.data?.[2]?.attributes.url}`}
                                           alt=""
                                         />
                                       </picture>
@@ -270,7 +270,7 @@ const Profiledetail = () => {
                                         <img
                                           className="img_profile_g w-40 h-26"
                                           object-fit
-                                          src={`http://172.105.57.17:1337${data.attributes.profile_photo.data[3].attributes.url}`}
+                                          src={`http://172.105.57.17:1337${data.attributes.profile_photo?.data?.[3]?.attributes.url}`}
                                           alt=""
                                         />
                                       </picture>

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Portfoliodetails from "@/components/portfoliodetails/portfoliodetails";
 import Portfolioheader from "@/components/portfoliodetails/portfolioheader";
 import { useRouter } from "next/router";
 import { useCalculateAge } from "@/hooks/useCalculateAge";
+import { useStorage } from "@/hooks/useStorage";
 
-import axios from "axios";
 
 const Portfolio = () => {
   const router = useRouter();
@@ -12,32 +13,36 @@ const Portfolio = () => {
   const [profiles, setprofiles] = useState([]);
   // const [length, setLength] = useState(0);
   const [total, setTotal] = useState(0);
+  const storageData = useStorage();
 
-  async function getUser() {
-    var config = {
-      method: "get",
-      maxBodyLength: Infinity,
-      url: "http://172.105.57.17:1337/api/profiles/?populate=%2A",
-      headers: {
-        Authorization:
-          "Bearer Bearer 3ad527b6e04e45a25b5c7a57d8e796af06f0853e2fa7c4551566c2096b18b80500bdaf2fc61dace337df1dc8c2a0026075026b10589f9c9d009a72165635b72012c305bf52929b73a79c97e1e5a53e7193f812604f83fa679731fa19540e9ecd7112dc224f0cccd4624294b05ec2864b552bdf7905d65736410f0cf2774c3994",
-      },
-    };
-
-    axios(config)
-      .then(function (response) {
-        setprofiles(response.data.data);
-        setFilteredProfiles(response.data.data);
-        setTotal(response.data.data.length);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
   //console.log("profiles", profiles);
   useEffect(() => {
+    async function getUser() {
+      var config = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: "http://172.105.57.17:1337/api/profiles/?populate=%2A",
+        headers: {
+          Authorization:
+            "Bearer Bearer 3ad527b6e04e45a25b5c7a57d8e796af06f0853e2fa7c4551566c2096b18b80500bdaf2fc61dace337df1dc8c2a0026075026b10589f9c9d009a72165635b72012c305bf52929b73a79c97e1e5a53e7193f812604f83fa679731fa19540e9ecd7112dc224f0cccd4624294b05ec2864b552bdf7905d65736410f0cf2774c3994",
+        },
+      };
+  
+      axios(config)
+        .then(function (response) {
+          let profiles = response.data.data.filter((item) => {
+            return item.id != storageData?.user_profile?.id;
+          })
+          setprofiles(profiles);
+          setFilteredProfiles(profiles);
+          setTotal(profiles.length);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
     getUser();
-  }, []);
+  }, [storageData]);
 
   const calculateAge = useCalculateAge();
 

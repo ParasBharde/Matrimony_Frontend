@@ -7,9 +7,7 @@ import RegisterForm3 from "@/components/registerScreen/registerForm3";
 import RegisterForm4 from "@/components/registerScreen/registerForm4";
 
 import { toast } from "react-toastify";
-
 import { useRouter } from "next/router";
-
 import { useStorage } from "@/hooks/useStorage";
 
 import axios from "axios";

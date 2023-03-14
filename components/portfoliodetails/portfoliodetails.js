@@ -620,7 +620,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                         <picture>
                           <img
                             className="img_card "
-                            src={`http://172.105.57.17:1337${itms.attributes.profile_photo.data[0].attributes.url}`}
+                            src={`http://172.105.57.17:1337${itms.attributes.profile_photo?.data?.[0]?.attributes.url}`}
                             alt=""
                           />
                         </picture>
@@ -648,6 +648,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                                 e.target.classList.add("text-[#F98B1D]");
                               } else {
                                 toast.error("You must be login first!");
+                                router.push("/signIn");
                               }
                             }}
                             // onMouseOver={() => src="/assets/redheart.png"}
