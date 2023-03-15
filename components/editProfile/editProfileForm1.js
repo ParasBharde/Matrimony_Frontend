@@ -34,11 +34,11 @@ const EditProfileForm1 = ({ screen, setScreen, userData }) => {
         </div>
         <div className='mt-5 max-w-min mx-auto'>
         <p className='text-dark font-[500] text-[14px] mb-2'>User*</p>
-        <input readOnly placeholder='Enter Username' value={user} type={"text"} className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
+        <input readOnly placeholder='Enter Username' value={user} type={"text"} className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3 cursor-not-allowed' />
       </div>
       <div className='mt-5 max-w-min mx-auto'>
         <p className='text-dark font-[500] text-[14px] mb-2'>Email*</p>
-        <input readOnly placeholder='Enter Your Email' value={email} type={"email"} className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
+        <input readOnly placeholder='Enter Your Email' value={email} type={"email"} className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3 cursor-not-allowed' />
       </div>
       
       <div className={`${screen != 1 ? "w-[800px]" : "w-[400px]"} mx-auto flex justify-end my-3 gap-2`}>

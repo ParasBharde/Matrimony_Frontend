@@ -24,7 +24,29 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   const [isGrid, issetGrid] = useState(false);
   const [profiles, setProfiles] = useState([]);
 
+  const [isPremiumUser, setIsPremiumUser] = useState(false);
+
   const myLikedprofiles = useLikedProfiles();
+
+  // subscription code start
+  useEffect(() => {
+    if(storageData) {
+      axios.get(`http://172.105.57.17:1337/api/profiles/${storageData?.user_profile?.id}?populate=%2A`)
+      .then((response) => {
+        // console.log("premium",response.data.data.attributes.subscriptions_detail.data.attributes.isTxnSuccessful);
+        let subscription = response.data.data?.attributes?.subscriptions_detail?.data;
+        if(subscription != null){
+          if(subscription?.attributes?.isTxnSuccessful) {
+            setIsPremiumUser(subscription?.attributes?.isTxnSuccessful);
+          }
+        }
+      })
+      .catch((error) => {
+        console.log("error fetchin premium user", error);
+      })
+    }
+  },[storageData])
+  // subscription code end
 
   const closeHoverMenu = () => {
     setActive(false);
@@ -532,12 +554,14 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                   return (
                     <tbody key={index}>
                       <tr
-                        className="bg-white border-b cursor-pointer"
+                        className={`bg-white border-b ${isPremiumUser ? 'cursor-pointer' : 'cursor-not-allowed'}`}
                         onClick={() => {
-                          router.push({
-                            pathname: "/profiledetail/[id]/",
-                            query: { id: itms.id },
-                          });
+                          if(isPremiumUser) {
+                            router.push({
+                              pathname: "/profiledetail/[id]/",
+                              query: { id: itms.id },
+                            });
+                          }
                         }}
                       >
                         <td className="px-6 py-4">
@@ -614,8 +638,15 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                     key={index}
                     className="relative mb-2 hover:transform hover:scale-105 duration-300 max-lg:min-w-fit"
                   >
-                    <div className="cards">
+                    <div className="cards relative">
                       {/* <div className="cards blur-sm"> */}
+                      {
+                        !isPremiumUser && (
+                          <div className="absolute top-0 left-0 w-full h-full bg-black/[0.3] z-40">
+                          
+                          </div>
+                        )
+                      }
                       <div className="relative">
                         <picture>
                           <img
@@ -633,12 +664,10 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                             top: "10",
                             right: "10",
                           }}
-                          // onClick={() => handleLike(itms.id)}
                           className="absolute top-0 right-0 m-2 rounded flex items-center justify-center w-10 h-11 text-white text-sm font-bold"
                         >
                           <svg
                             className={`absolute rounded cursor-pointer fill-current hover:text-[#F98B1D] ${
-                              // itms.attributes.liked_profile.data != null &&
                               isProfileLiked(itms.id) && "text-[#F98B1D]"
                             }`}
                             id="heart"
@@ -651,7 +680,6 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                                 router.push("/signIn");
                               }
                             }}
-                            // onMouseOver={() => src="/assets/redheart.png"}
                             width="24"
                             height="21"
                             viewBox="0 0 24 21"
@@ -763,7 +791,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                         </p>
                       </footer>
                     </div>
-                    <div className="absolute grid place-items-center top-32 ml-16">
+                    <div className="absolute grid place-items-center top-32 ml-16 z-50">
                       <svg
                         className="  flex justify-center items-center w-8 h-12 text-white"
                         viewBox="0 0 26 34"

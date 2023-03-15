@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import Files from "react-files";
 import axios from "axios";
 
+import { TrashIcon } from '@radix-ui/react-icons'
 const EditProfileForm2 = ({ screen, setScreen, userData }) => {
   const [img1, setImg1] = useState();
   const [img2, setImg2] = useState();
@@ -618,16 +619,16 @@ const EditProfileForm2 = ({ screen, setScreen, userData }) => {
         <div className="flex justify-between items-center max-lg:flex-col space-y-5 max-lg:flex max-lg:justify-start ">
           <div className="relative">
             {img1 && (
-              <div className="absolute w-full h-full flex justify-center items-center">
+              <div className="absolute w-full h-full bg-black/[0.2]">
                 <span
-                  className="cursor-pointer p-1 bg-red-500 "
+                  className="cursor-pointer p-1 absolute top-1 right-0"
                   id={userData.profile_photo?.data?.[0]?.id}
                   onClick={(e) => {
                     deleteImage(e);
                     setImg1(null);
                   }}
                 >
-                  change image
+                  <TrashIcon className="h-10 w-10 text-red-700"/>
                 </span>
               </div>
             )}
@@ -659,16 +660,16 @@ const EditProfileForm2 = ({ screen, setScreen, userData }) => {
 
           <div className="relative">
             {img2 && (
-              <div className="absolute w-full h-full flex justify-center items-center">
+              <div className="absolute w-full h-full bg-black/[0.2]">
                 <span
-                  className="cursor-pointer p-1 bg-red-500 "
+                  className="cursor-pointer p-1 absolute top-1 right-0"
                   id={userData.profile_photo?.data?.[1]?.id}
                   onClick={(e) => {
                     deleteImage(e);
                     setImg2(null);
                   }}
                 >
-                  change image
+                  <TrashIcon className="h-10 w-10 text-red-700"/>
                 </span>
               </div>
             )}
@@ -700,16 +701,16 @@ const EditProfileForm2 = ({ screen, setScreen, userData }) => {
 
           <div className="relative">
             {img3 && (
-              <div className="absolute w-full h-full flex justify-center items-center">
+              <div className="absolute w-full h-full bg-black/[0.2]">
                 <span
-                  className="cursor-pointer p-1 bg-red-500 "
+                  className="cursor-pointer p-1 absolute top-1 right-0"
                   id={userData.profile_photo?.data?.[2]?.id}
                   onClick={(e) => {
                     deleteImage(e);
                     setImg3(null);
                   }}
                 >
-                  change image
+                  <TrashIcon className="h-10 w-10 text-red-700"/>
                 </span>
               </div>
             )}
@@ -740,16 +741,16 @@ const EditProfileForm2 = ({ screen, setScreen, userData }) => {
           </div>
           <div className="relative">
             {img4 && (
-              <div className="absolute w-full h-full flex justify-center items-center">
+              <div className="absolute w-full h-full bg-black/[0.2]">
                 <span
-                  className="cursor-pointer p-1 bg-red-500 "
+                  className="cursor-pointer p-1 absolute top-1 right-0"
                   id={userData.profile_photo?.data?.[3]?.id}
                   onClick={(e) => {
                     deleteImage(e);
                     setImg4(null);
                   }}
                 >
-                  change image
+                  <TrashIcon className="h-10 w-10 text-red-700"/>
                 </span>
               </div>
             )}

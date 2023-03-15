@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import profile from "@/assets/profile.png";
 import Image from "next/image";
 import horos from "@/assets/horos.png";
@@ -12,10 +12,25 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { Modal } from "reactstrap";
 import { useRouter } from "next/router";
+import { useStorage } from "@/hooks/useStorage";
+import axios from "axios";
 
 const EditProfile = () => {
   const [modalDefaultOpen, setModalDefaultOpen] = React.useState(false);
   const router = useRouter();
+  const { locale } = useRouter();
+
+  const storageData = useStorage();
+  const [userProfile, setUserProfile] = useState([]);
+  const [profileImg, setProfileImg] = useState();
+  const [img, setImg] = useState();
+
+  useEffect(() => {
+    if(userProfile) {
+      setProfileImg(userProfile?.profile_photo?.data)
+      setImg(userProfile.horoscope_document?.data);
+    }
+  },[userProfile]);
 
   function downloadPdf() {
     const input = document.getElementById("pdf-content");
@@ -27,6 +42,73 @@ const EditProfile = () => {
     });
   }
 
+  useEffect(() => {
+    if (storageData) {
+      let api = "http://172.105.57.17:1337/api/profiles/?populate=%2A";
+      if (locale == "ta") {
+        api = "http://172.105.57.17:1337/api/profiles/?populate=%2A&locale=ta-IN";
+      } else if (locale == "en") {
+        api = "http://172.105.57.17:1337/api/profiles/?populate=%2A";
+      }
+      async function getUser() {
+        try {
+          const response = await axios.get(api);
+          console.log("response", response.data.data);
+          let userProfile = response.data.data.filter(
+            // (u) => u.id == 23
+            (u) => u.id == storageData?.user_profile?.id
+          );
+          setUserProfile(userProfile[0].attributes);
+          console.log("userProfile ", userProfile);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+      getUser();
+    }
+  }, [storageData, locale]);
+
+  if (!userProfile) {
+    return;
+  }
+
+  const {
+    first_name,
+    last_name,
+    email,
+    phone_number,
+    date_of_birth,
+    star,
+    marriage_status,
+    Height,
+    educational_qualification,
+    Color,
+    caste,
+    profile_photo,
+    family_property_details,
+    Choose_veg_nonveg,
+    father_name,
+    mother_name,
+    father_native,
+    mother_native,
+    father_profession,
+    mother_profession,
+    parents_contact_number,
+    address,
+    brothers,
+    elder_brothers,
+    younger_brothers,
+    married_brothers,
+    sisters,
+    elder_sisters,
+    younger_sisters,
+    married_sisters,
+  } = userProfile;
+  // console.log("url",userProfile.horoscope_document?.data?.[0]?.attributes?.url);
+
+  // const imageLoader = ({src}) => {
+  //   return src;
+  // }
   return (
     <>
       <div className="container">
@@ -37,7 +119,10 @@ const EditProfile = () => {
             <div className="flex items-center w-full bg-main h-16 px-5">
               <span className="text-white flex-1">Profile Detail</span>
               <div className="flex items-center ">
-                <button className="bg-white text-main md:px-[2rem] rounded md:py-[5px]" onClick={() => router.push('/editProfile')}>
+                <button
+                  className="bg-white text-main md:px-[2rem] rounded md:py-[5px]"
+                  onClick={() => router.push("/editProfile")}
+                >
                   Edit
                 </button>
               </div>
@@ -46,7 +131,9 @@ const EditProfile = () => {
             <div className="profile_data table-fixed bg-white">
               <div className="table_header flex ">
                 <div className="block">
-                  <div className="font-bold">paras</div>
+                  <div className="font-bold">
+                    {first_name} {last_name}
+                  </div>
                   <div>
                     <div style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                       Reg- No : VRE223
@@ -54,6 +141,7 @@ const EditProfile = () => {
                   </div>
                 </div>
               </div>
+              {/* personal information */}
               <div>
                 <div className="first_content p-4 sm:ml-64 ">
                   <div className="p-4 ">
@@ -63,7 +151,7 @@ const EditProfile = () => {
                           <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                             Email
                           </span>
-                          <span>paras@scus.tech</span>
+                          <span>{email}</span>
                         </div>
                       </div>
                       <div className="flex items-center justify-center h-24 rounded ">
@@ -71,7 +159,7 @@ const EditProfile = () => {
                           <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                             Phone
                           </span>
-                          <span>+91-7894561235</span>
+                          <span>{phone_number}</span>
                         </div>
                       </div>
                       <div className="flex items-center justify-center h-24 rounded ">
@@ -79,7 +167,7 @@ const EditProfile = () => {
                           <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                             Date of Birth
                           </span>
-                          <span>04 Feb 2023</span>
+                          <span>{date_of_birth}</span>
                         </div>
                       </div>
                       <div className="flex items-center justify-center h-24 ">
@@ -92,8 +180,10 @@ const EditProfile = () => {
                             <Image
                               className="img_profile_portfolio object-contain w-40 min-h-full"
                               object-fit="true"
-                              src={profile}
+                              src={profileImg ? `http://172.105.57.17:1337${profileImg?.[1]?.attributes?.url}` : profile}
                               alt={"logo"}
+                              width={500}
+                              height={500}
                             />
                           </button>
                           <Modal
@@ -127,18 +217,24 @@ const EditProfile = () => {
                           <div className="flex justify-around md:ml-10">
                             <Image
                               className="img_profile_g "
-                              src={profile}
+                              src={profileImg ? `http://172.105.57.17:1337${profileImg?.[1]?.attributes?.url}` : profile}
                               alt={"logo"}
+                              width={100}
+                              height={100}
                             />
                             <Image
                               className="img_profile_g w-40 h-26"
-                              src={profile}
+                              src={profileImg ? `http://172.105.57.17:1337${profileImg?.[2]?.attributes?.url}` : profile}
                               alt={"logo"}
+                              width={100}
+                              height={100}
                             />
                             <Image
                               className="img_profile_g w-40 h-26"
-                              src={profile}
+                              src={profileImg ? `http://172.105.57.17:1337${profileImg?.[3]?.attributes?.url}` : profile}
                               alt={"logo"}
+                              width={100}
+                              height={100}
                             />
                           </div>
                         </div>
@@ -162,7 +258,7 @@ const EditProfile = () => {
                           <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                             Star
                           </span>
-                          <span>Hastham</span>
+                          <span>{star}</span>
                         </div>
                       </div>
                       <div className="flex items-center justify-center h-24 rounded ">
@@ -170,7 +266,7 @@ const EditProfile = () => {
                           <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                             Marriage Status
                           </span>
-                          <span>Unmarried</span>
+                          <span>{marriage_status}</span>
                         </div>
                       </div>
                     </div>
@@ -184,7 +280,7 @@ const EditProfile = () => {
                           <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                             Height
                           </span>
-                          <span>5.6 Inch</span>
+                          <span>{Height}</span>
                         </div>
                       </div>
                       <div className="flex items-center justify-center h-24 rounded ">
@@ -192,7 +288,7 @@ const EditProfile = () => {
                           <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                             Qualification
                           </span>
-                          <span>BCCA, MCA</span>
+                          <span>{educational_qualification}</span>
                         </div>
                       </div>
                       <div className="flex items-center justify-center h-24 rounded ">
@@ -200,7 +296,7 @@ const EditProfile = () => {
                           <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                             Color
                           </span>
-                          <span>White</span>
+                          <span>{Color}</span>
                         </div>
                       </div>
                     </div>
@@ -214,7 +310,7 @@ const EditProfile = () => {
                           <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                             Caste
                           </span>
-                          <span>paras@scus.tech</span>
+                          <span>{caste}</span>
                         </div>
                       </div>
                       <div className="flex items-center justify-center h-24 rounded ">
@@ -222,7 +318,7 @@ const EditProfile = () => {
                           <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                             Family Property
                           </span>
-                          <span>+91-7894561235</span>
+                          <span>{family_property_details}</span>
                         </div>
                       </div>
                       <div className="flex items-center justify-center h-24 rounded ">
@@ -230,7 +326,7 @@ const EditProfile = () => {
                           <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                             Type of food
                           </span>
-                          <span>40,000 -/ per month</span>
+                          <span>{Choose_veg_nonveg}</span>
                         </div>
                       </div>
                     </div>
@@ -280,33 +376,33 @@ const EditProfile = () => {
                         <div className="flex items-center justify-center h-24 rounded ">
                           <div className="first_row">
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Email
+                              Father&apos;s Name
                             </span>
-                            <span>paras@scus.tech</span>
+                            <span>{father_name}</span>
                           </div>
                         </div>
                         <div className="flex items-center justify-center h-24 rounded ">
                           <div className="first_row">
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Phone
+                              Mother&apos;s Name
                             </span>
-                            <span>+91-7894561235</span>
+                            <span>{mother_name}</span>
                           </div>
                         </div>
                         <div className="flex items-center justify-center h-24 ">
                           <div className="first_row">
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Date of Birth
+                              Father&apos;s Native
                             </span>
-                            <span>04 Feb 2023</span>
+                            <span>{father_native}</span>
                           </div>
                         </div>
                         <div className="flex items-center justify-center h-24 ">
                           <div className="first_row">
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Phone
+                              Mother&apos;s Native
                             </span>
-                            <span>+91-7894561235</span>
+                            <span>{mother_native}</span>
                           </div>
                         </div>
                       </div>
@@ -318,33 +414,33 @@ const EditProfile = () => {
                         <div className="flex items-center justify-center h-24 rounded ">
                           <div className="second_row">
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Age
+                              Father&apos;s Profession
                             </span>
-                            <span>28 Years</span>
+                            <span>{father_profession}</span>
                           </div>
                         </div>
                         <div className="flex items-center justify-center h-24 rounded ">
                           <div className="second_row">
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Star
+                              Mother&apos;s Profession
                             </span>
-                            <span>Hastham</span>
+                            <span>{mother_profession}</span>
                           </div>
                         </div>
                         <div className="flex items-center justify-center h-24 rounded ">
                           <div className="second_row">
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Marriage Status
+                              Phone Number
                             </span>
-                            <span>Unmarried</span>
+                            <span>{parents_contact_number}</span>
                           </div>
                         </div>
                         <div className="flex items-center justify-center h-24 rounded ">
                           <div className="second_row">
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Marriage Status
+                              Address
                             </span>
-                            <span>Unmarried</span>
+                            <span>{address}</span>
                           </div>
                         </div>
                       </div>
@@ -356,33 +452,33 @@ const EditProfile = () => {
                         <div className="flex items-center justify-center h-24 rounded ">
                           <div className="third_row">
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Height
+                              Brothers
                             </span>
-                            <span>5.6 Inch</span>
+                            <span>{brothers}</span>
                           </div>
                         </div>
                         <div className="flex items-center justify-center h-24 rounded ">
                           <div className="third_row">
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Qualification
+                              Elder Brother
                             </span>
-                            <span>BCCA, MCA</span>
+                            <span>{elder_brothers}</span>
                           </div>
                         </div>
                         <div className="flex items-center justify-center h-24 rounded ">
                           <div className="third_row">
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Color
+                              Younger Brother
                             </span>
-                            <span>White</span>
+                            <span>{younger_brothers}</span>
                           </div>
                         </div>
                         <div className="flex items-center justify-center h-24 rounded ">
                           <div className="third_row">
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Color
+                              Married
                             </span>
-                            <span>White</span>
+                            <span>{married_brothers}</span>
                           </div>
                         </div>
                       </div>
@@ -394,33 +490,33 @@ const EditProfile = () => {
                         <div className="flex items-center justify-center h-24 rounded ">
                           <div className="fourth_row">
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Caste
+                              Sisters
                             </span>
-                            <span>paras@scus.tech</span>
+                            <span>{sisters}</span>
                           </div>
                         </div>
                         <div className="flex items-center justify-center h-24 rounded ">
                           <div className="fourth_row">
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Family Property
+                              Elder Sisters
                             </span>
-                            <span>+91-7894561235</span>
+                            <span>{elder_sisters}</span>
                           </div>
                         </div>
                         <div className="flex items-center justify-center h-24 rounded ">
                           <div className="fourth_row">
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Type of food
+                              Younger Sisters
                             </span>
-                            <span>40,000 -/ per month</span>
+                            <span>{younger_sisters}</span>
                           </div>
                         </div>
                         <div className="flex items-center justify-center h-24 rounded ">
                           <div className="fourth_row">
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Color
+                              Married
                             </span>
-                            <span>White</span>
+                            <span>{married_sisters}</span>
                           </div>
                         </div>
                       </div>
@@ -433,7 +529,7 @@ const EditProfile = () => {
 
               {/* Horoscope Information */}
               <div className="third_content">
-                <span className="sec_text">Family Information</span>
+                <span className="sec_text">Horoscope Information</span>
                 <div>
                   <div className="first_content p-4 sm:ml-64 ">
                     <div className="p-4 ">
@@ -441,7 +537,7 @@ const EditProfile = () => {
                         <div className="flex items-center justify-center h-24 rounded ">
                           <div className="first_row">
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Email
+                              Zodiac Sign
                             </span>
                             <span>paras@scus.tech</span>
                           </div>
@@ -449,7 +545,7 @@ const EditProfile = () => {
                         <div className="flex items-center justify-center h-24 rounded ">
                           <div className="first_row">
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Phone
+                              Tamil Year
                             </span>
                             <span>+91-7894561235</span>
                           </div>
@@ -457,7 +553,7 @@ const EditProfile = () => {
                         <div className="flex items-center justify-center h-24 ">
                           <div className="first_row">
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Date of Birth
+                              Tamil Month
                             </span>
                             <span>04 Feb 2023</span>
                           </div>
@@ -465,7 +561,7 @@ const EditProfile = () => {
                         <div className="flex items-center justify-center h-24 ">
                           <div className="first_row">
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Phone
+                              Udayati Nazhikai
                             </span>
                             <span>+91-7894561235</span>
                           </div>
@@ -479,7 +575,7 @@ const EditProfile = () => {
                         <div className="flex items-center justify-center h-24 rounded ">
                           <div className="second_row">
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Age
+                              Day
                             </span>
                             <span>28 Years</span>
                           </div>
@@ -487,7 +583,7 @@ const EditProfile = () => {
                         <div className="flex items-center justify-center h-24 rounded ">
                           <div className="second_row">
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Star
+                              Birth Time
                             </span>
                             <span>Hastham</span>
                           </div>
@@ -495,7 +591,7 @@ const EditProfile = () => {
                         <div className="flex items-center justify-center h-24 rounded ">
                           <div className="second_row">
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Marriage Status
+                              Star/Foot
                             </span>
                             <span>Unmarried</span>
                           </div>
@@ -503,7 +599,7 @@ const EditProfile = () => {
                         <div className="flex items-center justify-center h-24 rounded ">
                           <div className="second_row">
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Marriage Status
+                              Ascendant(Laknam)
                             </span>
                             <span>Unmarried</span>
                           </div>
@@ -517,7 +613,7 @@ const EditProfile = () => {
                         <div className="flex items-center justify-center h-24 rounded ">
                           <div className="third_row">
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Height
+                              Birthplace
                             </span>
                             <span>5.6 Inch</span>
                           </div>
@@ -525,7 +621,7 @@ const EditProfile = () => {
                         <div className="flex items-center justify-center h-24 rounded ">
                           <div className="third_row">
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Qualification
+                              Presence Of Natal Direction
                             </span>
                             <span>BCCA, MCA</span>
                           </div>
@@ -598,14 +694,18 @@ const EditProfile = () => {
                 <div className="flex justify-around mt-[4rem] ">
                   <Image
                     className="mb-8"
-                    src={horos}
+                    // loader={imageLoader}
+                    // src={horos}
+                    src={img ? `http://172.105.57.17:1337${img?.[0]?.attributes?.url}` : horos}
                     width={500}
                     alt=""
                     height={500}
                   />
                   <Image
                     className="mb-8"
-                    src={horos1}
+                    // loader={imageLoader}
+                    // src={horos1}
+                    src={img ? `http://172.105.57.17:1337${img?.[1]?.attributes?.url}` : horos1}
                     width={500}
                     alt=""
                     height={500}

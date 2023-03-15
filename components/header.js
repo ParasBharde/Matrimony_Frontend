@@ -1,19 +1,28 @@
-import React, { useState,useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import headerLogo from "@/assets/headerLogo.png";
 import avatar from "@/assets/avatar.png";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Hamburger from "@/assets/SVG/Hamburger";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 import axios from "axios";
 
 import { useOnHoverOutside } from "@/hooks/useOnHoverOutside";
 import { useStorage } from "@/hooks/useStorage";
 
-
 const Header = () => {
   const router = useRouter();
+  const { pathname, asPath, query } = router;
+  const { locale, locales, push } = useRouter();
+  const [lang, setLang] = useState(locale);
+
+  const getSelectedValue = (e) => {
+    // push('/portfolio/portfolio', undefined, {locale: e.target.value})
+    router.push({ pathname, query }, asPath, { locale: e });
+  };
+  // console.log(locale);
+
   const storage = useStorage();
   let id = storage?.user_profile;
 
@@ -31,7 +40,10 @@ const Header = () => {
         );
         // console.log("response", response.data.data);
         let userProfile = response.data.data.filter((u) => u.id == id?.id);
-        setUserProfile(userProfile?.[0]?.attributes?.profile_photo?.data?.[0]?.attributes?.url);
+        setUserProfile(
+          userProfile?.[0]?.attributes?.profile_photo?.data?.[0]?.attributes
+            ?.url
+        );
         // console.log("propd ",userProfile);
       } catch (error) {
         console.error(error);
@@ -47,27 +59,26 @@ const Header = () => {
   // useOnHoverOutside(dropdownRef, closeHoverMenu);
   useOnHoverOutside(dropdownRef1, closeHoverMenu1);
 
-  const data=useStorage();
+  const data = useStorage();
 
-  const logout=()=>{
-    localStorage.clear()
-    sessionStorage.clear()
-    toast.success("Logged Out")
-    router.push("/")
+  const logout = () => {
+    localStorage.clear();
+    sessionStorage.clear();
+    toast.success("Logged Out");
+    router.push("/");
   };
 
   const imgLoader = () => {
-    if(userProfile) {
-      return `http://172.105.57.17:1337${userProfile}`
+    if (userProfile) {
+      return `http://172.105.57.17:1337${userProfile}`;
     }
-  }
-
+  };
 
   return (
     <div className="flex flex-row justify-between items-center  max-md:pt-5 py-3 max-md:w-auto max-md:border-solid border-y-2 max-md:px-5">
       <Link href="/">
         <div>
-          <Image src={headerLogo} alt={"Header Logo"} className="pl-5"/>
+          <Image src={headerLogo} alt={"Header Logo"} className="pl-5" />
         </div>
       </Link>
       <div className="flex justify-center items-center gap-16 pr-10">
@@ -96,7 +107,6 @@ const Header = () => {
           >
             Pricing Plan
           </p>
-
           <p
             className="cursor-pointer"
             onClick={() => {
@@ -105,7 +115,7 @@ const Header = () => {
           >
             Contact Us
           </p>
-          <div ref={dropdownRef1} className="relative max-md:block max-md:text-2xl">
+          {/* <div ref={dropdownRef1} className="relative max-md:block max-md:text-2xl">
             <p
               className="drop cursor-pointer"
               onMouseOver={() => setMenuDropDownOpen1(true)}
@@ -120,7 +130,22 @@ const Header = () => {
                 </p>
               </div>
             )}
-          </div>
+          </div> */}
+          <select
+            value={lang}
+            onChange={(e) => {
+              getSelectedValue(e.target.value);
+              setLang(e.target.value);
+            }}
+          >
+            {locales.map((l) => {
+              return (
+                <option key={l} value={l}>
+                  {l}
+                </option>
+              );
+            })}
+          </select>
         </div>
 
         {/* add for responsive screen  */}
@@ -128,57 +153,70 @@ const Header = () => {
           <Hamburger onClick={() => console.log("Clicked")} />
         </div>
         {/* ..................   */}
-        {data && <div ref={dropdownRef} className="relative max-md:right-10 right-[2rem]">
-          <Image
-            className="drop max-w-[40px]"
-            loader={imgLoader}
-            src={userProfile != null ? `http://172.105.57.17:1337${userProfile}` : avatar}
-            width="100"
-            height="100"
-            unoptimized
-            alt="avatar"
-            onMouseOver={() => setMenuDropDownOpen(true)}
-          />
-          {isMenuDropDownOpen && (
-            <div 
-              className="absolute bg-white right-2 shadow-lg top-11 z-50"
-              onMouseLeave={() => setMenuDropDownOpen(false)}
-            >
-              <p className="m-3 w-[200px] cursor-pointer" 
-              //onClick={() => router.push('/profile/')}
-                onClick={() => 
-                  {
+        {data && (
+          <div
+            ref={dropdownRef}
+            className="relative max-md:right-10 right-[2rem]"
+          >
+            <Image
+              className="drop max-w-[40px]"
+              loader={imgLoader}
+              src={
+                userProfile != null
+                  ? `http://172.105.57.17:1337${userProfile}`
+                  : avatar
+              }
+              width="100"
+              height="100"
+              unoptimized
+              alt="avatar"
+              onMouseOver={() => setMenuDropDownOpen(true)}
+            />
+            {isMenuDropDownOpen && (
+              <div
+                className="absolute bg-white right-2 shadow-lg top-11 z-50"
+                onMouseLeave={() => setMenuDropDownOpen(false)}
+              >
+                <p
+                  className="m-3 w-[200px] cursor-pointer"
+                  //onClick={() => router.push('/profile/')}
+                  onClick={() => {
                     router.push("/profile");
                     // router.push("/profiledetail/" + data.user_profile.id || data.id);
                     // setMenuDropDownOpen(false)
-                  }
-                }
-              >
-                <i className="fa-regular fa-circle-user mr-5 text-main"></i>
-                Profile
-              </p>
-              <p className="m-3 w-[200px] cursor-pointer"
-                onClick={()=>{router.push("/likedprofile/"+data.id)}}
-              >
-                <i className="fa-regular fa-heart mr-5 text-main"></i>
-                Liked Profile
-              </p>
-              <p className="m-3 w-[200px] cursor-pointer">
-                <i className="fa-solid fa-download mr-5 text-main"></i> 
-                Download Profile
-              </p>
-              <p className="m-3 w-[200px] cursor-pointer" onClick={() => router.push('/setNewPassword/')}>
-                <i className="fa-solid fa-lock mr-5 text-main"></i> Change Password
-              </p>
-              <p className="m-3 w-[200px] cursor-pointer"
-              onClick={logout}
-              >
-                <i className="fa-solid fa-right-from-bracket mr-5 text-main"></i>
-                Logout
-              </p>
-            </div>
-          )}
-        </div>}
+                  }}
+                >
+                  <i className="fa-regular fa-circle-user mr-5 text-main"></i>
+                  Profile
+                </p>
+                <p
+                  className="m-3 w-[200px] cursor-pointer"
+                  onClick={() => {
+                    router.push("/likedprofile/" + data.id);
+                  }}
+                >
+                  <i className="fa-regular fa-heart mr-5 text-main"></i>
+                  Liked Profile
+                </p>
+                <p className="m-3 w-[200px] cursor-pointer">
+                  <i className="fa-solid fa-download mr-5 text-main"></i>
+                  Download Profile
+                </p>
+                <p
+                  className="m-3 w-[200px] cursor-pointer"
+                  onClick={() => router.push("/setNewPassword/")}
+                >
+                  <i className="fa-solid fa-lock mr-5 text-main"></i> Change
+                  Password
+                </p>
+                <p className="m-3 w-[200px] cursor-pointer" onClick={logout}>
+                  <i className="fa-solid fa-right-from-bracket mr-5 text-main"></i>
+                  Logout
+                </p>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
