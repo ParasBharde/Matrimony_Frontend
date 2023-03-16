@@ -84,7 +84,9 @@ const EditProfile = () => {
     educational_qualification,
     Color,
     caste,
-    profile_photo,
+    career_detail,
+    Salary_monthly_income,
+    Expection,
     family_property_details,
     Choose_veg_nonveg,
     father_name,
@@ -338,25 +340,25 @@ const EditProfile = () => {
                       <div className="flex items-center justify-center h-24 rounded ">
                         <div className="fifth_row">
                           <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                            Caste
+                            Career
                           </span>
-                          <span>paras@scus.tech</span>
+                          <span>{career_detail}</span>
                         </div>
                       </div>
                       <div className="flex items-center justify-center h-24 rounded ">
                         <div className="fifth_row">
                           <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                            Family Property
+                            Salary
                           </span>
-                          <span>+91-7894561235</span>
+                          <span>{Salary_monthly_income}</span>
                         </div>
                       </div>
                       <div className="flex items-center justify-center h-24 rounded ">
                         <div className="fifth_row">
                           <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                            Type of food
+                            Expectation
                           </span>
-                          <span>40,000 -/ per month</span>
+                          <span>{Expection}</span>
                         </div>
                       </div>
                     </div>
@@ -626,27 +628,11 @@ const EditProfile = () => {
                             <span>BCCA, MCA</span>
                           </div>
                         </div>
-                        <div className="flex items-center justify-center h-24 rounded ">
-                          <div className="third_row">
-                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Color
-                            </span>
-                            <span>White</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-center h-24 rounded ">
-                          <div className="third_row">
-                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Color
-                            </span>
-                            <span>White</span>
-                          </div>
-                        </div>
                       </div>
                     </div>
                   </div>
                   <div className="first_content p-4 sm:ml-64 ">
-                    <div className="p-4 ">
+                    {/* <div className="p-4 ">
                       <div className="grid grid-cols-4 gap-10 ">
                         <div className="flex items-center justify-center h-24 rounded ">
                           <div className="fourth_row">
@@ -681,7 +667,7 @@ const EditProfile = () => {
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
@@ -694,8 +680,6 @@ const EditProfile = () => {
                 <div className="flex justify-around mt-[4rem] ">
                   <Image
                     className="mb-8"
-                    // loader={imageLoader}
-                    // src={horos}
                     src={img ? `http://172.105.57.17:1337${img?.[0]?.attributes?.url}` : horos}
                     width={500}
                     alt=""
@@ -703,8 +687,6 @@ const EditProfile = () => {
                   />
                   <Image
                     className="mb-8"
-                    // loader={imageLoader}
-                    // src={horos1}
                     src={img ? `http://172.105.57.17:1337${img?.[1]?.attributes?.url}` : horos1}
                     width={500}
                     alt=""
@@ -713,7 +695,6 @@ const EditProfile = () => {
                 </div>
               </div>
             </div>
-            {/* </div> */}
           </div>
         </div>
       </div>

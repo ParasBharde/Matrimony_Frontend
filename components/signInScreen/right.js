@@ -49,7 +49,8 @@ const Right = () => {
             }
 
             toast.success("Successfully Logged In");
-            router.push("/profiledetail/" + response.data.user_profile.id);
+            router.push("/profile");
+            // router.push("/profiledetail/" + response.data.user_profile.id);
           })
           .catch(function (error) {
             toast.error(error.response.data.error.message);

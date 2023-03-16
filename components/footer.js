@@ -13,7 +13,7 @@ const Footer = () => {
       router.pathname === "/register" ||
       router.pathname === "/setNewPassword" ||
       router.pathname === "/contactus" ? (
-        <div className="footer_main_1 w-max bg-main flex flex-wrap justify-between items-center px-20  ">
+        <div className="footer_main_1 w-max bg-main flex flex-wrap justify-between items-center px-20  z-50">
           <p className="text-white text-base">
             Copyright © Trichy Vayalur Road Reddy Trust All rights reserved.
             Theme Anews by themeuniver

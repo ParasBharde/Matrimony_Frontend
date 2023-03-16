@@ -639,7 +639,6 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                     className="relative mb-2 hover:transform hover:scale-105 duration-300 max-lg:min-w-fit"
                   >
                     <div className="cards relative">
-                      {/* <div className="cards blur-sm"> */}
                       {
                         !isPremiumUser && (
                           <div className="absolute top-0 left-0 w-full h-full bg-black/[0.3] z-40">
@@ -647,7 +646,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                           </div>
                         )
                       }
-                      <div className="relative">
+                      <div className="relative h-3/5">
                         <picture>
                           <img
                             className="img_card "
@@ -718,7 +717,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                           {itms.attributes.educational_qualification}
                         </p>
                       </header>
-                      <footer className="card flex items-center justify-evenly leading-none p-4 md:p-4 ">
+                      <footer className="card flex items-center justify-evenly leading-none p-4 md:p-4">
                         <p className="ml-2 text-sm">
                           <svg
                             width="16"
@@ -760,8 +759,6 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                           />
                         </svg>
                         <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                          {/* 20 Years */}
-                          {/* {itms.attributes.date_of_birth} */}
                           {age}
                         </p>
                         <svg
@@ -791,7 +788,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                         </p>
                       </footer>
                     </div>
-                    <div className="absolute grid place-items-center top-32 ml-16 z-50">
+                    {!isPremiumUser && <div className="absolute grid place-items-center top-32 ml-16 z-50">
                       <svg
                         className="  flex justify-center items-center w-8 h-12 text-white"
                         viewBox="0 0 26 34"
@@ -809,7 +806,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                       >
                         Purchase Plan
                       </button>
-                    </div>
+                    </div>}
                   </div>
                 );
               })}

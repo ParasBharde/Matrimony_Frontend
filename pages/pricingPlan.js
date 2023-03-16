@@ -32,7 +32,7 @@ useEffect(() => {
   getUser();
 }, [])
   return (
-    <div className="bg-[#E0E0E0] max-md:bg-[#E0E0E0]  max-md:p-7">
+    <div className="bg-[#E0E0E0] max-md:bg-[#E0E0E0] max-md:p-7 max-md:h-[100%] h-[100vh]">
       <div className="max-md:hidden max-md:bg-[#E0E0E0]">
         <Breadcrumb screens={["Home", "Search", "Pricing Plan"]} />
       </div>

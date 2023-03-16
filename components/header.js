@@ -182,7 +182,6 @@ const Header = () => {
                   //onClick={() => router.push('/profile/')}
                   onClick={() => {
                     router.push("/profile");
-                    // router.push("/profiledetail/" + data.user_profile.id || data.id);
                     // setMenuDropDownOpen(false)
                   }}
                 >
@@ -198,7 +197,12 @@ const Header = () => {
                   <i className="fa-regular fa-heart mr-5 text-main"></i>
                   Liked Profile
                 </p>
-                <p className="m-3 w-[200px] cursor-pointer">
+                <p
+                  className="m-3 w-[200px] cursor-pointer"
+                  onClick={() => {
+                    router.push("/downloadProfile" );
+                  }}
+                >
                   <i className="fa-solid fa-download mr-5 text-main"></i>
                   Download Profile
                 </p>

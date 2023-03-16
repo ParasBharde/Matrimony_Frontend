@@ -5,11 +5,12 @@ import Heart from "@/assets/SVG/heart.svg";
 import Download from "@/assets/SVG/downloadlogo.svg";
 import Share from "@/assets/SVG/share.svg";
 import Breadcrumb from "@/components/breadcrumb";
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 import { Modal } from "reactstrap";
 import { useRouter } from "next/router";
-import {ShareSocial} from 'react-share-social' 
+import { ShareSocial } from "react-share-social";
+import { useStorage } from "@/hooks/useStorage";
 
 const Profiledetail = () => {
   const [profilesdata, setprofilesdata] = useState([]);
@@ -17,6 +18,7 @@ const Profiledetail = () => {
 
   const router = useRouter();
   const id = router.query;
+  const storage = useStorage();
 
   useEffect(() => {
     async function getUser() {
@@ -38,57 +40,86 @@ const Profiledetail = () => {
 
   // download pdf of profile
   function downloadPdf() {
-    const input = document.getElementById('pdf-content');
+    const input = document.getElementById("pdf-content");
     html2canvas(input, {
-      useCORS: true
-    })
-      .then((canvas) => {
-        const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF();
-        const imgProps= pdf.getImageProperties(imgData);
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = pdf.internal.pageSize.getHeight();
-        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-        pdf.save('download.pdf');
+      useCORS: true,
+    }).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF();
+      const imgProps = pdf.getImageProperties(imgData);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      pdf.save("download.pdf");
+    });
+
+    // api call to maintain download profile details
+    let data = JSON.stringify({
+      data: {
+        users_permissions_user: storage.id,
+        user_profiles: [
+          id
+        ],
+        locale: "en"
+      }
+    });
+
+    var config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: `http://172.105.57.17:1337/api/download-profiles`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then((response) => {
+        console.log("download profile response ",response.data.data);
+      })
+      .catch((error) => {
+        console.error("download profile error: ", error);
       });
   }
 
   // share profile
   const shareProfile = () => {
     setModalOpen(true);
-  }
+  };
 
   const style = {
     root: {
-      background: 'linear-gradient(45deg, #F98B1D 30%, #FF8E53 90%)',
+      background: "linear-gradient(45deg, #F98B1D 30%, #FF8E53 90%)",
       borderRadius: 3,
       border: 0,
-      boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-      color: 'white',
-      padding: "1rem 2rem"
-  
+      boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+      color: "white",
+      padding: "1rem 2rem",
     },
     copyContainer: {
-      border: '1px solid blue',
-      background: 'rgb(0,0,0,0.7)',
-      padding: '0.5rem'
+      border: "1px solid blue",
+      background: "rgb(0,0,0,0.7)",
+      padding: "0.5rem",
     },
     title: {
-      color: 'aquamarine',
-      fontStyle: 'italic'
-    }
+      color: "aquamarine",
+      fontStyle: "italic",
+    },
   };
 
   return (
     <>
-      {modalOpen && 
+      {modalOpen && (
         <div className="w-screen h-screen fixed flex justify-center items-center z-50 backdrop-blur-sm">
           <div className="bg-slate-100 border border-black rounded-md px-4">
             <div className="py-2 flex justify-between items-center">
               <h3 className="font-semibold">Share Profile</h3>
-              <span 
+              <span
                 className="cursor-pointer bg-slate-200 px-2 rounded-md"
-                onClick={() => {setModalOpen(!modalOpen)}}
+                onClick={() => {
+                  setModalOpen(!modalOpen);
+                }}
               >
                 <i className="fa-solid fa-xmark text-xl"></i>
               </span>
@@ -96,19 +127,19 @@ const Profiledetail = () => {
             <hr />
             <div>
               <div className="flex py-6">
-                <ShareSocial 
-                  title={'Mwtrimony Profile'}
+                <ShareSocial
+                  title={"Mwtrimony Profile"}
                   // url ={`${window.location.href}`}
-                  url ={`http://172.105.57.17:3000/profiledetail/${id.id}`}
-                  socialTypes={['facebook','whatsapp','twitter','linkedin']}
-                  onSocialButtonClicked={ data => console.log(data)} 
+                  url={`http://172.105.57.17:3000/profiledetail/${id.id}`}
+                  socialTypes={["facebook", "whatsapp", "twitter", "linkedin"]}
+                  onSocialButtonClicked={(data) => console.log(data)}
                   style={style}
                 />
               </div>
             </div>
           </div>
         </div>
-      }
+      )}
       {profilesdata.length > 0 &&
         profilesdata.map((data, index) => {
           console.log("data", data);
@@ -118,7 +149,7 @@ const Profiledetail = () => {
                 <Breadcrumb screens={["Home", "Search", "Profile Details"]} />
 
                 <div className="main_container flex justify-center overflow-auto">
-                  <table >
+                  <table>
                     <tr>
                       <td className="flex items-center w-full bg-main h-16 px-5">
                         <span className="text-white flex-1">
@@ -151,7 +182,7 @@ const Profiledetail = () => {
                           />
                         </div>
                       </td>
-                    </tr>     
+                    </tr>
                     <tbody id="pdf-content">
                       <div className="profile_data table-fixed bg-white">
                         <div className="table_header flex ">

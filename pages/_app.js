@@ -9,7 +9,6 @@ import { useState } from "react";
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
-
   return (
     <>
       <ToastContainer />

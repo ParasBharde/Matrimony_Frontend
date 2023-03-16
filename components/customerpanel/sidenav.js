@@ -79,7 +79,7 @@ const Sidenav = () => {
               </li>
               <li className={isActive("admin/managelist") ? "flex items-center p-2 text-base rounded text-black bg-white left-0 right-[1196px] bottom-[664px] top-[228px] font-bold" : "flex items-center p-2 text-base font-normal text-white rounded hover:text-white"}>
                 <Link href="/admin/managelist" >
-                  <span className="flex-1 ml-3 whitespace-nowrap">Manage List</span>
+                  <span className="flex-1 ml-3 whitespace-nowrap">Members List</span>
                 </Link>
               </li>
             </ul>

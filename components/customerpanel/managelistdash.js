@@ -5,16 +5,23 @@ import Image from "next/image";
 import profile from "@/assets/profile.png";
 import Link from "next/link";
 import axios from "axios";
+import {useRouter} from "next/router";
 
 const Managelistdash = () => {
   const [profiles, setprofiles] = useState([]);
   const [search, setSearch] = useState("");
-  const [profileToShow, setProfileToShow] = useState([])
+  const [profileToShow, setProfileToShow] = useState([]);
 
-  const [length,setLength]=useState(0)
-  const [total,setTotal]=useState(0)
+  const [length, setLength] = useState(0);
+  const [total, setTotal] = useState(0);
 
-  const [currentPage,setCurrentPage]=useState(1)
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const [ids, setIds] = useState([]);
+
+  const handleDownload = () => {
+
+  }
 
   useEffect(() => {
     async function getUser() {
@@ -27,12 +34,14 @@ const Managelistdash = () => {
             "Bearer Bearer 3ad527b6e04e45a25b5c7a57d8e796af06f0853e2fa7c4551566c2096b18b80500bdaf2fc61dace337df1dc8c2a0026075026b10589f9c9d009a72165635b72012c305bf52929b73a79c97e1e5a53e7193f812604f83fa679731fa19540e9ecd7112dc224f0cccd4624294b05ec2864b552bdf7905d65736410f0cf2774c3994",
         },
       };
+
       axios(config)
         .then(function (response) {
           setprofiles(response.data.data);
+          console.log("premimum", response.data.data);
           setProfileToShow(response.data.data);
-          setLength(Math.ceil(response.data.data.length/10))
-          setTotal(response.data.data.length)
+          setLength(Math.ceil(response.data.data.length / 10));
+          setTotal(response.data.data.length);
         })
         .catch(function (error) {
           console.log(error);
@@ -85,7 +94,9 @@ const Managelistdash = () => {
   //   });
   // }
 
-  const [selectedRows, setSelectedRows] = useState(Array(profileToShow.length).fill(false));
+  const [selectedRows, setSelectedRows] = useState(
+    Array(profileToShow.length).fill(false)
+  );
 
   const handleHeaderCheckboxChange = (event) => {
     const isChecked = event.target.checked;
@@ -126,7 +137,7 @@ const Managelistdash = () => {
             </div>
           </form>
           <button className="px-5 rounded bg-orange-400 py-2">
-            <Link href="#" className="flex text-white" >
+            <Link href="#" className="flex text-white">
               <svg
                 className="mr-2 mt-1"
                 width="17"
@@ -238,9 +249,16 @@ const Managelistdash = () => {
                   <td className="px-6 py-4">{item.attributes.phone_number}</td>
                   <td className="px-6 py-4">23/04/2002</td>
                   <td className="font-medium text-left px-2 py-4">
-                    <span className="bg-purple-200 text-purple-600 py-2 px-4 rounded text-base cursor-pointer">
-                      Active
-                    </span>
+                    {item?.attributes?.subscriptions_detail?.data?.attributes
+                      ?.isTxnSuccessful ? (
+                      <span className="bg-green-600 text-white py-2 px-5 rounded text-base cursor-pointer">
+                        Active
+                      </span>
+                    ) : (
+                      <span className="bg-red-600 text-white py-2 px-4 rounded text-base cursor-pointer">
+                        Expairy
+                      </span>
+                    )}
                   </td>
                 </tr>
               );
@@ -249,30 +267,20 @@ const Managelistdash = () => {
         </table>
         <div className="flex items-center justify-between  px-4 py-3 sm:px-6">
           <div className="flex flex-1 justify-between sm:hidden">
-            <p
-
-              className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-            >
+            <p className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
               Previous
             </p>
-            <p
-
-              className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-            >
+            <p className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
               Next
             </p>
           </div>
           <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between mb-20">
             <div>
               <span className="text-sm text-gray-700">
-              {currentPage==1?"1":`${((currentPage-1)*10)+1}`}-{total<=(currentPage*10)?total:(currentPage*10)}{" "}
-                <span className="font-semibold text-gray-900">
-                  of
-                </span>{" "}
-                {total}{" "}
-                <span className="font-semibold text-gray-900">
-                  Pages
-                </span>
+                {currentPage == 1 ? "1" : `${(currentPage - 1) * 10 + 1}`}-
+                {total <= currentPage * 10 ? total : currentPage * 10}{" "}
+                <span className="font-semibold text-gray-900">of</span> {total}{" "}
+                <span className="font-semibold text-gray-900">Pages</span>
               </span>
             </div>
             <div>
@@ -280,9 +288,7 @@ const Managelistdash = () => {
                 className="isolate inline-flex -space-x-px  rounded-md shadow-sm "
                 aria-label="Pagination"
               >
-                <p
-                  className="relative inline-flex items-center rounded-l-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
-                >
+                <p className="relative inline-flex items-center rounded-l-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20">
                   <span className="sr-only">Previous</span>
                   <svg
                     className="h-5 w-5"
@@ -298,20 +304,20 @@ const Managelistdash = () => {
                     />
                   </svg>
                 </p>
-                {Array(length).fill(0).map((item,index)=>{
-                  return(
-                    <p
-                    key={index}
-                    aria-current="page"
-                    className="relative z-10 inline-flex items-center border border-gray-400 px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
-                  >
-                    {index+1}
-                  </p>
-                  )
-                })}    
-                <p
-                  className="relative inline-flex items-center rounded-r-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
-                >
+                {Array(length)
+                  .fill(0)
+                  .map((item, index) => {
+                    return (
+                      <p
+                        key={index}
+                        aria-current="page"
+                        className="relative z-10 inline-flex items-center border border-gray-400 px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
+                      >
+                        {index + 1}
+                      </p>
+                    );
+                  })}
+                <p className="relative inline-flex items-center rounded-r-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20">
                   <span className="sr-only">Next</span>
                   <svg
                     className="h-5 w-5"

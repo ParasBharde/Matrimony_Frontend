@@ -95,7 +95,7 @@ const Portfolio = () => {
           backgroundColor:'#e0e0e0'
           height: auto;
           padding: auto;  
-         margin-bottom: 4rem;
+        //  margin-bottom: 4rem;
         }
       `}</style>
     </>
