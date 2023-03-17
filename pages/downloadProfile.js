@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import profileImage from "@/assets/profile.png";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,10 +7,8 @@ import { useRouter } from "next/router";
 import Breadcrumb from "@/components/breadcrumb";
 import { useStorage } from "@/hooks/useStorage";
 import { useCalculateAge } from "@/hooks/useCalculateAge";
-import { useLikedProfiles } from "@/hooks/useLikedProfiles";
 
 const DownlodedProfiles = () => {
-  const [likedprofiles, setlikedprofiles] = useState([]);
   const [isList, issetList] = useState(false);
   const [isGrid, issetGrid] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,10 +16,8 @@ const DownlodedProfiles = () => {
   const [totalPage, setTotalPage] = useState(0);
   const [total, setTotal] = useState(0);
 
+  const [allprofiles, setAllProfiles] = useState([]);
   const [downloadedProfilese, setdownloadedProfilese] = useState([]);
-  if(profileImage) {
-    console.log("profileImage",profileImage);
-  }
 
   const router = useRouter();
   const calculateAge = useCalculateAge();
@@ -32,13 +28,22 @@ const DownlodedProfiles = () => {
         console.log("storage", storage.id);
         axios.get('http://172.105.57.17:1337/api/download-profiles?populate=*&populete=user_profiles')
         .then((response) => {
-          console.log("downloaded profiles", response.data.data);
+          // console.log("downloaded profiles", response.data.data);
           let data = response.data.data;
           let downloadedData = data.filter((items) => {
             return items.attributes.users_permissions_user.data.id == storage.id;
           });
-          setdownloadedProfilese(downloadedData);
-          console.log("downloadedData",downloadedData);
+
+          let uniqueProfileId = [];
+          let UniqueProfiles = downloadedData.filter((item) => {
+            let res = uniqueProfileId.find(id => id == item.attributes.user_profiles?.data?.[0]?.id)
+            if(!res) {
+              uniqueProfileId.push(item.attributes.user_profiles?.data?.[0]?.id);
+              return item;
+            }
+          })
+          setAllProfiles(UniqueProfiles);
+          // setdownloadedProfilese(UniqueProfiles);
         })
         .catch((error) => {
             console.log("error", error);
@@ -52,58 +57,28 @@ const DownlodedProfiles = () => {
   }, []);
 
   const [selectedRows, setSelectedRows] = useState(
-    Array(likedprofiles?.length).fill(false)
+    Array(downloadedProfilese?.length).fill(false)
   );
 
   const handleHeaderCheckboxChange = (event) => {
     const isChecked = event.target.checked;
-    setSelectedRows(Array(likedprofiles.length).fill(isChecked));
+    setSelectedRows(Array(downloadedProfilese.length).fill(isChecked));
   };
-
-  const myLikedprofiles = useLikedProfiles();
-
-  // dislike function
-//   const handleDislike = (id) => {
-//     console.log("dislike profile id: ", id);
-//     axios
-//       .delete(`http://172.105.57.17:1337/api/liked-profiles/${id}`)
-//       .then((response) => {
-//         console.log("dislike:", response);
-//       })
-//       .catch((error) => {
-//         console.error("dislike like error: ", error);
-//       });
-//   };
-//   const handleHideDislikeProfile = (id) => {
-//     let profile = document.getElementById(id);
-//     profile.classList.add("hidden");
-//   };
-
-  // valid liked profiles code start 
-  const validLikedProfiles = (myLikedprofiles) => {
-    let validProfiles = myLikedprofiles.filter((items) => {
-      return items.attributes.user_profile.data != null;
-    });
-    return validProfiles;
-  }
-  // valid liked profiles code end
 
   // pagination code
   useEffect(() => {
-    // console.log("allprofiles", myLikedprofiles);
-    if (myLikedprofiles.length > 0) {
-      let validProfiles = validLikedProfiles(myLikedprofiles);
-      setTotal(validProfiles.length);
-      setTotalPage(Math.ceil(validProfiles.length / profilePerPage));
-      let totalProfiles = validProfiles.slice(0, profilePerPage);
-      setlikedprofiles(totalProfiles);
+    if (allprofiles.length > 0) {
+      setTotal(allprofiles.length);
+      setTotalPage(Math.ceil(allprofiles.length / profilePerPage));
+      let totalProfiles = allprofiles.slice(0, profilePerPage);
+      setdownloadedProfilese(totalProfiles);
     }
-  }, [myLikedprofiles, profilePerPage]);
+  }, [allprofiles, profilePerPage]);
 
   const handlePagination = (currentPage) => {
     let indexOfLastProfile = currentPage * profilePerPage;
     let indexOfFirstProfile = indexOfLastProfile - profilePerPage;
-    setlikedprofiles(allprofiles.slice(indexOfFirstProfile, indexOfLastProfile));
+    setdownloadedProfilese(allprofiles.slice(indexOfFirstProfile, indexOfLastProfile));
   };
 
   const nextPage = () => {
@@ -537,9 +512,9 @@ const DownlodedProfiles = () => {
                     </th>
                   </tr>
                 </thead>
-                {likedprofiles.length > 0 &&
-                  likedprofiles.map((profile, index) => {
-                    if (profile.attributes.user_profile.data == null) {
+                {downloadedProfilese.length > 0 &&
+                  downloadedProfilese.map((profile, index) => {
+                    if (profile.attributes.user_profiles.data == null) {
                       return;
                     }
                     const {
@@ -549,9 +524,9 @@ const DownlodedProfiles = () => {
                       profile_photo,
                       father_name,
                       phone_number
-                    } = profile.attributes.user_profile.data?.attributes;
+                    } = profile.attributes.user_profiles.data?.[0].attributes;
                     console.log("profile", profile);
-                    let id = profile.attributes.user_profile.data?.id;
+                    let id = profile.attributes.user_profiles.data?.[0]?.id;
                     
                     return (
                       <tbody key={index}>
@@ -648,10 +623,11 @@ const DownlodedProfiles = () => {
                     profile_photo,
                   } = profile.attributes.user_profiles.data?.[0].attributes;
                   const age = calculateAge(date_of_birth);
+                  let id = profile.attributes.user_profiles.data?.[0]?.id;
                   return (
                     <div
                       key={index}
-                      id={`liked-profile-${profile.id}`}
+                      id={`liked-profile-${id}`}
                       className="relative mb-2 hover:transform hover:scale-105 duration-300 max-lg:min-w-fit"
                     >
                       <div className="cards">
@@ -678,13 +654,8 @@ const DownlodedProfiles = () => {
                             className="absolute top-0 right-0 m-2 rounded flex items-center justify-center w-10 h-11 text-white text-sm font-bold"
                           >
                             <svg
-                              className={`absolute rounded cursor-pointer fill-current text-[#F98B1D]`}
+                              className={`absolute rounded cursor-pointer`}
                               id="heart"
-                              onClick={(e) => {
-                                handleDislike(profile.id);
-                                handleHideDislikeProfile(`liked-profile-${profile.id}`);
-                              }}
-                              // onMouseOver={() => src="/assets/redheart.png"}
                               width="24"
                               height="21"
                               viewBox="0 0 24 21"
@@ -706,7 +677,7 @@ const DownlodedProfiles = () => {
                           onClick={() => {
                             router.push({
                               pathname: "/profiledetail/[id]/",
-                              query: { id: itms.id },
+                              query: { id: id },
                             });
                           }}
                         >

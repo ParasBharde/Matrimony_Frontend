@@ -10,9 +10,10 @@ import { useCalculateAge } from "@/hooks/useCalculateAge";
 import { useLikedProfiles } from "@/hooks/useLikedProfiles";
 
 const Likedprofile = () => {
-  const [isLiked, setIsLiked] = useState(false);
+  // const [isLiked, setIsLiked] = useState(false);
   const [likedprofiles, setlikedprofiles] = useState([]);
-  const [active, setActive] = useState(false);
+  const [myLikedprofiles, setMyLikedprofiles] = useState([]);
+  // const [active, setActive] = useState(false);
   const [isList, issetList] = useState(false);
   const [isGrid, issetGrid] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -37,7 +38,11 @@ const Likedprofile = () => {
     setSelectedRows(Array(likedprofiles.length).fill(isChecked));
   };
 
-  const myLikedprofiles = useLikedProfiles();
+  const allProfiles = useLikedProfiles();
+
+  useEffect(() => {
+    setMyLikedprofiles(allProfiles);
+  },[allProfiles])
 
   // dislike function
   const handleDislike = (id) => {
@@ -52,6 +57,10 @@ const Likedprofile = () => {
       });
   };
   const handleHideDislikeProfile = (id) => {
+    let data = myLikedprofiles.filter((item) => {
+      return item.attributes?.user_profile?.id != id;
+    });
+    setMyLikedprofiles(data);
     let profile = document.getElementById(id);
     profile.classList.add("hidden");
   };

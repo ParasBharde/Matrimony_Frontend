@@ -69,7 +69,6 @@ const Portfoliodetails = ({ allprofiles, total }) => {
     if (allprofiles.length > 0) {
       setTotalPage(Math.ceil(allprofiles.length / profilePerPage));
       let totalProfiles = allprofiles.slice(0, profilePerPage);
-      // console.log("totalProfiles",totalProfiles);
       setProfiles(totalProfiles);
     }
   }, [allprofiles, profilePerPage]);
