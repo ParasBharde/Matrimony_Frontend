@@ -699,7 +699,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                         onClick={() => {
                           router.push({
                             pathname: "/profiledetail/[id]/",
-                            query: { id: itms.id },
+                            query: { id: itms.id, isLiked: isProfileLiked(itms.id) },
                           });
                         }}
                       >

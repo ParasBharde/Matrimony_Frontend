@@ -14,6 +14,7 @@ const Dashboard = () => {
   const [profileslength, setprofileslength] = useState([]);
   const [filtersmale, setfiltermale] = useState([]);
   const [filtersfemale, setfilterfemale] = useState([]);
+  const [premiumCount, setPremiumCount] = useState();
 
   useEffect(() => {
     async function getUser() {
@@ -52,6 +53,33 @@ const Dashboard = () => {
 
     getUser();
   }, []);
+
+  useEffect(() => {
+    async function getPremiumUsers() {
+      var config = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: "http://172.105.57.17:1337/api/subscription-details?populate=user&populate=user_profile",
+      };
+
+      axios(config)
+        .then((response) => {
+          console.log("premium ",response.data.data);
+          let premium = response.data.data;
+          let count = 0;
+          for(let i=0; i<premium.length; i++) {
+            if(premium[i]?.attributes?.isTxnSuccessful==true){
+              count++;
+            }
+          }
+          setPremiumCount(count);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+    getPremiumUsers();
+  },[])
 
   return (
     <>
@@ -217,7 +245,7 @@ const Dashboard = () => {
             </div>
             <div className="flex items-center justify-center h-24 rounded bg-gray-50">
               <div className="grid grid-rows-2 gap-2 flex-1 justify-start align-middle ml-6">
-                <span style={{ fontSize: "1.5rem" }}>250</span>
+                <span style={{ fontSize: "1.5rem" }}>{premiumCount}</span>
                 <p className="text-sm">Total Paid Members</p>
               </div>
               <svg

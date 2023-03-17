@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Image from "next/image";
 import Heart from "@/assets/SVG/heart.svg";
+import RedHeart from "@/assets/redheart.png";
 import Download from "@/assets/SVG/downloadlogo.svg";
 import Share from "@/assets/SVG/share.svg";
 import Breadcrumb from "@/components/breadcrumb";
@@ -17,23 +18,27 @@ const Profiledetail = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const router = useRouter();
-  const id = router.query;
+  const {id, isLiked} = router.query;
+  // const isLiked = router.query;
+  console.log("isLiked",id);
   const storage = useStorage();
 
   useEffect(() => {
-    async function getUser() {
-      try {
-        const response = await axios.get(
-          `http://172.105.57.17:1337/api/profiles/?populate=%2A`
-        );
-        console.log("response", response.data.data);
-        let userProfile = response.data.data.filter((u) => u.id == id.id);
-        setprofilesdata(userProfile);
-      } catch (error) {
-        console.error(error);
+    if(id) {
+      async function getUser() {
+        try {
+          const response = await axios.get(
+            `http://172.105.57.17:1337/api/profiles/?populate=%2A`
+          );
+          console.log("response", response.data.data);
+          let userProfile = response.data.data.filter((u) => u.id == id);
+          setprofilesdata(userProfile);
+        } catch (error) {
+          console.error(error);
+        }
       }
+      getUser();
     }
-    getUser();
   }, [id]);
 
   const [modalDefaultOpen, setModalDefaultOpen] = React.useState(false);
@@ -157,7 +162,7 @@ const Profiledetail = () => {
                         </span>
                         <div className="flex items-center ">
                           <Image
-                            src={Heart}
+                            src={isLiked ? RedHeart : Heart}
                             width={24}
                             height={21}
                             alt=""

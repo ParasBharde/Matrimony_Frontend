@@ -5,21 +5,20 @@ import Link from "next/link";
 import axios from "axios";
 import profile from "@/assets/profile.png";
 import { useRouter } from "next/router";
-
-
+// import { useStorage } from "@/hooks/useStorage";
 
 const Manageuserdash = () => {
-  const router = useRouter()
+  const router = useRouter();
+  // const storage = useStorage();
 
-  const [profiles, setProfiles] = useState([])
-  const [search, setSearch] = useState('');
-  const [profileToShow, setProfileToShow] = useState([])
+  const [profiles, setProfiles] = useState([]);
+  const [search, setSearch] = useState("");
+  const [profileToShow, setProfileToShow] = useState([]);
 
-  const [length,setLength]=useState(0)
-  const [total,setTotal]=useState(0)
-
-  const [currentPage,setCurrentPage]=useState(1)
-
+  const [length, setLength] = useState(0);
+  const [total, setTotal] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [downloadedProfile, setDownloadedProfile] = useState([]);
 
   const getAllProfiles = () => {
     var config = {
@@ -34,13 +33,43 @@ const Manageuserdash = () => {
         // console.log(JSON.stringify(response.data));
         setProfiles(response.data.data);
         setProfileToShow(response.data.data);
-        setLength(Math.ceil(response.data.data.length/10))
-        setTotal(response.data.data.length)
+        setLength(Math.ceil(response.data.data.length / 10));
+        setTotal(response.data.data.length);
       })
       .catch(function (error) {
         console.log(error);
       });
   };
+
+  // fetch downloded profiles
+  useEffect(() => {
+    // console.log("storage", id);
+    axios
+      .get(
+        "http://172.105.57.17:1337/api/download-profiles?populate=*&populete=user_profiles"
+      )
+      .then((response) => {
+        let data = response.data.data;
+        console.log("setDownloadedProfile", data);
+        setDownloadedProfile(data);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  }, []);
+  // get downloded profiles count
+  const getDownlodCount = (id) => {
+    let count = 0;
+    if (downloadedProfile.length > 0) {
+      for (let i = 0; i < downloadedProfile.length; i++) {
+        if (downloadedProfile[i].attributes.user_profiles?.data?.[0]?.id == id) {
+          count++;
+        }
+      }
+    }
+    return count;
+  };
+  // console.log("getDownlodCount", getDownlodCount(25));
 
   useEffect(() => {
     getAllProfiles();
@@ -72,7 +101,9 @@ const Manageuserdash = () => {
     }
   }, [search]);
 
-  const [selectedRows, setSelectedRows] = useState(Array(profileToShow.length).fill(false));
+  const [selectedRows, setSelectedRows] = useState(
+    Array(profileToShow.length).fill(false)
+  );
 
   const handleHeaderCheckboxChange = (event) => {
     const isChecked = event.target.checked;
@@ -230,7 +261,9 @@ const Manageuserdash = () => {
                   <td className="px-6 py-4">{item.attributes.father_name}</td>
                   <td className="px-6 py-4">{item.attributes.date_of_birth}</td>
                   <td className="px-6 py-4">{item.attributes.phone_number}</td>
-                  <td className="px-6 py-4 ">5</td>
+                  <td className="px-6 py-4 ">
+                    {getDownlodCount(item.id)}
+                  </td>
 
                   <td className="px-6 py-4 flex items-center justify-evenly">
                     <svg
@@ -288,7 +321,9 @@ const Manageuserdash = () => {
           <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
             <div>
               <span className="text-sm text-gray-700">
-                {currentPage==1?"1":`${((currentPage-1)*10)+1}`}-{total<=(currentPage*10)?total:(currentPage*10)} <span className="font-semibold text-gray-900">of</span> {total}{" "}
+                {currentPage == 1 ? "1" : `${(currentPage - 1) * 10 + 1}`}-
+                {total <= currentPage * 10 ? total : currentPage * 10}{" "}
+                <span className="font-semibold text-gray-900">of</span> {total}{" "}
                 <span className="font-semibold text-gray-900">Pages</span>
               </span>
             </div>
@@ -318,17 +353,19 @@ const Manageuserdash = () => {
                   </svg>
                 </Link>
 
-                {Array(length).fill(0).map((item,index)=>{
-                  return(
-                    <p
-                    key={index}
-                    aria-current="page"
-                    className="relative z-10 inline-flex items-center border border-gray-400 px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
-                  >
-                    {index+1}
-                  </p>
-                  )
-                })}    
+                {Array(length)
+                  .fill(0)
+                  .map((item, index) => {
+                    return (
+                      <p
+                        key={index}
+                        aria-current="page"
+                        className="relative z-10 inline-flex items-center border border-gray-400 px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
+                      >
+                        {index + 1}
+                      </p>
+                    );
+                  })}
                 <Link
                   href="#"
                   className="relative inline-flex items-center rounded-r-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"

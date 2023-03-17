@@ -28,7 +28,6 @@ const DownlodedProfiles = () => {
         console.log("storage", storage.id);
         axios.get('http://172.105.57.17:1337/api/download-profiles?populate=*&populete=user_profiles')
         .then((response) => {
-          // console.log("downloaded profiles", response.data.data);
           let data = response.data.data;
           let downloadedData = data.filter((items) => {
             return items.attributes.users_permissions_user.data.id == storage.id;

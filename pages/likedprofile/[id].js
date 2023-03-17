@@ -779,7 +779,7 @@ const Likedprofile = () => {
                           </p>
                         </footer>
                       </div>
-                      <div className="absolute grid place-items-center top-32 ml-16">
+                      {/* <div className="absolute grid place-items-center top-32 ml-16">
                         <svg
                           className="  flex justify-center items-center w-8 h-12 text-white"
                           viewBox="0 0 26 34"
@@ -797,7 +797,7 @@ const Likedprofile = () => {
                         >
                           Purchase Plan
                         </button>
-                      </div>
+                      </div> */}
                     </div>
                   );
                 })}
