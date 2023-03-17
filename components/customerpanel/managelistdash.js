@@ -93,7 +93,7 @@ const Managelistdash = () => {
   };
   return (
     <>
-      <div className="txt flex justify-around  relative">
+      <div className="lg:txt lg:flex md:flex justify-around  relative mt-5 mx-5">
         <span className="font-medium">Members Lists</span>
         <div className="search_download flex space-x-2 items-center">
           <form>
@@ -143,6 +143,8 @@ const Managelistdash = () => {
               Download
             </Link>
           </button>
+
+         
         </div>
       </div>
       <div className="user_dash relative overflow-x-auto">
