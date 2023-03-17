@@ -8,10 +8,13 @@ import { useRouter } from "next/router";
 const Topnav = () => {
   return (
     <>
+    {/* max-md:hidden */}
+
+    
       <nav
         className="
         top_navv
-        max-md:hidden
+        
         flex flex-wrap
         items-center
         justify-between

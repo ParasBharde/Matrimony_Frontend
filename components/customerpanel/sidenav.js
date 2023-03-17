@@ -12,7 +12,7 @@ const Sidenav = () => {
 
   return (
     <>
-      <div className="max-lg:hidden">
+      <div className="">
         <button
           data-drawer-target="default-sidebar"
           data-drawer-toggle="default-sidebar"

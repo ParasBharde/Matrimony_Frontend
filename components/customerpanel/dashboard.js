@@ -87,7 +87,7 @@ const Dashboard = () => {
       <Topnav />
       <div className="p-4 sm:ml-64">
         <div className="p-4 border-gray-200 rounded">
-          <div className="grid grid-cols-4 gap-4 mb-4">
+          <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-2 gap-4 mb-4">
             <div className="flex items-center justify-center h-24 rounded bg-gray-50">
               <div className="grid grid-rows-2 gap-2 flex-1 justify-start align-middle ml-6">
                 <span style={{ fontSize: "1.5rem" }}>{profileslength}</span>

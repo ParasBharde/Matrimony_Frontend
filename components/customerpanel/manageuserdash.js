@@ -105,13 +105,45 @@ const Manageuserdash = () => {
     Array(profileToShow.length).fill(false)
   );
 
+  console.log("hello",selectedRows)
   const handleHeaderCheckboxChange = (event) => {
     const isChecked = event.target.checked;
     setSelectedRows(Array(profileToShow.length).fill(isChecked));
+  if(isChecked){getAllIds()}
+
+    // console.log("welcome ",event.target.id);
   };
+
+
+
+  const [ids, setIds ]=useState([]);
+
+  const handleUserlist = () => {
+    router.push({
+      pathname: "/userdatanew/datanew",
+      query: { ids },
+    },"/userdatanew/datanew");
+  }
+  
+  const getIds=(id)=>{
+    let totalprofile=[...ids, id];
+    setIds(totalprofile);
+  }
+
+    
+  const getAllIds=()=>{
+    let Ids=profileToShow.map((item)=>{
+      return item.id
+    })
+    setIds(Ids);
+    console.log("this is all ids",Ids);
+  }
+
+  // console.log(getIds);
+
   return (
     <>
-      <div className="txt flex justify-around mx-22 relative mt-10 ">
+      <div className="lg:txt lg:flex md:flex justify-around mx-10 relative mt-10 ">
         <span>Manage Users</span>
         <div className="search_download flex space-x-2 items-center">
           <form>
@@ -143,8 +175,10 @@ const Manageuserdash = () => {
               />
             </div>
           </form>
-          <button className="px-5 rounded bg-orange-400 py-2">
-            <Link className="flex text-white" href="#">
+
+          <button className="px-5 rounded bg-orange-400 py-2"  onClick={handleUserlist}>
+
+            <span className="flex text-white" href="#">
               <svg
                 className="mr-2 mt-1"
                 width="17"
@@ -152,6 +186,8 @@ const Manageuserdash = () => {
                 viewBox="0 0 17 16"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
+
+                
               >
                 <path
                   d="M14.5 11V14H2.5V11H0.5V14C0.5 15.1 1.4 16 2.5 16H14.5C15.6 16 16.5 15.1 16.5 14V11H14.5ZM13.5 7L12.09 5.59L9.5 8.17V0H7.5V8.17L4.91 5.59L3.5 7L8.5 12L13.5 7Z"
@@ -159,7 +195,7 @@ const Manageuserdash = () => {
                 />
               </svg>
               Download
-            </Link>
+            </span>
           </button>
         </div>
       </div>
@@ -174,6 +210,7 @@ const Manageuserdash = () => {
                 scope="col"
                 className="px-6 py-3 text-gray-600 font-normal pr-6 text-left text-sm tracking-normal leading-4"
               >
+
                 <input
                   placeholder="check box"
                   type="checkbox"
@@ -181,7 +218,18 @@ const Manageuserdash = () => {
                   id="header-checkbox"
                   className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white focus:outline-none  focus:ring-2  focus:ring-gray-400"
                   onChange={handleHeaderCheckboxChange}
+
+                  // onClick={() => {
+                  //       router.push({
+                  //         pathname: "/userdatanew/datanew/",
+                  //         // query: { id: item.id },
+                  //       });             
+                  //     }}
+
+                  // onClick={getIds}
+
                 />
+                
               </th>
               <th scope="col" className="px-6 py-3">
                 Reg.No
@@ -214,7 +262,7 @@ const Manageuserdash = () => {
               return (
                 <tr key={index} className="bg-white border-b">
                   <td className="px-6 py-4">
-                    <input
+                    <input 
                       placeholder="check box"
                       type="checkbox"
                       className="row-checkbox cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white focus:outline-none focus:ring-2  focus:ring-gray-400"
@@ -223,7 +271,21 @@ const Manageuserdash = () => {
                         const newSelectedRows = [...selectedRows];
                         newSelectedRows[index] = !newSelectedRows[index];
                         setSelectedRows(newSelectedRows);
+                        getIds(item.id);
+
                       }}
+                      
+
+                      // onClick={pdfdata} // this is for testing.
+
+                      // onClick={() => {
+                      //   router.push({
+                      //     pathname: "/userdatanew/data1",
+                      //     // pathname: "/profiledetail/[id]",
+                      //     query: { id: item.id }, 
+                      //   }); }
+                      // }
+                      
                     />
                   </td>
                   <td
@@ -290,7 +352,15 @@ const Manageuserdash = () => {
                       height="20"
                       viewBox="0 0 14 14"
                       fill="none"
+                      className="cursor-pointer"
                       xmlns="http://www.w3.org/2000/svg"
+        
+                      // onClick={() => {
+                      //   router.push({
+                      //     pathname:"/userdatanew/datanew/",
+                      //     query: { id: item.id },
+                      //   });
+                      // }}
                     >
                       <path
                         d="M12.0007 9.4987V11.9987H2.00065V9.4987H0.333984V11.9987C0.333984 12.9154 1.08398 13.6654 2.00065 13.6654H12.0007C12.9173 13.6654 13.6673 12.9154 13.6673 11.9987V9.4987H12.0007ZM11.1673 6.16536L9.99232 4.99036L7.83398 7.14036V0.332031H6.16732V7.14036L4.00898 4.99036L2.83398 6.16536L7.00065 10.332L11.1673 6.16536Z"
