@@ -50,6 +50,14 @@ const Hero = (props) => {
           <p
             className="mx-10 cursor-pointer"
             onClick={() => {
+              router.push("/portfolio/portfolio");
+            }}
+          >
+            Search
+          </p>
+          <p
+            className="mx-10 cursor-pointer"
+            onClick={() => {
               router.push("/contactus");
             }}
           >

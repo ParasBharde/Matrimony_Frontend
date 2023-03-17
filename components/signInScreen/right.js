@@ -133,8 +133,8 @@ const Right = () => {
           className="border border-[#E1E1E1] lg:w-[400px] sm:w-[300px] w-[100%] py-2 px-8 rounded-md"
         />
       </div>
-      <div className="lg:w-[400px] sm:w-[300px] w-[90%] mx-auto flex justify-between items-center mt-2">
-        <div>
+      <div className="lg:w-[400px] sm:w-[300px] w-[90%] flex justify-between items-center mt-2">
+        <div className="lg:w-[250px] sm:w-[300px] w-[90%] mx-auto flex items-center">
           <input
             type="checkbox"
             name="rememberMe"
@@ -143,19 +143,30 @@ const Right = () => {
               setRememberMe(e.target.checked);
             }}
           />
-          <label htmlFor="rememberMe" className="text-[#B6B3BE] ml-2">
+          <label htmlFor="rememberMe" className="text-[#B6B3BE]">
             Remember Me
           </label>
         </div>
 
-        <div className="lg:w-[250px] sm:w-[300px] w-[90%] mx-auto flex justify-between items-center">
+        <div className="lg:w-[250px] sm:w-[300px] w-[90%] mx-auto flex justify-center items-center">
           <p
-            className="text-[#B6B3BE] cursor-pointer ml-32"
+            className="text-[#B6B3BE] cursor-pointer"
             onClick={() => {
               router.push("/forgotPassword");
             }}
           >
             Forgot Password
+          </p>
+        </div>
+
+        <div className="lg:w-[250px] sm:w-[300px] w-[90%] mx-auto flex justify-end items-center">
+          <p
+            className="text-[#B6B3BE] cursor-pointer"
+            onClick={() => {
+              router.push("/admin/welcome");
+            }}
+          >
+            Login as Admin
           </p>
         </div>
       </div>
