@@ -88,6 +88,7 @@ const Profiledetail = () => {
   }
 
   // share profile
+  
   const shareProfile = () => {
     setModalOpen(true);
   };

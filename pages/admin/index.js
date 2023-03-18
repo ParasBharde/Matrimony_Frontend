@@ -17,7 +17,6 @@ const Adminpanel = () => {
         .user{
           color: black;
           disp
-    
         }
         @media (max-width: 600px) {
           div {
