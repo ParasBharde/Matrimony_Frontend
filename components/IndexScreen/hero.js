@@ -1,31 +1,62 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import logo from "@/assets/indexAssets/headerLogo.png";
+import avatar from "@/assets/avatar.png";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Hamburger from "@/assets/SVG/Hamburger";
 import { useStorage } from "@/hooks/useStorage";
-import {toast} from "react-toastify"
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const Hero = (props) => {
   const [login, setLogin] = useState(false);
+  const [userProfile, setUserProfile] = useState(null);
+
+  const dropdownRef = useRef(null);
+  const [isMenuDropDownOpen, setMenuDropDownOpen] = useState(false);
 
   const router = useRouter();
-  const data=useStorage();
+  const data = useStorage();
 
-  useEffect(()=> {
-    if(data) {
+  useEffect(() => {
+    if (data) {
       setLogin(true);
     }
-  },[data]);
+  }, [data]);
 
-  const logout=()=>{
+  useEffect(() => {
+    async function getUser() {
+      try {
+        const response = await axios.get(
+          `http://172.105.57.17:1337/api/profiles/?populate=%2A`
+        );
+        let userProfile = response.data.data.filter((u) => u.id == data?.user_profile?.id);
+        setUserProfile(
+          userProfile?.[0]?.attributes?.profile_photo?.data?.[0]?.attributes
+            ?.url
+        );
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getUser();
+  }, [data]);
+
+
+  const logout = () => {
     localStorage.clear();
     sessionStorage.clear();
     setLogin(false);
     toast.success("Logged Out");
     router.push("/");
-  }
+  };
+  const imgLoader = () => {
+    if (userProfile) {
+      return `http://172.105.57.17:1337${userProfile}`;
+    }
+  };
+
 
   return (
     <div className="relative h-[829.2px]">
@@ -75,32 +106,111 @@ const Hero = (props) => {
         </div>
         <div></div>
         <div className="flex justify-center items-center  max-md:hidden">
-          {!login?<><p
-            className="text-white bg-main py-2 px-5 rounded-md mx-2 cursor-pointer"
-            onClick={() => {
-              router.push("/signIn");
-            }}
-          >
-            Login
-          </p>
-          <p
-            className="text-main bg-white py-2 px-5 rounded-md mx-2 cursor-pointer"
-            onClick={() => {
-              router.push("/register");
-            }}
-          >
-            Register
-          </p></>:<p
-            className="text-main bg-white py-2 px-5 rounded-md mx-2 cursor-pointer"
-            onClick={logout}
-          >
-            Logout
-          </p>}
+          {!login ? (
+            <>
+              <p
+                className="text-white bg-main py-2 px-5 rounded-md mx-2 cursor-pointer"
+                onClick={() => {
+                  router.push("/signIn");
+                }}
+              >
+                Login
+              </p>
+              <p
+                className="text-main bg-white py-2 px-5 rounded-md mx-2 cursor-pointer"
+                onClick={() => {
+                  router.push("/register");
+                }}
+              >
+                Register
+              </p>
+            </>
+          ) : (
+            // <p
+            //   className="text-main bg-white py-2 px-5 rounded-md mx-2 cursor-pointer"
+            //   onClick={logout}
+            // >
+            //   Logout
+            // </p>
+            <>
+              {data && (
+                <div
+                  ref={dropdownRef}
+                  className="relative max-md:right-10 right-[2rem]"
+                >
+                  <Image
+                    className="drop max-w-[40px]"
+                    loader={imgLoader}
+                    src={
+                      userProfile != null
+                        ? `http://172.105.57.17:1337${userProfile}`
+                        : avatar
+                    }
+                    width="100"
+                    height="100"
+                    unoptimized
+                    alt="avatar"
+                    onMouseOver={() => setMenuDropDownOpen(true)}
+                  />
+                  {isMenuDropDownOpen && (
+                    <div
+                      className="absolute bg-white right-2 shadow-lg top-11 z-50"
+                      onMouseLeave={() => setMenuDropDownOpen(false)}
+                    >
+                      <p
+                        className="m-3 w-[200px] cursor-pointer"
+                        //onClick={() => router.push('/profile/')}
+                        onClick={() => {
+                          router.push("/profile");
+                          // setMenuDropDownOpen(false)
+                        }}
+                      >
+                        <i className="fa-regular fa-circle-user mr-5 text-main"></i>
+                        Profile
+                      </p>
+                      <p
+                        className="m-3 w-[200px] cursor-pointer"
+                        onClick={() => {
+                          router.push("/likedprofile/" + data.id);
+                        }}
+                      >
+                        <i className="fa-regular fa-heart mr-5 text-main"></i>
+                        Liked Profile
+                      </p>
+                      <p
+                        className="m-3 w-[200px] cursor-pointer"
+                        onClick={() => {
+                          router.push("/downloadProfile");
+                        }}
+                      >
+                        <i className="fa-solid fa-download mr-5 text-main"></i>
+                        Download Profile
+                      </p>
+                      <p
+                        className="m-3 w-[200px] cursor-pointer"
+                        onClick={() => router.push("/setNewPassword/")}
+                      >
+                        <i className="fa-solid fa-lock mr-5 text-main"></i>{" "}
+                        Change Password
+                      </p>
+                      <p
+                        className="m-3 w-[200px] cursor-pointer"
+                        onClick={logout}
+                      >
+                        <i className="fa-solid fa-right-from-bracket mr-5 text-main"></i>
+                        Logout
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
+            </>
+          )}
         </div>
       </div>
 
       {/* dublicate div start here   */}
-      <div className="flex justify-center items-center absolute bottom-[16rem] left-[14rem]  px-6 md:hidden max-md:block max-md:flex">
+      <div className="flex justify-center items-center absolute bottom-[16rem] left-[14rem]  px-6 md:hidden max-md:flex">
         <p
           className="text-white bg-main py-2 px-5 rounded-md mx-2 cursor-pointer my-5"
           onClick={() => {
@@ -118,7 +228,6 @@ const Hero = (props) => {
           Register
         </p>
       </div>
-     
 
       <div className="absolute right-10 top-14 hidden max-md:block max-sm:block">
         <Hamburger onClick={() => console.log("Clicked")} />

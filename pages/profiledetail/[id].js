@@ -19,8 +19,7 @@ const Profiledetail = () => {
 
   const router = useRouter();
   const {id, isLiked} = router.query;
-  // const isLiked = router.query;
-  console.log("isLiked",id);
+  // console.log("isLiked",id);
   const storage = useStorage();
 
   useEffect(() => {
@@ -133,8 +132,7 @@ const Profiledetail = () => {
             <div>
               <div className="flex py-6">
                 <ShareSocial
-                  title={"Mwtrimony Profile"}
-                  // url ={`${window.location.href}`}
+                  title={"Matrimony Profile"}
                   url={`http://172.105.57.17:3000/profiledetail/${id.id}`}
                   socialTypes={["facebook", "whatsapp", "twitter", "linkedin"]}
                   onSocialButtonClicked={(data) => console.log(data)}

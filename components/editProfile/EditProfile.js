@@ -105,6 +105,16 @@ const EditProfile = () => {
     elder_sisters,
     younger_sisters,
     married_sisters,
+    zodiacs_sign,
+    tamil_year,
+    tamil_month,
+    udayati_nazhikai,
+    day,
+    birth_time,
+    star_foot,
+    ascendant,
+    birthplace,
+    presence_of_natal_direction
   } = userProfile;
   // console.log("url",userProfile.horoscope_document?.data?.[0]?.attributes?.url);
 
@@ -209,7 +219,7 @@ const EditProfile = () => {
                             <div className="img_modal modal-body ">
                               <Image
                                 alt=""
-                                src={profile}
+                                src={profileImg ? `http://172.105.57.17:1337${profileImg?.[0]?.attributes?.url}` : profile}
                                 placeholder="image"
                                 width={500}
                                 height={500}
@@ -541,7 +551,7 @@ const EditProfile = () => {
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                               Zodiac Sign
                             </span>
-                            <span>paras@scus.tech</span>
+                            <span>{zodiacs_sign}</span>
                           </div>
                         </div>
                         <div className="flex items-center justify-center h-24 rounded ">
@@ -549,7 +559,7 @@ const EditProfile = () => {
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                               Tamil Year
                             </span>
-                            <span>+91-7894561235</span>
+                            <span>{tamil_year}</span>
                           </div>
                         </div>
                         <div className="flex items-center justify-center h-24 ">
@@ -557,7 +567,7 @@ const EditProfile = () => {
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                               Tamil Month
                             </span>
-                            <span>04 Feb 2023</span>
+                            <span>{tamil_month}</span>
                           </div>
                         </div>
                         <div className="flex items-center justify-center h-24 ">
@@ -565,7 +575,7 @@ const EditProfile = () => {
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                               Udayati Nazhikai
                             </span>
-                            <span>+91-7894561235</span>
+                            <span>{udayati_nazhikai}</span>
                           </div>
                         </div>
                       </div>
@@ -579,7 +589,7 @@ const EditProfile = () => {
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                               Day
                             </span>
-                            <span>28 Years</span>
+                            <span>{day}</span>
                           </div>
                         </div>
                         <div className="flex items-center justify-center h-24 rounded ">
@@ -587,7 +597,7 @@ const EditProfile = () => {
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                               Birth Time
                             </span>
-                            <span>Hastham</span>
+                            <span>{birth_time}</span>
                           </div>
                         </div>
                         <div className="flex items-center justify-center h-24 rounded ">
@@ -595,7 +605,7 @@ const EditProfile = () => {
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                               Star/Foot
                             </span>
-                            <span>Unmarried</span>
+                            <span>{star_foot}</span>
                           </div>
                         </div>
                         <div className="flex items-center justify-center h-24 rounded ">
@@ -603,7 +613,7 @@ const EditProfile = () => {
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                               Ascendant(Laknam)
                             </span>
-                            <span>Unmarried</span>
+                            <span>{ascendant}</span>
                           </div>
                         </div>
                       </div>
@@ -617,7 +627,7 @@ const EditProfile = () => {
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                               Birthplace
                             </span>
-                            <span>5.6 Inch</span>
+                            <span>{birthplace}</span>
                           </div>
                         </div>
                         <div className="flex items-center justify-center h-24 rounded ">
@@ -625,7 +635,7 @@ const EditProfile = () => {
                             <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                               Presence Of Natal Direction
                             </span>
-                            <span>BCCA, MCA</span>
+                            <span>{presence_of_natal_direction}</span>
                           </div>
                         </div>
                       </div>

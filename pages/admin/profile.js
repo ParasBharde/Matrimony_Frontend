@@ -10,7 +10,7 @@ const Profile = () => {
       <div className="data ">
         <Sidenav />
         <Topnav />
-       <Customerprofile />
+        <Customerprofile />
         <Footernav />
       </div>
       <style jsx>{``}</style>

@@ -50,7 +50,7 @@ const Manageuserdash = () => {
       )
       .then((response) => {
         let data = response.data.data;
-        console.log("setDownloadedProfile", data);
+        // console.log("setDownloadedProfile", data);
         setDownloadedProfile(data);
       })
       .catch((error) => {
@@ -275,9 +275,9 @@ const Manageuserdash = () => {
                       xmlns="http://www.w3.org/2000/svg"
                       onClick={() => {
                         router.push({
-                          pathname: "/profiledetail/[id]/",
-                          query: { id: item.id },
-                        });
+                          pathname: "/admin/profile",
+                          query: { id: item.id, prevUrl: router.pathname }
+                        },"/admin/profile");
                       }}
                     >
                       <path

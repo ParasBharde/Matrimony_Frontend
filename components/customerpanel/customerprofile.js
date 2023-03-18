@@ -1,40 +1,178 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import profile from "@/assets/profile.png";
 import Image from "next/image";
 import horos from "@/assets/horos.png";
 import horos1 from "@/assets/horos1.png";
 import Link from "next/link";
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+import { useRouter } from "next/router";
+import { useStorage } from "@/hooks/useStorage";
+import axios from "axios";
 
 const Customerpofile = () => {
+  const [userProfile, setUserProfile] = useState();
+  const [profileImg, setProfileImg] = useState();
+  const [img, setImg] = useState();
+  const [modalOpen, setModalOpen] = useState(false);
+  // const [isDeleteProfile, setIsDeleteProfile] = useState(false);
+
+  const router = useRouter();
+  // const storageData = useStorage();
+
+  useEffect(() => {
+    console.log("getting user", router.query.id);
+    if (router.query.id) {
+      axios
+        .get(
+          `http://172.105.57.17:1337/api/profiles/${router.query.id}?populate=%2A`
+        )
+        .then((response) => {
+          // console.log("response", response.data.data);
+          setUserProfile(response?.data?.data);
+        })
+        .catch((error) => {
+          console.error("error", error);
+        });
+    }
+  }, [router?.query?.id]);
+
+  useEffect(() => {
+    if (userProfile) {
+      setProfileImg(userProfile?.attributes?.profile_photo?.data);
+      setImg(userProfile?.attributes?.horoscope_document?.data);
+    }
+  }, [userProfile]);
 
   function downloadPdf() {
-    const input = document.getElementById('pdf-content');
+    const input = document.getElementById("pdf-content");
     html2canvas(input, {
-      useCORS: true
-    })
-      .then((canvas) => {
-        const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF();
-        // pdf.addImage(imgData, 'PNG', 10, 10);
-        // pdf.save('download.pdf');
+      useCORS: true,
+    }).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF();
+      // pdf.addImage(imgData, 'PNG', 10, 10);
+      // pdf.save('download.pdf');
 
-        const imgProps= pdf.getImageProperties(imgData);
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = pdf.internal.pageSize.getHeight();
-        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-        pdf.save('download.pdf');
-      });
+      const imgProps = pdf.getImageProperties(imgData);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      pdf.save("download.pdf");
+    });
   }
 
+  // delete user
+  const confirmDelete = (id) => {
+    // console.log("confirm delete", id);
+    setModalOpen(false);
+    axios
+      .delete(`http://172.105.57.17:1337/api/profiles/${id}`)
+      .then((response) => {
+        console.log("delete profile response", response.data.data);
+      })
+      .catch((error) => {
+        console.error("delete profile error", error);
+      });
+    router.push(router.query.prevUrl);
+  };
+
+  if (!userProfile) {
+    return;
+  }
+  const {
+    first_name,
+    last_name,
+    email,
+    phone_number,
+    date_of_birth,
+    star,
+    marriage_status,
+    Height,
+    educational_qualification,
+    Color,
+    caste,
+    career_detail,
+    Salary_monthly_income,
+    Expection,
+    family_property_details,
+    Choose_veg_nonveg,
+    father_name,
+    mother_name,
+    father_native,
+    mother_native,
+    father_profession,
+    mother_profession,
+    parents_contact_number,
+    address,
+    brothers,
+    elder_brothers,
+    younger_brothers,
+    married_brothers,
+    sisters,
+    elder_sisters,
+    younger_sisters,
+    married_sisters,
+    zodiacs_sign,
+    tamil_year,
+    tamil_month,
+    udayati_nazhikai,
+    day,
+    birth_time,
+    star_foot,
+    ascendant,
+    birthplace,
+    presence_of_natal_direction,
+  } = userProfile.attributes;
   return (
     <>
+      {modalOpen && (
+        <div className="w-screen h-screen fixed flex justify-center items-center z-50 backdrop-blur-sm">
+          <div className="bg-slate-100 border border-black rounded-md px-4">
+            <div className="py-2 flex justify-between items-center">
+              <h3 className="font-semibold text-red-500">Delete Profile</h3>
+              <span
+                className="cursor-pointer bg-slate-200 px-2 rounded-md"
+                onClick={() => {
+                  setModalOpen(false);
+                }}
+              >
+                <i className="fa-solid fa-xmark text-xl"></i>
+              </span>
+            </div>
+            <hr />
+            <div>
+              <div className="flex py-4">
+                <p className="font-semibold">
+                  Are you really want to delete this profile
+                </p>
+              </div>
+              <div className="mb-5 flex justify-end">
+                <button
+                  onClick={() => confirmDelete(userProfile?.id)}
+                  className="px-5 py-1 rounded bg-red-500 mr-3"
+                >
+                  Yes
+                </button>
+                <button
+                  onClick={() => setModalOpen(false)}
+                  className="px-5 py-1 rounded bg-green-500 mr-3"
+                >
+                  No
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="parent ">
         <table className="child table-auto" id="pdf-content">
           <div className="table_header flex">
             <thead className="">
-              <td className="font-bold">Paras Bharde</td>
+              <td className="font-bold">
+                {first_name} {last_name}
+              </td>
               <div>
                 <td style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                   Reg- No : VRE223
@@ -42,7 +180,10 @@ const Customerpofile = () => {
               </div>
             </thead>
             <div className="flex space-x-2 mt-2 max-md:hidden">
-              <button className="px-5 rounded  bg-orange-400 py-1.5" onClick={downloadPdf}>
+              <button
+                className="px-5 rounded  bg-orange-400 py-1.5"
+                onClick={downloadPdf}
+              >
                 <Link className="flex text-white" href="#">
                   <svg
                     className="mr-2 mt-1"
@@ -60,8 +201,11 @@ const Customerpofile = () => {
                   Download
                 </Link>
               </button>
-              <button className="px-5 rounded bg-orange-600 py-1.5">
-                <Link className="flex text-white" href="#">
+              <button
+                onClick={() => setModalOpen(true)}
+                className="px-5 rounded bg-orange-600 py-1.5"
+              >
+                <span className="flex text-white">
                   <svg
                     className="mr-2 mt-1"
                     width="17"
@@ -76,7 +220,7 @@ const Customerpofile = () => {
                     />
                   </svg>
                   Delete
-                </Link>
+                </span>
               </button>
             </div>
           </div>
@@ -89,7 +233,7 @@ const Customerpofile = () => {
                     <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                       Email
                     </span>
-                    <span>paras@scus.tech</span>
+                    <span>{email}</span>
                   </div>
                 </div>
                 <div className="flex items-center justify-center h-24 rounded ">
@@ -97,7 +241,7 @@ const Customerpofile = () => {
                     <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                       Phone
                     </span>
-                    <span>+91-7894561235</span>
+                    <span>{phone_number}</span>
                   </div>
                 </div>
                 <div className="flex items-center justify-center h-24 rounded ">
@@ -105,7 +249,7 @@ const Customerpofile = () => {
                     <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                       Date of Birth
                     </span>
-                    <span>04 Feb 2023</span>
+                    <span>{date_of_birth}</span>
                   </div>
                 </div>
                 <div className="flex items-center justify-center h-24 max-md:hidden">
@@ -116,7 +260,11 @@ const Customerpofile = () => {
                       sizes="(max-width: 768px) 100vw,
                                (max-width: 1200px) 50vw,
                                33vw"
-                      src={profile}
+                      src={
+                        profileImg
+                          ? `http://172.105.57.17:1337${profileImg?.[0]?.attributes?.url}`
+                          : profile
+                      }
                       width={100}
                       height={100}
                       alt="logo"
@@ -125,42 +273,42 @@ const Customerpofile = () => {
                       <div className="grow max-w-full">
                         <Image
                           className="img_profile_g"
-                          src={profile}
+                          src={
+                            profileImg
+                              ? `http://172.105.57.17:1337${profileImg?.[1]?.attributes?.url}`
+                              : profile
+                          }
                           width={100}
+                          height={100}
                           alt="logo"
                         />
                       </div>
                       <div className="grow max-w-full">
                         <Image
                           className="img_profile_g"
-                          src={profile}
+                          src={
+                            profileImg
+                              ? `http://172.105.57.17:1337${profileImg?.[2]?.attributes?.url}`
+                              : profile
+                          }
                           width={100}
+                          height={100}
                           alt="logo"
                         />
                       </div>
                       <div className="grow max-w-full">
                         <Image
                           className="img_profile_g"
-                          src={profile}
+                          src={
+                            profileImg
+                              ? `http://172.105.57.17:1337${profileImg?.[3]?.attributes?.url}`
+                              : profile
+                          }
                           width={100}
+                          height={100}
                           alt="logo"
-                      />
+                        />
                       </div>
-                      {/* <Image
-                        className="img_profile_g max-w-10 max-h-26"
-                        src={profile}
-                        alt="logo"
-                      />
-                      <Image
-                        className="img_profile_g w-30 h-26"
-                        src={profile}
-                        alt="logo"
-                      />
-                      <Image
-                        className="img_profile_g w-30 h-26"
-                        src={profile}
-                        alt="logo"
-                      /> */}
                     </div>
                   </div>
                 </div>
@@ -173,13 +321,13 @@ const Customerpofile = () => {
                 <div className="flex items-center justify-center h-24 rounded ">
                   <div className="second_row">
                     <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>Age</span>
-                    <span>28 Years</span>
+                    <span>{date_of_birth}</span>
                   </div>
                 </div>
                 <div className="flex items-center justify-center h-24 rounded ">
                   <div className="second_row">
                     <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>Star</span>
-                    <span>Hastham</span>
+                    <span>{star}</span>
                   </div>
                 </div>
                 <div className="flex items-center justify-center h-24 rounded ">
@@ -187,7 +335,7 @@ const Customerpofile = () => {
                     <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                       Marriage Status
                     </span>
-                    <span>Unmarried</span>
+                    <span>{marriage_status}</span>
                   </div>
                 </div>
               </div>
@@ -201,7 +349,7 @@ const Customerpofile = () => {
                     <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                       Height
                     </span>
-                    <span>5.6 Inch</span>
+                    <span>{Height}</span>
                   </div>
                 </div>
                 <div className="flex items-center justify-center h-24 rounded ">
@@ -209,7 +357,7 @@ const Customerpofile = () => {
                     <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                       Qualification
                     </span>
-                    <span>BCCA, MCA</span>
+                    <span>{educational_qualification}</span>
                   </div>
                 </div>
                 <div className="flex items-center justify-center h-24 rounded ">
@@ -217,7 +365,7 @@ const Customerpofile = () => {
                     <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                       Color
                     </span>
-                    <span>White</span>
+                    <span>{Color}</span>
                   </div>
                 </div>
               </div>
@@ -231,7 +379,7 @@ const Customerpofile = () => {
                     <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                       Caste
                     </span>
-                    <span>paras@scus.tech</span>
+                    <span>{caste}</span>
                   </div>
                 </div>
                 <div className="flex items-center justify-center h-24 rounded ">
@@ -239,7 +387,7 @@ const Customerpofile = () => {
                     <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                       Family Property
                     </span>
-                    <span>+91-7894561235</span>
+                    <span>{family_property_details}</span>
                   </div>
                 </div>
                 <div className="flex items-center justify-center h-24 rounded ">
@@ -247,7 +395,7 @@ const Customerpofile = () => {
                     <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                       Type of food
                     </span>
-                    <span>40,000 -/ per month</span>
+                    <span>{Choose_veg_nonveg}</span>
                   </div>
                 </div>
               </div>
@@ -259,25 +407,25 @@ const Customerpofile = () => {
                 <div className="flex items-center justify-center h-24 rounded ">
                   <div className="fifth_row">
                     <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                      Caste
+                      Career
                     </span>
-                    <span>paras@scus.tech</span>
+                    <span>{career_detail}</span>
                   </div>
                 </div>
                 <div className="flex items-center justify-center h-24 rounded ">
                   <div className="fifth_row">
                     <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                      Family Property
+                      Salary
                     </span>
-                    <span>+91-7894561235</span>
+                    <span>{Salary_monthly_income}</span>
                   </div>
                 </div>
                 <div className="flex items-center justify-center h-24 rounded ">
                   <div className="fifth_row">
                     <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                      Type of food
+                      Expectation
                     </span>
-                    <span>40,000 -/ per month</span>
+                    <span>{Expection}</span>
                   </div>
                 </div>
               </div>
@@ -298,33 +446,33 @@ const Customerpofile = () => {
                   <div className="flex items-center justify-center h-24 rounded ">
                     <div className="first_row">
                       <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                        Email
+                        Father&apos;s Name
                       </span>
-                      <span>paras@scus.tech</span>
+                      <span>{father_name}</span>
                     </div>
                   </div>
                   <div className="flex items-center justify-center h-24 rounded ">
                     <div className="first_row">
                       <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                        Phone
+                        Mother&apos;s Name
                       </span>
-                      <span>+91-7894561235</span>
+                      <span>{mother_name}</span>
                     </div>
                   </div>
                   <div className="flex items-center justify-center h-24 ">
                     <div className="first_row">
                       <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                        Date of Birth
+                        Father&apos;s Native
                       </span>
-                      <span>04 Feb 2023</span>
+                      <span>{father_native}</span>
                     </div>
                   </div>
                   <div className="flex items-center justify-center h-24 ">
                     <div className="first_row">
                       <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                        Phone
+                        Mother&apos;s Native
                       </span>
-                      <span>+91-7894561235</span>
+                      <span>{mother_native}</span>
                     </div>
                   </div>
                 </div>
@@ -336,33 +484,33 @@ const Customerpofile = () => {
                   <div className="flex items-center justify-center h-24 rounded ">
                     <div className="second_row">
                       <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                        Age
+                        Father&apos;s Profession
                       </span>
-                      <span>28 Years</span>
+                      <span>{father_profession}</span>
                     </div>
                   </div>
                   <div className="flex items-center justify-center h-24 rounded ">
                     <div className="second_row">
                       <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                        Star
+                        Mother&apos;s Profession
                       </span>
-                      <span>Hastham</span>
+                      <span>{mother_profession}</span>
                     </div>
                   </div>
                   <div className="flex items-center justify-center h-24 rounded ">
                     <div className="second_row">
                       <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                        Marriage Status
+                        Phone Number
                       </span>
-                      <span>Unmarried</span>
+                      <span>{parents_contact_number}</span>
                     </div>
                   </div>
                   <div className="flex items-center justify-center h-24 rounded ">
                     <div className="second_row">
                       <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                        Marriage Status
+                        Address
                       </span>
-                      <span>Unmarried</span>
+                      <span>{address}</span>
                     </div>
                   </div>
                 </div>
@@ -374,33 +522,33 @@ const Customerpofile = () => {
                   <div className="flex items-center justify-center h-24 rounded ">
                     <div className="third_row">
                       <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                        Height
+                        Brothers
                       </span>
-                      <span>5.6 Inch</span>
+                      <span>{brothers}</span>
                     </div>
                   </div>
                   <div className="flex items-center justify-center h-24 rounded ">
                     <div className="third_row">
                       <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                        Qualification
+                        Elder Brother
                       </span>
-                      <span>BCCA, MCA</span>
+                      <span>{elder_brothers}</span>
                     </div>
                   </div>
                   <div className="flex items-center justify-center h-24 rounded ">
                     <div className="third_row">
                       <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                        Color
+                        Younger Brother
                       </span>
-                      <span>White</span>
+                      <span>{younger_brothers}</span>
                     </div>
                   </div>
                   <div className="flex items-center justify-center h-24 rounded ">
                     <div className="third_row">
                       <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                        Color
+                        Married
                       </span>
-                      <span>White</span>
+                      <span>{married_brothers}</span>
                     </div>
                   </div>
                 </div>
@@ -412,33 +560,33 @@ const Customerpofile = () => {
                   <div className="flex items-center justify-center h-24 rounded ">
                     <div className="fourth_row">
                       <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                        Caste
+                        Sisters
                       </span>
-                      <span>paras@scus.tech</span>
+                      <span>{sisters}</span>
                     </div>
                   </div>
                   <div className="flex items-center justify-center h-24 rounded ">
                     <div className="fourth_row">
                       <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                        Family Property
+                        Elder Sisters
                       </span>
-                      <span>+91-7894561235</span>
+                      <span>{elder_sisters}</span>
                     </div>
                   </div>
                   <div className="flex items-center justify-center h-24 rounded ">
                     <div className="fourth_row">
                       <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                        Type of food
+                        Younger Sisters
                       </span>
-                      <span>40,000 -/ per month</span>
+                      <span>{younger_sisters}</span>
                     </div>
                   </div>
                   <div className="flex items-center justify-center h-24 rounded ">
                     <div className="fourth_row">
                       <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                        Color
+                        Married
                       </span>
-                      <span>White</span>
+                      <span>{married_sisters}</span>
                     </div>
                   </div>
                 </div>
@@ -460,33 +608,33 @@ const Customerpofile = () => {
                     <div className="flex items-center justify-center h-24 rounded ">
                       <div className="first_row">
                         <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                          Email
+                          Zodiac Sign
                         </span>
-                        <span>paras@scus.tech</span>
+                        <span>{zodiacs_sign}</span>
                       </div>
                     </div>
                     <div className="flex items-center justify-center h-24 rounded ">
                       <div className="first_row">
                         <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                          Phone
+                          Tamil Year
                         </span>
-                        <span>+91-7894561235</span>
+                        <span>{tamil_year}</span>
                       </div>
                     </div>
                     <div className="flex items-center justify-center h-24 ">
                       <div className="first_row">
                         <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                          Date of Birth
+                          Tamil Month
                         </span>
-                        <span>04 Feb 2023</span>
+                        <span>{tamil_month}</span>
                       </div>
                     </div>
                     <div className="flex items-center justify-center h-24 ">
                       <div className="first_row">
                         <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                          Phone
+                          Udayati Nazhikai
                         </span>
-                        <span>+91-7894561235</span>
+                        <span>{udayati_nazhikai}</span>
                       </div>
                     </div>
                   </div>
@@ -498,33 +646,33 @@ const Customerpofile = () => {
                     <div className="flex items-center justify-center h-24 rounded ">
                       <div className="second_row">
                         <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                          Age
+                          Day
                         </span>
-                        <span>28 Years</span>
+                        <span>{day}</span>
                       </div>
                     </div>
                     <div className="flex items-center justify-center h-24 rounded ">
                       <div className="second_row">
                         <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                          Star
+                          Birth Time
                         </span>
-                        <span>Hastham</span>
+                        <span>{birth_time}</span>
                       </div>
                     </div>
                     <div className="flex items-center justify-center h-24 rounded ">
                       <div className="second_row">
                         <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                          Marriage Status
+                          Star/Foot
                         </span>
-                        <span>Unmarried</span>
+                        <span>{star_foot}</span>
                       </div>
                     </div>
                     <div className="flex items-center justify-center h-24 rounded ">
                       <div className="second_row">
                         <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                          Marriage Status
+                          Ascendant(Laknam)
                         </span>
-                        <span>Unmarried</span>
+                        <span>{ascendant}</span>
                       </div>
                     </div>
                   </div>
@@ -536,17 +684,17 @@ const Customerpofile = () => {
                     <div className="flex items-center justify-center h-24 rounded ">
                       <div className="third_row">
                         <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                          Height
+                          Birthplace
                         </span>
-                        <span>5.6 Inch</span>
+                        <span>{birthplace}</span>
                       </div>
                     </div>
                     <div className="flex items-center justify-center h-24 rounded ">
                       <div className="third_row">
                         <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                          Qualification
+                          Presence Of Natal Direction
                         </span>
-                        <span>BCCA, MCA</span>
+                        <span>{presence_of_natal_direction}</span>
                       </div>
                     </div>
                   </div>
@@ -566,8 +714,26 @@ const Customerpofile = () => {
             <div className="tb_dt flex ">
               {/* <Image src={horos} alt="img" />
               <Image src={horos1} alt="img" /> */}
-              <Image src={horos} width={500} alt="img" height={500} />
-              <Image src={horos1} width={500} alt="img" height={500} />
+              <Image
+                src={
+                  img
+                    ? `http://172.105.57.17:1337${img?.[0]?.attributes?.url}`
+                    : horos
+                }
+                width={500}
+                alt="img"
+                height={500}
+              />
+              <Image
+                src={
+                  img
+                    ? `http://172.105.57.17:1337${img?.[1]?.attributes?.url}`
+                    : horos1
+                }
+                width={500}
+                alt="img"
+                height={500}
+              />
             </div>
           </div>
         </table>

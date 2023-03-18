@@ -344,9 +344,9 @@ const Dashboard = () => {
                           <svg
                             onClick={() => {
                               router.push({
-                                pathname: "/profiledetail/[id]/",
-                                query: { id: itms.id },
-                              });
+                                pathname: "/admin/profile",
+                                query: { id: itms.id, prevUrl: router.pathname },
+                              }, "/admin/profile");
                             }}
                             width="24"
                             height="24"
