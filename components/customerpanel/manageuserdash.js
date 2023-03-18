@@ -6,6 +6,11 @@ import axios from "axios";
 import profile from "@/assets/profile.png";
 import { useRouter } from "next/router";
 
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import { Document, Page, View } from 'react-pdf';
+
+// import 'jspdf-autotable';
 
 
 const Manageuserdash = () => {
@@ -19,7 +24,8 @@ const Manageuserdash = () => {
   const [total,setTotal]=useState(0)
 
   const [currentPage,setCurrentPage]=useState(1)
-
+  
+  const [downloadProfile, setDownloadProfile] = useState([])
 
   const getAllProfiles = () => {
     var config = {
@@ -74,7 +80,7 @@ const Manageuserdash = () => {
 
   const [selectedRows, setSelectedRows] = useState(Array(profileToShow.length).fill(false));
 
-  console.log("hello",selectedRows)
+  // console.log("hello",selectedRows)
   const handleHeaderCheckboxChange = (event) => {
     const isChecked = event.target.checked;
     setSelectedRows(Array(profileToShow.length).fill(isChecked));
@@ -87,28 +93,74 @@ const Manageuserdash = () => {
 
   const [ids, setIds ]=useState([]);
 
-  const handleUserlist = () => {
-    router.push({
-      pathname: "/userdatanew/datanew",
-      query: { ids },
-    },"/userdatanew/datanew");
-  }
+  // const handleUserlist = () => {
+  //   router.push({
+  //     pathname: "/manageuserdash",
+  //     query: { ids },
+  //   },"/manageuserdash");
+  // }
   
   const getIds=(id)=>{
     let totalprofile=[...ids, id];
+    console.log(totalprofile);
     setIds(totalprofile);
   }
 
+  useEffect(()=>{
+  //   for (let j = 0; j < res.length; j++) {
+  //     if (id.ids == res[j].id) {
+  //       console.log("new data", res[j]);
+  //       filteredRes.push(res[j]);
+  //     }
+  //   }
+  // } else {
     
+  let filteredRes=[]
+    for (let i = 0; i < ids.length; i++) {
+      for (let j = 0; j < profiles.length; j++) {
+        if (ids[i] == profiles[j].id) {
+          console.log("new data", profiles[j]);
+          filteredRes.push(profiles[j]);
+        }
+      }
+    }
+    setDownloadProfile(filteredRes);
+
+    console.log("text",filteredRes);
+
+  },[ids])
   const getAllIds=()=>{
     let Ids=profileToShow.map((item)=>{
       return item.id
     })
     setIds(Ids);
     console.log("this is all ids",Ids);
+
+
   }
 
   // console.log(getIds);
+
+
+  // download functionality code .
+  const [profile,setprofile ] =useState([]);
+
+  
+  const {query:id}=router;
+  // console.log("idd",id.ids);
+
+  
+  function handleDownloadPDF() {
+    const doc = new jsPDF('p', 'px', 'a1');
+    // const html = document.documentElement.innerHTML;
+    const html = document.getElementById('pdf-content');
+    doc.html(html, {
+      callback: function () {
+        doc.save('my-pdf-file.pdf'); 
+      }
+    });
+  }
+
 
   return (
     <>
@@ -145,8 +197,7 @@ const Manageuserdash = () => {
             </div>
           </form>
 
-          <button className="px-5 rounded bg-orange-400 py-2"  onClick={handleUserlist}>
-
+          <button className="px-5 rounded bg-orange-400 py-2" onClick={handleDownloadPDF} >
             <span className="flex text-white" href="#">
               <svg
                 className="mr-2 mt-1"
@@ -328,6 +379,8 @@ const Manageuserdash = () => {
                       //     query: { id: item.id },
                       //   });
                       // }}
+                      onClick={handleDownloadPDF}
+                      id="down1"
                     >
                       <path
                         d="M12.0007 9.4987V11.9987H2.00065V9.4987H0.333984V11.9987C0.333984 12.9154 1.08398 13.6654 2.00065 13.6654H12.0007C12.9173 13.6654 13.6673 12.9154 13.6673 11.9987V9.4987H12.0007ZM11.1673 6.16536L9.99232 4.99036L7.83398 7.14036V0.332031H6.16732V7.14036L4.00898 4.99036L2.83398 6.16536L7.00065 10.332L11.1673 6.16536Z"
@@ -423,7 +476,62 @@ const Manageuserdash = () => {
             </div>
           </div>
         </div>
+
+        <div>              
+              <table className="table table-auto  border-collapse border " id="pdf-content">
+                <thead>
+                <tr>
+                    <th className="border ">Id</th>
+                    <th className="border "> First Name</th>
+                    <th className="border ">Last name</th>
+                    <th className="border ">Email</th>
+
+                    <th className="border ">Color</th>
+                    <th className="border ">Father Name</th>
+                    <th className="border ">Height</th>
+
+                    <th className="border ">Mother Name</th>
+                    <th className="border ">Salary </th>
+                    <th className="border ">address</th>
+                    <th className="border ">birth_time</th>
+                    <th className="border ">birthplace</th>
+                    <th className="border ">date_of_birth</th>
+                    
+
+                </tr><hr/>
+                </thead>
+                    {
+                      downloadProfile.map((item)=>{
+                        return(
+                          <>
+                        <tbody className=" leading-10">
+                        <tr className="pt-10 mt-10 leading-6">
+                          <td>{item.id}</td>
+                          <td className="border ">{item.attributes.first_name}</td>
+                          <td className="border ">{item.attributes.last_name}</td>
+                          <td className="border ">{item.attributes.email}</td>
+                          <td className="border ">{item.attributes.Color}</td>
+                          <td className="border ">{item.attributes.father_name}</td>
+                          <td className="border ">{item.attributes.Height}</td>
+                          <td className="border ">{item.attributes.mother_name}</td>
+                          <td className="border ">{item.attributes.Salary_monthly_income}</td>
+                          <td className="border ">{item.attributes.address}</td>
+                          <td className="border ">{item.attributes.birth_time}</td>
+                          <td className="border ">{item.attributes.birthplace}</td>
+                          <td className="border ">{item.attributes.date_of_birth}</td>
+                        </tr>
+                        </tbody>
+                        </>
+                        );
+                      })
+                    }
+            </table>
+
+       </div>
+
       </div>
+      
+      
     </>
   );
 };

@@ -86,10 +86,8 @@ const App=()=>
             pdf.save('download.pdf');
           });
       }
-
       
       function handleDownloadPDF() {
-       
         const doc = new jsPDF('p', 'px', 'a1');
         const html = document.documentElement.innerHTML;
         doc.html(html, {
