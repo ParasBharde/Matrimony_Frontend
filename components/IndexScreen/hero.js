@@ -139,7 +139,7 @@ const Hero = (props) => {
                   className="relative max-md:right-10 right-[2rem]"
                 >
                   <Image
-                    className="rounded-full max-w-[50px]"
+                    className="rounded-full max-w-[45px]"
                     loader={imgLoader}
                     src={
                       userProfile != null
