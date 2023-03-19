@@ -6,27 +6,27 @@ import axios from "axios";
 import profile from "@/assets/profile.png";
 import { useRouter } from "next/router";
 
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
-import { Document, Page, View } from 'react-pdf';
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
+import { Document, Page, View } from "react-pdf";
 
 // import 'jspdf-autotable';
-
 
 const Manageuserdash = () => {
   const router = useRouter();
   // const storage = useStorage();
 
-  const [profiles, setProfiles] = useState([])
-  const [search, setSearch] = useState('');
-  const [profileToShow, setProfileToShow] = useState([])
+  const [profiles, setProfiles] = useState([]);
+  const [search, setSearch] = useState("");
+  const [profileToShow, setProfileToShow] = useState([]);
+  const [length, setLength] = useState(0);
+  const [total, setTotal] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const [length,setLength]=useState(0)
-  const [total,setTotal]=useState(0)
+  const [downloadedProfile, setDownloadedProfile] = useState([]);
+  const [ids, setIds] = useState([]);
 
-  const [currentPage,setCurrentPage]=useState(1)
-  
-  const [downloadProfile, setDownloadProfile] = useState([])
+  const [downloadProfile, setDownloadProfile] = useState([]);
 
   const getAllProfiles = () => {
     var config = {
@@ -58,7 +58,6 @@ const Manageuserdash = () => {
       )
       .then((response) => {
         let data = response.data.data;
-        // console.log("setDownloadedProfile", data);
         setDownloadedProfile(data);
       })
       .catch((error) => {
@@ -70,7 +69,9 @@ const Manageuserdash = () => {
     let count = 0;
     if (downloadedProfile.length > 0) {
       for (let i = 0; i < downloadedProfile.length; i++) {
-        if (downloadedProfile[i].attributes.user_profiles?.data?.[0]?.id == id) {
+        if (
+          downloadedProfile[i].attributes.user_profiles?.data?.[0]?.id == id
+        ) {
           count++;
         }
       }
@@ -112,43 +113,50 @@ const Manageuserdash = () => {
   const [selectedRows, setSelectedRows] = useState(
     Array(profileToShow.length).fill(false)
   );
+  const [isMultipleRowSelected, setIsMultipleRowSelected] = useState(false);
 
   // console.log("hello",selectedRows)
+
+  useEffect(() => {
+    if(selectedRows.length > 0) {
+      let selectedRowsCount = 0;
+      for(let i=0; i<selectedRows.length; i++) {
+        if(selectedRows[i] == true) {
+          selectedRowsCount++;
+          if(selectedRowsCount >= 2) {
+            setIsMultipleRowSelected(true);
+            break;
+          }
+        }
+      }
+    }
+  },[selectedRows])
+
   const handleHeaderCheckboxChange = (event) => {
     const isChecked = event.target.checked;
     setSelectedRows(Array(profileToShow.length).fill(isChecked));
-  if(isChecked){getAllIds()}
-
-    // console.log("welcome ",event.target.id);
+    if (isChecked) {
+      getAllIds();
+    } else if(!isChecked) {
+      setIds([]);
+    }
   };
 
-
-
-  const [ids, setIds ]=useState([]);
-
-  // const handleUserlist = () => {
-  //   router.push({
-  //     pathname: "/manageuserdash",
-  //     query: { ids },
-  //   },"/manageuserdash");
-  // }
   
-  const getIds=(id)=>{
-    let totalprofile=[...ids, id];
+  const getIds = (id) => {
+    let totalprofile = [...ids, id];
     console.log(totalprofile);
     setIds(totalprofile);
+  };
+
+  const removeIdFromDownload = (profileId) => {
+    let newIds = ids.filter((item) => item != profileId);
+    console.log(newIds);
+    setIds(newIds);
   }
 
-  useEffect(()=>{
-  //   for (let j = 0; j < res.length; j++) {
-  //     if (id.ids == res[j].id) {
-  //       console.log("new data", res[j]);
-  //       filteredRes.push(res[j]);
-  //     }
-  //   }
-  // } else {
-    
-  let filteredRes=[]
+  useEffect(() => {
+    let filteredRes = [];
     for (let i = 0; i < ids.length; i++) {
       for (let j = 0; j < profiles.length; j++) {
         if (ids[i] == profiles[j].id) {
@@ -158,42 +166,35 @@ const Manageuserdash = () => {
       }
     }
     setDownloadProfile(filteredRes);
+  }, [ids]);
 
-    console.log("text",filteredRes);
-
-  },[ids])
-  const getAllIds=()=>{
-    let Ids=profileToShow.map((item)=>{
-      return item.id
-    })
+  // selet all profiles to download
+  const getAllIds = () => {
+    let Ids = profileToShow.map((item) => {
+      return item.id;
+    });
     setIds(Ids);
-    console.log("this is all ids",Ids);
-
-
-  }
-
-  // console.log(getIds);
+    console.log("this is all ids", Ids);
+  };
 
 
   // download functionality code .
-  const [profile,setprofile ] =useState([]);
-
-  
-  const {query:id}=router;
+  // const { query: id } = router;
   // console.log("idd",id.ids);
 
-  
   function handleDownloadPDF() {
-    const doc = new jsPDF('p', 'px', 'a1');
+    const doc = new jsPDF("p", "px", "a1");
     // const html = document.documentElement.innerHTML;
-    const html = document.getElementById('pdf-content');
+    const html = document.getElementById("pdf-content");
     doc.html(html, {
       callback: function () {
-        doc.save('my-pdf-file.pdf'); 
-      }
+        doc.save("my-pdf-file.pdf");
+      },
     });
+    setIds([]);
+    setSelectedRows(Array(profileToShow.length).fill(false));
+    setIsMultipleRowSelected(false);
   }
-
 
   return (
     <>
@@ -230,7 +231,11 @@ const Manageuserdash = () => {
             </div>
           </form>
 
-          <button className="px-5 rounded bg-orange-400 py-2" onClick={handleDownloadPDF} >
+          <button
+            className={`px-5 rounded bg-orange-400 py-2 ${isMultipleRowSelected==false && "cursor-not-allowed"}`}
+            disabled={isMultipleRowSelected == true ? false : true}
+            onClick={handleDownloadPDF}
+          >
             <span className="flex text-white" href="#">
               <svg
                 className="mr-2 mt-1"
@@ -239,8 +244,6 @@ const Manageuserdash = () => {
                 viewBox="0 0 17 16"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-
-                
               >
                 <path
                   d="M14.5 11V14H2.5V11H0.5V14C0.5 15.1 1.4 16 2.5 16H14.5C15.6 16 16.5 15.1 16.5 14V11H14.5ZM13.5 7L12.09 5.59L9.5 8.17V0H7.5V8.17L4.91 5.59L3.5 7L8.5 12L13.5 7Z"
@@ -263,7 +266,6 @@ const Manageuserdash = () => {
                 scope="col"
                 className="px-6 py-3 text-gray-600 font-normal pr-6 text-left text-sm tracking-normal leading-4"
               >
-
                 <input
                   placeholder="check box"
                   type="checkbox"
@@ -271,18 +273,7 @@ const Manageuserdash = () => {
                   id="header-checkbox"
                   className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white focus:outline-none  focus:ring-2  focus:ring-gray-400"
                   onChange={handleHeaderCheckboxChange}
-
-                  // onClick={() => {
-                  //       router.push({
-                  //         pathname: "/userdatanew/datanew/",
-                  //         // query: { id: item.id },
-                  //       });             
-                  //     }}
-
-                  // onClick={getIds}
-
                 />
-                
               </th>
               <th scope="col" className="px-6 py-3">
                 Reg.No
@@ -315,30 +306,21 @@ const Manageuserdash = () => {
               return (
                 <tr key={index} className="bg-white border-b">
                   <td className="px-6 py-4">
-                    <input 
+                    <input
                       placeholder="check box"
                       type="checkbox"
                       className="row-checkbox cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white focus:outline-none focus:ring-2  focus:ring-gray-400"
                       checked={selectedRows[index]}
-                      onChange={() => {
+                      onChange={(event) => {
                         const newSelectedRows = [...selectedRows];
                         newSelectedRows[index] = !newSelectedRows[index];
                         setSelectedRows(newSelectedRows);
-                        getIds(item.id);
-
+                        if(event.target.checked) {
+                          getIds(item.id);
+                        } else {
+                          removeIdFromDownload(item.id);
+                        }
                       }}
-                      
-
-                      // onClick={pdfdata} // this is for testing.
-
-                      // onClick={() => {
-                      //   router.push({
-                      //     pathname: "/userdatanew/data1",
-                      //     // pathname: "/profiledetail/[id]",
-                      //     query: { id: item.id }, 
-                      //   }); }
-                      // }
-                      
                     />
                   </td>
                   <td
@@ -376,9 +358,7 @@ const Manageuserdash = () => {
                   <td className="px-6 py-4">{item.attributes.father_name}</td>
                   <td className="px-6 py-4">{item.attributes.date_of_birth}</td>
                   <td className="px-6 py-4">{item.attributes.phone_number}</td>
-                  <td className="px-6 py-4 ">
-                    {getDownlodCount(item.id)}
-                  </td>
+                  <td className="px-6 py-4 ">{getDownlodCount(item.id)}</td>
 
                   <td className="px-6 py-4 flex items-center justify-evenly">
                     <svg
@@ -389,10 +369,13 @@ const Manageuserdash = () => {
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                       onClick={() => {
-                        router.push({
-                          pathname: "/admin/profile",
-                          query: { id: item.id, prevUrl: router.pathname }
-                        },"/admin/profile");
+                        router.push(
+                          {
+                            pathname: "/admin/profile",
+                            query: { id: item.id, prevUrl: router.pathname },
+                          },
+                          "/admin/profile"
+                        );
                       }}
                     >
                       <path
@@ -407,13 +390,6 @@ const Manageuserdash = () => {
                       fill="none"
                       className="cursor-pointer"
                       xmlns="http://www.w3.org/2000/svg"
-        
-                      // onClick={() => {
-                      //   router.push({
-                      //     pathname:"/userdatanew/datanew/",
-                      //     query: { id: item.id },
-                      //   });
-                      // }}
                       onClick={handleDownloadPDF}
                       id="down1"
                     >
@@ -516,61 +492,61 @@ const Manageuserdash = () => {
           </div>
         </div>
 
-        <div>              
-              <table className="table table-auto  border-collapse border " id="pdf-content">
-                <thead>
-                <tr>
-                    <th className="border ">Id</th>
-                    <th className="border "> First Name</th>
-                    <th className="border ">Last name</th>
-                    <th className="border ">Email</th>
+        <div>
+          <table
+            className="table table-auto  border-collapse border "
+            id="pdf-content"
+          >
+            <thead>
+              <tr>
+                <th className="border ">Id</th>
+                <th className="border "> First Name</th>
+                <th className="border ">Last name</th>
+                <th className="border ">Email</th>
 
-                    <th className="border ">Color</th>
-                    <th className="border ">Father Name</th>
-                    <th className="border ">Height</th>
+                <th className="border ">Color</th>
+                <th className="border ">Father Name</th>
+                <th className="border ">Height</th>
 
-                    <th className="border ">Mother Name</th>
-                    <th className="border ">Salary </th>
-                    <th className="border ">address</th>
-                    <th className="border ">birth_time</th>
-                    <th className="border ">birthplace</th>
-                    <th className="border ">date_of_birth</th>
-                    
-
-                </tr><hr/>
-                </thead>
-                    {
-                      downloadProfile.map((item)=>{
-                        return(
-                          <>
-                        <tbody className=" leading-10">
-                        <tr className="pt-10 mt-10 leading-6">
-                          <td>{item.id}</td>
-                          <td className="border ">{item.attributes.first_name}</td>
-                          <td className="border ">{item.attributes.last_name}</td>
-                          <td className="border ">{item.attributes.email}</td>
-                          <td className="border ">{item.attributes.Color}</td>
-                          <td className="border ">{item.attributes.father_name}</td>
-                          <td className="border ">{item.attributes.Height}</td>
-                          <td className="border ">{item.attributes.mother_name}</td>
-                          <td className="border ">{item.attributes.Salary_monthly_income}</td>
-                          <td className="border ">{item.attributes.address}</td>
-                          <td className="border ">{item.attributes.birth_time}</td>
-                          <td className="border ">{item.attributes.birthplace}</td>
-                          <td className="border ">{item.attributes.date_of_birth}</td>
-                        </tr>
-                        </tbody>
-                        </>
-                        );
-                      })
-                    }
-            </table>
-
-       </div>
-
+                <th className="border ">Mother Name</th>
+                <th className="border ">Salary </th>
+                <th className="border ">address</th>
+                <th className="border ">birth_time</th>
+                <th className="border ">birthplace</th>
+                <th className="border ">date_of_birth</th>
+              </tr>
+              {/* <hr /> */}
+            </thead>
+            {downloadProfile.map((item, index) => {
+              return (
+                <>
+                  <tbody key={`${index}${item.id}`} className=" leading-10">
+                    <tr className="pt-10 mt-10 leading-6">
+                      <td>{item.id}</td>
+                      <td className="border ">{item.attributes.first_name}</td>
+                      <td className="border ">{item.attributes.last_name}</td>
+                      <td className="border ">{item.attributes.email}</td>
+                      <td className="border ">{item.attributes.Color}</td>
+                      <td className="border ">{item.attributes.father_name}</td>
+                      <td className="border ">{item.attributes.Height}</td>
+                      <td className="border ">{item.attributes.mother_name}</td>
+                      <td className="border ">
+                        {item.attributes.Salary_monthly_income}
+                      </td>
+                      <td className="border ">{item.attributes.address}</td>
+                      <td className="border ">{item.attributes.birth_time}</td>
+                      <td className="border ">{item.attributes.birthplace}</td>
+                      <td className="border ">
+                        {item.attributes.date_of_birth}
+                      </td>
+                    </tr>
+                  </tbody>
+                </>
+              );
+            })}
+          </table>
+        </div>
       </div>
-      
-      
     </>
   );
 };
