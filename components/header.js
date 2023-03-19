@@ -31,6 +31,8 @@ const Header = () => {
   const [isMenuDropDownOpen, setMenuDropDownOpen] = useState(false);
   const [isMenuDropDownOpen1, setMenuDropDownOpen1] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
+  const [isAdminLogin, setAdminLogin] = useState();
+
 
   useEffect(() => {
     async function getUser() {
@@ -49,6 +51,14 @@ const Header = () => {
     }
     getUser();
   }, [id]);
+
+  useEffect(() => {
+    if(pathname == "/admin/welcome") {
+      setAdminLogin(true);
+    } else {
+      setAdminLogin(false);
+    }
+  },[pathname])
 
   const closeHoverMenu1 = () => {
     setMenuDropDownOpen1(false);
@@ -89,7 +99,7 @@ const Header = () => {
           >
             Home
           </p>
-          <p
+          {!isAdminLogin && <><p
             className="cursor-pointer"
             onClick={() => {
               router.push("/portfolio/portfolio");
@@ -104,7 +114,7 @@ const Header = () => {
             }}
           >
             Pricing Plan
-          </p>
+          </p> </>}
           <p
             className="cursor-pointer"
             onClick={() => {

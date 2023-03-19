@@ -24,31 +24,40 @@ const DownlodedProfiles = () => {
   const storage = useStorage();
 
   useEffect(() => {
-    if(storage) {
-        console.log("storage", storage.id);
-        axios.get('http://172.105.57.17:1337/api/download-profiles?populate=*&populete=user_profiles')
+    if (storage) {
+      console.log("storage", storage.id);
+      axios
+        .get(
+          "http://172.105.57.17:1337/api/download-profiles?populate=*&populete=user_profiles"
+        )
         .then((response) => {
           let data = response.data.data;
           let downloadedData = data.filter((items) => {
-            return items.attributes.users_permissions_user.data.id == storage.id;
+            return (
+              items.attributes.users_permissions_user.data.id == storage.id
+            );
           });
 
           let uniqueProfileId = [];
           let UniqueProfiles = downloadedData.filter((item) => {
-            let res = uniqueProfileId.find(id => id == item.attributes.user_profiles?.data?.[0]?.id)
-            if(!res) {
-              uniqueProfileId.push(item.attributes.user_profiles?.data?.[0]?.id);
+            let res = uniqueProfileId.find(
+              (id) => id == item.attributes.user_profiles?.data?.[0]?.id
+            );
+            if (!res) {
+              uniqueProfileId.push(
+                item.attributes.user_profiles?.data?.[0]?.id
+              );
               return item;
             }
-          })
+          });
           setAllProfiles(UniqueProfiles);
           // setdownloadedProfilese(UniqueProfiles);
         })
         .catch((error) => {
-            console.log("error", error);
-        })
+          console.log("error", error);
+        });
     }
-  },[storage])
+  }, [storage]);
 
   useEffect(() => {
     issetList(false);
@@ -77,7 +86,9 @@ const DownlodedProfiles = () => {
   const handlePagination = (currentPage) => {
     let indexOfLastProfile = currentPage * profilePerPage;
     let indexOfFirstProfile = indexOfLastProfile - profilePerPage;
-    setdownloadedProfilese(allprofiles.slice(indexOfFirstProfile, indexOfLastProfile));
+    setdownloadedProfilese(
+      allprofiles.slice(indexOfFirstProfile, indexOfLastProfile)
+    );
   };
 
   const nextPage = () => {
@@ -111,660 +122,653 @@ const DownlodedProfiles = () => {
     <>
       <div style={{ background: "#E0E0E0" }}>
         <Breadcrumb screens={["Home", "Downloaded Profiles"]} />
-        <div className=" px-4 py-3 sm:px-[6rem] ">
-          <div className="lg:flex lg:flex-1 lg:items-center lg:justify-between sm:flex sm:flex-1 sm:items-center sm:justify-between ">
-            <div>
-              <span className="text-sm text-gray-700">
-                {currentPage == 1 ? "1" : `${(currentPage - 1) * 10 + 1}`}-
-                {total <= currentPage * 10 ? total : currentPage * 10}{" "}
-                <span className="font-semibold text-gray-900">of</span>{" "}
-                {totalPage}{" "}
-                <span className="font-semibold text-gray-900">Pages</span>
-              </span>
-            </div>
-            <div>
-              <nav
-                className="isolate inline-flex -space-x-px max-md:relative max-md:top-[-2rem] left-[18rem] max-md:gap-2  "
-                aria-label="Pagination"
-              >
-                <span className="px-2 py-1 max-md:hidden ">View by :</span>
-                <button
-                  className="flex max-md:flex "
-                  onClick={() => {
-                    issetList(!isList);
-                    issetGrid(!isGrid);
-                  }}
+        {downloadedProfilese.length > 0 ? (
+          <div className=" px-4 py-3 sm:px-[6rem] ">
+            <div className="lg:flex lg:flex-1 lg:items-center lg:justify-between sm:flex sm:flex-1 sm:items-center sm:justify-between ">
+              <div>
+                <span className="text-sm text-gray-700">
+                  {currentPage == 1 ? "1" : `${(currentPage - 1) * 10 + 1}`}-
+                  {total <= currentPage * 10 ? total : currentPage * 10}{" "}
+                  <span className="font-semibold text-gray-900">of</span>{" "}
+                  {totalPage}{" "}
+                  <span className="font-semibold text-gray-900">Pages</span>
+                </span>
+              </div>
+              <div>
+                <nav
+                  className="isolate inline-flex -space-x-px max-md:relative max-md:top-[-2rem] left-[18rem] max-md:gap-2  "
+                  aria-label="Pagination"
                 >
-                  {isGrid ? (
-                    <>
-                      <svg
-                        width="34"
-                        height="34"
-                        viewBox="0 0 34 34"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <g filter="url(#filter0_d_62_22856)">
-                          <rect
-                            x="2"
-                            y="2"
-                            width="30"
-                            height="30"
-                            rx="2"
-                            fill="white"
-                            // className="max-md:bg-red-800"
-                          />
-                          <g clipPath="url(#clip0_62_22856)">
-                            <path
-                              d="M9 13H13V9H9V13ZM15 25H19V21H15V25ZM9 25H13V21H9V25ZM9 19H13V15H9V19ZM15 19H19V15H15V19ZM21 9V13H25V9H21ZM15 13H19V9H15V13ZM21 19H25V15H21V19ZM21 25H25V21H21V25Z"
-                              fill="#F98B1D"
-                            />
-                          </g>
-                        </g>
-                        <defs>
-                          <filter
-                            id="filter0_d_62_22856"
-                            x="0"
-                            y="0"
-                            width="34"
-                            height="34"
-                            filterUnits="userSpaceOnUse"
-                            colorInterpolationFilters="sRGB"
-                          >
-                            <feFlood
-                              floodOpacity="0"
-                              result="BackgroundImageFix"
-                            />
-                            <feColorMatrix
-                              in="SourceAlpha"
-                              type="matrix"
-                              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                              result="hardAlpha"
-                            />
-                            <feOffset />
-                            <feGaussianBlur stdDeviation="1" />
-                            <feComposite in2="hardAlpha" operator="out" />
-                            <feColorMatrix
-                              type="matrix"
-                              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"
-                            />
-                            <feBlend
-                              mode="normal"
-                              in2="BackgroundImageFix"
-                              result="effect1_dropShadow_62_22856"
-                            />
-                            <feBlend
-                              mode="normal"
-                              in="SourceGraphic"
-                              in2="effect1_dropShadow_62_22856"
-                              result="shape"
-                            />
-                          </filter>
-                          <clipPath id="clip0_62_22856">
+                  <span className="px-2 py-1 max-md:hidden ">View by :</span>
+                  <button
+                    className="flex max-md:flex "
+                    onClick={() => {
+                      issetList(!isList);
+                      issetGrid(!isGrid);
+                    }}
+                  >
+                    {isGrid ? (
+                      <>
+                        <svg
+                          width="34"
+                          height="34"
+                          viewBox="0 0 34 34"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g filter="url(#filter0_d_62_22856)">
                             <rect
-                              width="24"
-                              height="24"
+                              x="2"
+                              y="2"
+                              width="30"
+                              height="30"
+                              rx="2"
                               fill="white"
-                              transform="translate(5 5)"
+                              // className="max-md:bg-red-800"
                             />
-                          </clipPath>
-                        </defs>
-                      </svg>
-                    </>
-                  ) : (
-                    <>
-                      <svg
-                        width="34"
-                        height="34"
-                        viewBox="0 0 34 34"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <g filter="url(#filter0_d_313_5302)">
-                          <rect
-                            x="2"
-                            y="2"
-                            width="30"
-                            height="30"
-                            rx="2"
-                            fill="white"
-                          />
-                          <g clipPath="url(#clip0_313_5302)">
-                            <path
-                              d="M9 13H13V9H9V13ZM15 25H19V21H15V25ZM9 25H13V21H9V25ZM9 19H13V15H9V19ZM15 19H19V15H15V19ZM21 9V13H25V9H21ZM15 13H19V9H15V13ZM21 19H25V15H21V19ZM21 25H25V21H21V25Z"
-                              fill="#8E8E8E"
-                            />
+                            <g clipPath="url(#clip0_62_22856)">
+                              <path
+                                d="M9 13H13V9H9V13ZM15 25H19V21H15V25ZM9 25H13V21H9V25ZM9 19H13V15H9V19ZM15 19H19V15H15V19ZM21 9V13H25V9H21ZM15 13H19V9H15V13ZM21 19H25V15H21V19ZM21 25H25V21H21V25Z"
+                                fill="#F98B1D"
+                              />
+                            </g>
                           </g>
-                        </g>
-                        <defs>
-                          <filter
-                            id="filter0_d_313_5302"
-                            x="0"
-                            y="0"
-                            width="34"
-                            height="34"
-                            filterUnits="userSpaceOnUse"
-                            colorInterpolationFilters="sRGB"
-                          >
-                            <feFlood
-                              floodOpacity="0"
-                              result="BackgroundImageFix"
-                            />
-                            <feColorMatrix
-                              in="SourceAlpha"
-                              type="matrix"
-                              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                              result="hardAlpha"
-                            />
-                            <feOffset />
-                            <feGaussianBlur stdDeviation="1" />
-                            <feComposite in2="hardAlpha" operator="out" />
-                            <feColorMatrix
-                              type="matrix"
-                              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"
-                            />
-                            <feBlend
-                              mode="normal"
-                              in2="BackgroundImageFix"
-                              result="effect1_dropShadow_313_5302"
-                            />
-                            <feBlend
-                              mode="normal"
-                              in="SourceGraphic"
-                              in2="effect1_dropShadow_313_5302"
-                              result="shape"
-                            />
-                          </filter>
-                          <clipPath id="clip0_313_5302">
+                          <defs>
+                            <filter
+                              id="filter0_d_62_22856"
+                              x="0"
+                              y="0"
+                              width="34"
+                              height="34"
+                              filterUnits="userSpaceOnUse"
+                              colorInterpolationFilters="sRGB"
+                            >
+                              <feFlood
+                                floodOpacity="0"
+                                result="BackgroundImageFix"
+                              />
+                              <feColorMatrix
+                                in="SourceAlpha"
+                                type="matrix"
+                                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                                result="hardAlpha"
+                              />
+                              <feOffset />
+                              <feGaussianBlur stdDeviation="1" />
+                              <feComposite in2="hardAlpha" operator="out" />
+                              <feColorMatrix
+                                type="matrix"
+                                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"
+                              />
+                              <feBlend
+                                mode="normal"
+                                in2="BackgroundImageFix"
+                                result="effect1_dropShadow_62_22856"
+                              />
+                              <feBlend
+                                mode="normal"
+                                in="SourceGraphic"
+                                in2="effect1_dropShadow_62_22856"
+                                result="shape"
+                              />
+                            </filter>
+                            <clipPath id="clip0_62_22856">
+                              <rect
+                                width="24"
+                                height="24"
+                                fill="white"
+                                transform="translate(5 5)"
+                              />
+                            </clipPath>
+                          </defs>
+                        </svg>
+                      </>
+                    ) : (
+                      <>
+                        <svg
+                          width="34"
+                          height="34"
+                          viewBox="0 0 34 34"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g filter="url(#filter0_d_313_5302)">
                             <rect
-                              width="24"
-                              height="24"
+                              x="2"
+                              y="2"
+                              width="30"
+                              height="30"
+                              rx="2"
                               fill="white"
-                              transform="translate(5 5)"
                             />
-                          </clipPath>
-                        </defs>
-                      </svg>
-                    </>
-                  )}
-                </button>
-                <button
-                  onClick={() => {
-                    issetGrid(!isGrid);
-                    issetList(!isList);
-                  }}
-                >
-                  {isList ? (
-                    <>
-                      <svg
-                        width="34"
-                        height="34"
-                        viewBox="0 0 34 34"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <g filter="url(#filter0_d_313_5306)">
-                          <rect
-                            x="2"
-                            y="2"
-                            width="30"
-                            height="30"
-                            rx="2"
-                            fill="white"
-                            shapeRendering="crispEdges"
-                          />
-                          <g clipPath="url(#clip0_313_5306)">
-                            <path
-                              d="M24 18H10C8.9 18 8 18.9 8 20V24C8 25.1 8.9 26 10 26H24C25.1 26 26 25.1 26 24V20C26 18.9 25.1 18 24 18ZM24 24H10V20H24V24Z"
-                              fill="#F98B1D"
-                            />
-                            <path
-                              d="M24 8H10C8.9 8 8 8.9 8 10V14C8 15.1 8.9 16 10 16H24C25.1 16 26 15.1 26 14V10C26 8.9 25.1 8 24 8ZM24 14H10V10H24V14Z"
-                              fill="#F98B1D"
-                            />
+                            <g clipPath="url(#clip0_313_5302)">
+                              <path
+                                d="M9 13H13V9H9V13ZM15 25H19V21H15V25ZM9 25H13V21H9V25ZM9 19H13V15H9V19ZM15 19H19V15H15V19ZM21 9V13H25V9H21ZM15 13H19V9H15V13ZM21 19H25V15H21V19ZM21 25H25V21H21V25Z"
+                                fill="#8E8E8E"
+                              />
+                            </g>
                           </g>
-                        </g>
-                        <defs>
-                          <filter
-                            id="filter0_d_313_5306"
-                            x="0"
-                            y="0"
-                            width="34"
-                            height="34"
-                            filterUnits="userSpaceOnUse"
-                            colorInterpolationFilters="sRGB"
-                          >
-                            <feFlood
-                              floodOpacity="0"
-                              result="BackgroundImageFix"
-                            />
-                            <feColorMatrix
-                              in="SourceAlpha"
-                              type="matrix"
-                              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                              result="hardAlpha"
-                            />
-                            <feOffset />
-                            <feGaussianBlur stdDeviation="1" />
-                            <feComposite in2="hardAlpha" operator="out" />
-                            <feColorMatrix
-                              type="matrix"
-                              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"
-                            />
-                            <feBlend
-                              mode="normal"
-                              in2="BackgroundImageFix"
-                              result="effect1_dropShadow_313_5306"
-                            />
-                            <feBlend
-                              mode="normal"
-                              in="SourceGraphic"
-                              in2="effect1_dropShadow_313_5306"
-                              result="shape"
-                            />
-                          </filter>
-                          <clipPath id="clip0_313_5306">
+                          <defs>
+                            <filter
+                              id="filter0_d_313_5302"
+                              x="0"
+                              y="0"
+                              width="34"
+                              height="34"
+                              filterUnits="userSpaceOnUse"
+                              colorInterpolationFilters="sRGB"
+                            >
+                              <feFlood
+                                floodOpacity="0"
+                                result="BackgroundImageFix"
+                              />
+                              <feColorMatrix
+                                in="SourceAlpha"
+                                type="matrix"
+                                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                                result="hardAlpha"
+                              />
+                              <feOffset />
+                              <feGaussianBlur stdDeviation="1" />
+                              <feComposite in2="hardAlpha" operator="out" />
+                              <feColorMatrix
+                                type="matrix"
+                                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"
+                              />
+                              <feBlend
+                                mode="normal"
+                                in2="BackgroundImageFix"
+                                result="effect1_dropShadow_313_5302"
+                              />
+                              <feBlend
+                                mode="normal"
+                                in="SourceGraphic"
+                                in2="effect1_dropShadow_313_5302"
+                                result="shape"
+                              />
+                            </filter>
+                            <clipPath id="clip0_313_5302">
+                              <rect
+                                width="24"
+                                height="24"
+                                fill="white"
+                                transform="translate(5 5)"
+                              />
+                            </clipPath>
+                          </defs>
+                        </svg>
+                      </>
+                    )}
+                  </button>
+                  <button
+                    onClick={() => {
+                      issetGrid(!isGrid);
+                      issetList(!isList);
+                    }}
+                  >
+                    {isList ? (
+                      <>
+                        <svg
+                          width="34"
+                          height="34"
+                          viewBox="0 0 34 34"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g filter="url(#filter0_d_313_5306)">
                             <rect
-                              width="24"
-                              height="24"
+                              x="2"
+                              y="2"
+                              width="30"
+                              height="30"
+                              rx="2"
                               fill="white"
-                              transform="translate(5 5)"
+                              shapeRendering="crispEdges"
                             />
-                          </clipPath>
-                        </defs>
-                      </svg>
-                    </>
-                  ) : (
-                    <>
-                      <svg
-                        width="34"
-                        height="34"
-                        viewBox="0 0 34 34"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <g filter="url(#filter0_d_62_22860)">
-                          <rect
-                            x="2"
-                            y="2"
-                            width="30"
-                            height="30"
-                            rx="2"
-                            fill="white"
-                            shapeRendering="crispEdges"
-                          />
-                          <g clipPath="url(#clip0_62_22860)">
-                            <path
-                              d="M24 18H10C8.9 18 8 18.9 8 20V24C8 25.1 8.9 26 10 26H24C25.1 26 26 25.1 26 24V20C26 18.9 25.1 18 24 18ZM24 24H10V20H24V24Z"
-                              fill="#1E1E1E"
-                              fillOpacity="0.5"
-                            />
-                            <path
-                              d="M24 8H10C8.9 8 8 8.9 8 10V14C8 15.1 8.9 16 10 16H24C25.1 16 26 15.1 26 14V10C26 8.9 25.1 8 24 8ZM24 14H10V10H24V14Z"
-                              fill="#1E1E1E"
-                              fillOpacity="0.5"
-                            />
+                            <g clipPath="url(#clip0_313_5306)">
+                              <path
+                                d="M24 18H10C8.9 18 8 18.9 8 20V24C8 25.1 8.9 26 10 26H24C25.1 26 26 25.1 26 24V20C26 18.9 25.1 18 24 18ZM24 24H10V20H24V24Z"
+                                fill="#F98B1D"
+                              />
+                              <path
+                                d="M24 8H10C8.9 8 8 8.9 8 10V14C8 15.1 8.9 16 10 16H24C25.1 16 26 15.1 26 14V10C26 8.9 25.1 8 24 8ZM24 14H10V10H24V14Z"
+                                fill="#F98B1D"
+                              />
+                            </g>
                           </g>
-                        </g>
-                        <defs>
-                          <filter
-                            id="filter0_d_62_22860"
-                            x="0"
-                            y="0"
-                            width="34"
-                            height="34"
-                            filterUnits="userSpaceOnUse"
-                            colorInterpolationFilters="sRGB"
-                          >
-                            <feFlood
-                              floodOpacity="0"
-                              result="BackgroundImageFix"
-                            />
-                            <feColorMatrix
-                              in="SourceAlpha"
-                              type="matrix"
-                              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                              result="hardAlpha"
-                            />
-                            <feOffset />
-                            <feGaussianBlur stdDeviation="1" />
-                            <feComposite in2="hardAlpha" operator="out" />
-                            <feColorMatrix
-                              type="matrix"
-                              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"
-                            />
-                            <feBlend
-                              mode="normal"
-                              in2="BackgroundImageFix"
-                              result="effect1_dropShadow_62_22860"
-                            />
-                            <feBlend
-                              mode="normal"
-                              in="SourceGraphic"
-                              in2="effect1_dropShadow_62_22860"
-                              result="shape"
-                            />
-                          </filter>
-                          <clipPath id="clip0_62_22860">
+                          <defs>
+                            <filter
+                              id="filter0_d_313_5306"
+                              x="0"
+                              y="0"
+                              width="34"
+                              height="34"
+                              filterUnits="userSpaceOnUse"
+                              colorInterpolationFilters="sRGB"
+                            >
+                              <feFlood
+                                floodOpacity="0"
+                                result="BackgroundImageFix"
+                              />
+                              <feColorMatrix
+                                in="SourceAlpha"
+                                type="matrix"
+                                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                                result="hardAlpha"
+                              />
+                              <feOffset />
+                              <feGaussianBlur stdDeviation="1" />
+                              <feComposite in2="hardAlpha" operator="out" />
+                              <feColorMatrix
+                                type="matrix"
+                                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"
+                              />
+                              <feBlend
+                                mode="normal"
+                                in2="BackgroundImageFix"
+                                result="effect1_dropShadow_313_5306"
+                              />
+                              <feBlend
+                                mode="normal"
+                                in="SourceGraphic"
+                                in2="effect1_dropShadow_313_5306"
+                                result="shape"
+                              />
+                            </filter>
+                            <clipPath id="clip0_313_5306">
+                              <rect
+                                width="24"
+                                height="24"
+                                fill="white"
+                                transform="translate(5 5)"
+                              />
+                            </clipPath>
+                          </defs>
+                        </svg>
+                      </>
+                    ) : (
+                      <>
+                        <svg
+                          width="34"
+                          height="34"
+                          viewBox="0 0 34 34"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g filter="url(#filter0_d_62_22860)">
                             <rect
-                              width="24"
-                              height="24"
+                              x="2"
+                              y="2"
+                              width="30"
+                              height="30"
+                              rx="2"
                               fill="white"
-                              transform="translate(5 5)"
+                              shapeRendering="crispEdges"
                             />
-                          </clipPath>
-                        </defs>
-                      </svg>
-                    </>
-                  )}
-                </button>
-              </nav>
+                            <g clipPath="url(#clip0_62_22860)">
+                              <path
+                                d="M24 18H10C8.9 18 8 18.9 8 20V24C8 25.1 8.9 26 10 26H24C25.1 26 26 25.1 26 24V20C26 18.9 25.1 18 24 18ZM24 24H10V20H24V24Z"
+                                fill="#1E1E1E"
+                                fillOpacity="0.5"
+                              />
+                              <path
+                                d="M24 8H10C8.9 8 8 8.9 8 10V14C8 15.1 8.9 16 10 16H24C25.1 16 26 15.1 26 14V10C26 8.9 25.1 8 24 8ZM24 14H10V10H24V14Z"
+                                fill="#1E1E1E"
+                                fillOpacity="0.5"
+                              />
+                            </g>
+                          </g>
+                          <defs>
+                            <filter
+                              id="filter0_d_62_22860"
+                              x="0"
+                              y="0"
+                              width="34"
+                              height="34"
+                              filterUnits="userSpaceOnUse"
+                              colorInterpolationFilters="sRGB"
+                            >
+                              <feFlood
+                                floodOpacity="0"
+                                result="BackgroundImageFix"
+                              />
+                              <feColorMatrix
+                                in="SourceAlpha"
+                                type="matrix"
+                                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                                result="hardAlpha"
+                              />
+                              <feOffset />
+                              <feGaussianBlur stdDeviation="1" />
+                              <feComposite in2="hardAlpha" operator="out" />
+                              <feColorMatrix
+                                type="matrix"
+                                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"
+                              />
+                              <feBlend
+                                mode="normal"
+                                in2="BackgroundImageFix"
+                                result="effect1_dropShadow_62_22860"
+                              />
+                              <feBlend
+                                mode="normal"
+                                in="SourceGraphic"
+                                in2="effect1_dropShadow_62_22860"
+                                result="shape"
+                              />
+                            </filter>
+                            <clipPath id="clip0_62_22860">
+                              <rect
+                                width="24"
+                                height="24"
+                                fill="white"
+                                transform="translate(5 5)"
+                              />
+                            </clipPath>
+                          </defs>
+                        </svg>
+                      </>
+                    )}
+                  </button>
+                </nav>
+              </div>
             </div>
-          </div>
 
-          {isList ? (
-            <div className="list_data flex justify-center mt-[2rem] pb-[4rem] ">
-              <table className=" text-sm text-left text-gray-500 divide-y-4 divide-slate-400/[3rem] max-md:hidden  ">
-                <thead
-                  style={{
-                    color: "rgba(30, 30, 30, 0.5)",
-                    fontWeight: "400",
-                    backgroundColor: "#F98B1D",
-                    height: "3rem",
-                  }}
-                  className="text-xs  uppercase"
-                >
-                  <tr>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-gray-600 font-normal pr-6 text-left text-sm tracking-normal leading-4"
-                    >
-                      <input
-                        placeholder="check box"
-                        type="checkbox"
-                        name="chk"
-                        id="header-checkbox"
-                        className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white focus:outline-none  focus:ring-2  focus:ring-gray-400"
-                        onChange={handleHeaderCheckboxChange}
-                      />
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      S.No
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Reg.No
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Name
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Father Name
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Mobile Number
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Date of Birth
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Action
-                    </th>
-                  </tr>
-                </thead>
+            {isList ? (
+              <div className="list_data flex justify-center mt-[2rem] pb-[4rem] ">
+                <table className=" text-sm text-left text-gray-500 divide-y-4 divide-slate-400/[3rem] max-md:hidden  ">
+                  <thead
+                    style={{
+                      color: "rgba(30, 30, 30, 0.5)",
+                      fontWeight: "400",
+                      backgroundColor: "#F98B1D",
+                      height: "3rem",
+                    }}
+                    className="text-xs  uppercase"
+                  >
+                    <tr>
+                      <th
+                        scope="col"
+                        className="px-6 py-3 text-gray-600 font-normal pr-6 text-left text-sm tracking-normal leading-4"
+                      >
+                        <input
+                          placeholder="check box"
+                          type="checkbox"
+                          name="chk"
+                          id="header-checkbox"
+                          className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white focus:outline-none  focus:ring-2  focus:ring-gray-400"
+                          onChange={handleHeaderCheckboxChange}
+                        />
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        S.No
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Reg.No
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Name
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Father Name
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Mobile Number
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Date of Birth
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Action
+                      </th>
+                    </tr>
+                  </thead>
+                  {downloadedProfilese.length > 0 &&
+                    downloadedProfilese.map((profile, index) => {
+                      if (profile.attributes.user_profiles.data == null) {
+                        return;
+                      }
+                      const {
+                        first_name,
+                        last_name,
+                        date_of_birth,
+                        profile_photo,
+                        father_name,
+                        phone_number,
+                      } = profile.attributes.user_profiles.data?.[0].attributes;
+                      console.log("profile", profile);
+                      let id = profile.attributes.user_profiles.data?.[0]?.id;
+
+                      return (
+                        <tbody key={index}>
+                          <tr
+                            className="bg-white border-b cursor-pointer"
+                            onClick={() => {
+                              router.push({
+                                pathname: "/profiledetail/[id]/",
+                                query: { id: id },
+                              });
+                            }}
+                          >
+                            <td className="px-6 py-4">
+                              <input
+                                placeholder="check box"
+                                type="checkbox"
+                                className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white  focus:outline-none focus:ring-2  focus:ring-gray-400"
+                                checked={selectedRows[index]}
+                                onChange={() => {
+                                  const newSelectedRows = [...selectedRows];
+                                  newSelectedRows[index] =
+                                    !newSelectedRows[index];
+                                  setSelectedRows(newSelectedRows);
+                                }}
+                              />
+                            </td>
+                            <td className="px-6 py-4">{id}</td>
+                            <td className="px-6 py-4">VRE223</td>
+
+                            <td className="py-3 px-6 text-left">
+                              <div className="flex items-center">
+                                <div className="mr-2 hover:transform hover:scale-150 duration-300">
+                                  <Image
+                                    alt="logo"
+                                    className="w-6 h-6 rounded-full cusrsor-pointer "
+                                    // loader={()=>myLoader(profile_photo.data[0].attributes.url)}
+                                    src={profileImage}
+                                    // src={`http://172.105.57.17:1337${profile_photo.data[0].attributes.url}`}
+                                    width={100}
+                                    height={100}
+                                  />
+                                </div>
+                                <span className="cusrsor-pointer">
+                                  {first_name} {last_name}
+                                </span>
+                              </div>
+                            </td>
+
+                            <td className="px-6 py-4">{father_name}</td>
+                            <td className="px-6 py-4 ">{phone_number}</td>
+                            <td className="px-6 py-4 ">{date_of_birth}</td>
+                            <td className="px-4 py-4 flex">
+                              <svg
+                                width="20"
+                                height="20"
+                                viewBox="0 0 14 14"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M12.0007 9.4987V11.9987H2.00065V9.4987H0.333984V11.9987C0.333984 12.9154 1.08398 13.6654 2.00065 13.6654H12.0007C12.9173 13.6654 13.6673 12.9154 13.6673 11.9987V9.4987H12.0007ZM11.1673 6.16536L9.99232 4.99036L7.83398 7.14036V0.332031H6.16732V7.14036L4.00898 4.99036L2.83398 6.16536L7.00065 10.332L11.1673 6.16536Z"
+                                  fill="#F98B1D"
+                                />
+                              </svg>
+                            </td>
+                          </tr>
+                        </tbody>
+                      );
+                    })}
+                </table>
+              </div>
+            ) : (
+              <div className="container_card inline-grid grid-cols-4 gap-[4rem] max-w-screen-2xl max-lg:flex max-lg:flex-col max-lg:min-w-fit">
                 {downloadedProfilese.length > 0 &&
                   downloadedProfilese.map((profile, index) => {
+                    //   console.log("itmssss", profile);
                     if (profile.attributes.user_profiles.data == null) {
                       return;
                     }
                     const {
                       first_name,
                       last_name,
+                      educational_qualification,
+                      star,
                       date_of_birth,
+                      marriage_status,
                       profile_photo,
-                      father_name,
-                      phone_number
                     } = profile.attributes.user_profiles.data?.[0].attributes;
-                    console.log("profile", profile);
+                    const age = calculateAge(date_of_birth);
                     let id = profile.attributes.user_profiles.data?.[0]?.id;
-                    
                     return (
-                      <tbody key={index}>
-                        <tr
-                          className="bg-white border-b cursor-pointer"
-                          onClick={() => {
-                            router.push({
-                              pathname: "/profiledetail/[id]/",
-                              query: { id: id },
-                            });
-                          }}
-                        >
-                          <td className="px-6 py-4">
-                            <input
-                              placeholder="check box"
-                              type="checkbox"
-                              className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white  focus:outline-none focus:ring-2  focus:ring-gray-400"
-                              checked={selectedRows[index]}
-                              onChange={() => {
-                                const newSelectedRows = [...selectedRows];
-                                newSelectedRows[index] =
-                                  !newSelectedRows[index];
-                                setSelectedRows(newSelectedRows);
+                      <div
+                        key={index}
+                        id={`liked-profile-${id}`}
+                        className="relative mb-2 hover:transform hover:scale-105 duration-300 max-lg:min-w-fit"
+                      >
+                        <div className="cards">
+                          {/* <div className="cards blur-sm"> */}
+                          <div className="relative">
+                            <picture>
+                              <Image
+                                className="img_card "
+                                src={profileImage}
+                                // src={`http://172.105.57.17:1337${profile_photo.data[0].attributes.url}`}
+                                alt=""
+                              />
+                            </picture>
+
+                            <div
+                              style={{
+                                backgroundColor: "rgba(0, 0, 0, 0.3)",
+                                width: "30",
+                                height: "25",
+                                top: "10",
+                                right: "10",
                               }}
-                            />
-                          </td>
-                          <td className="px-6 py-4">{id}</td>
-                          <td className="px-6 py-4">VRE223</td>
-
-                          <td className="py-3 px-6 text-left">
-                            <div className="flex items-center">
-                              <div className="mr-2 hover:transform hover:scale-150 duration-300">
-                                <Image
-                                  alt="logo"
-                                  className="w-6 h-6 rounded-full cusrsor-pointer "
-                                  // loader={()=>myLoader(profile_photo.data[0].attributes.url)}
-                                  src={profileImage}
-                                  // src={`http://172.105.57.17:1337${profile_photo.data[0].attributes.url}`}
-                                  width={100}
-                                  height={100}
+                              // onClick={() => handleLike(itms.id)}
+                              className="absolute top-0 right-0 m-2 rounded flex items-center justify-center w-10 h-11 text-white text-sm font-bold"
+                            >
+                              <svg
+                                className={`absolute rounded cursor-pointer`}
+                                id="heart"
+                                width="24"
+                                height="21"
+                                viewBox="0 0 24 21"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M20.8401 2.61085C20.3294 2.09985 19.7229 1.6945 19.0555 1.41793C18.388 1.14137 17.6726 0.999023 16.9501 0.999023C16.2276 0.999023 15.5122 1.14137 14.8448 1.41793C14.1773 1.6945 13.5709 2.09985 13.0601 2.61085L12.0001 3.67085L10.9401 2.61085C9.90843 1.57916 8.50915 0.999558 7.05012 0.999558C5.59109 0.999558 4.19181 1.57916 3.16012 2.61085C2.12843 3.64254 1.54883 5.04182 1.54883 6.50085C1.54883 7.95988 2.12843 9.35916 3.16012 10.3908L4.22012 11.4508L12.0001 19.2308L19.7801 11.4508L20.8401 10.3908C21.3511 9.88009 21.7565 9.27366 22.033 8.6062C22.3096 7.93875 22.4519 7.22334 22.4519 6.50085C22.4519 5.77836 22.3096 5.06295 22.033 4.39549C21.7565 3.72803 21.3511 3.12161 20.8401 2.61085V2.61085Z"
+                                  stroke="white"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
                                 />
-                              </div>
-                              <span className="cusrsor-pointer">
-                                {first_name}{" "}
-                                {last_name}
-                              </span>
+                              </svg>
                             </div>
-                          </td>
-
-                          <td className="px-6 py-4">
-                            {father_name}
-                          </td>
-                          <td className="px-6 py-4 ">
-                            {phone_number}
-                          </td>
-                          <td className="px-6 py-4 ">
-                            {date_of_birth}
-                          </td>
-                          <td className="px-4 py-4 flex">
-                            <svg
-                              width="20"
-                              height="20"
-                              viewBox="0 0 14 14"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M12.0007 9.4987V11.9987H2.00065V9.4987H0.333984V11.9987C0.333984 12.9154 1.08398 13.6654 2.00065 13.6654H12.0007C12.9173 13.6654 13.6673 12.9154 13.6673 11.9987V9.4987H12.0007ZM11.1673 6.16536L9.99232 4.99036L7.83398 7.14036V0.332031H6.16732V7.14036L4.00898 4.99036L2.83398 6.16536L7.00065 10.332L11.1673 6.16536Z"
-                                fill="#F98B1D"
-                              />
-                            </svg>
-                          </td>
-                        </tr>
-                      </tbody>
-                    );
-                  })}
-              </table>
-            </div>
-          ) : (
-            <div className="container_card inline-grid grid-cols-4 gap-[4rem] max-w-screen-2xl max-lg:flex max-lg:flex-col max-lg:min-w-fit">
-              {downloadedProfilese.length > 0 &&
-                downloadedProfilese.map((profile, index) => {
-                //   console.log("itmssss", profile);
-                  if (profile.attributes.user_profiles.data == null) {
-                    return;
-                  }
-                  const {
-                    first_name,
-                    last_name,
-                    educational_qualification,
-                    star,
-                    date_of_birth,
-                    marriage_status,
-                    profile_photo,
-                  } = profile.attributes.user_profiles.data?.[0].attributes;
-                  const age = calculateAge(date_of_birth);
-                  let id = profile.attributes.user_profiles.data?.[0]?.id;
-                  return (
-                    <div
-                      key={index}
-                      id={`liked-profile-${id}`}
-                      className="relative mb-2 hover:transform hover:scale-105 duration-300 max-lg:min-w-fit"
-                    >
-                      <div className="cards">
-                        {/* <div className="cards blur-sm"> */}
-                        <div className="relative">
-                          <picture>
-                            <Image
-                              className="img_card "
-                              src={profileImage}
-                              // src={`http://172.105.57.17:1337${profile_photo.data[0].attributes.url}`}
-                              alt=""
-                            />
-                          </picture>
-
-                          <div
-                            style={{
-                              backgroundColor: "rgba(0, 0, 0, 0.3)",
-                              width: "30",
-                              height: "25",
-                              top: "10",
-                              right: "10",
-                            }}
-                            // onClick={() => handleLike(itms.id)}
-                            className="absolute top-0 right-0 m-2 rounded flex items-center justify-center w-10 h-11 text-white text-sm font-bold"
-                          >
-                            <svg
-                              className={`absolute rounded cursor-pointer`}
-                              id="heart"
-                              width="24"
-                              height="21"
-                              viewBox="0 0 24 21"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M20.8401 2.61085C20.3294 2.09985 19.7229 1.6945 19.0555 1.41793C18.388 1.14137 17.6726 0.999023 16.9501 0.999023C16.2276 0.999023 15.5122 1.14137 14.8448 1.41793C14.1773 1.6945 13.5709 2.09985 13.0601 2.61085L12.0001 3.67085L10.9401 2.61085C9.90843 1.57916 8.50915 0.999558 7.05012 0.999558C5.59109 0.999558 4.19181 1.57916 3.16012 2.61085C2.12843 3.64254 1.54883 5.04182 1.54883 6.50085C1.54883 7.95988 2.12843 9.35916 3.16012 10.3908L4.22012 11.4508L12.0001 19.2308L19.7801 11.4508L20.8401 10.3908C21.3511 9.88009 21.7565 9.27366 22.033 8.6062C22.3096 7.93875 22.4519 7.22334 22.4519 6.50085C22.4519 5.77836 22.3096 5.06295 22.033 4.39549C21.7565 3.72803 21.3511 3.12161 20.8401 2.61085V2.61085Z"
-                                stroke="white"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
                           </div>
-                        </div>
-                        <header
-                          className="coloumn items-center justify-between leading-tight p-2 md:p-4"
-                          onClick={() => {
-                            router.push({
-                              pathname: "/profiledetail/[id]/",
-                              query: { id: id },
-                            });
-                          }}
-                        >
-                          <h1 className="text-lg">
-                            <span className="no-underline hover:underline text-black cursor-pointer">
-                              {first_name}{" "}
-                              {last_name}
-                            </span>
-                          </h1>
-                          <p
-                            style={{ color: "rgba(30, 30, 30, 0.5)" }}
-                            className="text-grey-darker text-sm"
+                          <header
+                            className="coloumn items-center justify-between leading-tight p-2 md:p-4"
+                            onClick={() => {
+                              router.push({
+                                pathname: "/profiledetail/[id]/",
+                                query: { id: id },
+                              });
+                            }}
                           >
-                            {educational_qualification}
-                          </p>
-                        </header>
-                        <footer className="card flex items-center justify-evenly leading-none p-4 md:p-4 ">
-                          <p className="ml-2 text-sm">
+                            <h1 className="text-lg">
+                              <span className="no-underline hover:underline text-black cursor-pointer">
+                                {first_name} {last_name}
+                              </span>
+                            </h1>
+                            <p
+                              style={{ color: "rgba(30, 30, 30, 0.5)" }}
+                              className="text-grey-darker text-sm"
+                            >
+                              {educational_qualification}
+                            </p>
+                          </header>
+                          <footer className="card flex items-center justify-evenly leading-none p-4 md:p-4 ">
+                            <p className="ml-2 text-sm">
+                              <svg
+                                width="16"
+                                height="15"
+                                viewBox="0 0 16 15"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M8 4.3475L8.7275 6.065L9.08 6.8975L9.98 6.9725L11.8325 7.13L10.4225 8.3525L9.74 8.945L9.9425 9.83L10.3625 11.6375L8.7725 10.6775L8 10.1975L7.2275 10.6625L5.6375 11.6225L6.0575 9.815L6.26 8.93L5.5775 8.3375L4.1675 7.115L6.02 6.9575L6.92 6.8825L7.2725 6.05L8 4.3475ZM8 0.5L5.8925 5.4725L0.5 5.93L4.595 9.4775L3.365 14.75L8 11.9525L12.635 14.75L11.405 9.4775L15.5 5.93L10.1075 5.4725L8 0.5Z"
+                                  fill="#F98B1D"
+                                />
+                              </svg>
+                            </p>
+
+                            <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                              {" "}
+                              {star}
+                            </p>
                             <svg
-                              width="16"
-                              height="15"
-                              viewBox="0 0 16 15"
+                              width="2"
+                              height="23"
+                              viewBox="0 0 2 23"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path d="M1 0V23" stroke="#F98B1D" />
+                            </svg>
+                            <svg
+                              width="14"
+                              height="16"
+                              viewBox="0 0 14 16"
                               fill="none"
                               xmlns="http://www.w3.org/2000/svg"
                             >
                               <path
-                                d="M8 4.3475L8.7275 6.065L9.08 6.8975L9.98 6.9725L11.8325 7.13L10.4225 8.3525L9.74 8.945L9.9425 9.83L10.3625 11.6375L8.7725 10.6775L8 10.1975L7.2275 10.6625L5.6375 11.6225L6.0575 9.815L6.26 8.93L5.5775 8.3375L4.1675 7.115L6.02 6.9575L6.92 6.8825L7.2725 6.05L8 4.3475ZM8 0.5L5.8925 5.4725L0.5 5.93L4.595 9.4775L3.365 14.75L8 11.9525L12.635 14.75L11.405 9.4775L15.5 5.93L10.1075 5.4725L8 0.5Z"
+                                d="M12.25 2H11.5V0.5H10V2H4V0.5H2.5V2H1.75C0.9175 2 0.2575 2.675 0.2575 3.5L0.25 14C0.25 14.825 0.9175 15.5 1.75 15.5H12.25C13.075 15.5 13.75 14.825 13.75 14V3.5C13.75 2.675 13.075 2 12.25 2ZM12.25 14H1.75V6.5H12.25V14ZM12.25 5H1.75V3.5H12.25V5ZM7 8.75H10.75V12.5H7V8.75Z"
                                 fill="#F98B1D"
                               />
                             </svg>
-                          </p>
-
-                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                            {" "}
-                            {star}
-                          </p>
-                          <svg
-                            width="2"
-                            height="23"
-                            viewBox="0 0 2 23"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path d="M1 0V23" stroke="#F98B1D" />
-                          </svg>
-                          <svg
-                            width="14"
-                            height="16"
-                            viewBox="0 0 14 16"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M12.25 2H11.5V0.5H10V2H4V0.5H2.5V2H1.75C0.9175 2 0.2575 2.675 0.2575 3.5L0.25 14C0.25 14.825 0.9175 15.5 1.75 15.5H12.25C13.075 15.5 13.75 14.825 13.75 14V3.5C13.75 2.675 13.075 2 12.25 2ZM12.25 14H1.75V6.5H12.25V14ZM12.25 5H1.75V3.5H12.25V5ZM7 8.75H10.75V12.5H7V8.75Z"
-                              fill="#F98B1D"
-                            />
-                          </svg>
-                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                            {age}
-                          </p>
-                          <svg
-                            width="2"
-                            height="23"
-                            viewBox="0 0 2 23"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path d="M1 0V23" stroke="#F98B1D" />
-                          </svg>
-                          <svg
-                            width="12"
-                            height="12"
-                            viewBox="0 0 12 12"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M6 1.425C6.87 1.425 7.575 2.13 7.575 3C7.575 3.87 6.87 4.575 6 4.575C5.13 4.575 4.425 3.87 4.425 3C4.425 2.13 5.13 1.425 6 1.425ZM6 8.175C8.2275 8.175 10.575 9.27 10.575 9.75V10.575H1.425V9.75C1.425 9.27 3.7725 8.175 6 8.175ZM6 0C4.3425 0 3 1.3425 3 3C3 4.6575 4.3425 6 6 6C7.6575 6 9 4.6575 9 3C9 1.3425 7.6575 0 6 0ZM6 6.75C3.9975 6.75 0 7.755 0 9.75V12H12V9.75C12 7.755 8.0025 6.75 6 6.75Z"
-                              fill="#F98B1D"
-                            />
-                          </svg>
-                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                            {" "}
-                            {marriage_status}
-                          </p>
-                        </footer>
-                      </div>
-                      {/* <div className="absolute grid place-items-center top-32 ml-16">
+                            <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                              {age}
+                            </p>
+                            <svg
+                              width="2"
+                              height="23"
+                              viewBox="0 0 2 23"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path d="M1 0V23" stroke="#F98B1D" />
+                            </svg>
+                            <svg
+                              width="12"
+                              height="12"
+                              viewBox="0 0 12 12"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M6 1.425C6.87 1.425 7.575 2.13 7.575 3C7.575 3.87 6.87 4.575 6 4.575C5.13 4.575 4.425 3.87 4.425 3C4.425 2.13 5.13 1.425 6 1.425ZM6 8.175C8.2275 8.175 10.575 9.27 10.575 9.75V10.575H1.425V9.75C1.425 9.27 3.7725 8.175 6 8.175ZM6 0C4.3425 0 3 1.3425 3 3C3 4.6575 4.3425 6 6 6C7.6575 6 9 4.6575 9 3C9 1.3425 7.6575 0 6 0ZM6 6.75C3.9975 6.75 0 7.755 0 9.75V12H12V9.75C12 7.755 8.0025 6.75 6 6.75Z"
+                                fill="#F98B1D"
+                              />
+                            </svg>
+                            <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                              {" "}
+                              {marriage_status}
+                            </p>
+                          </footer>
+                        </div>
+                        {/* <div className="absolute grid place-items-center top-32 ml-16">
                         <svg
                           className="  flex justify-center items-center w-8 h-12 text-white"
                           viewBox="0 0 26 34"
@@ -783,107 +787,111 @@ const DownlodedProfiles = () => {
                           Purchase Plan
                         </button>
                       </div> */}
-                    </div>
-                  );
-                })}
-            </div>
-          )}
-          {/* ............ this is for pagination for responsive part ...  */}
-
-          <div className="flex items-center px-4 py-[2rem] sm:px-6 mb-[2rem]">
-            <div className="flex flex-1 justify-between sm:hidden">
-              <Link
-                href="#"
-                className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-              >
-                Previous
-              </Link>
-              <Link
-                href="#"
-                className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-              >
-                Next
-              </Link>
-            </div>
-            <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
-              <div>
-                <span className="text-sm text-gray-700">
-                  {currentPage == 1 ? "1" : `${(currentPage - 1) * 10 + 1}`}-
-                  {total <= currentPage * 10 ? total : currentPage * 10}{" "}
-                  <span className="font-semibold text-gray-900">of</span>{" "}
-                  {totalPage}{" "}
-                  <span className="font-semibold text-gray-900">Pages</span>
-                </span>
+                      </div>
+                    );
+                  })}
               </div>
-              <div>
-                <nav
-                  className="isolate inline-flex -space-x-px  rounded-md shadow-sm "
-                  aria-label="Pagination"
+            )}
+            {/* ............ this is for pagination for responsive part ...  */}
+
+            <div className="flex items-center px-4 py-[2rem] sm:px-6 mb-[2rem]">
+              <div className="flex flex-1 justify-between sm:hidden">
+                <Link
+                  href="#"
+                  className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
                 >
-                  <Link
-                    href="#"
-                    className="relative inline-flex items-center rounded-l-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
-                    onClick={previousPage}
+                  Previous
+                </Link>
+                <Link
+                  href="#"
+                  className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                >
+                  Next
+                </Link>
+              </div>
+              <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+                <div>
+                  <span className="text-sm text-gray-700">
+                    {currentPage == 1 ? "1" : `${(currentPage - 1) * 10 + 1}`}-
+                    {total <= currentPage * 10 ? total : currentPage * 10}{" "}
+                    <span className="font-semibold text-gray-900">of</span>{" "}
+                    {totalPage}{" "}
+                    <span className="font-semibold text-gray-900">Pages</span>
+                  </span>
+                </div>
+                <div>
+                  <nav
+                    className="isolate inline-flex -space-x-px  rounded-md shadow-sm "
+                    aria-label="Pagination"
                   >
-                    <span className="sr-only">Previous</span>
-
-                    <svg
-                      className="h-5 w-5"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      aria-hidden="true"
+                    <Link
+                      href="#"
+                      className="relative inline-flex items-center rounded-l-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
+                      onClick={previousPage}
                     >
-                      <path
-                        fillRule="evenodd"
-                        d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </Link>
+                      <span className="sr-only">Previous</span>
 
-                  {Array(Math.ceil(total / 10))
-                    .fill(0)
-                    .map((item, index) => {
-                      return (
-                        <p
-                          key={index}
-                          aria-current="page"
-                          onClick={() => handlePageNumberClick(index + 1)}
-                          className="relative z-10 inline-flex items-center border border-gray-400 px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
-                        >
-                          <span>{index + 1}</span>
-                        </p>
-                      );
-                    })}
+                      <svg
+                        className="h-5 w-5"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </Link>
 
-                  <Link
-                    href="#"
-                    className="relative inline-flex items-center rounded-r-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
-                    onClick={nextPage}
-                  >
-                    <span className="sr-only">Next</span>
+                    {Array(Math.ceil(total / 10))
+                      .fill(0)
+                      .map((item, index) => {
+                        return (
+                          <p
+                            key={index}
+                            aria-current="page"
+                            onClick={() => handlePageNumberClick(index + 1)}
+                            className="relative z-10 inline-flex items-center border border-gray-400 px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
+                          >
+                            <span>{index + 1}</span>
+                          </p>
+                        );
+                      })}
 
-                    <svg
-                      className="h-5 w-5"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      aria-hidden="true"
+                    <Link
+                      href="#"
+                      className="relative inline-flex items-center rounded-r-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
+                      onClick={nextPage}
                     >
-                      <path
-                        fillRule="evenodd"
-                        d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </Link>
-                </nav>
+                      <span className="sr-only">Next</span>
+
+                      <svg
+                        className="h-5 w-5"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </Link>
+                  </nav>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-
+        ) : (
+          <div className=" px-4 py-3 sm:px-[6rem] h-[80vh]">
+            <p className="text-center font-semibold text-xl mt-5">Oh! You haven&apos;t downloaded any profile yet!</p>
+          </div>
+        )}
       </div>
       <style global jsx>{`
         body {

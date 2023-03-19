@@ -154,7 +154,7 @@ const Hero = (props) => {
                   />
                   {isMenuDropDownOpen && (
                     <div
-                      className="absolute bg-white right-2 shadow-lg top-11 z-50"
+                      className="absolute text-white right-2 shadow-lg top-11 z-50 bg-black/[0.4]"
                       onMouseLeave={() => setMenuDropDownOpen(false)}
                     >
                       <p

@@ -134,7 +134,7 @@ const Profiledetail = () => {
               <div className="flex py-6">
                 <ShareSocial
                   title={"Matrimony Profile"}
-                  url={`http://172.105.57.17:3000/profiledetail/${id.id}`}
+                  url={`http://172.105.57.17:3000/profiledetail/${id}`}
                   socialTypes={["facebook", "whatsapp", "twitter", "linkedin"]}
                   onSocialButtonClicked={(data) => console.log(data)}
                   style={style}
