@@ -157,7 +157,7 @@ const Header = () => {
             className="relative max-md:right-10 right-[2rem]"
           >
             <Image
-              className="drop max-w-[40px]"
+              className="rounded-full max-w-[45px] "
               loader={imgLoader}
               src={
                 userProfile != null
