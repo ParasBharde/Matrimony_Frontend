@@ -232,12 +232,6 @@ const Manageuserdash = () => {
     setIsMultipleRowSelected(false);
   }
 
-  // function handleDownloadPDF() {
-  //   // setIds([]);
-  //   // setSelectedRows(Array(profileToShow.length).fill(false));
-  //   // setIsMultipleRowSelected(false);
-  // }
-
   return (
     <>
       <div className="lg:txt lg:flex md:flex justify-around mx-10 relative mt-10 ">
