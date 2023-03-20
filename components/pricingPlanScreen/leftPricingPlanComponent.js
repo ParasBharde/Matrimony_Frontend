@@ -1,7 +1,9 @@
-import React from 'react'
+import { useRouter } from "next/router";
+import React from "react";
 
 const LeftPricingPlanComponent = (props) => {
-  console.log('props',props)
+  const router = useRouter();
+  console.log("props", props);
   return (
     <div className="bg-main text-white py-5 px-14 rounded-lg max-md:w-full max-md:text-center max-md:text-2xl max-md:p-5">
       <p className="text-[16px] font-[400] text-center mb-5">Free Plan</p>
@@ -26,11 +28,24 @@ const LeftPricingPlanComponent = (props) => {
           {props.pricing.pricing_plan1_point3}
         </span>
       </p>
-      <p className="text-main bg-white py-2 px-10 rounded-md mx-auto cursor-pointer text-center max-w-min mt-10">
-        Buy
-      </p>
+      <div className="flex justify-center items-center">
+        <button
+          onClick={() => {
+            router.push(
+              {
+                pathname: "/checkout",
+                query: { plan: 1 },
+              },
+              "/checkout"
+            );
+          }}
+          className="text-main bg-white py-2 px-10 rounded-md mx-auto cursor-pointer text-center mt-10"
+        >
+          Buy
+        </button>
+      </div>
     </div>
   );
-}
+};
 
-export default LeftPricingPlanComponent
+export default LeftPricingPlanComponent;
