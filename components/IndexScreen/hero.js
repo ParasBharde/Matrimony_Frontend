@@ -17,6 +17,15 @@ const Hero = (props) => {
   const [isMenuDropDownOpen, setMenuDropDownOpen] = useState(false);
 
   const router = useRouter();
+  const { pathname, asPath, query } = router;
+  const { locale, locales, push } = useRouter();
+  const [lang, setLang] = useState(locale);
+
+  const getSelectedValue = (e) => {
+    // push('/portfolio/portfolio', undefined, {locale: e.target.value})
+    router.push({ pathname, query }, asPath, { locale: e });
+  };
+
   const data = useStorage();
 
   useEffect(() => {
@@ -31,7 +40,9 @@ const Hero = (props) => {
         const response = await axios.get(
           `http://172.105.57.17:1337/api/profiles/?populate=%2A`
         );
-        let userProfile = response.data.data.filter((u) => u.id == data?.user_profile?.id);
+        let userProfile = response.data.data.filter(
+          (u) => u.id == data?.user_profile?.id
+        );
         setUserProfile(
           userProfile?.[0]?.attributes?.profile_photo?.data?.[0]?.attributes
             ?.url
@@ -42,7 +53,6 @@ const Hero = (props) => {
     }
     getUser();
   }, [data]);
-
 
   const logout = () => {
     localStorage.clear();
@@ -56,7 +66,6 @@ const Hero = (props) => {
       return `http://172.105.57.17:1337${userProfile}`;
     }
   };
-
 
   return (
     <div className="relative h-[829.2px]">
@@ -102,7 +111,23 @@ const Hero = (props) => {
           >
             About Us
           </p>
-          <p className="mx-10 cursor-pointer">EN</p>
+          <select
+          className="mx-10 cursor-pointer bg-transparent"
+            value={lang}
+            onChange={(e) => {
+              getSelectedValue(e.target.value);
+              setLang(e.target.value);
+            }}
+          >
+            {locales.map((l) => {
+              return (
+                <option className="bg-black/[0.4] hover:bg-black/[0.5]" key={l} value={l}>
+                  {l=="en" ? "EN" : "TA"}
+                </option>
+              );
+            })}
+          </select>
+
         </div>
         <div></div>
         <div className="flex justify-center items-center  max-md:hidden">
