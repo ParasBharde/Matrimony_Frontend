@@ -111,8 +111,9 @@ const Hero = (props) => {
           >
             About Us
           </p>
+
           <select
-          className="mx-10 cursor-pointer bg-transparent"
+            className="mx-10 cursor-pointer bg-transparent"
             value={lang}
             onChange={(e) => {
               getSelectedValue(e.target.value);
@@ -121,13 +122,16 @@ const Hero = (props) => {
           >
             {locales.map((l) => {
               return (
-                <option className="bg-black/[0.4] hover:bg-black/[0.5]" key={l} value={l}>
-                  {l=="en" ? "EN" : "TA"}
+                <option
+                  className="bg-black/[0.4] hover:bg-black/[0.5]"
+                  key={l}
+                  value={l}
+                >
+                  {l == "en" ? "EN" : "TA"}
                 </option>
               );
             })}
           </select>
-
         </div>
         <div></div>
         <div className="flex justify-center items-center  max-md:hidden">
@@ -151,43 +155,28 @@ const Hero = (props) => {
               </p>
             </>
           ) : (
-            // <p
-            //   className="text-main bg-white py-2 px-5 rounded-md mx-2 cursor-pointer"
-            //   onClick={logout}
-            // >
-            //   Logout
-            // </p>
             <>
               {data && (
-                <div
-                  ref={dropdownRef}
-                  className="relative max-md:right-10 right-[2rem]"
-                >
-                  <Image
-                    className="rounded-full max-w-[45px]"
-                    loader={imgLoader}
-                    src={
-                      userProfile != null
-                        ? `http://172.105.57.17:1337${userProfile}`
-                        : avatar
-                    }
-                    width="100"
-                    height="100"
-                    unoptimized
-                    alt="avatar"
-                    onMouseOver={() => setMenuDropDownOpen(true)}
-                  />
-                  {isMenuDropDownOpen && (
-                    <div
-                      className="absolute text-white right-2 shadow-lg top-11 z-50 bg-black/[0.4]"
-                      onMouseLeave={() => setMenuDropDownOpen(false)}
-                    >
+                <>
+                  <div className="relative max-md:right-10 right-[2rem] group dropdown">
+                    <Image
+                      className="rounded-full max-w-[45px]"
+                      loader={imgLoader}
+                      src={
+                        userProfile != null
+                          ? `http://172.105.57.17:1337${userProfile}`
+                          : avatar
+                      }
+                      width="100"
+                      height="100"
+                      unoptimized
+                      alt="avatar"
+                    />
+                    <div className="absolute group-hover:block dropdown-menu hidden h-auto text-white right-2 shadow-lg top-11 z-50 bg-black/[0.4]">
                       <p
                         className="m-3 w-[200px] cursor-pointer"
-                        //onClick={() => router.push('/profile/')}
                         onClick={() => {
                           router.push("/profile");
-                          // setMenuDropDownOpen(false)
                         }}
                       >
                         <i className="fa-regular fa-circle-user mr-5 text-main"></i>
@@ -226,8 +215,8 @@ const Hero = (props) => {
                         Logout
                       </p>
                     </div>
-                  )}
-                </div>
+                  </div>
+                </>
               )}
             </>
           )}
