@@ -4,6 +4,9 @@ import Head from "next/head";
 import quote from "@/assets/left-quote.png";
 import profile from "@/assets/profile.png";
 import axios from "axios";
+import about1 from "@/assets/about/about_1.svg";
+import about2 from "@/assets/about/about_2.svg";
+import about3 from "@/assets/about/about_3.svg";
 
 const Aboutus = () => {
   const [about, setabout] = useState([]);
@@ -18,7 +21,7 @@ const Aboutus = () => {
 
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
+        // console.log(JSON.stringify(response.data));
         setabout(response.data.data.attributes);
       })
       .catch(function (error) {
@@ -41,142 +44,12 @@ const Aboutus = () => {
         />
       </Head>
       <div className=" bg-bg-about_us bg-cover bg-no-repeat min-h-[26vh] md:min-h-[50vh]">
-        <div className="bg-black/60 items-center min-h-[26vh] md:min-h-[50vh] flex flex-col justify-center">
-          <div>
-            <h1 className="text-center pt-5  xs:text-6xl text-5xl  text-brand_color uppercase ">
+        <div className="bg-black/60 min-h-[26vh] md:min-h-[50vh] flex justify-center items-center relative">
+          <Image src={about1} alt="about us image" className="w-full"/>
+          <div className="absolute">
+            <h1 className="text-center pt-5  xs:text-6xl text-5xl  text-brand_color uppercase text-white font-bold">
               About Us
             </h1>
-            <div className="flex justify-center items-center  bg-blend-darken">
-              <svg
-                width="98"
-                height="109"
-                className="transform rotate-90 xs:scale-100 scale-75"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g>
-                  <title>background</title>
-                  <rect
-                    fill="none"
-                    id="canvas_background"
-                    height="111"
-                    width="100"
-                    y="-1"
-                    x="-1"
-                  />
-                  <g
-                    display="none"
-                    overflow="visible"
-                    y="0"
-                    x="0"
-                    height="100%"
-                    width="100%"
-                    id="canvasGrid"
-                  >
-                    <rect
-                      fill="url(#gridpattern)"
-                      strokeWidth="0"
-                      y="0"
-                      x="0"
-                      height="100%"
-                      width="100%"
-                    />
-                  </g>
-                </g>
-                <g>
-                  <title>Layer 1</title>
-                  <ellipse
-                    ry="6"
-                    rx="6"
-                    id="svg_5"
-                    cy="7.953125"
-                    cx="49"
-                    fillOpacity="null"
-                    strokeOpacity="null"
-                    strokeWidth="0.001"
-                    stroke="white"
-                    fill="white"
-                  />
-                  <rect
-                    id="svg_9"
-                    height="105"
-                    width="2"
-                    y="13.953125"
-                    x="48"
-                    fillOpacity="null"
-                    strokeOpacity="null"
-                    strokeWidth="0.001"
-                    stroke="white"
-                    fill="white"
-                  />
-                </g>
-              </svg>
-              <h1 className="xs:mx-5 xs:text-2xl mx-2 text-lg text-white text-center">
-                Who we are
-              </h1>
-              <svg
-                width="98"
-                height="109"
-                className="transform -rotate-90 xs:scale-100 scale-75"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g>
-                  <title>background</title>
-                  <rect
-                    fill="none"
-                    id="canvas_background"
-                    height="111"
-                    width="100"
-                    y="-1"
-                    x="-1"
-                  />
-                  <g
-                    display="none"
-                    overflow="visible"
-                    y="0"
-                    x="0"
-                    height="100%"
-                    width="100%"
-                    id="canvasGrid"
-                  >
-                    <rect
-                      fill="url(#gridpattern)"
-                      strokeWidth="0"
-                      y="0"
-                      x="0"
-                      height="100%"
-                      width="100%"
-                    />
-                  </g>
-                </g>
-                <g>
-                  <title>Layer 1</title>
-                  <ellipse
-                    ry="6"
-                    rx="6"
-                    id="svg_5"
-                    cy="7.953125"
-                    cx="49"
-                    fillOpacity="null"
-                    strokeOpacity="null"
-                    strokeWidth="0.001"
-                    stroke="white"
-                    fill="white"
-                  />
-                  <rect
-                    id="svg_9"
-                    height="105"
-                    width="2"
-                    y="13.953125"
-                    x="48"
-                    fillOpacity="null"
-                    strokeOpacity="null"
-                    strokeWidth="0.001"
-                    stroke="white"
-                    fill="white"
-                  />
-                </g>
-              </svg>
-            </div>
           </div>
         </div>
       </div>
@@ -196,13 +69,7 @@ const Aboutus = () => {
           <div className="md:self-end md:mt-20 md:block flex flex-col justify-center items-center">
             <div className="border-8 border-gray-200 xls:h-l-img xls:w-l-img xs:h-m-img xs:w-96 w-82 h-s-img">
               <picture>
-                <img
-                  className="img_profile_portfolio object-contain w-40 min-h-full"
-                  object-fit
-                  src={profile}
-                  // {`http://172.105.57.17:1337${about.founder_image1.data.attributes.url}`}
-                  alt=""
-                />
+                <Image src={about2} alt="side image 1" />
               </picture>
             </div>
             <p className="italic text-center text-gray-500 mt-3">
@@ -220,15 +87,16 @@ const Aboutus = () => {
       </div>
       <div className="mt-6 md:mt-10 mb-12 grid grid-cols-1 ml-5 md:grid-cols-2 gap-y-6 gap-x-6 xl:ml-44 xl:mr-44 lg:ml-24 lg:mr-24 md:ml-4 md:mr-4">
         <div className="md:block flex flex-col justify-center items-center mr-5">
-          <div className="border-8 border-gray-200 md:mt-20 xls:h-l-img xls:w-l-img xs:h-m-img xs:w-96 w-[20.2rem] h-s-img">
+          <div className="border-8 border-gray-200 md:mt-20 xls:h-l-img xls:w-l-img xs:h-m-img xs:w-96 w-82 h-s-img">
             <picture>
-              <img
+              <Image src={about3} alt="about image 3" />
+              {/* <img
                 className="img_profile_portfolio object-contain w-40 min-h-full"
                 object-fit
                 src={profile}
                 // {`http://172.105.57.17:1337${about.founder_image2.data.attributes.url}`}
                 alt=""
-              />
+              /> */}
             </picture>
           </div>
         </div>

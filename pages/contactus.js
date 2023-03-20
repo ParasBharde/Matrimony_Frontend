@@ -2,15 +2,13 @@ import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import loc from "@/assets/SVG/location.svg";
 import axios from "axios";
-import { toast } from "react-toastify"
-
+import { toast } from "react-toastify";
+import contact_uss from "@/assets/contact_uss.svg";
 const ContactUs = () => {
   const [loading, setLoading] = React.useState(false);
-
   const name = useRef();
   const email = useRef();
   const query = useRef();
-
 
   const Postdata = async (e) => {
     e.preventDefault();
@@ -38,18 +36,25 @@ const ContactUs = () => {
         console.log(JSON.stringify(response.data));
         toast.success("Message Sent!");
         // alert("Message Sent Successfully");
-        name.current.value ='';
-        email.current.value ='';
-        query.current.value ='';
+        name.current.value = "";
+        email.current.value = "";
+        query.current.value = "";
       })
       .catch(function (error) {
         console.log(error);
       });
   };
 
-
   return (
     <>
+      <div className= "min-h-[26vh] md:min-h-[50vh] flex justify-center items-center relative">
+        <Image src={contact_uss} alt="Contact us image" className="w-full"/>
+        <div className="absolute">
+            <h1 className="text-center pt-5  xs:text-6xl text-5xl  text-brand_color uppercase text-white font-bold">
+              Contact Us
+            </h1>
+          </div>
+      </div>
       <section className="text-gray-600 body-font relative">
         <div className="container px-5 py-24 mx-auto flex md:mb-40 sm:flex-nowrap flex-wrap">
           <div className="lg:w-2/3 md:w-1/2 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative">
@@ -159,7 +164,6 @@ const ContactUs = () => {
                 <textarea
                   id="message"
                   name="message"
-                  
                   ref={query}
                   className="w-full bg-white rounded border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
                 ></textarea>
