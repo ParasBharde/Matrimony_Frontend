@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { Document, Page, View } from "react-pdf";
+import "jspdf-autotable";
 
 // import 'jspdf-autotable';
 
@@ -118,31 +119,30 @@ const Manageuserdash = () => {
   // console.log("hello",selectedRows)
 
   useEffect(() => {
-    if(selectedRows.length > 0) {
+    if (selectedRows.length > 0) {
       let selectedRowsCount = 0;
-      for(let i=0; i<selectedRows.length; i++) {
-        if(selectedRows[i] == true) {
+      for (let i = 0; i < selectedRows.length; i++) {
+        if (selectedRows[i] == true) {
           selectedRowsCount++;
-          if(selectedRowsCount >= 2) {
+          if (selectedRowsCount >= 2) {
             setIsMultipleRowSelected(true);
             break;
           }
         }
       }
     }
-  },[selectedRows])
+  }, [selectedRows]);
 
   const handleHeaderCheckboxChange = (event) => {
     const isChecked = event.target.checked;
     setSelectedRows(Array(profileToShow.length).fill(isChecked));
     if (isChecked) {
       getAllIds();
-    } else if(!isChecked) {
+    } else if (!isChecked) {
       setIds([]);
     }
   };
 
-  
   const getIds = (id) => {
     let totalprofile = [...ids, id];
     console.log(totalprofile);
@@ -153,7 +153,7 @@ const Manageuserdash = () => {
     let newIds = ids.filter((item) => item != profileId);
     console.log(newIds);
     setIds(newIds);
-  }
+  };
 
   useEffect(() => {
     let filteredRes = [];
@@ -177,24 +177,66 @@ const Manageuserdash = () => {
     console.log("this is all ids", Ids);
   };
 
+  // download pdf functionality code .
+  function generatePDF() {
+    let doc = new jsPDF("p", "mm", "a3", "portrait");
 
-  // download functionality code .
-  // const { query: id } = router;
-  // console.log("idd",id.ids);
+    let info = [];
 
-  function handleDownloadPDF() {
-    const doc = new jsPDF("p", "px", "a1");
-    // const html = document.documentElement.innerHTML;
-    const html = document.getElementById("pdf-content");
-    doc.html(html, {
-      callback: function () {
-        doc.save("my-pdf-file.pdf");
-      },
+    downloadProfile.forEach((p, index, array) => {
+      console.log("element ", index, p);
+      info.push([
+        p.id,
+        p.attributes.first_name,
+        p.attributes.last_name,
+        p.attributes.email,
+        p.attributes.Color,
+        p.attributes.father_name,
+        p.attributes.Height,
+        p.attributes.mother_name,
+        p.attributes.Salary_monthly_income,
+        p.attributes.address,
+        p.attributes.birth_time,
+        p.attributes.birthplace,
+        p.attributes.date_of_birth,
+      ]);
     });
+
+    doc.autoTable({
+      head: [
+        [
+          "Id",
+          "First Name",
+          "Last Name",
+          "Email",
+          "Color",
+          "Father Name",
+          "Height",
+          "Mother Name",
+          "Salary",
+          "Address",
+          "Birth Time",
+          "Birth Place",
+          "Date of Birth",
+        ],
+      ],
+      margin: { top: 1, left: 1, right: 1, bottom: 1 },
+      headStyles: { fillColor: [255, 127, 0] },
+      alternateRowStyles: { fillColor: [255, 224, 204] },
+      body: info,
+    });
+
+    doc.save("profils detail.pdf");
     setIds([]);
     setSelectedRows(Array(profileToShow.length).fill(false));
     setIsMultipleRowSelected(false);
   }
+
+  // function handleDownloadPDF() {
+  //   // setIds([]);
+  //   // setSelectedRows(Array(profileToShow.length).fill(false));
+  //   // setIsMultipleRowSelected(false);
+  // }
 
   return (
     <>
@@ -232,9 +274,11 @@ const Manageuserdash = () => {
           </form>
 
           <button
-            className={`px-5 rounded bg-orange-400 py-2 ${isMultipleRowSelected==false && "cursor-not-allowed"}`}
+            className={`px-5 rounded bg-orange-400 py-2 ${
+              isMultipleRowSelected == false && "cursor-not-allowed"
+            }`}
             disabled={isMultipleRowSelected == true ? false : true}
-            onClick={handleDownloadPDF}
+            onClick={generatePDF}
           >
             <span className="flex text-white" href="#">
               <svg
@@ -315,7 +359,7 @@ const Manageuserdash = () => {
                         const newSelectedRows = [...selectedRows];
                         newSelectedRows[index] = !newSelectedRows[index];
                         setSelectedRows(newSelectedRows);
-                        if(event.target.checked) {
+                        if (event.target.checked) {
                           getIds(item.id);
                         } else {
                           removeIdFromDownload(item.id);
@@ -390,7 +434,7 @@ const Manageuserdash = () => {
                       fill="none"
                       className="cursor-pointer"
                       xmlns="http://www.w3.org/2000/svg"
-                      onClick={handleDownloadPDF}
+                      onClick={generatePDF}
                       id="down1"
                     >
                       <path
@@ -492,9 +536,9 @@ const Manageuserdash = () => {
           </div>
         </div>
 
-        <div>
+        {/* <div>
           <table
-            className="table table-auto  border-collapse border "
+            className="table table-auto border-collapse border"
             id="pdf-content"
           >
             <thead>
@@ -515,13 +559,15 @@ const Manageuserdash = () => {
                 <th className="border ">birthplace</th>
                 <th className="border ">date_of_birth</th>
               </tr>
-              {/* <hr /> */}
             </thead>
-            {downloadProfile.map((item, index) => {
-              return (
-                <>
-                  <tbody key={`${index}${item.id}`} className=" leading-10">
-                    <tr className="pt-10 mt-10 leading-6">
+            <tbody className=" leading-10">
+              {downloadProfile.map((item, index) => {
+                return (
+                  <>
+                    <tr
+                      key={`${index}${item.id}`}
+                      className="pt-10 mt-10 leading-6"
+                    >
                       <td>{item.id}</td>
                       <td className="border ">{item.attributes.first_name}</td>
                       <td className="border ">{item.attributes.last_name}</td>
@@ -540,12 +586,12 @@ const Manageuserdash = () => {
                         {item.attributes.date_of_birth}
                       </td>
                     </tr>
-                  </tbody>
-                </>
-              );
-            })}
+                  </>
+                );
+              })}
+            </tbody>
           </table>
-        </div>
+        </div> */}
       </div>
     </>
   );
