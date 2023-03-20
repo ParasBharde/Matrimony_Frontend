@@ -14,11 +14,13 @@ import { Modal } from "reactstrap";
 import { useRouter } from "next/router";
 import { useStorage } from "@/hooks/useStorage";
 import axios from "axios";
+import { useCalculateAge } from "@/hooks/useCalculateAge";
 
 const EditProfile = () => {
   const [modalDefaultOpen, setModalDefaultOpen] = React.useState(false);
   const router = useRouter();
   const { locale } = useRouter();
+  const calculateAge = useCalculateAge();
 
   const storageData = useStorage();
   const [userProfile, setUserProfile] = useState([]);
@@ -262,7 +264,7 @@ const EditProfile = () => {
                           <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
                             Age
                           </span>
-                          <span>28 Years</span>
+                          <span>{calculateAge(date_of_birth)}</span>
                         </div>
                       </div>
                       <div className="flex items-center justify-center h-24 rounded ">

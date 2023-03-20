@@ -56,10 +56,12 @@ const Likedprofile = () => {
         console.error("dislike like error: ", error);
       });
   };
+
   const handleHideDislikeProfile = (id) => {
     let data = myLikedprofiles.filter((item) => {
       return item.attributes?.user_profile?.id != id;
     });
+    console.log("is Profile Disliked",data);
     setMyLikedprofiles(data);
     let profile = document.getElementById(id);
     profile.classList.add("hidden");
