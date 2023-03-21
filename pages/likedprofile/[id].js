@@ -691,7 +691,7 @@ const Likedprofile = () => {
                             onClick={() => {
                               router.push({
                                 pathname: "/profiledetail/[id]/",
-                                query: { id: itms.id },
+                                query: { id: profile.attributes.user_profile.data?.id },
                               });
                             }}
                           >

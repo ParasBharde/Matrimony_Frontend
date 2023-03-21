@@ -100,7 +100,9 @@ const Header = () => {
           {!isAdminLogin && (
             <>
               <p
-                className={`cursor-pointer ${pathname == "/portfolio/portfolio" && 'text-main'}`}
+                className={`cursor-pointer ${
+                  pathname == "/portfolio/portfolio" && "text-main"
+                }`}
                 onClick={() => {
                   router.push("/portfolio/portfolio");
                 }}
@@ -108,7 +110,9 @@ const Header = () => {
                 Search
               </p>
               <p
-                className={`cursor-pointer ${pathname == "/pricingPlan" && "text-main"}`}
+                className={`cursor-pointer ${
+                  pathname == "/pricingPlan" && "text-main"
+                }`}
                 onClick={() => {
                   router.push("/pricingPlan");
                 }}
@@ -118,7 +122,9 @@ const Header = () => {
             </>
           )}
           <p
-            className={`cursor-pointer ${pathname == "/contactus" && "text-main"}`}
+            className={`cursor-pointer ${
+              pathname == "/contactus" && "text-main"
+            }`}
             onClick={() => {
               router.push("/contactus");
             }}
@@ -143,8 +149,53 @@ const Header = () => {
         </div>
 
         {/* add for responsive screen  */}
-        <div className="absolute right-2 hidden max-md:block max-sm:block max-md:bg-black">
-          <Hamburger onClick={() => console.log("Clicked")} />
+        {/* max-md:bg-black */}
+        <div className="absolute right-2 hidden max-md:block max-sm:block group dropdown">
+          {/* <Hamburger onClick={() => console.log("Clicked")} className="bg-black"/> */}
+          <i class="fa-solid fa-bars mr-3 mb-3"></i>
+          <div className="absolute group-hover:block dropdown-menu hidden h-auto right-2 shadow-lg top-11 z-50 bg-white">
+            <p
+              className="m-3 w-[200px] cursor-pointer"
+              onClick={() => {
+                router.push("/");
+              }}
+            >
+              <i class="fa-solid fa-house mr-5 text-main"></i>
+              Home
+            </p>
+            <p
+              className="m-3 w-[200px] cursor-pointer"
+              onClick={() => {
+                router.push("/pricingPlan");
+              }}
+            >
+              <i class="fa-regular fa-money-bill-1 mr-5 text-main"></i>
+              Pricing Plan
+            </p>
+            <p
+              className="m-3 w-[200px] cursor-pointer"
+              onClick={() => {
+                router.push("/portfolio/portfolio");
+              }}
+            >
+              <i class="fa-solid fa-magnifying-glass mr-5 text-main"></i>
+              Search
+            </p>
+            <p
+              className="m-3 w-[200px] cursor-pointer"
+              onClick={() => router.push("/contactus")}
+            >
+              <i class="fa-regular fa-address-card mr-5 text-main"></i>
+              Contact Us
+            </p>
+            <p
+              className="m-3 w-[200px] cursor-pointer"
+              onClick={() => router.push("/aboutus")}
+            >
+              <i class="fa-regular fa-user mr-5 text-main"></i>
+              About Us
+            </p>
+          </div>
         </div>
         {/* ..................   */}
         {data && (

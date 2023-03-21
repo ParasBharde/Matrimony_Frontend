@@ -244,7 +244,58 @@ const Hero = (props) => {
       </div>
 
       <div className="absolute right-10 top-14 hidden max-md:block max-sm:block">
-        <Hamburger onClick={() => console.log("Clicked")} />
+        <Hamburger
+          className="relative"
+          onClick={() => {
+            console.log("Clicked");
+            setMenuDropDownOpen(!isMenuDropDownOpen);
+          }}
+        />
+        {isMenuDropDownOpen && (
+          <div className="absolute dropdown-menu h-auto text-white right-2 shadow-lg top-11 z-50 bg-black/[0.4]">
+            <p
+              className="m-3 w-[200px] cursor-pointer"
+              onClick={() => {
+                router.push("/");
+              }}
+            >
+              <i class="fa-solid fa-house mr-5 text-main"></i>
+              Home
+            </p>
+            <p
+              className="m-3 w-[200px] cursor-pointer"
+              onClick={() => {
+                router.push("/pricingPlan");
+              }}
+            >
+              <i class="fa-regular fa-money-bill-1 mr-5 text-main"></i>
+              Pricing Plan
+            </p>
+            <p
+              className="m-3 w-[200px] cursor-pointer"
+              onClick={() => {
+                router.push("/portfolio/portfolio");
+              }}
+            >
+              <i class="fa-solid fa-magnifying-glass mr-5 text-main"></i>
+              Search
+            </p>
+            <p
+              className="m-3 w-[200px] cursor-pointer"
+              onClick={() => router.push("/contactus")}
+            >
+              <i class="fa-regular fa-address-card mr-5 text-main"></i>
+              Contact Us
+            </p>
+            <p
+              className="m-3 w-[200px] cursor-pointer"
+              onClick={() => router.push("/aboutus")}
+            >
+              <i class="fa-regular fa-user mr-5 text-main"></i>
+              About Us
+            </p>
+          </div>
+        )}
       </div>
 
       <p className="text-white font-[700] text-[4vw] text-center absolute top-[36%] w-full max-md:text-6xl  ">
