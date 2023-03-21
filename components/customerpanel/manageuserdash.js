@@ -240,8 +240,8 @@ const Manageuserdash = () => {
           </form>
 
           <button
-            className={`px-5 rounded bg-orange-400 py-2 ${
-              isMultipleRowSelected == false && "cursor-not-allowed"
+            className={`px-5 rounded bg-orange-400 py-2 my-3 ${
+              downloadProfile.length <= 1 && "cursor-not-allowed"
             }`}
             disabled={downloadProfile.length <= 1 ? true : false}
             onClick={generatePDF}
@@ -352,13 +352,18 @@ const Manageuserdash = () => {
                           height={100}
                         />
                       </div>
-                      <Link href="profile">
+                      <button onClick={() => {
+                        router.push({
+                          pathname: "/admin/profile",
+                          query: {id: item.id}
+                        })
+                      }}>
                         <span>
                           {item.attributes.first_name +
                             " " +
                             item.attributes.last_name}
                         </span>
-                      </Link>
+                      </button>
                     </div>
                   </td>
                   {/* <td className="px-20 py-4">Sliver</td> */}

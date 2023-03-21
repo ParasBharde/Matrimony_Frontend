@@ -213,8 +213,14 @@ const Managelistdash = () => {
               />
             </div>
           </form>
-          <button className="px-5 rounded bg-orange-400 py-2">
-            <span href="#" className="flex text-white">
+          <button
+            className={`px-5 rounded bg-orange-400 py-2 my-3 ${
+              downloadProfile.length <= 0 && "cursor-not-allowed"
+            }`}
+            disabled={downloadProfile.length <= 0 ? true : false}
+            onClick={generatePDF}
+          >
+            <span className="flex text-white">
               <svg
                 className="mr-2 mt-1"
                 width="17"
