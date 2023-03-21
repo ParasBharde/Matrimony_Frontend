@@ -154,9 +154,7 @@ const Manageuserdash = () => {
   // download pdf functionality code .
   function generatePDF() {
     let doc = new jsPDF("p", "mm", "a3", "portrait");
-
     let info = [];
-
     downloadProfile.forEach((p, index, array) => {
       console.log("element ", index, p);
       info.push([
@@ -401,7 +399,9 @@ const Manageuserdash = () => {
                       disabled={downloadProfile.length != 1 ? true : false}
                       onClick={generatePDF}
                       className={`${
-                        downloadProfile.length != 1 ? "cursor-not-allowed" : "cursor-pointer"
+                        downloadProfile.length != 1
+                          ? "cursor-not-allowed"
+                          : "cursor-pointer"
                       }`}
                     >
                       <svg
@@ -425,150 +425,94 @@ const Manageuserdash = () => {
             })}
           </tbody>
         </table>
-        <div className="flex items-center px-4 py-[2rem] sm:px-6 mb-[2rem]">
-          <div className="flex flex-1 justify-between sm:hidden">
-            <Link
-              href="#"
-              className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-            >
-              Previous
-            </Link>
-            <Link
-              href="#"
-              className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-            >
-              Next
-            </Link>
+
+      </div>
+      <div className="flex items-center px-4 py-[2rem] sm:px-6 mb-[2rem]">
+        <div className="flex flex-1 justify-between sm:hidden">
+          <Link
+            href="#"
+            className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+          >
+            Previous
+          </Link>
+          <Link
+            href="#"
+            className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+          >
+            Next
+          </Link>
+        </div>
+        <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+          <div>
+            <span className="text-sm text-gray-700">
+              {currentPage == 1 ? "1" : `${(currentPage - 1) * 10 + 1}`}-
+              {total <= currentPage * 10 ? total : currentPage * 10}{" "}
+              <span className="font-semibold text-gray-900">of</span> {total}{" "}
+              <span className="font-semibold text-gray-900">Pages</span>
+            </span>
           </div>
-          <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
-            <div>
-              <span className="text-sm text-gray-700">
-                {currentPage == 1 ? "1" : `${(currentPage - 1) * 10 + 1}`}-
-                {total <= currentPage * 10 ? total : currentPage * 10}{" "}
-                <span className="font-semibold text-gray-900">of</span> {total}{" "}
-                <span className="font-semibold text-gray-900">Pages</span>
-              </span>
-            </div>
-            <div>
-              <nav
-                className="isolate inline-flex -space-x-px  rounded-md shadow-sm "
-                aria-label="Pagination"
+          <div>
+            <nav
+              className="isolate inline-flex -space-x-px  rounded-md shadow-sm "
+              aria-label="Pagination"
+            >
+              <Link
+                href="#"
+                className="relative inline-flex items-center rounded-l-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
               >
-                <Link
-                  href="#"
-                  className="relative inline-flex items-center rounded-l-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
+                <span className="sr-only">Previous</span>
+
+                <svg
+                  className="h-5 w-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
                 >
-                  <span className="sr-only">Previous</span>
+                  <path
+                    fillRule="evenodd"
+                    d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </Link>
 
-                  <svg
-                    className="h-5 w-5"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </Link>
+              {Array(length)
+                .fill(0)
+                .map((item, index) => {
+                  return (
+                    <p
+                      key={index}
+                      aria-current="page"
+                      className="relative z-10 inline-flex items-center border border-gray-400 px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
+                    >
+                      {index + 1}
+                    </p>
+                  );
+                })}
+              <Link
+                href="#"
+                className="relative inline-flex items-center rounded-r-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
+              >
+                <span className="sr-only">Next</span>
 
-                {Array(length)
-                  .fill(0)
-                  .map((item, index) => {
-                    return (
-                      <p
-                        key={index}
-                        aria-current="page"
-                        className="relative z-10 inline-flex items-center border border-gray-400 px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
-                      >
-                        {index + 1}
-                      </p>
-                    );
-                  })}
-                <Link
-                  href="#"
-                  className="relative inline-flex items-center rounded-r-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
+                <svg
+                  className="h-5 w-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
                 >
-                  <span className="sr-only">Next</span>
-
-                  <svg
-                    className="h-5 w-5"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </Link>
-              </nav>
-            </div>
+                  <path
+                    fillRule="evenodd"
+                    d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </Link>
+            </nav>
           </div>
         </div>
-
-        {/* <div>
-          <table
-            className="table table-auto border-collapse border"
-            id="pdf-content"
-          >
-            <thead>
-              <tr>
-                <th className="border ">Id</th>
-                <th className="border "> First Name</th>
-                <th className="border ">Last name</th>
-                <th className="border ">Email</th>
-
-                <th className="border ">Color</th>
-                <th className="border ">Father Name</th>
-                <th className="border ">Height</th>
-
-                <th className="border ">Mother Name</th>
-                <th className="border ">Salary </th>
-                <th className="border ">address</th>
-                <th className="border ">birth_time</th>
-                <th className="border ">birthplace</th>
-                <th className="border ">date_of_birth</th>
-              </tr>
-            </thead>
-            <tbody className=" leading-10">
-              {downloadProfile.map((item, index) => {
-                return (
-                  <>
-                    <tr
-                      key={`${index}${item.id}`}
-                      className="pt-10 mt-10 leading-6"
-                    >
-                      <td>{item.id}</td>
-                      <td className="border ">{item.attributes.first_name}</td>
-                      <td className="border ">{item.attributes.last_name}</td>
-                      <td className="border ">{item.attributes.email}</td>
-                      <td className="border ">{item.attributes.Color}</td>
-                      <td className="border ">{item.attributes.father_name}</td>
-                      <td className="border ">{item.attributes.Height}</td>
-                      <td className="border ">{item.attributes.mother_name}</td>
-                      <td className="border ">
-                        {item.attributes.Salary_monthly_income}
-                      </td>
-                      <td className="border ">{item.attributes.address}</td>
-                      <td className="border ">{item.attributes.birth_time}</td>
-                      <td className="border ">{item.attributes.birthplace}</td>
-                      <td className="border ">
-                        {item.attributes.date_of_birth}
-                      </td>
-                    </tr>
-                  </>
-                );
-              })}
-            </tbody>
-          </table>
-        </div> */}
       </div>
     </>
   );
