@@ -166,7 +166,7 @@ const Customerpofile = () => {
         </div>
       )}
 
-      <div className="parent ">
+      <div className="parent w-screen">
         <table className="child table-auto" id="pdf-content">
           <div className="table_header flex">
             <thead className="">
@@ -179,7 +179,8 @@ const Customerpofile = () => {
                 </td>
               </div>
             </thead>
-            <div className="flex space-x-2 mt-2 max-md:hidden">
+            <div className="flex space-x-2 mt-2 max-md:hidden ">
+            
               <button
                 className="px-5 rounded  bg-orange-400 py-1.5"
                 onClick={downloadPdf}
@@ -225,7 +226,7 @@ const Customerpofile = () => {
             </div>
           </div>
 
-          <div className="first_content p-4 sm:ml-64">
+          <div className="first_content p-4 sm:ml-64 ">
             <div className="p-4">
               <div className="grid grid-cols-4 gap-10 ">
                 <div className="flex items-center justify-center h-24 rounded ">
@@ -265,8 +266,8 @@ const Customerpofile = () => {
                           ? `http://172.105.57.17:1337${profileImg?.[0]?.attributes?.url}`
                           : profile
                       }
-                      width={100}
-                      height={100}
+                      width={80}
+                      height={80}
                       alt="logo"
                     />
                     <div className="flex max-w-max">
@@ -278,8 +279,8 @@ const Customerpofile = () => {
                               ? `http://172.105.57.17:1337${profileImg?.[1]?.attributes?.url}`
                               : profile
                           }
-                          width={100}
-                          height={100}
+                          width={80}
+                          height={80}
                           alt="logo"
                         />
                       </div>
@@ -291,8 +292,8 @@ const Customerpofile = () => {
                               ? `http://172.105.57.17:1337${profileImg?.[2]?.attributes?.url}`
                               : profile
                           }
-                          width={100}
-                          height={100}
+                          width={80}
+                          height={80}
                           alt="logo"
                         />
                       </div>
@@ -304,8 +305,8 @@ const Customerpofile = () => {
                               ? `http://172.105.57.17:1337${profileImg?.[3]?.attributes?.url}`
                               : profile
                           }
-                          width={100}
-                          height={100}
+                          width={80}
+                          height={80}
                           alt="logo"
                         />
                       </div>
@@ -711,7 +712,7 @@ const Customerpofile = () => {
           {/* Horoscope Chart */}
           <div className="fourth_content">
             <span className="sec_text ">Horoscope Chart</span>
-            <div className="tb_dt flex ">
+            <div className="tb_dt flex flex-wrap ">
               {/* <Image src={horos} alt="img" />
               <Image src={horos1} alt="img" /> */}
               <Image
@@ -720,9 +721,9 @@ const Customerpofile = () => {
                     ? `http://172.105.57.17:1337${img?.[0]?.attributes?.url}`
                     : horos
                 }
-                width={500}
+                width={250}
                 alt="img"
-                height={500}
+                height={250}
               />
               <Image
                 src={
@@ -730,9 +731,9 @@ const Customerpofile = () => {
                     ? `http://172.105.57.17:1337${img?.[1]?.attributes?.url}`
                     : horos1
                 }
-                width={500}
+                width={250}
                 alt="img"
-                height={500}
+                height={250}
               />
             </div>
           </div>

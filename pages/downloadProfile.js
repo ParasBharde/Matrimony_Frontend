@@ -575,8 +575,8 @@ const DownlodedProfiles = () => {
                                     alt="logo"
                                     className="w-6 h-6 rounded-full cusrsor-pointer "
                                     // loader={()=>myLoader(profile_photo.data[0].attributes.url)}
-                                    src={profileImage}
-                                    // src={`http://172.105.57.17:1337${profile_photo.data[0].attributes.url}`}
+                                    // src={profileImage}
+                                    src={`http://172.105.57.17:1337${profile_photo.data[0].attributes.url}`}
                                     width={100}
                                     height={100}
                                   />
@@ -641,9 +641,11 @@ const DownlodedProfiles = () => {
                             <picture>
                               <Image
                                 className="img_card "
-                                src={profileImage}
-                                // src={`http://172.105.57.17:1337${profile_photo.data[0].attributes.url}`}
-                                alt=""
+                                // src={profileImage}
+                                src={`http://172.105.57.17:1337${profile_photo.data[0].attributes.url}`}
+                                alt="profile photos"
+                                width={500}
+                                height={500}
                               />
                             </picture>
 

@@ -27,12 +27,12 @@
    font-weight: 500;
    align-items: center;
     @include breakpoint-down(small){
-      width:42.3rem;
+      // width:42.3rem;
       // width:auto;
       padding-top: 5rem;
     }
             @include breakpoint-up(medium) {
-               width:84rem;
+               // width:84rem;
             }
                          @include breakpoint-up(xlarge) {
                             width: 100%;

@@ -352,13 +352,18 @@ const Manageuserdash = () => {
                           height={100}
                         />
                       </div>
-                      <Link href="profile">
+                      <button onClick={() => {
+                        router.push({
+                          pathname: "/admin/profile",
+                          query: {id: item.id}
+                        })
+                      }}>
                         <span>
                           {item.attributes.first_name +
                             " " +
                             item.attributes.last_name}
                         </span>
-                      </Link>
+                      </button>
                     </div>
                   </td>
                   {/* <td className="px-20 py-4">Sliver</td> */}
