@@ -1,21 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import axios from "axios";
 import profile from "@/assets/profile.png";
 import { useRouter } from "next/router";
 
 import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
-import { Document, Page, View } from "react-pdf";
 import "jspdf-autotable";
-
-// import 'jspdf-autotable';
 
 const Manageuserdash = () => {
   const router = useRouter();
-  // const storage = useStorage();
 
   const [profiles, setProfiles] = useState([]);
   const [search, setSearch] = useState("");
@@ -26,8 +21,8 @@ const Manageuserdash = () => {
 
   const [downloadedProfile, setDownloadedProfile] = useState([]);
   const [ids, setIds] = useState([]);
-
   const [downloadProfile, setDownloadProfile] = useState([]);
+  const inputRef = useRef(false);
 
   const getAllProfiles = () => {
     var config = {
@@ -39,7 +34,6 @@ const Manageuserdash = () => {
 
     axios(config)
       .then(function (response) {
-        // console.log(JSON.stringify(response.data));
         setProfiles(response.data.data);
         setProfileToShow(response.data.data);
         setLength(Math.ceil(response.data.data.length / 10));
@@ -52,7 +46,6 @@ const Manageuserdash = () => {
 
   // fetch downloded profiles
   useEffect(() => {
-    // console.log("storage", id);
     axios
       .get(
         "http://172.105.57.17:1337/api/download-profiles?populate=*&populete=user_profiles"
@@ -79,7 +72,6 @@ const Manageuserdash = () => {
     }
     return count;
   };
-  // console.log("getDownlodCount", getDownlodCount(25));
 
   useEffect(() => {
     getAllProfiles();
@@ -114,24 +106,6 @@ const Manageuserdash = () => {
   const [selectedRows, setSelectedRows] = useState(
     Array(profileToShow.length).fill(false)
   );
-  const [isMultipleRowSelected, setIsMultipleRowSelected] = useState(false);
-
-  // console.log("hello",selectedRows)
-
-  useEffect(() => {
-    if (selectedRows.length > 0) {
-      let selectedRowsCount = 0;
-      for (let i = 0; i < selectedRows.length; i++) {
-        if (selectedRows[i] == true) {
-          selectedRowsCount++;
-          if (selectedRowsCount >= 2) {
-            setIsMultipleRowSelected(true);
-            break;
-          }
-        }
-      }
-    }
-  }, [selectedRows]);
 
   const handleHeaderCheckboxChange = (event) => {
     const isChecked = event.target.checked;
@@ -180,9 +154,7 @@ const Manageuserdash = () => {
   // download pdf functionality code .
   function generatePDF() {
     let doc = new jsPDF("p", "mm", "a3", "portrait");
-
     let info = [];
-
     downloadProfile.forEach((p, index, array) => {
       console.log("element ", index, p);
       info.push([
@@ -229,14 +201,8 @@ const Manageuserdash = () => {
     doc.save("profils detail.pdf");
     setIds([]);
     setSelectedRows(Array(profileToShow.length).fill(false));
-    setIsMultipleRowSelected(false);
+    inputRef.current.checked = false;
   }
-
-  // function handleDownloadPDF() {
-  //   // setIds([]);
-  //   // setSelectedRows(Array(profileToShow.length).fill(false));
-  //   // setIsMultipleRowSelected(false);
-  // }
 
   return (
     <>
@@ -274,13 +240,13 @@ const Manageuserdash = () => {
           </form>
 
           <button
-            className={`px-5 rounded bg-orange-400 py-2 my-3 ${
+            className={`px-5 rounded bg-orange-400 py-2 ${
               isMultipleRowSelected == false && "cursor-not-allowed"
             }`}
-            disabled={isMultipleRowSelected == true ? false : true}
+            disabled={downloadProfile.length <= 1 ? true : false}
             onClick={generatePDF}
           >
-            <span className="flex text-white" href="#">
+            <span className="flex text-white">
               <svg
                 className="mr-2 mt-1"
                 width="17"
@@ -316,6 +282,8 @@ const Manageuserdash = () => {
                   name="chk"
                   id="header-checkbox"
                   className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white focus:outline-none  focus:ring-2  focus:ring-gray-400"
+                  ref={inputRef}
+                  checked={inputRef.current.checked}
                   onChange={handleHeaderCheckboxChange}
                 />
               </th>
@@ -427,171 +395,124 @@ const Manageuserdash = () => {
                         fill="#F98B1D"
                       />
                     </svg>
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 14 14"
-                      fill="none"
-                      className="cursor-pointer"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <button
+                      disabled={downloadProfile.length != 1 ? true : false}
                       onClick={generatePDF}
-                      id="down1"
+                      className={`${
+                        downloadProfile.length != 1
+                          ? "cursor-not-allowed"
+                          : "cursor-pointer"
+                      }`}
                     >
-                      <path
-                        d="M12.0007 9.4987V11.9987H2.00065V9.4987H0.333984V11.9987C0.333984 12.9154 1.08398 13.6654 2.00065 13.6654H12.0007C12.9173 13.6654 13.6673 12.9154 13.6673 11.9987V9.4987H12.0007ZM11.1673 6.16536L9.99232 4.99036L7.83398 7.14036V0.332031H6.16732V7.14036L4.00898 4.99036L2.83398 6.16536L7.00065 10.332L11.1673 6.16536Z"
-                        fill="#F98B1D"
-                      />
-                    </svg>
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 14 14"
+                        fill="none"
+                        // className="cursor-pointer"
+                        xmlns="http://www.w3.org/2000/svg"
+                        id="down1"
+                      >
+                        <path
+                          d="M12.0007 9.4987V11.9987H2.00065V9.4987H0.333984V11.9987C0.333984 12.9154 1.08398 13.6654 2.00065 13.6654H12.0007C12.9173 13.6654 13.6673 12.9154 13.6673 11.9987V9.4987H12.0007ZM11.1673 6.16536L9.99232 4.99036L7.83398 7.14036V0.332031H6.16732V7.14036L4.00898 4.99036L2.83398 6.16536L7.00065 10.332L11.1673 6.16536Z"
+                          fill="#F98B1D"
+                        />
+                      </svg>
+                    </button>
                   </td>
                 </tr>
               );
             })}
           </tbody>
         </table>
-        <div className="flex items-center px-4 py-[2rem] sm:px-6 mb-[2rem]">
-          <div className="flex flex-1 justify-between sm:hidden">
-            <Link
-              href="#"
-              className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-            >
-              Previous
-            </Link>
-            <Link
-              href="#"
-              className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-            >
-              Next
-            </Link>
+
+      </div>
+      <div className="flex items-center px-4 py-[2rem] sm:px-6 mb-[2rem]">
+        <div className="flex flex-1 justify-between sm:hidden">
+          <Link
+            href="#"
+            className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+          >
+            Previous
+          </Link>
+          <Link
+            href="#"
+            className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+          >
+            Next
+          </Link>
+        </div>
+        <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+          <div>
+            <span className="text-sm text-gray-700">
+              {currentPage == 1 ? "1" : `${(currentPage - 1) * 10 + 1}`}-
+              {total <= currentPage * 10 ? total : currentPage * 10}{" "}
+              <span className="font-semibold text-gray-900">of</span> {total}{" "}
+              <span className="font-semibold text-gray-900">Pages</span>
+            </span>
           </div>
-          <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
-            <div>
-              <span className="text-sm text-gray-700">
-                {currentPage == 1 ? "1" : `${(currentPage - 1) * 10 + 1}`}-
-                {total <= currentPage * 10 ? total : currentPage * 10}{" "}
-                <span className="font-semibold text-gray-900">of</span> {total}{" "}
-                <span className="font-semibold text-gray-900">Pages</span>
-              </span>
-            </div>
-            <div>
-              <nav
-                className="isolate inline-flex -space-x-px  rounded-md shadow-sm "
-                aria-label="Pagination"
+          <div>
+            <nav
+              className="isolate inline-flex -space-x-px  rounded-md shadow-sm "
+              aria-label="Pagination"
+            >
+              <Link
+                href="#"
+                className="relative inline-flex items-center rounded-l-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
               >
-                <Link
-                  href="#"
-                  className="relative inline-flex items-center rounded-l-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
+                <span className="sr-only">Previous</span>
+
+                <svg
+                  className="h-5 w-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
                 >
-                  <span className="sr-only">Previous</span>
+                  <path
+                    fillRule="evenodd"
+                    d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </Link>
 
-                  <svg
-                    className="h-5 w-5"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </Link>
+              {Array(length)
+                .fill(0)
+                .map((item, index) => {
+                  return (
+                    <p
+                      key={index}
+                      aria-current="page"
+                      className="relative z-10 inline-flex items-center border border-gray-400 px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
+                    >
+                      {index + 1}
+                    </p>
+                  );
+                })}
+              <Link
+                href="#"
+                className="relative inline-flex items-center rounded-r-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
+              >
+                <span className="sr-only">Next</span>
 
-                {Array(length)
-                  .fill(0)
-                  .map((item, index) => {
-                    return (
-                      <p
-                        key={index}
-                        aria-current="page"
-                        className="relative z-10 inline-flex items-center border border-gray-400 px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
-                      >
-                        {index + 1}
-                      </p>
-                    );
-                  })}
-                <Link
-                  href="#"
-                  className="relative inline-flex items-center rounded-r-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
+                <svg
+                  className="h-5 w-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
                 >
-                  <span className="sr-only">Next</span>
-
-                  <svg
-                    className="h-5 w-5"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </Link>
-              </nav>
-            </div>
+                  <path
+                    fillRule="evenodd"
+                    d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </Link>
+            </nav>
           </div>
         </div>
-
-        {/* <div>
-          <table
-            className="table table-auto border-collapse border"
-            id="pdf-content"
-          >
-            <thead>
-              <tr>
-                <th className="border ">Id</th>
-                <th className="border "> First Name</th>
-                <th className="border ">Last name</th>
-                <th className="border ">Email</th>
-
-                <th className="border ">Color</th>
-                <th className="border ">Father Name</th>
-                <th className="border ">Height</th>
-
-                <th className="border ">Mother Name</th>
-                <th className="border ">Salary </th>
-                <th className="border ">address</th>
-                <th className="border ">birth_time</th>
-                <th className="border ">birthplace</th>
-                <th className="border ">date_of_birth</th>
-              </tr>
-            </thead>
-            <tbody className=" leading-10">
-              {downloadProfile.map((item, index) => {
-                return (
-                  <>
-                    <tr
-                      key={`${index}${item.id}`}
-                      className="pt-10 mt-10 leading-6"
-                    >
-                      <td>{item.id}</td>
-                      <td className="border ">{item.attributes.first_name}</td>
-                      <td className="border ">{item.attributes.last_name}</td>
-                      <td className="border ">{item.attributes.email}</td>
-                      <td className="border ">{item.attributes.Color}</td>
-                      <td className="border ">{item.attributes.father_name}</td>
-                      <td className="border ">{item.attributes.Height}</td>
-                      <td className="border ">{item.attributes.mother_name}</td>
-                      <td className="border ">
-                        {item.attributes.Salary_monthly_income}
-                      </td>
-                      <td className="border ">{item.attributes.address}</td>
-                      <td className="border ">{item.attributes.birth_time}</td>
-                      <td className="border ">{item.attributes.birthplace}</td>
-                      <td className="border ">
-                        {item.attributes.date_of_birth}
-                      </td>
-                    </tr>
-                  </>
-                );
-              })}
-            </tbody>
-          </table>
-        </div> */}
       </div>
     </>
   );

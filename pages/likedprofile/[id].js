@@ -58,13 +58,10 @@ const Likedprofile = () => {
   };
 
   const handleHideDislikeProfile = (id) => {
-    let data = myLikedprofiles.filter((item) => {
-      return item.attributes?.user_profile?.id != id;
+    let data = likedprofiles.filter((item) => {
+      return item.attributes?.user_profile?.data?.id != id;
     });
-    console.log("is Profile Disliked",data);
-    setMyLikedprofiles(data);
-    let profile = document.getElementById(id);
-    profile.classList.add("hidden");
+    setlikedprofiles(data);
   };
 
   // valid liked profiles code start
@@ -92,7 +89,7 @@ const Likedprofile = () => {
     let indexOfLastProfile = currentPage * profilePerPage;
     let indexOfFirstProfile = indexOfLastProfile - profilePerPage;
     setlikedprofiles(
-      allprofiles.slice(indexOfFirstProfile, indexOfLastProfile)
+      allProfiles.slice(indexOfFirstProfile, indexOfLastProfile)
     );
   };
 
@@ -668,9 +665,8 @@ const Likedprofile = () => {
                                 id="heart"
                                 onClick={(e) => {
                                   handleDislike(profile.id);
-                                  // handleHideDislikeProfile(e);
                                   handleHideDislikeProfile(
-                                    `liked-profile-${profile.id}`
+                                    profile.attributes.user_profile.data?.id
                                   );
                                 }}
                                 // onMouseOver={() => src="/assets/redheart.png"}
@@ -695,7 +691,7 @@ const Likedprofile = () => {
                             onClick={() => {
                               router.push({
                                 pathname: "/profiledetail/[id]/",
-                                query: { id: itms.id },
+                                query: { id: profile.attributes.user_profile.data?.id },
                               });
                             }}
                           >
@@ -903,7 +899,9 @@ const Likedprofile = () => {
           </div>
         ) : (
           <div className=" px-4 py-3 sm:px-[6rem] h-[80vh]">
-            <p className="text-center font-semibold text-xl mt-5">Oops! It seems like you haven&apos;t liked any profile yet...</p>
+            <p className="text-center font-semibold text-xl mt-5">
+              Oops! It seems like you haven&apos;t liked any profile yet...
+            </p>
           </div>
         )}
       </div>

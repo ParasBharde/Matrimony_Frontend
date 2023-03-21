@@ -194,7 +194,7 @@ const EditProfile = () => {
                             <Image
                               className="img_profile_portfolio object-contain w-40 min-h-full"
                               object-fit="true"
-                              src={profileImg ? `http://172.105.57.17:1337${profileImg?.[1]?.attributes?.url}` : profile}
+                              src={profileImg ? `http://172.105.57.17:1337${profileImg?.[0]?.attributes?.url}` : profile}
                               alt={"logo"}
                               width={500}
                               height={500}

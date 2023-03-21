@@ -28,7 +28,8 @@ const DownlodedProfiles = () => {
       console.log("storage", storage.id);
       axios
         .get(
-          "http://172.105.57.17:1337/api/download-profiles?populate=*&populete=user_profiles"
+          "http://172.105.57.17:1337/api/download-profiles?populate=users_permissions_user&populate=user_profiles.profile_photo"
+          // "http://172.105.57.17:1337/api/download-profiles?populate=*&populete=user_profiles"
         )
         .then((response) => {
           let data = response.data.data;

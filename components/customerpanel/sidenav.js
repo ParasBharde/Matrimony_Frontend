@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 
 const Sidenav = () => {
   const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
 
-  const defaultPage = 'admin';
+  const defaultPage = "admin";
   const isActive = (page) => {
     return router.pathname === `/${page}`;
   };
@@ -14,6 +15,7 @@ const Sidenav = () => {
     <>
       <div className="">
         <button
+          onClick={() => setIsOpen(!isOpen)}
           data-drawer-target="default-sidebar"
           data-drawer-toggle="default-sidebar"
           aria-controls="default-sidebar"
@@ -35,11 +37,12 @@ const Sidenav = () => {
             ></path>
           </svg>
         </button>
-
+        {/* -translate-x-full sm:translate-x-0 */}
         <aside
           id="default-sidebar"
-          className="side_nav fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+          className={`side_nav fixed top-0 left-0 z-40 w-64 h-screen transition-transform ${!isOpen && "-translate-x-full"} sm:translate-x-0`}
           aria-label="Sidebar"
+          onClick={() => setIsOpen(false)}
         >
           <div className="h-full px-3 py-4 overflow-y-auto">
             <ul className="space-y-4">
@@ -67,19 +70,43 @@ const Sidenav = () => {
                   </svg>
                 </Link>
               </li>
-              <li className={isActive(defaultPage) ? "flex items-center p-2 text-base rounded text-black bg-white left-0 right-[1196px] bottom-[664px] top-[228px] font-bold" : "flex items-center p-2 text-base font-normal text-white rounded hover:text-white"}>
-                <Link href={`/${defaultPage}`} className=" " >
-                  <span className="flex-1 ml-3 whitespace-nowrap">Dashboard</span>
+              <li
+                className={
+                  isActive(defaultPage)
+                    ? "flex items-center p-2 text-base rounded text-black bg-white left-0 right-[1196px] bottom-[664px] top-[228px] font-bold"
+                    : "flex items-center p-2 text-base font-normal text-white rounded hover:text-white"
+                }
+              >
+                <Link href={`/${defaultPage}`} className=" ">
+                  <span onClick={() => setIsOpen(false)} className="flex-1 ml-3 whitespace-nowrap">
+                    Dashboard
+                  </span>
                 </Link>
               </li>
-              <li className={isActive("admin/manageuser") ? "flex items-center p-2 text-base rounded text-black bg-white left-0 right-[1196px] bottom-[664px] top-[228px] font-bold" : "flex items-center p-2 text-base font-normal text-white rounded hover:text-white"} >
+              <li
+                className={
+                  isActive("admin/manageuser")
+                    ? "flex items-center p-2 text-base rounded text-black bg-white left-0 right-[1196px] bottom-[664px] top-[228px] font-bold"
+                    : "flex items-center p-2 text-base font-normal text-white rounded hover:text-white"
+                }
+              >
                 <Link href="/admin/manageuser">
-                  <span className="flex-1 ml-3 whitespace-nowrap">Manage Users</span>
+                  <span onClick={() => setIsOpen(false)} className="flex-1 ml-3 whitespace-nowrap">
+                    Manage Users
+                  </span>
                 </Link>
               </li>
-              <li className={isActive("admin/managelist") ? "flex items-center p-2 text-base rounded text-black bg-white left-0 right-[1196px] bottom-[664px] top-[228px] font-bold" : "flex items-center p-2 text-base font-normal text-white rounded hover:text-white"}>
-                <Link href="/admin/managelist" >
-                  <span className="flex-1 ml-3 whitespace-nowrap">Members List</span>
+              <li
+                className={
+                  isActive("admin/managelist")
+                    ? "flex items-center p-2 text-base rounded text-black bg-white left-0 right-[1196px] bottom-[664px] top-[228px] font-bold"
+                    : "flex items-center p-2 text-base font-normal text-white rounded hover:text-white"
+                }
+              >
+                <Link href="/admin/managelist">
+                  <span onClick={() => setIsOpen(false)} className="flex-1 ml-3 whitespace-nowrap">
+                    Members List
+                  </span>
                 </Link>
               </li>
             </ul>

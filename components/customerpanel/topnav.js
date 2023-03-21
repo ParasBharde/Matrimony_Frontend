@@ -12,20 +12,8 @@ const Topnav = () => {
 
     
       <nav
-        className="
-        top_navv
-        
-        flex flex-wrap
-        items-center
-        justify-between
-        py-4
-        bg-gray-100
-        text-gray-500
-        hover:text-gray-700
-        focus:text-gray-700
-        shadow-lg
-        navbar navbar-expand-lg navbar-light
-        "
+        className="top_navv flex flex-wrap items-center justify-between py-4 bg-gray-100 text-gray-500 hover:text-gray-700
+        focus:text-gray-700 shadow-lg navbar navbar-expand-lg navbar-light "
       >
         <div className="container-fluid w-full px-6 container flex flex-wrap items-center justify-between mx-auto ">
           <h1 className="flex justify-start items-center ">
@@ -33,7 +21,7 @@ const Topnav = () => {
           </h1>
 
           <div className="flex items-center">
-            <div className="text-gray-500 hover:text-gray-700 focus:text-gray-700 mr-4 ">
+            {/* <div className="text-gray-500 hover:text-gray-700 focus:text-gray-700 mr-4 ">
               <svg
                 width="16"
                 height="20"
@@ -47,7 +35,7 @@ const Topnav = () => {
                   fillOpacity="0.5"
                 />
               </svg>
-            </div>
+            </div> */}
 
             <div className="text-gray-500 hover:text-gray-700 focus:text-gray-700 mr-4">
               <button
