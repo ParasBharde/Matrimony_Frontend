@@ -33,7 +33,7 @@ const Topnav = () => {
           </h1>
 
           <div className="flex items-center">
-            <div className="text-gray-500 hover:text-gray-700 focus:text-gray-700 mr-4 ">
+            {/* <div className="text-gray-500 hover:text-gray-700 focus:text-gray-700 mr-4 ">
               <svg
                 width="16"
                 height="20"
@@ -47,7 +47,7 @@ const Topnav = () => {
                   fillOpacity="0.5"
                 />
               </svg>
-            </div>
+            </div> */}
 
             <div className="text-gray-500 hover:text-gray-700 focus:text-gray-700 mr-4">
               <button

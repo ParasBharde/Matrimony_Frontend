@@ -1,21 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import axios from "axios";
 import profile from "@/assets/profile.png";
 import { useRouter } from "next/router";
 
 import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
-import { Document, Page, View } from "react-pdf";
 import "jspdf-autotable";
-
-// import 'jspdf-autotable';
 
 const Manageuserdash = () => {
   const router = useRouter();
-  // const storage = useStorage();
 
   const [profiles, setProfiles] = useState([]);
   const [search, setSearch] = useState("");
@@ -26,8 +21,8 @@ const Manageuserdash = () => {
 
   const [downloadedProfile, setDownloadedProfile] = useState([]);
   const [ids, setIds] = useState([]);
-
   const [downloadProfile, setDownloadProfile] = useState([]);
+  const inputRef = useRef(false);
 
   const getAllProfiles = () => {
     var config = {
@@ -39,7 +34,6 @@ const Manageuserdash = () => {
 
     axios(config)
       .then(function (response) {
-        // console.log(JSON.stringify(response.data));
         setProfiles(response.data.data);
         setProfileToShow(response.data.data);
         setLength(Math.ceil(response.data.data.length / 10));
@@ -52,7 +46,6 @@ const Manageuserdash = () => {
 
   // fetch downloded profiles
   useEffect(() => {
-    // console.log("storage", id);
     axios
       .get(
         "http://172.105.57.17:1337/api/download-profiles?populate=*&populete=user_profiles"
@@ -79,7 +72,6 @@ const Manageuserdash = () => {
     }
     return count;
   };
-  // console.log("getDownlodCount", getDownlodCount(25));
 
   useEffect(() => {
     getAllProfiles();
@@ -114,24 +106,6 @@ const Manageuserdash = () => {
   const [selectedRows, setSelectedRows] = useState(
     Array(profileToShow.length).fill(false)
   );
-  const [isMultipleRowSelected, setIsMultipleRowSelected] = useState(false);
-
-  // console.log("hello",selectedRows)
-
-  useEffect(() => {
-    if (selectedRows.length > 0) {
-      let selectedRowsCount = 0;
-      for (let i = 0; i < selectedRows.length; i++) {
-        if (selectedRows[i] == true) {
-          selectedRowsCount++;
-          if (selectedRowsCount >= 2) {
-            setIsMultipleRowSelected(true);
-            break;
-          }
-        }
-      }
-    }
-  }, [selectedRows]);
 
   const handleHeaderCheckboxChange = (event) => {
     const isChecked = event.target.checked;
@@ -229,7 +203,7 @@ const Manageuserdash = () => {
     doc.save("profils detail.pdf");
     setIds([]);
     setSelectedRows(Array(profileToShow.length).fill(false));
-    setIsMultipleRowSelected(false);
+    inputRef.current.checked = false;
   }
 
   return (
@@ -310,6 +284,8 @@ const Manageuserdash = () => {
                   name="chk"
                   id="header-checkbox"
                   className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white focus:outline-none  focus:ring-2  focus:ring-gray-400"
+                  ref={inputRef}
+                  checked={inputRef.current.checked}
                   onChange={handleHeaderCheckboxChange}
                 />
               </th>
@@ -422,10 +398,10 @@ const Manageuserdash = () => {
                       />
                     </svg>
                     <button
-                      disabled={downloadProfile.length > 1 ? true : false}
+                      disabled={downloadProfile.length != 1 ? true : false}
                       onClick={generatePDF}
                       className={`${
-                        downloadProfile.length > 1 ? "cursor-not-allowed" : "cursor-pointer"
+                        downloadProfile.length != 1 ? "cursor-not-allowed" : "cursor-pointer"
                       }`}
                     >
                       <svg

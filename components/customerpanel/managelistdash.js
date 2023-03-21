@@ -1,27 +1,25 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import profile from "@/assets/profile.png";
 import Link from "next/link";
 import axios from "axios";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 const Managelistdash = () => {
   const [profiles, setprofiles] = useState([]);
   const [search, setSearch] = useState("");
   const [profileToShow, setProfileToShow] = useState([]);
-
   const [length, setLength] = useState(0);
   const [total, setTotal] = useState(0);
-
   const [currentPage, setCurrentPage] = useState(1);
 
   const [ids, setIds] = useState([]);
-
-  const handleDownload = () => {
-
-  }
+  const [downloadProfile, setDownloadProfile] = useState([]);
+  const inputRef = useRef(false);
 
   useEffect(() => {
     async function getUser() {
@@ -78,22 +76,6 @@ const Managelistdash = () => {
     }
   }, [search]);
 
-  // function Selects() {
-  //   const headerCheckbox = document.getElementById("header-checkbox");
-  //   const rowCheckboxes = document.querySelectorAll(".row-checkbox");
-  //   headerCheckbox.addEventListener("click", function () {
-  //     if (headerCheckbox.checked) {
-  //       rowCheckboxes.forEach(function (rowCheckbox) {
-  //         rowCheckbox.checked = true;
-  //       });
-  //     } else {
-  //       rowCheckboxes.forEach(function (rowCheckbox) {
-  //         rowCheckbox.checked = false;
-  //       });
-  //     }
-  //   });
-  // }
-
   const [selectedRows, setSelectedRows] = useState(
     Array(profileToShow.length).fill(false)
   );
@@ -101,7 +83,102 @@ const Managelistdash = () => {
   const handleHeaderCheckboxChange = (event) => {
     const isChecked = event.target.checked;
     setSelectedRows(Array(profileToShow.length).fill(isChecked));
+    if (isChecked) {
+      getAllIds();
+    } else if (!isChecked) {
+      setIds([]);
+    }
   };
+
+  const getIds = (id) => {
+    let totalprofile = [...ids, id];
+    console.log(totalprofile);
+    setIds(totalprofile);
+  };
+
+  const removeIdFromDownload = (profileId) => {
+    let newIds = ids.filter((item) => item != profileId);
+    console.log(newIds);
+    setIds(newIds);
+  };
+
+  useEffect(() => {
+    let filteredRes = [];
+    for (let i = 0; i < ids.length; i++) {
+      for (let j = 0; j < profiles.length; j++) {
+        if (ids[i] == profiles[j].id) {
+          console.log("new data", profiles[j]);
+          filteredRes.push(profiles[j]);
+        }
+      }
+    }
+    setDownloadProfile(filteredRes);
+  }, [ids]);
+
+  // selet all profiles to download
+  const getAllIds = () => {
+    let Ids = profileToShow.map((item) => {
+      return item.id;
+    });
+    setIds(Ids);
+    console.log("this is all ids", Ids);
+  };
+
+  // download pdf functionality code .
+  function generatePDF() {
+    let doc = new jsPDF("p", "mm", "a3", "portrait");
+
+    let info = [];
+
+    downloadProfile.forEach((p, index, array) => {
+      console.log("element ", index, p);
+      info.push([
+        p.id,
+        p.attributes.first_name,
+        p.attributes.last_name,
+        p.attributes.email,
+        p.attributes.Color,
+        p.attributes.father_name,
+        p.attributes.Height,
+        p.attributes.mother_name,
+        p.attributes.Salary_monthly_income,
+        p.attributes.address,
+        p.attributes.birth_time,
+        p.attributes.birthplace,
+        p.attributes.date_of_birth,
+      ]);
+    });
+
+    doc.autoTable({
+      head: [
+        [
+          "Id",
+          "First Name",
+          "Last Name",
+          "Email",
+          "Color",
+          "Father Name",
+          "Height",
+          "Mother Name",
+          "Salary",
+          "Address",
+          "Birth Time",
+          "Birth Place",
+          "Date of Birth",
+        ],
+      ],
+      margin: { top: 1, left: 1, right: 1, bottom: 1 },
+      headStyles: { fillColor: [255, 127, 0] },
+      alternateRowStyles: { fillColor: [255, 224, 204] },
+      body: info,
+    });
+
+    doc.save("profils detail.pdf");
+    setIds([]);
+    setSelectedRows(Array(profileToShow.length).fill(false));
+    inputRef.current.checked = false;
+  }
+
   return (
     <>
       <div className="lg:txt lg:flex md:flex justify-around  relative mt-5 mx-5">
@@ -136,8 +213,14 @@ const Managelistdash = () => {
               />
             </div>
           </form>
-          <button className="px-5 rounded bg-orange-400 py-2">
-            <Link href="#" className="flex text-white">
+          <button
+            className={`px-5 rounded bg-orange-400 py-2 ${
+              downloadProfile.length <= 0 && "cursor-not-allowed"
+            }`}
+            disabled={downloadProfile.length <= 0 ? true : false}
+            onClick={generatePDF}
+          >
+            <span className="flex text-white">
               <svg
                 className="mr-2 mt-1"
                 width="17"
@@ -152,10 +235,8 @@ const Managelistdash = () => {
                 />
               </svg>
               Download
-            </Link>
+            </span>
           </button>
-
-         
         </div>
       </div>
       <div className="user_dash relative overflow-x-auto">
@@ -174,7 +255,8 @@ const Managelistdash = () => {
                   type="checkbox"
                   className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white dark:bg-gray-800 focus:outline-none  focus:ring-2  focus:ring-gray-400"
                   id="header-checkbox"
-                  // onClick={(e) => Selects(e)}
+                  ref={inputRef}
+                  checked={inputRef.current.checked}
                   onChange={handleHeaderCheckboxChange}
                 />
               </th>
@@ -211,10 +293,15 @@ const Managelistdash = () => {
                       className="row-checkbox cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white focus:outline-none  focus:ring-2  focus:ring-gray-400"
                       type="checkbox"
                       checked={selectedRows[index]}
-                      onChange={() => {
+                      onChange={(event) => {
                         const newSelectedRows = [...selectedRows];
                         newSelectedRows[index] = !newSelectedRows[index];
                         setSelectedRows(newSelectedRows);
+                        if (event.target.checked) {
+                          getIds(item.id);
+                        } else {
+                          removeIdFromDownload(item.id);
+                        }
                       }}
                     />
                   </td>
