@@ -269,12 +269,12 @@ const Manageuserdash = () => {
 
           <button
             className={`px-5 rounded bg-orange-400 py-2 ${
-              isMultipleRowSelected == false && "cursor-not-allowed"
+              downloadProfile.length <= 1 && "cursor-not-allowed"
             }`}
-            disabled={isMultipleRowSelected == true ? false : true}
+            disabled={downloadProfile.length <= 1 ? true : false}
             onClick={generatePDF}
           >
-            <span className="flex text-white" href="#">
+            <span className="flex text-white">
               <svg
                 className="mr-2 mt-1"
                 width="17"
@@ -421,21 +421,28 @@ const Manageuserdash = () => {
                         fill="#F98B1D"
                       />
                     </svg>
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 14 14"
-                      fill="none"
-                      className="cursor-pointer"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <button
+                      disabled={downloadProfile.length > 1 ? true : false}
                       onClick={generatePDF}
-                      id="down1"
+                      className={`${
+                        downloadProfile.length > 1 ? "cursor-not-allowed" : "cursor-pointer"
+                      }`}
                     >
-                      <path
-                        d="M12.0007 9.4987V11.9987H2.00065V9.4987H0.333984V11.9987C0.333984 12.9154 1.08398 13.6654 2.00065 13.6654H12.0007C12.9173 13.6654 13.6673 12.9154 13.6673 11.9987V9.4987H12.0007ZM11.1673 6.16536L9.99232 4.99036L7.83398 7.14036V0.332031H6.16732V7.14036L4.00898 4.99036L2.83398 6.16536L7.00065 10.332L11.1673 6.16536Z"
-                        fill="#F98B1D"
-                      />
-                    </svg>
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 14 14"
+                        fill="none"
+                        // className="cursor-pointer"
+                        xmlns="http://www.w3.org/2000/svg"
+                        id="down1"
+                      >
+                        <path
+                          d="M12.0007 9.4987V11.9987H2.00065V9.4987H0.333984V11.9987C0.333984 12.9154 1.08398 13.6654 2.00065 13.6654H12.0007C12.9173 13.6654 13.6673 12.9154 13.6673 11.9987V9.4987H12.0007ZM11.1673 6.16536L9.99232 4.99036L7.83398 7.14036V0.332031H6.16732V7.14036L4.00898 4.99036L2.83398 6.16536L7.00065 10.332L11.1673 6.16536Z"
+                          fill="#F98B1D"
+                        />
+                      </svg>
+                    </button>
                   </td>
                 </tr>
               );
