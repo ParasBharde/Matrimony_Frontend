@@ -265,8 +265,8 @@ const Customerpofile = () => {
                           ? `http://172.105.57.17:1337${profileImg?.[0]?.attributes?.url}`
                           : profile
                       }
-                      width={100}
-                      height={100}
+                      width={80}
+                      height={80}
                       alt="logo"
                     />
                     <div className="flex max-w-max">
@@ -278,8 +278,8 @@ const Customerpofile = () => {
                               ? `http://172.105.57.17:1337${profileImg?.[1]?.attributes?.url}`
                               : profile
                           }
-                          width={100}
-                          height={100}
+                          width={80}
+                          height={80}
                           alt="logo"
                         />
                       </div>
@@ -291,8 +291,8 @@ const Customerpofile = () => {
                               ? `http://172.105.57.17:1337${profileImg?.[2]?.attributes?.url}`
                               : profile
                           }
-                          width={100}
-                          height={100}
+                          width={80}
+                          height={80}
                           alt="logo"
                         />
                       </div>
@@ -304,8 +304,8 @@ const Customerpofile = () => {
                               ? `http://172.105.57.17:1337${profileImg?.[3]?.attributes?.url}`
                               : profile
                           }
-                          width={100}
-                          height={100}
+                          width={80}
+                          height={80}
                           alt="logo"
                         />
                       </div>
@@ -711,7 +711,7 @@ const Customerpofile = () => {
           {/* Horoscope Chart */}
           <div className="fourth_content">
             <span className="sec_text ">Horoscope Chart</span>
-            <div className="tb_dt flex ">
+            <div className="tb_dt flex flex-wrap ">
               {/* <Image src={horos} alt="img" />
               <Image src={horos1} alt="img" /> */}
               <Image
@@ -720,9 +720,9 @@ const Customerpofile = () => {
                     ? `http://172.105.57.17:1337${img?.[0]?.attributes?.url}`
                     : horos
                 }
-                width={500}
+                width={250}
                 alt="img"
-                height={500}
+                height={250}
               />
               <Image
                 src={
@@ -730,9 +730,9 @@ const Customerpofile = () => {
                     ? `http://172.105.57.17:1337${img?.[1]?.attributes?.url}`
                     : horos1
                 }
-                width={500}
+                width={250}
                 alt="img"
-                height={500}
+                height={250}
               />
             </div>
           </div>

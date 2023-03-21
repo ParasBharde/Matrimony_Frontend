@@ -233,21 +233,21 @@ const EditProfile = () => {
                               className="img_profile_g "
                               src={profileImg ? `http://172.105.57.17:1337${profileImg?.[1]?.attributes?.url}` : profile}
                               alt={"logo"}
-                              width={100}
-                              height={100}
+                              width={80}
+                              height={80}
                             />
                             <Image
                               className="img_profile_g w-40 h-26"
                               src={profileImg ? `http://172.105.57.17:1337${profileImg?.[2]?.attributes?.url}` : profile}
                               alt={"logo"}
-                              width={100}
-                              height={100}
+                              width={80}
+                              height={80}
                             />
                             <Image
                               className="img_profile_g w-40 h-26"
                               src={profileImg ? `http://172.105.57.17:1337${profileImg?.[3]?.attributes?.url}` : profile}
                               alt={"logo"}
-                              width={100}
+                              width={80}
                               height={100}
                             />
                           </div>
