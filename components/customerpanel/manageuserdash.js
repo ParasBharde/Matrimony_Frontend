@@ -274,7 +274,7 @@ const Manageuserdash = () => {
           </form>
 
           <button
-            className={`px-5 rounded bg-orange-400 py-2 ${
+            className={`px-5 rounded bg-orange-400 py-2 my-3 ${
               isMultipleRowSelected == false && "cursor-not-allowed"
             }`}
             disabled={isMultipleRowSelected == true ? false : true}

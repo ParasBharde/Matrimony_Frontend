@@ -166,7 +166,7 @@ const Customerpofile = () => {
         </div>
       )}
 
-      <div className="parent ">
+      <div className="parent w-screen">
         <table className="child table-auto" id="pdf-content">
           <div className="table_header flex">
             <thead className="">
@@ -179,7 +179,8 @@ const Customerpofile = () => {
                 </td>
               </div>
             </thead>
-            <div className="flex space-x-2 mt-2 max-md:hidden">
+            <div className="flex space-x-2 mt-2 max-md:hidden ">
+            
               <button
                 className="px-5 rounded  bg-orange-400 py-1.5"
                 onClick={downloadPdf}
@@ -225,7 +226,7 @@ const Customerpofile = () => {
             </div>
           </div>
 
-          <div className="first_content p-4 sm:ml-64">
+          <div className="first_content p-4 sm:ml-64 ">
             <div className="p-4">
               <div className="grid grid-cols-4 gap-10 ">
                 <div className="flex items-center justify-center h-24 rounded ">

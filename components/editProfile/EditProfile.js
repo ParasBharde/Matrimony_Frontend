@@ -125,12 +125,12 @@ const EditProfile = () => {
   // }
   return (
     <>
-      <div className="container">
+      <div className="container ">
         <Breadcrumb screens={["Home", "Search", "My Profile Details"]} />
 
-        <div className="main_container flex justify-center">
-          <div className="px-10">
-            <div className="flex items-center w-full bg-main h-16 px-5">
+        <div className="main_container flex justify-center ">
+          <div className="lg:px-10 md:px-5 sm:px-5">
+            <div className="flex items-center w-full bg-main h-16 px-5 ">
               <span className="text-white flex-1">Profile Detail</span>
               <div className="flex items-center ">
                 <button
@@ -689,7 +689,7 @@ const EditProfile = () => {
               {/* Horoscope Chart */}
               <div className="md:mt-[-26rem] ml-[3rem]">
                 <span className="font-bold">Horoscope Chart</span>
-                <div className="flex justify-around mt-[4rem] ">
+                <div className="flex flex-wrap justify-around mt-[4rem] ">
                   <Image
                     className="mb-8"
                     src={img ? `http://172.105.57.17:1337${img?.[0]?.attributes?.url}` : horos}

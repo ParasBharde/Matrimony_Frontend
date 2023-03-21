@@ -136,7 +136,7 @@ const Managelistdash = () => {
               />
             </div>
           </form>
-          <button className="px-5 rounded bg-orange-400 py-2">
+          <button className="px-5 rounded bg-orange-400 py-2 my-3">
             <Link href="#" className="flex text-white">
               <svg
                 className="mr-2 mt-1"

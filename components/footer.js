@@ -13,7 +13,8 @@ const Footer = () => {
       router.pathname === "/register" ||
       router.pathname === "/setNewPassword" ||
       router.pathname === "/contactus" ? (
-        <div className="footer_main_1 w-max bg-main flex flex-wrap justify-between items-center px-20  z-50">
+        <div className="footer_main_1   bg-main flex flex-wrap justify-between items-center px-20  z-50 w-auto">
+          {/* w-max */}
           <p className="text-white text-base">
             Copyright © Trichy Vayalur Road Reddy Trust All rights reserved.
             Theme Anews by themeuniver
@@ -25,7 +26,7 @@ const Footer = () => {
           </div>
         </div>
       ) : (
-        <div className="footer_main  bg-main  flex max-md:pb-5;">
+        <div className="footer_main  bg-main  flex flex-wrap max-md:pb-5;">
           <p className="text-white text-base flex-3 pl-15 max-md:text-3xl pl-10">
             Copyright © Trichy Vayalur Road Reddy Trust All rights reserved.
             Theme Anews by themeuniver
