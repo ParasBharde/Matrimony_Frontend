@@ -193,7 +193,7 @@ const EditProfile = () => {
                       </div>
                       <div className="flex items-center justify-center h-24 ">
                         <div className="second_item relative">
-                          <button
+                          <button 
                             className=""
                             type="button"
                             onClick={() => setModalDefaultOpen(true)}
@@ -786,7 +786,12 @@ const EditProfile = () => {
           background: #e0e0e0;
         }
       `}</style>
+
+
+      
+
     </>
+    
   );
 };
 export default EditProfile;

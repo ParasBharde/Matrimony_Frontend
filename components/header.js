@@ -107,7 +107,7 @@ const Header = () => {
                   router.push("/portfolio/portfolio");
                 }}
               >
-                Search
+                 Pricing Plan
               </p>
               <p
                 className={`cursor-pointer ${
@@ -117,7 +117,7 @@ const Header = () => {
                   router.push("/pricingPlan");
                 }}
               >
-                Pricing Plan
+               Search
               </p>{" "}
             </>
           )}
@@ -131,14 +131,26 @@ const Header = () => {
           >
             Contact Us
           </p>
+          <p
+                className={`cursor-pointer ${
+                  pathname == "/aboutus" && "text-main"
+                }`}
+                onClick={() => {
+                  router.push("/aboutus");
+                }}
+              >
+              About Us 
+              </p>
           <select
             value={lang}
             onChange={(e) => {
               getSelectedValue(e.target.value);
               setLang(e.target.value);
+
             }}
           >
             {locales.map((l) => {
+              console.log(l);
               return (
                 <option key={l} value={l}>
                   {l == "en" ? "EN" : "TA"}
