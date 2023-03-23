@@ -104,8 +104,9 @@ const Header = () => {
                   pathname == "/portfolio/portfolio" && "text-main"
                 }`}
                 onClick={() => {
-                  router.push("/portfolio/portfolio");
+                  router.push("/pricingPlan");
                 }}
+               
               >
                  Pricing Plan
               </p>
@@ -114,7 +115,7 @@ const Header = () => {
                   pathname == "/pricingPlan" && "text-main"
                 }`}
                 onClick={() => {
-                  router.push("/pricingPlan");
+                  router.push("/portfolio/portfolio");
                 }}
               >
                Search
