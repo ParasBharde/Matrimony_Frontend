@@ -141,7 +141,7 @@ const Header = () => {
             {locales.map((l) => {
               return (
                 <option key={l} value={l}>
-                  {l}
+                  {l == "en" ? "EN" : "TA"}
                 </option>
               );
             })}

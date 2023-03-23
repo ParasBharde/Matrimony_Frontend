@@ -18,6 +18,7 @@ import { useCalculateAge } from "@/hooks/useCalculateAge";
 
 const EditProfile = () => {
   const [modalDefaultOpen, setModalDefaultOpen] = React.useState(false);
+  const [modalImage, setModalImage] = useState(2);
   const router = useRouter();
   const { locale } = useRouter();
   const calculateAge = useCalculateAge();
@@ -28,11 +29,11 @@ const EditProfile = () => {
   const [img, setImg] = useState();
 
   useEffect(() => {
-    if(userProfile) {
-      setProfileImg(userProfile?.profile_photo?.data)
+    if (userProfile) {
+      setProfileImg(userProfile?.profile_photo?.data);
       setImg(userProfile.horoscope_document?.data);
     }
-  },[userProfile]);
+  }, [userProfile]);
 
   function downloadPdf() {
     const input = document.getElementById("pdf-content");
@@ -48,7 +49,8 @@ const EditProfile = () => {
     if (storageData) {
       let api = "http://172.105.57.17:1337/api/profiles/?populate=%2A";
       if (locale == "ta") {
-        api = "http://172.105.57.17:1337/api/profiles/?populate=%2A&locale=ta-IN";
+        api =
+          "http://172.105.57.17:1337/api/profiles/?populate=%2A&locale=ta-IN";
       } else if (locale == "en") {
         api = "http://172.105.57.17:1337/api/profiles/?populate=%2A";
       }
@@ -116,8 +118,14 @@ const EditProfile = () => {
     star_foot,
     ascendant,
     birthplace,
-    presence_of_natal_direction
+    presence_of_natal_direction,
   } = userProfile;
+  let images = [
+    "http://172.105.57.17:1337${profileImg?.[0]?.attributes?.url}",
+    "http://172.105.57.17:1337${profileImg?.[1]?.attributes?.url}",
+    "http://172.105.57.17:1337${profileImg?.[2]?.attributes?.url}",
+    "http://172.105.57.17:1337${profileImg?.[3]?.attributes?.url}",
+  ];
   // console.log("url",userProfile.horoscope_document?.data?.[0]?.attributes?.url);
 
   // const imageLoader = ({src}) => {
@@ -127,8 +135,7 @@ const EditProfile = () => {
     <>
       <div className="container ">
         <Breadcrumb screens={["Home", "Search", "My Profile Details"]} />
-
-        <div className="main_container flex justify-center ">
+        <div className="main_container flex justify-center">
           <div className="lg:px-10 md:px-5 sm:px-5">
             <div className="flex items-center w-full bg-main h-16 px-5 ">
               <span className="text-white flex-1">Profile Detail</span>
@@ -194,7 +201,11 @@ const EditProfile = () => {
                             <Image
                               className="img_profile_portfolio object-contain w-40 min-h-full"
                               object-fit="true"
-                              src={profileImg ? `http://172.105.57.17:1337${profileImg?.[0]?.attributes?.url}` : profile}
+                              src={
+                                profileImg
+                                  ? `http://172.105.57.17:1337${profileImg?.[0]?.attributes?.url}`
+                                  : profile
+                              }
                               alt={"logo"}
                               width={500}
                               height={500}
@@ -218,10 +229,50 @@ const EditProfile = () => {
                               </button>
                             </div>
 
-                            <div className="img_modal modal-body ">
+                            <div className="img_modal modal-body relative ">
+                              <div className="absolute w-full h-full flex justify-between items-center">
+                                <div
+                                  onClick={() => {
+                                    setModalImage(
+                                      modalImage == 0 ? 3 : modalImage - 1
+                                    );
+                                    console.log("prev");
+                                  }}
+                                  className="-ml-20 bg-white/50 hover:bg-white flex justify-center items-center w-10 h-10 rounded-full cursor-pointer"
+                                >
+                                  <svg
+                                    className="h-4 w-4"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 320 512"
+                                  >
+                                    <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z" />
+                                  </svg>
+                                </div>
+                                <div
+                                  onClick={() => {
+                                    setModalImage(
+                                      modalImage == 3 ? 0 : modalImage + 1
+                                    );
+                                    console.log("next");
+                                  }}
+                                  className="-mr-20 bg-white/50 hover:bg-white flex justify-center items-center w-10 h-10 rounded-full cursor-pointer"
+                                >
+                                  <svg
+                                    className="h-4 w-4"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 320 512"
+                                  >
+                                    <path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
+                                  </svg>
+                                </div>
+                              </div>
                               <Image
                                 alt=""
-                                src={profileImg ? `http://172.105.57.17:1337${profileImg?.[0]?.attributes?.url}` : profile}
+                                src={
+                                  profileImg
+                                    ? `http://172.105.57.17:1337${profileImg?.[modalImage]?.attributes?.url}`
+                                    : profile
+                                }
                                 placeholder="image"
                                 width={500}
                                 height={500}
@@ -231,21 +282,33 @@ const EditProfile = () => {
                           <div className="flex justify-around md:ml-10">
                             <Image
                               className="img_profile_g "
-                              src={profileImg ? `http://172.105.57.17:1337${profileImg?.[1]?.attributes?.url}` : profile}
+                              src={
+                                profileImg
+                                  ? `http://172.105.57.17:1337${profileImg?.[1]?.attributes?.url}`
+                                  : profile
+                              }
                               alt={"logo"}
                               width={80}
                               height={80}
                             />
                             <Image
                               className="img_profile_g w-40 h-26"
-                              src={profileImg ? `http://172.105.57.17:1337${profileImg?.[2]?.attributes?.url}` : profile}
+                              src={
+                                profileImg
+                                  ? `http://172.105.57.17:1337${profileImg?.[2]?.attributes?.url}`
+                                  : profile
+                              }
                               alt={"logo"}
                               width={80}
                               height={80}
                             />
                             <Image
                               className="img_profile_g w-40 h-26"
-                              src={profileImg ? `http://172.105.57.17:1337${profileImg?.[3]?.attributes?.url}` : profile}
+                              src={
+                                profileImg
+                                  ? `http://172.105.57.17:1337${profileImg?.[3]?.attributes?.url}`
+                                  : profile
+                              }
                               alt={"logo"}
                               width={80}
                               height={100}
@@ -692,14 +755,22 @@ const EditProfile = () => {
                 <div className="flex flex-wrap justify-around mt-[4rem] ">
                   <Image
                     className="mb-8"
-                    src={img ? `http://172.105.57.17:1337${img?.[0]?.attributes?.url}` : horos}
+                    src={
+                      img
+                        ? `http://172.105.57.17:1337${img?.[0]?.attributes?.url}`
+                        : horos
+                    }
                     width={500}
                     alt=""
                     height={500}
                   />
                   <Image
                     className="mb-8"
-                    src={img ? `http://172.105.57.17:1337${img?.[1]?.attributes?.url}` : horos1}
+                    src={
+                      img
+                        ? `http://172.105.57.17:1337${img?.[1]?.attributes?.url}`
+                        : horos1
+                    }
                     width={500}
                     alt=""
                     height={500}

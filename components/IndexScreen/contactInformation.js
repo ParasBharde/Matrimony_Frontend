@@ -70,7 +70,7 @@ const ContactInformation = () => {
         <p className="text-dark text-3xl font-semibold max-md:mb-11 max-md:text-5xl">
           Contact Information
         </p>
-        <div className="flex">
+        <div className="flex items-center">
           <i className="fa-solid fa-phone text-main text-2xl"></i>
           <div className="border-l border-[#D9D9D9] py-2 pl-8 ml-8 ">
             <p className="text-dark text-[18px] font-semibold max-md:text-4xl ">

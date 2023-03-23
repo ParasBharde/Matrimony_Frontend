@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import fileInputImage from "@/assets/fileInput.png";
+import deleteIcon from "@/assets/SVG/delete.svg";
 
 import { toast } from "react-toastify";
 
 import Files from "react-files";
 import axios from "axios";
 
-import { TrashIcon } from '@radix-ui/react-icons'
+import { TrashIcon } from "@radix-ui/react-icons";
 const EditProfileForm2 = ({ screen, setScreen, userData }) => {
   const [img1, setImg1] = useState();
   const [img2, setImg2] = useState();
@@ -301,7 +302,14 @@ const EditProfileForm2 = ({ screen, setScreen, userData }) => {
       return false;
     }
 
-    if (!((file1 || img1) && (file2 || img2) && (file3 || img3) && (file4 || img4))) {
+    if (
+      !(
+        (file1 || img1) &&
+        (file2 || img2) &&
+        (file3 || img3) &&
+        (file4 || img4)
+      )
+    ) {
       toast.error("Please input all the files");
       return false;
     }
@@ -328,7 +336,6 @@ const EditProfileForm2 = ({ screen, setScreen, userData }) => {
 
     return true;
   };
-
 
   const deleteImage = (e) => {
     console.log("image", e.target.id);
@@ -621,14 +628,25 @@ const EditProfileForm2 = ({ screen, setScreen, userData }) => {
             {img1 && (
               <div className="absolute w-full h-full bg-black/[0.2]">
                 <span
-                  className="cursor-pointer p-1 absolute top-1 right-0"
+                  className="cursor-pointer p-2 rounded absolute top-1 right-1 bg-black/[0.3]"
                   id={userData.profile_photo?.data?.[0]?.id}
                   onClick={(e) => {
                     deleteImage(e);
                     setImg1(null);
                   }}
                 >
-                  <TrashIcon className="h-10 w-10 text-red-700"/>
+                  {/* <TrashIcon className="h-10 w-10 text-red-700"/> */}
+                  <svg
+                    className="fill-current text-red-600"
+                    width="15"
+                    height="18"
+                    viewBox="0 0 15 18"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M1.5 16C1.5 17.1 2.4 18 3.5 18H11.5C12.6 18 13.5 17.1 13.5 16V4H1.5V16ZM14.5 1H11L10 0H5L4 1H0.5V3H14.5V1Z"
+                    />
+                  </svg>
                 </span>
               </div>
             )}
@@ -662,14 +680,25 @@ const EditProfileForm2 = ({ screen, setScreen, userData }) => {
             {img2 && (
               <div className="absolute w-full h-full bg-black/[0.2]">
                 <span
-                  className="cursor-pointer p-1 absolute top-1 right-0"
+                  className="cursor-pointer p-2 rounded absolute top-1 right-1 bg-black/[0.3]"
                   id={userData.profile_photo?.data?.[1]?.id}
                   onClick={(e) => {
                     deleteImage(e);
                     setImg2(null);
                   }}
                 >
-                  <TrashIcon className="h-10 w-10 text-red-700"/>
+                  {/* <TrashIcon className="h-10 w-10 text-red-700" /> */}
+                  <svg
+                    className="fill-current text-red-600"
+                    width="15"
+                    height="18"
+                    viewBox="0 0 15 18"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M1.5 16C1.5 17.1 2.4 18 3.5 18H11.5C12.6 18 13.5 17.1 13.5 16V4H1.5V16ZM14.5 1H11L10 0H5L4 1H0.5V3H14.5V1Z"
+                    />
+                  </svg>
                 </span>
               </div>
             )}
@@ -703,14 +732,25 @@ const EditProfileForm2 = ({ screen, setScreen, userData }) => {
             {img3 && (
               <div className="absolute w-full h-full bg-black/[0.2]">
                 <span
-                  className="cursor-pointer p-1 absolute top-1 right-0"
+                  className="cursor-pointer p-2 rounded absolute top-1 right-1 bg-black/[0.3]"
                   id={userData.profile_photo?.data?.[2]?.id}
                   onClick={(e) => {
                     deleteImage(e);
                     setImg3(null);
                   }}
                 >
-                  <TrashIcon className="h-10 w-10 text-red-700"/>
+                  {/* <TrashIcon className="h-10 w-10 text-red-700" /> */}
+                  <svg
+                    className="fill-current text-red-600"
+                    width="15"
+                    height="18"
+                    viewBox="0 0 15 18"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M1.5 16C1.5 17.1 2.4 18 3.5 18H11.5C12.6 18 13.5 17.1 13.5 16V4H1.5V16ZM14.5 1H11L10 0H5L4 1H0.5V3H14.5V1Z"
+                    />
+                  </svg>
                 </span>
               </div>
             )}
@@ -743,14 +783,25 @@ const EditProfileForm2 = ({ screen, setScreen, userData }) => {
             {img4 && (
               <div className="absolute w-full h-full bg-black/[0.2]">
                 <span
-                  className="cursor-pointer p-1 absolute top-1 right-0"
+                  className="cursor-pointer p-2 rounded absolute top-1 right-1 bg-black/[0.3]"
                   id={userData.profile_photo?.data?.[3]?.id}
                   onClick={(e) => {
                     deleteImage(e);
                     setImg4(null);
                   }}
                 >
-                  <TrashIcon className="h-10 w-10 text-red-700"/>
+                  {/* <TrashIcon className="h-10 w-10 text-red-700" /> */}
+                  <svg
+                    className="fill-current text-red-600"
+                    width="15"
+                    height="18"
+                    viewBox="0 0 15 18"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M1.5 16C1.5 17.1 2.4 18 3.5 18H11.5C12.6 18 13.5 17.1 13.5 16V4H1.5V16ZM14.5 1H11L10 0H5L4 1H0.5V3H14.5V1Z"
+                    />
+                  </svg>
                 </span>
               </div>
             )}

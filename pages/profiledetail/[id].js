@@ -16,14 +16,16 @@ import { useStorage } from "@/hooks/useStorage";
 const Profiledetail = () => {
   const [profilesdata, setprofilesdata] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [modalDefaultOpen, setModalDefaultOpen] = React.useState(false);
+  const [modalImage, setModalImage] = useState(2);
 
   const router = useRouter();
-  const {id, isLiked} = router.query;
+  const { id, isLiked } = router.query;
   // console.log("isLiked",id);
   const storage = useStorage();
 
   useEffect(() => {
-    if(id) {
+    if (id) {
       async function getUser() {
         try {
           const response = await axios.get(
@@ -39,8 +41,6 @@ const Profiledetail = () => {
       getUser();
     }
   }, [id]);
-
-  const [modalDefaultOpen, setModalDefaultOpen] = React.useState(false);
 
   // download pdf of profile
   function downloadPdf() {
@@ -61,11 +61,9 @@ const Profiledetail = () => {
     let data = JSON.stringify({
       data: {
         users_permissions_user: storage.id,
-        user_profiles: [
-          id
-        ],
-        locale: "en"
-      }
+        user_profiles: [id],
+        locale: "en",
+      },
     });
 
     var config = {
@@ -80,7 +78,7 @@ const Profiledetail = () => {
 
     axios(config)
       .then((response) => {
-        console.log("download profile response ",response.data.data);
+        console.log("download profile response ", response.data.data);
       })
       .catch((error) => {
         console.error("download profile error: ", error);
@@ -88,7 +86,7 @@ const Profiledetail = () => {
   }
 
   // share profile
-  
+
   const shareProfile = () => {
     setModalOpen(true);
   };
@@ -272,16 +270,54 @@ const Profiledetail = () => {
                                         </button>
                                       </div>
 
-                                      <div className="img_modal modal-body ">
-                                        <picture>
-                                          <img
-                                            alt=""
-                                            src={`http://172.105.57.17:1337${data.attributes.profile_photo?.data?.[0]?.attributes.url}`}
-                                            placeholder="image"
-                                            width={500}
-                                            height={500}
-                                          />
-                                        </picture>
+                                      <div className="img_modal modal-body relative ">
+                                        <div className="absolute w-full h-full flex justify-between items-center">
+                                          <div
+                                            onClick={() => {
+                                              setModalImage(
+                                                modalImage == 0
+                                                  ? 3
+                                                  : modalImage - 1
+                                              );
+                                              console.log("prev");
+                                            }}
+                                            className="-ml-20 bg-white/50 hover:bg-white flex justify-center items-center w-10 h-10 rounded-full cursor-pointer"
+                                          >
+                                            <svg
+                                              className="h-4 w-4"
+                                              xmlns="http://www.w3.org/2000/svg"
+                                              viewBox="0 0 320 512"
+                                            >
+                                              <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z" />
+                                            </svg>
+                                          </div>
+                                          <div
+                                            onClick={() => {
+                                              setModalImage(
+                                                modalImage == 3
+                                                  ? 0
+                                                  : modalImage + 1
+                                              );
+                                              console.log("next");
+                                            }}
+                                            className="-mr-20 bg-white/50 hover:bg-white flex justify-center items-center w-10 h-10 rounded-full cursor-pointer"
+                                          >
+                                            <svg
+                                              className="h-4 w-4"
+                                              xmlns="http://www.w3.org/2000/svg"
+                                              viewBox="0 0 320 512"
+                                            >
+                                              <path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
+                                            </svg>
+                                          </div>
+                                        </div>
+                                        <Image
+                                          alt=""
+                                          src={`http://172.105.57.17:1337${data.attributes.profile_photo?.data?.[modalImage]?.attributes.url}`}
+                                          placeholder="image"
+                                          width={500}
+                                          height={500}
+                                        />
                                       </div>
                                     </Modal>
                                     <div className="flex justify-around">
