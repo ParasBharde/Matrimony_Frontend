@@ -143,7 +143,7 @@ const Right = () => {
               setRememberMe(e.target.checked);
             }}
           />
-          <label htmlFor="rememberMe" className="text-[#B6B3BE]">
+          <label htmlFor="rememberMe" className="text-[#B6B3BE] ml-2">
             Remember Me
           </label>
         </div>

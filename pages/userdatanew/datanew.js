@@ -1,7 +1,6 @@
 
 import React from "react";
 
-
 import User from "@/components/userdata/user1"
 
 const Datanew =()=> {
