@@ -134,6 +134,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
     console.log("res ", res);
   };
   // like profile code end
+  
   useEffect(() => {
     issetList(false);
     issetGrid(true);

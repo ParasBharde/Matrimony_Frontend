@@ -175,7 +175,8 @@ const Customerpofile = () => {
               </td>
               <div>
                 <td style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                  Reg- No : VRE223
+                  {userProfile.id}
+                  {/* Reg- No : VRE223 */}
                 </td>
               </div>
             </thead>
