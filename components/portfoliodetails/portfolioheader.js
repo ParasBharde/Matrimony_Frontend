@@ -154,7 +154,7 @@ const Portfolioheader = ({ handleFilterQuery }) => {
               <div className="flex justify-around ">
                 <input
                   type="text"
-                  placeholder="From"
+                  placeholder="  From"
                   value={ageFrom}
                   onChange={(e) => {
                     setAgeFrom(e.target.value);
@@ -163,7 +163,7 @@ const Portfolioheader = ({ handleFilterQuery }) => {
                 />
                 <input
                   type="text"
-                  placeholder="To"
+                  placeholder="  To"
                   value={ageTo}
                   onChange={(e) => {
                     setAgeTo(e.target.value);

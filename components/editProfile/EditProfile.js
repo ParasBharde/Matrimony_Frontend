@@ -279,9 +279,9 @@ const EditProfile = () => {
                               />
                             </div>
                           </Modal>
-                          <div className="flex justify-around md:ml-10">
+                          <div className="flex justify-around md:ml-10 lg:ml-6 sm:ml-0">
                             <Image
-                              className="img_profile_g "
+                              className="img_profile_g w-40 h-26 "
                               src={
                                 profileImg
                                   ? `http://172.105.57.17:1337${profileImg?.[1]?.attributes?.url}`

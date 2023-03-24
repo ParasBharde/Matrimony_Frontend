@@ -320,7 +320,7 @@ const Profiledetail = () => {
                                         />
                                       </div>
                                     </Modal>
-                                    <div className="flex justify-around">
+                                    <div className="flex justify-around ml-10">
                                       <picture>
                                         <img
                                           className="img_profile_g"
@@ -923,7 +923,7 @@ const Profiledetail = () => {
                           <div className="tb_dt flex ">
                             <picture>
                               <img
-                                className=""
+                                className="w-96"
                                 object-fit
                                 src={`http://172.105.57.17:1337${data.attributes.horoscope_document.data[0].attributes.url}`}
                                 alt=""
@@ -931,7 +931,7 @@ const Profiledetail = () => {
                             </picture>
                             <picture>
                               <img
-                                className=""
+                                className="w-96"
                                 object-fit
                                 src={`http://172.105.57.17:1337${data.attributes.horoscope_document.data[1].attributes.url}`}
                                 alt=""
