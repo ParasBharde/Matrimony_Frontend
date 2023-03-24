@@ -23,10 +23,17 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   const [isList, issetList] = useState(false);
   const [isGrid, issetGrid] = useState(false);
   const [profiles, setProfiles] = useState([]);
+  const [myLikedprofiles, setMyLikedprofiles] = useState([]);
 
   const [isPremiumUser, setIsPremiumUser] = useState(false);
 
-  const myLikedprofiles = useLikedProfiles();
+  const Likedprofiles = useLikedProfiles();
+  useEffect(() => {
+    if(Likedprofiles) {
+      setMyLikedprofiles(Likedprofiles);
+    }
+  },[Likedprofiles])
+  // console.log("myLikedprofiles",myLikedprofiles);
 
   // subscription code start
   useEffect(() => {
@@ -46,7 +53,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
           }
         })
         .catch((error) => {
-          console.log("error fetchin premium user", error);
+          console.log("error fetching premium user", error);
         });
     }
   }, [storageData]);
@@ -59,17 +66,23 @@ const Portfoliodetails = ({ allprofiles, total }) => {
 
   // check profile is liked or not
   const isProfileLiked = (id) => {
+    console.log("myLikedprofiles",myLikedprofiles);
     for (let prop of myLikedprofiles) {
-      if (prop.attributes?.user_profile?.data?.id == id) {
+      if (prop.attributes.user_profiles?.data?.[0]?.id == id || prop.id == id) {
+        console.log("idsssss", prop.attributes.user_profiles?.data?.[0]?.id, id);
         return true;
       }
+      // if(prop.id == id){
+      //   console.log("idsss", prop.id, id);
+      //   return true;
+      // }
     }
     return false;
   };
 
   // pagination code
   useEffect(() => {
-    console.log("allprofiles", allprofiles);
+    // console.log("allprofiles", allprofiles);
     if (allprofiles.length > 0) {
       setTotalPage(Math.ceil(allprofiles.length / profilePerPage));
       let totalProfiles = allprofiles.slice(0, profilePerPage);
@@ -107,18 +120,21 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   // pagination code end
 
   // like profile code start
-  const handleLike = (id) => {
+  const handleLike = (itms) => {
+    // myLikedprofiles.push(itms);
+    setMyLikedprofiles([...myLikedprofiles,itms]);
+    console.log("liked id", itms.id, storageData.id);
     let data = JSON.stringify({
       data: {
-        user: storageData.id,
-        user_profile: id,
+        user_permissions_users: [storageData.id],
+        user_profiles: [itms.id],
       },
     });
-
+    // `http://172.105.57.17:1337/api/liked-profiles?populate=user_profile&user=${storageData.id}`
     var config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: `http://172.105.57.17:1337/api/liked-profiles?populate=user_profile&user=${storageData.id}`,
+      url: `http://172.105.57.17:1337/api/liked-profiles`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -134,7 +150,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
     console.log("res ", res);
   };
   // like profile code end
-  
+
   useEffect(() => {
     issetList(false);
     issetGrid(true);
@@ -678,8 +694,12 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                             id="heart"
                             onClick={(e) => {
                               if (storageData != null) {
-                                handleLike(itms.id);
-                                e.target.classList.add("text-[#F98B1D]");
+                                let res = isProfileLiked(itms.id);
+                                console.log("res",res);
+                                if (res != true) {
+                                  handleLike(itms);
+                                  e.target.classList.add("text-[#F98B1D]");
+                                }
                               } else {
                                 toast.error("You must be login first!");
                                 router.push("/signIn");

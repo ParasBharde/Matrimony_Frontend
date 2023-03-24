@@ -40,11 +40,11 @@ const Hero = (props) => {
         const response = await axios.get(
           `http://172.105.57.17:1337/api/profiles/?populate=%2A`
         );
-        let userProfile = response.data.data.filter(
+        let userProfileImage = response.data.data.filter(
           (u) => u.id == data?.user_profile?.id
         );
         setUserProfile(
-          userProfile?.[0]?.attributes?.profile_photo?.data?.[0]?.attributes
+          userProfileImage?.[0]?.attributes?.profile_photo?.data?.[0]?.attributes
             ?.url
         );
       } catch (error) {

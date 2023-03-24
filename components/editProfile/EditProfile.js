@@ -752,8 +752,8 @@ const EditProfile = () => {
                   {img &&
                     img.map((data, i) => {
                       return (
-                        <>
                           <Image
+                          key={i}
                             className="mb-8"
                             src={
                               img
@@ -764,7 +764,6 @@ const EditProfile = () => {
                             alt="Horoscope Chart"
                             height={500}
                           />
-                        </>
                       );
                     })}
 
