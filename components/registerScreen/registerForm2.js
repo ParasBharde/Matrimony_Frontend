@@ -566,7 +566,7 @@ fetch("http://172.105.57.17:1337/api/upload", requestOptions)
               src={file1 ? file1[0].preview.url : fileInputImage}
               width={190}
               height={190}
-              className="md:w-[190] h-[190] max-lg:w-[22rem] max-lg:h-[22rem]"
+              className="md:w-[190px] h-[190px] max-lg:w-[22rem] max-lg:h-[22rem]"
               alt={"File Input Image"}
             />
           </Files>
@@ -584,7 +584,7 @@ fetch("http://172.105.57.17:1337/api/upload", requestOptions)
               src={file2 ? file2[0].preview.url : fileInputImage}
               width={190}
               height={190}
-              className="md:w-[190] h-[190] max-lg:w-[22rem] max-lg:h-[22rem]"
+              className="md:w-[190px] h-[190px] max-lg:w-[22rem] max-lg:h-[22rem]"
               alt={"File Input Image"}
             />
           </Files>
@@ -603,7 +603,7 @@ fetch("http://172.105.57.17:1337/api/upload", requestOptions)
               width={190}
               height={190}
               alt={"File Input Image"}
-              className="md:w-[190] h-[190] max-lg:w-[22rem] max-lg:h-[22rem]"
+              className="md:w-[190px] h-[190px] max-lg:w-[22rem] max-lg:h-[22rem]"
             />
           </Files>
           <Files
@@ -620,7 +620,7 @@ fetch("http://172.105.57.17:1337/api/upload", requestOptions)
               width={190}
               height={190}
               alt={"File Input Image"}
-              className="md:w-[190] h-[190] max-lg:w-[22rem] max-lg:h-[22rem]"
+              className="md:w-[190px] h-[190px] max-lg:w-[22rem] max-lg:h-[22rem]"
             />
           </Files>
         </div>
