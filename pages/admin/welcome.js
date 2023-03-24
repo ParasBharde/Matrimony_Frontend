@@ -55,12 +55,13 @@ import Link from "next/link";
                 href="#"
                 className="text-indigo-600 font-medium inline-flex space-x-1 items-center"
               >
-                <span style={{ color: "#F98B1D" }}>Sign up </span>
+                <span style={{color: "#F98B1D"}} >Sign up </span>
               </Link>
             </p>
           </div>
         </form>
       </div>
+
 
       <style jsx>{`
         button {

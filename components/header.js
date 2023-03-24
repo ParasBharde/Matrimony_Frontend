@@ -173,7 +173,7 @@ const Header = () => {
         {/* max-md:bg-black */}
         <div className="absolute right-2 hidden max-md:block max-sm:block group dropdown">
           {/* <Hamburger onClick={() => console.log("Clicked")} className="bg-black"/> */}
-          <i class="fa-solid fa-bars mr-3 mb-3"></i>
+          <i className="fa-solid fa-bars mr-3 mb-3"></i>
           <div className="absolute group-hover:block dropdown-menu hidden h-auto right-2 shadow-lg top-11 z-50 bg-white">
             <p
               className="m-3 w-[200px] cursor-pointer"
@@ -181,7 +181,7 @@ const Header = () => {
                 router.push("/");
               }}
             >
-              <i class="fa-solid fa-house mr-5 text-main"></i>
+              <i className="fa-solid fa-house mr-5 text-main"></i>
               Home
             </p>
             <p
@@ -190,7 +190,7 @@ const Header = () => {
                 router.push("/pricingPlan");
               }}
             >
-              <i class="fa-regular fa-money-bill-1 mr-5 text-main"></i>
+              <i className="fa-regular fa-money-bill-1 mr-5 text-main"></i>
               Pricing Plan
             </p>
             <p
@@ -199,21 +199,21 @@ const Header = () => {
                 router.push("/portfolio/portfolio");
               }}
             >
-              <i class="fa-solid fa-magnifying-glass mr-5 text-main"></i>
+              <i className="fa-solid fa-magnifying-glass mr-5 text-main"></i>
               Search
             </p>
             <p
               className="m-3 w-[200px] cursor-pointer"
               onClick={() => router.push("/contactus")}
             >
-              <i class="fa-regular fa-address-card mr-5 text-main"></i>
+              <i className="fa-regular fa-address-card mr-5 text-main"></i>
               Contact Us
             </p>
             <p
               className="m-3 w-[200px] cursor-pointer"
               onClick={() => router.push("/aboutus")}
             >
-              <i class="fa-regular fa-user mr-5 text-main"></i>
+              <i className="fa-regular fa-user mr-5 text-main"></i>
               About Us
             </p>
           </div>

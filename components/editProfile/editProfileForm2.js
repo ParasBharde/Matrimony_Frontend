@@ -624,7 +624,7 @@ const EditProfileForm2 = ({ screen, setScreen, userData }) => {
         </div>
       </div>
 
-      <div className="w-[auto] mx-auto lg:w-[51rem] ">
+      <div className="w-[auto] mx-auto lg:w-[51rem]">
         <p className="h-[10px] my-6">Profile Photo *</p>
         <div className="flex justify-between items-center max-lg:flex-col space-y-5 max-lg:flex max-lg:justify-start ">
           <div className="relative">
@@ -673,7 +673,7 @@ const EditProfileForm2 = ({ screen, setScreen, userData }) => {
                 }
                 width={190}
                 height={190}
-                className="md:w-[190] h-[190] max-lg:w-[22rem] max-lg:h-[22rem]"
+                className="md:w-[190px] h-[190px] max-lg:w-[22rem] max-lg:h-[22rem] lg:-mb-5"
                 alt={"File Input Image"}
               />
             </Files>
@@ -725,7 +725,7 @@ const EditProfileForm2 = ({ screen, setScreen, userData }) => {
                 }
                 width={190}
                 height={190}
-                className="md:w-[190] h-[190] max-lg:w-[22rem] max-lg:h-[22rem]"
+                className="md:w-[190px] h-[190px] max-lg:w-[22rem] max-lg:h-[22rem]"
                 alt={"File Input Image"}
               />
             </Files>
@@ -778,7 +778,7 @@ const EditProfileForm2 = ({ screen, setScreen, userData }) => {
                 width={190}
                 height={190}
                 alt={"File Input Image"}
-                className="md:w-[190] h-[190] max-lg:w-[22rem] max-lg:h-[22rem]"
+                className="md:w-[190px] h-[190px] max-lg:w-[22rem] max-lg:h-[22rem]"
               />
             </Files>
           </div>
@@ -828,7 +828,7 @@ const EditProfileForm2 = ({ screen, setScreen, userData }) => {
                 width={190}
                 height={190}
                 alt={"File Input Image"}
-                className="md:w-[190] h-[190] max-lg:w-[22rem] max-lg:h-[22rem]"
+                className="md:w-[190px] h-[190px] max-lg:w-[22rem] max-lg:h-[22rem]"
               />
             </Files>
           </div>

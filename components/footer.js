@@ -19,7 +19,7 @@ const Footer = () => {
             Copyright © Trichy Vayalur Road Reddy Trust All rights reserved.
             Theme Anews by themeuniver
           </p>
-          <div className="flex justify-between text-white items-center">
+          <div className="flex justify-between text-white items-center text-2xl">
             <i className="fa-brands fa-facebook mx-3"></i>
             <i className="fa-brands fa-twitter mx-3"></i>
             <i className="fa-brands fa-instagram mx-3"></i>
@@ -31,7 +31,7 @@ const Footer = () => {
             Copyright © Trichy Vayalur Road Reddy Trust All rights reserved.
             Theme Anews by themeuniver
           </p>
-          <div className=" text-white text-sm flex-1 max-md:absolute left-[4rem] max-md:text-3xl max-md:mb-44 max-md:flex flex-row pl-[42%] ">
+          <div className=" text-white text-2xl flex-1 max-md:absolute left-[4rem] max-md:text-3xl max-md:mb-44 max-md:flex flex-row pl-[40%] ">
             <i className="fa-brands fa-facebook mx-3"></i>
             <i className="fa-brands fa-twitter mx-3"></i>
             <i className="fa-brands fa-instagram mx-3"></i>
