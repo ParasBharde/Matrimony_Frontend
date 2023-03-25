@@ -42,7 +42,7 @@ const Likedprofile = () => {
 
   useEffect(() => {
     if (allProfiles.length > 0) {
-      console.log("liked profiles", allProfiles);
+      // console.log("liked profiles", allProfiles);
       setMyLikedprofiles(allProfiles);
     }
   }, [allProfiles]);
@@ -63,7 +63,7 @@ const Likedprofile = () => {
   const handleHideDislikeProfile = (id) => {
     console.log(id);
     let data = likedprofiles.filter((item) => {
-      return item.attributes.user_profiles?.data?.[0]?.id != id;
+      return item.attributes.user_profile?.data?.id != id;
     });
     setlikedprofiles(data);
   };
@@ -71,8 +71,9 @@ const Likedprofile = () => {
   // valid liked profiles code start
   const validLikedProfiles = (myLikedprofiles) => {
     let validProfiles = myLikedprofiles.filter((items) => {
-      return items.attributes?.user_permissions_users?.data?.[0] != null;
+      return items.attributes?.user_permissions_user?.data != null;
     });
+    console.log("validProfiles",validProfiles);
     return validProfiles;
   };
   // valid liked profiles code end
@@ -530,7 +531,7 @@ const Likedprofile = () => {
                   </thead>
                   {likedprofiles.length > 0 &&
                     likedprofiles.map((profile, index) => {
-                      if (profile.attributes.user_profiles?.data == null) {
+                      if (profile.attributes.user_profile?.data == null) {
                         return;
                       }
                       const {
@@ -541,9 +542,9 @@ const Likedprofile = () => {
                         father_name,
                         phone_number,
                       } =
-                        profile.attributes.user_profiles?.data?.[0]?.attributes;
+                        profile.attributes.user_profile?.data?.attributes;
                       console.log("profile", profile);
-                      let id = profile.attributes.user_profiles?.data?.[0]?.id;
+                      let id = profile.attributes.user_profile?.data?.id;
 
                       return (
                         <tbody key={index}>
@@ -624,8 +625,8 @@ const Likedprofile = () => {
                   likedprofiles.map((profile, index) => {
                     console.log("itmssss", profile);
                     if (
-                      profile.attributes.user_profiles?.data == null ||
-                      profile.attributes.user_profiles?.data.length == 0
+                      profile.attributes.user_profile?.data == null ||
+                      profile.attributes.user_profile?.data.length == 0
                     ) {
                       return;
                     }
@@ -638,7 +639,7 @@ const Likedprofile = () => {
                       date_of_birth,
                       marriage_status,
                       profile_photo,
-                    } = profile.attributes.user_profiles?.data?.[0]?.attributes;
+                    } = profile.attributes.user_profile?.data?.attributes;
                     const age = calculateAge(date_of_birth);
                     return (
                       <div
@@ -673,8 +674,7 @@ const Likedprofile = () => {
                                 onClick={(e) => {
                                   handleDislike(profile.id);
                                   handleHideDislikeProfile(
-                                    profile.attributes.user_profiles?.data?.[0]
-                                      ?.id
+                                    profile.attributes.user_profile?.data?.id
                                   );
                                 }}
                                 // onMouseOver={() => src="/assets/redheart.png"}

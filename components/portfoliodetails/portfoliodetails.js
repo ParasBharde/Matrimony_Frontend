@@ -25,15 +25,17 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   const [profiles, setProfiles] = useState([]);
   const [myLikedprofiles, setMyLikedprofiles] = useState([]);
 
+  const [currentLikes, setCurrentLikes] = useState([]);
+
   const [isPremiumUser, setIsPremiumUser] = useState(false);
 
   const Likedprofiles = useLikedProfiles();
   useEffect(() => {
     if (Likedprofiles) {
       setMyLikedprofiles(Likedprofiles);
+      console.log("myLikedprofiles",Likedprofiles);
     }
   }, [Likedprofiles]);
-  // console.log("myLikedprofiles",myLikedprofiles);
 
   // subscription code start
   useEffect(() => {
@@ -66,10 +68,22 @@ const Portfoliodetails = ({ allprofiles, total }) => {
 
   // check profile is liked or not
   const isProfileLiked = (id) => {
-    console.log("myLikedprofiles", myLikedprofiles);
     for (let prop of myLikedprofiles) {
-      if (prop.attributes?.user_profiles?.data?.[0]?.id == id || prop.id == id) {
+      if (
+        prop.attributes?.user_profile?.data?.id == id ||
+        prop.id == id
+      ) {
         // console.log("idsss prop", prop.attributes, id);
+        return true;
+      }
+    }
+    return false;
+  };
+  const isProfileLiked2 = (id) => {
+    console.log("pr", currentLikes);
+    for (let prop of currentLikes) {
+      if (prop.id == id) {
+        console.log("idsss prop", prop.id, id);
         return true;
       }
     }
@@ -141,12 +155,11 @@ const Portfoliodetails = ({ allprofiles, total }) => {
 
   // like profile code start
   const handleLike = (itms, e) => {
-    setMyLikedprofiles([...myLikedprofiles, itms.id]);
-    console.log("handle like event", e);
+    // console.log("handle like event", e);
     let data = JSON.stringify({
       data: {
-        user_permissions_users: [storageData.id],
-        user_profiles: [itms.id],
+        user_permissions_user: storageData.id,
+        user_profile: itms.id,
       },
     });
     // `http://172.105.57.17:1337/api/liked-profiles?populate=user_profile&user=${storageData.id}`
@@ -161,12 +174,12 @@ const Portfoliodetails = ({ allprofiles, total }) => {
     };
     let res = axios(config)
       .then((response) => {
-        e.target.setAttribute("data-like-id", response.data.data.id);
         console.log(response);
       })
       .catch((error) => {
         console.error("like error: ", error);
       });
+    setCurrentLikes([...currentLikes, itms]);
     console.log("res ", res);
   };
   // like profile code end
@@ -716,17 +729,18 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                             onClick={(e) => {
                               if (storageData != null) {
                                 let res = isProfileLiked(itms.id);
-                                console.log("res",res);
-                                if (res != true) {
+                                let res1 = isProfileLiked2(itms.id);
+                                console.log("res", res, res1);
+                                if (res != true && res1 != true) {
                                   handleLike(itms);
                                   e.target.classList.add("text-[#F98B1D]");
+                                } else {
                                 }
                               } else {
                                 toast.error("You must be login first!");
                                 router.push("/signIn");
                               }
                             }}
-
                             // onClick={(e) => {
                             //   if (storageData != null) {
                             //     if (

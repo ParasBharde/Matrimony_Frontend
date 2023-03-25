@@ -17,7 +17,7 @@ const Header = () => {
   const { locale, locales, push } = useRouter();
   const [lang, setLang] = useState(locale);
 
-  console.log("pathname",pathname);
+  // console.log("pathname",pathname);
   const getSelectedValue = (e) => {
     router.push({ pathname, query }, asPath, { locale: e });
   };

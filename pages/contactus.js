@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import loc from "@/assets/SVG/location.svg";
 import axios from "axios";
@@ -9,13 +9,14 @@ const ContactUs = () => {
   const name = useRef();
   const email = useRef();
   const query = useRef();
+  const[myName, setMyName] = useState("");
 
   const Postdata = async (e) => {
     e.preventDefault();
 
     var data = JSON.stringify({
       data: {
-        name: name.current.value,
+        name: myName,
         email: email.current.value,
         message: query.current.value,
       },
@@ -36,7 +37,7 @@ const ContactUs = () => {
         console.log(JSON.stringify(response.data));
         toast.success("Message Sent!");
         // alert("Message Sent Successfully");
-        name.current.value = "";
+        // name.current.value = "";
         email.current.value = "";
         query.current.value = "";
       })
@@ -44,6 +45,13 @@ const ContactUs = () => {
         console.log(error);
       });
   };
+
+  function handleNameChange(e) {
+    const re = /^[A-Za-z]+$/;
+    if (e.target.value === "" || re.test(e.target.value)) {
+      setMyName(e.target.value);
+    }
+  }
 
   return (
     <>
@@ -134,7 +142,9 @@ const ContactUs = () => {
                   type="text"
                   id="name"
                   name="name"
-                  ref={name}
+                  // ref={name}
+                  value={myName}
+                  onChange={handleNameChange}
                   className="w-full bg-white rounded border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                 />
               </div>
