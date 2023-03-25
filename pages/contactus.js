@@ -42,6 +42,7 @@ const ContactUs = () => {
       })
       .catch(function (error) {
         console.log(error);
+        toast.error("Invalid Input!");
       });
   };
 
@@ -55,8 +56,8 @@ const ContactUs = () => {
             </h1>
           </div>
       </div>
-      <section className="text-gray-600 body-font relative">
-        <div className="container px-5 py-24 mx-auto flex md:mb-40 sm:flex-nowrap flex-wrap">
+      <section className="text-gray-600 body-font relative -mb-28">
+        <div className="container px-5 py-10 mx-auto flex md:mb-40 sm:flex-nowrap flex-wrap">
           <div className="lg:w-2/3 md:w-1/2 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d60541.43450475207!2d73.80660490000002!3d18.4909208!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bf9ec7efff6d%3A0xa6b851f01122aad2!2sD%20Mart%20-%20Karve%20Nagar!5e0!3m2!1sen!2sin!4v1675871441996!5m2!1sen!2sin"
