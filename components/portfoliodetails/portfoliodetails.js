@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useOnHoverOutside } from "@/hooks/useOnHoverOutside";
@@ -29,13 +29,53 @@ const Portfoliodetails = ({ allprofiles, total }) => {
 
   const [isPremiumUser, setIsPremiumUser] = useState(false);
 
-  const Likedprofiles = useLikedProfiles();
+  // const Likedprofiles = useLikedProfiles();
+  // useEffect(() => {
+  //   if (Likedprofiles) {
+  //     setMyLikedprofiles(Likedprofiles);
+  //     console.log("myLikedprofiles",Likedprofiles);
+  //   }
+  // }, [Likedprofiles]);
+
   useEffect(() => {
-    if (Likedprofiles) {
-      setMyLikedprofiles(Likedprofiles);
-      console.log("myLikedprofiles",Likedprofiles);
-    }
-  }, [Likedprofiles]);
+    const getProfiles = () => {
+      axios
+        .get(
+          "http://172.105.57.17:1337/api/liked-profiles?populate=user_permissions_user&populate=user_profile.profile_photo"
+        )
+        .then((response) => {
+          let data = response.data.data.filter((profile) => {
+            return profile?.attributes?.user_permissions_user?.data?.id == storageData?.id;
+          });
+          console.log("liked data", data);
+          setMyLikedprofiles(data);
+        })
+        .catch((error) => {
+          console.error("error", error);
+        });
+    };
+    getProfiles();
+  },[storageData])
+
+  const getLikedProfiles = useCallback(() => {
+    axios
+      .get(
+        "http://172.105.57.17:1337/api/liked-profiles?populate=user_permissions_user&populate=user_profile.profile_photo"
+      )
+      .then((response) => {
+        let data = response.data.data.filter((profile) => {
+          return (
+            profile?.attributes?.user_permissions_user?.data?.id ==
+            storageData?.id
+          );
+        });
+        console.log("liked data", data);
+        setMyLikedprofiles(data);
+      })
+      .catch((error) => {
+        console.error("error", error);
+      });
+  }, [storageData]);
 
   // subscription code start
   useEffect(() => {
@@ -69,49 +109,39 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   // check profile is liked or not
   const isProfileLiked = (id) => {
     for (let prop of myLikedprofiles) {
-      if (
-        prop.attributes?.user_profile?.data?.id == id ||
-        prop.id == id
-      ) {
+      if (prop.attributes?.user_profile?.data?.id == id || prop.id == id) {
         // console.log("idsss prop", prop.attributes, id);
         return true;
       }
     }
     return false;
   };
-  const isProfileLiked2 = (id) => {
-    console.log("pr", currentLikes);
-    for (let prop of currentLikes) {
-      if (prop.id == id) {
-        console.log("idsss prop", prop.id, id);
-        return true;
+
+  //findLikedProfileId
+  const findLikedProfileId = (id) => {
+    for (let prop of myLikedprofiles) {
+      if (prop.attributes.user_profile?.data?.id == id) {
+        console.log("idsssss", prop.id, id);
+        return prop.id;
       }
     }
-    return false;
   };
 
   // dislike function
   const handleDislike = (id) => {
     console.log("dislike profile id: ", id);
+    let likedId = findLikedProfileId(id);
+    console.log("dislike id: ", likedId);
     axios
-      .delete(`http://172.105.57.17:1337/api/liked-profiles/${id}`)
+      .delete(`http://172.105.57.17:1337/api/liked-profiles/${likedId}`)
       .then((response) => {
         console.log("dislike:", response);
-        router.push(router.pathname);
+        getLikedProfiles();
+        // router.push(router.pathname);
       })
       .catch((error) => {
         console.error("dislike like error: ", error);
       });
-  };
-
-  //findLikedProfileId
-  const findLikedProfileId = (id) => {
-    for (let prop of myLikedprofiles) {
-      if (prop.attributes.user_profiles?.data?.[0]?.id == id) {
-        console.log("idsssss", prop.id, id);
-        handleDislike(prop.id);
-      }
-    }
   };
 
   // pagination code
@@ -162,7 +192,6 @@ const Portfoliodetails = ({ allprofiles, total }) => {
         user_profile: itms.id,
       },
     });
-    // `http://172.105.57.17:1337/api/liked-profiles?populate=user_profile&user=${storageData.id}`
     var config = {
       method: "post",
       maxBodyLength: Infinity,
@@ -174,6 +203,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
     };
     let res = axios(config)
       .then((response) => {
+        getLikedProfiles();
         console.log(response);
       })
       .catch((error) => {
@@ -729,67 +759,18 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                             onClick={(e) => {
                               if (storageData != null) {
                                 let res = isProfileLiked(itms.id);
-                                let res1 = isProfileLiked2(itms.id);
-                                console.log("res", res, res1);
-                                if (res != true && res1 != true) {
+                                console.log("res", res);
+                                if (res != true) {
                                   handleLike(itms);
-                                  e.target.classList.add("text-[#F98B1D]");
+                                  // e.target.classList.add("text-[#F98B1D]");
                                 } else {
+                                  handleDislike(itms.id);
                                 }
                               } else {
                                 toast.error("You must be login first!");
                                 router.push("/signIn");
                               }
                             }}
-                            // onClick={(e) => {
-                            //   if (storageData != null) {
-                            //     if (
-                            //       e.target.classList.contains("text-[#F98B1D]")
-                            //     ) {
-                            //       e.target.classList.remove("text-[#F98B1D]");
-                            //     } else {
-                            //       e.target.classList.add("text-[#F98B1D]");
-                            //     }
-                            //     let res = isProfileLiked(itms.id);
-                            //     console.log("res", res);
-                            //     if (res != true) {
-                            //       handleLike(itms, e);
-                            //       setMyLikedprofiles([
-                            //         ...myLikedprofiles,
-                            //         itms,
-                            //       ]);
-                            //     } else {
-                            //       if (
-                            //         e.target.getAttribute("data-like-id") !=
-                            //         null
-                            //       ) {
-                            //         let newLikedProfiles = myLikedprofiles.filter((item) => {
-                            //             return (
-                            //               item.id !=
-                            //               e.target.getAttribute("data-like-id")
-                            //             );
-                            //           });
-                            //         setMyLikedprofiles(newLikedProfiles);
-                            //         handleDislike(e.target.getAttribute("data-like-id"));
-                            //       } else {
-                            //         let newLikedProfiles =
-                            //           myLikedprofiles.filter((item) => {
-                            //             console.log(
-                            //               "item.id",
-                            //               item.id,
-                            //               itms.id
-                            //             );
-                            //             return item.id != itms.id;
-                            //           });
-                            //         setMyLikedprofiles(newLikedProfiles);
-                            //         findLikedProfileId(itms.id);
-                            //       }
-                            //     }
-                            //   } else {
-                            //     toast.error("You must be login first!");
-                            //     router.push("/signIn");
-                            //   }
-                            // }}
                             width="24"
                             height="21"
                             viewBox="0 0 24 21"
