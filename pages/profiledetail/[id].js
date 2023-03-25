@@ -21,7 +21,7 @@ const Profiledetail = () => {
 
   const router = useRouter();
   const { id, isLiked } = router.query;
-  // console.log("isLiked",id);
+  console.log("isLiked",isLiked);
   const storage = useStorage();
 
   useEffect(() => {
@@ -159,7 +159,7 @@ const Profiledetail = () => {
                         </span>
                         <div className="flex items-center ">
                           <Image
-                            src={isLiked ? RedHeart : Heart}
+                            src={isLiked == "true" ? RedHeart : Heart}
                             width={24}
                             height={21}
                             alt=""
@@ -195,7 +195,8 @@ const Profiledetail = () => {
                             </td>
                             <div>
                               <td style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                                Reg- No : VRE223
+                                {data.id}
+                                {/* Reg- No : VRE223 */}
                               </td>
                             </div>
                           </thead>
@@ -921,7 +922,23 @@ const Profiledetail = () => {
                         <div className="fourth_content">
                           <span className="sec_text ">Horoscope Chart</span>
                           <div className="tb_dt flex ">
-                            <picture>
+                            <div className="grid grid-cols-2 gap-4 mt-[4rem] ">
+                              {data.attributes.horoscope_document.data.map(
+                                (val, i) => {
+                                  return (
+                                    <picture key={i}>
+                                      <img
+                                        className=""
+                                        object-fit
+                                        src={`http://172.105.57.17:1337${data.attributes.horoscope_document.data[i].attributes.url}`}
+                                        alt=""
+                                      />
+                                    </picture>
+                                  );
+                                }
+                              )}
+                            </div>
+                            {/* <picture>
                               <img
                                 className="w-96"
                                 object-fit
@@ -937,6 +954,14 @@ const Profiledetail = () => {
                                 alt=""
                               />
                             </picture>
+                            <picture>
+                              <img
+                                className=""
+                                object-fit
+                                src={`http://172.105.57.17:1337${data.attributes.horoscope_document.data[1].attributes.url}`}
+                                alt=""
+                              />
+                            </picture> */}
                           </div>
                         </div>
                       </div>

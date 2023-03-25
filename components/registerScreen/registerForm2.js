@@ -77,7 +77,8 @@ const RegisterForm2 = ({ screen, setScreen }) => {
   const [groomOrBride, setGroomOrBride] = useState("Groom");
   const [dateOfBirth, setDateOfBirth] = useState(null);
   const [height, setHeight] = useState(0);
-  const [educationalQualifications, setEducationalQualifications] = useState("");
+  const [educationalQualifications, setEducationalQualifications] =
+    useState("");
   const [salary, setSalary] = useState(0);
   const [expectation, setExpectation] = useState("");
   const [caste, setCaste] = useState("");
@@ -121,93 +122,97 @@ const RegisterForm2 = ({ screen, setScreen }) => {
     }
   }, []);
 
-  useEffect(()=>{
-    if(file1)
-    {
+  useEffect(() => {
+    if (file1) {
       var formdata = new FormData();
-    formdata.append("files", file1[0], file1[0].preview.url);
-var requestOptions = {
-  method: 'POST',
-  body: formdata,
-  redirect: 'follow'
-};
-fetch("http://172.105.57.17:1337/api/upload", requestOptions)
-  .then(response => response.json())
-  .then((result) => {console.log(result)
-    setFile1ID(result[0].id)
-  })
-  .catch((error) => {console.log('error', error)
-  setFile1ID(4)
-});
+      formdata.append("files", file1[0], file1[0].preview.url);
+      var requestOptions = {
+        method: "POST",
+        body: formdata,
+        redirect: "follow",
+      };
+      fetch("http://172.105.57.17:1337/api/upload", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+          setFile1ID(result[0].id);
+        })
+        .catch((error) => {
+          console.log("error", error);
+          setFile1ID(4);
+        });
     }
-  },[file1])
+  }, [file1]);
 
-  useEffect(()=>{
-    if(file2)
-    {
+  useEffect(() => {
+    if (file2) {
       var formdata = new FormData();
-    formdata.append("files", file2[0], file2[0].preview.url);
-var requestOptions = {
-  method: 'POST',
-  body: formdata,
-  redirect: 'follow'
-};
-fetch("http://172.105.57.17:1337/api/upload", requestOptions)
-  .then(response => response.json())
-  .then((result) => {console.log(result)
-    setFile2ID(result[0].id)
-  })
-  .catch((error) => {console.log('error', error)
-  setFile2ID(4)
-});
+      formdata.append("files", file2[0], file2[0].preview.url);
+      var requestOptions = {
+        method: "POST",
+        body: formdata,
+        redirect: "follow",
+      };
+      fetch("http://172.105.57.17:1337/api/upload", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+          setFile2ID(result[0].id);
+        })
+        .catch((error) => {
+          console.log("error", error);
+          setFile2ID(4);
+        });
     }
-  },[file2])
+  }, [file2]);
 
-  useEffect(()=>{
-    if(file3)
-    {
+  useEffect(() => {
+    if (file3) {
       var formdata = new FormData();
-    formdata.append("files", file3[0], file3[0].preview.url);
-var requestOptions = {
-  method: 'POST',
-  body: formdata,
-  redirect: 'follow'
-};
-fetch("http://172.105.57.17:1337/api/upload", requestOptions)
-  .then(response => response.json())
-  .then((result) => {console.log(result)
-    setFile3ID(result[0].id)
-  })
-  .catch((error) => {console.log('error', error)
-  setFile3ID(4)
-});
+      formdata.append("files", file3[0], file3[0].preview.url);
+      var requestOptions = {
+        method: "POST",
+        body: formdata,
+        redirect: "follow",
+      };
+      fetch("http://172.105.57.17:1337/api/upload", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+          setFile3ID(result[0].id);
+        })
+        .catch((error) => {
+          console.log("error", error);
+          setFile3ID(4);
+        });
     }
-  },[file3])
+  }, [file3]);
 
-  useEffect(()=>{
-    if(file4)
-    {
+  useEffect(() => {
+    if (file4) {
       var formdata = new FormData();
-    formdata.append("files", file4[0], file4[0].preview.url);
-var requestOptions = {
-  method: 'POST',
-  body: formdata,
-  redirect: 'follow'
-};
-fetch("http://172.105.57.17:1337/api/upload", requestOptions)
-  .then(response => response.json())
-  .then((result) => {console.log(result)
-    setFile4ID(result[0].id)
-  })
-  .catch((error) => {console.log('error', error)
-  setFile4ID(4)
-});
+      formdata.append("files", file4[0], file4[0].preview.url);
+      var requestOptions = {
+        method: "POST",
+        body: formdata,
+        redirect: "follow",
+      };
+      fetch("http://172.105.57.17:1337/api/upload", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+          setFile4ID(result[0].id);
+        })
+        .catch((error) => {
+          console.log("error", error);
+          setFile4ID(4);
+        });
     }
-  },[file4])
+  }, [file4]);
 
   const beforeNextScreen = () => {
     const rg2 = {
-      profileImages:[file1ID,file2ID,file3ID,file4ID],
+      profileImages: [file1ID, file2ID, file3ID, file4ID],
       firstName,
       groomOrBride,
       dateOfBirth,
@@ -295,7 +300,7 @@ fetch("http://172.105.57.17:1337/api/upload", requestOptions)
               placeholder="Enter Your First Name"
               value={firstName}
               onChange={(e) => {
-                setFirstName(e.target.value)
+                setFirstName(e.target.value);
               }}
               type={"text"}
               className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
@@ -518,12 +523,15 @@ fetch("http://172.105.57.17:1337/api/upload", requestOptions)
             </p>
             <input
               // type={"number"}
+              pattern="[0-9]"
               type={"text"}
               value={phoneNumber}
               onChange={(e) => {
-                if(e.target.value.length<=10)
-                {
-                setPhoneNumber(e.target.value)
+                const reg = /^[0-9\b]+$/;
+                if (e.target.value === '' || reg.test(e.target.value)) {
+                  if (e.target.value.length <= 10) {
+                    setPhoneNumber(e.target.value);
+                  }
                 }
               }}
               className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"

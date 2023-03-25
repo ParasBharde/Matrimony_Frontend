@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import Breadcrumb from "@/components/breadcrumb";
 import { useStorage } from "@/hooks/useStorage";
 import { useCalculateAge } from "@/hooks/useCalculateAge";
+import { useLikedProfiles } from "@/hooks/useLikedProfiles";
 
 const DownlodedProfiles = () => {
   const [isList, issetList] = useState(false);
@@ -22,6 +23,7 @@ const DownlodedProfiles = () => {
   const router = useRouter();
   const calculateAge = useCalculateAge();
   const storage = useStorage();
+  const myLikedprofiles = useLikedProfiles();
 
   useEffect(() => {
     if (storage) {
@@ -64,6 +66,46 @@ const DownlodedProfiles = () => {
     issetList(false);
     issetGrid(true);
   }, []);
+
+  // check profile is liked or not
+  const isProfileLiked = (id) => {
+    for (let prop of myLikedprofiles) {
+      if (prop.attributes?.user_profile?.data?.id == id) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+    // like profile code start
+    const handleLike = (id) => {
+      let data = JSON.stringify({
+        data: {
+          user: storage.id,
+          user_profile: id,
+        },
+      });
+  
+      var config = {
+        method: "post",
+        maxBodyLength: Infinity,
+        url: `http://172.105.57.17:1337/api/liked-profiles?populate=user_profile&user=${storage.id}`,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
+      let res = axios(config)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error("like error: ", error);
+        });
+      console.log("res ", res);
+    };
+    // like profile code end
+  
 
   const [selectedRows, setSelectedRows] = useState(
     Array(downloadedProfilese?.length).fill(false)
@@ -661,7 +703,19 @@ const DownlodedProfiles = () => {
                               className="absolute top-0 right-0 m-2 rounded flex items-center justify-center w-10 h-11 text-white text-sm font-bold"
                             >
                               <svg
-                                className={`absolute rounded cursor-pointer`}
+                                // className={`absolute rounded cursor-pointer`}
+                                className={`absolute rounded cursor-pointer fill-current hover:text-[#F98B1D] ${
+                                  isProfileLiked(id) && "text-[#F98B1D]"
+                                }`}
+                                onClick={(e) => {
+                                  if (storage != null) {
+                                    handleLike(id);
+                                    e.target.classList.add("text-[#F98B1D]");
+                                  } else {
+                                    toast.error("You must be login first!");
+                                    router.push("/signIn");
+                                  }
+                                }}
                                 id="heart"
                                 width="24"
                                 height="21"
@@ -892,7 +946,9 @@ const DownlodedProfiles = () => {
           </div>
         ) : (
           <div className=" px-4 py-3 sm:px-[6rem] h-[80vh]">
-            <p className="text-center font-semibold text-xl mt-5">Oh! You haven&apos;t downloaded any profile yet!</p>
+            <p className="text-center font-semibold text-xl mt-5">
+              Oh! You haven&apos;t downloaded any profile yet!
+            </p>
           </div>
         )}
       </div>

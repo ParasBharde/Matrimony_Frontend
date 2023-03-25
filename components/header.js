@@ -17,7 +17,7 @@ const Header = () => {
   const { locale, locales, push } = useRouter();
   const [lang, setLang] = useState(locale);
 
-  // console.log("pathname",pathname);
+  console.log("pathname",pathname);
   const getSelectedValue = (e) => {
     router.push({ pathname, query }, asPath, { locale: e });
   };
@@ -32,6 +32,14 @@ const Header = () => {
   const [userProfile, setUserProfile] = useState(null);
   const [isAdminLogin, setAdminLogin] = useState();
 
+  // const [isProfileChanged, setIsProfileChanges] = useState("false");
+
+  // useEffect(() => {
+  //   if (pathname == "/profile") {
+  //     setIsProfileChanges("true");
+  //   }
+  // }, [pathname]);
+
   useEffect(() => {
     async function getUser() {
       try {
@@ -43,6 +51,7 @@ const Header = () => {
           userProfile?.[0]?.attributes?.profile_photo?.data?.[0]?.attributes
             ?.url
         );
+        // setIsProfileChanges("false");
       } catch (error) {
         console.error(error);
       }
@@ -81,7 +90,7 @@ const Header = () => {
   };
 
   return (
-    <div className="flex flex-row justify-between items-center  max-md:pt-5 py-3 max-md:w-auto max-md:border-solid border-y-2 max-md:px-5">
+    <div className="bg-white flex flex-row justify-between items-center  max-md:pt-5 py-3 max-md:w-auto max-md:border-solid border-y-2 max-md:px-5">
       <Link href="/">
         <div>
           <Image src={headerLogo} alt={"Header Logo"} className="pl-5" />
@@ -101,24 +110,24 @@ const Header = () => {
             <>
               <p
                 className={`cursor-pointer ${
-                  pathname == "/portfolio/portfolio" && "text-main"
+                  pathname == "/pricingPlan" && "text-main"
+                  
                 }`}
                 onClick={() => {
                   router.push("/pricingPlan");
                 }}
-               
               >
-                 Pricing Plan
+                Pricing Plan
               </p>
               <p
                 className={`cursor-pointer ${
-                  pathname == "/pricingPlan" && "text-main"
+                  pathname == "/portfolio/portfolio" && "text-main"
                 }`}
                 onClick={() => {
                   router.push("/portfolio/portfolio");
                 }}
               >
-               Search
+                Search
               </p>{" "}
             </>
           )}
@@ -133,21 +142,20 @@ const Header = () => {
             Contact Us
           </p>
           <p
-                className={`cursor-pointer ${
-                  pathname == "/aboutus" && "text-main"
-                }`}
-                onClick={() => {
-                  router.push("/aboutus");
-                }}
-              >
-              About Us 
-              </p>
+            className={`cursor-pointer ${
+              pathname == "/aboutus" && "text-main"
+            }`}
+            onClick={() => {
+              router.push("/aboutus");
+            }}
+          >
+            About Us
+          </p>
           <select
             value={lang}
             onChange={(e) => {
               getSelectedValue(e.target.value);
               setLang(e.target.value);
-
             }}
           >
             {locales.map((l) => {

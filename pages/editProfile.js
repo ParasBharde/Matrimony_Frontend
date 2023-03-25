@@ -146,7 +146,8 @@ const EditProfile = () => {
             } else {
               sessionStorage.setItem("user", JSON.stringify(res.data));
             }
-            router.push("/profiledetail/" + res.data.user_profile.id);
+            // router.push("/profiledetail/" + res.data.user_profile.id);
+            router.push("/profile");
           })
           .catch((error) => {
             console.error("userprop error", error);

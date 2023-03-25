@@ -26,7 +26,7 @@ const EditProfile = () => {
   const storageData = useStorage();
   const [userProfile, setUserProfile] = useState([]);
   const [profileImg, setProfileImg] = useState();
-  const [img, setImg] = useState();
+  const [img, setImg] = useState([]);
 
   useEffect(() => {
     if (userProfile) {
@@ -120,12 +120,6 @@ const EditProfile = () => {
     birthplace,
     presence_of_natal_direction,
   } = userProfile;
-  let images = [
-    "http://172.105.57.17:1337${profileImg?.[0]?.attributes?.url}",
-    "http://172.105.57.17:1337${profileImg?.[1]?.attributes?.url}",
-    "http://172.105.57.17:1337${profileImg?.[2]?.attributes?.url}",
-    "http://172.105.57.17:1337${profileImg?.[3]?.attributes?.url}",
-  ];
   // console.log("url",userProfile.horoscope_document?.data?.[0]?.attributes?.url);
 
   // const imageLoader = ({src}) => {
@@ -157,7 +151,8 @@ const EditProfile = () => {
                   </div>
                   <div>
                     <div style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                      Reg- No : VRE223
+                      {storageData?.user_profile?.id}
+                      {/* Reg- No : VRE22344ff */}
                     </div>
                   </div>
                 </div>
@@ -193,7 +188,7 @@ const EditProfile = () => {
                       </div>
                       <div className="flex items-center justify-center h-24 ">
                         <div className="second_item relative">
-                          <button 
+                          <button
                             className=""
                             type="button"
                             onClick={() => setModalDefaultOpen(true)}
@@ -216,7 +211,7 @@ const EditProfile = () => {
                             toggle={() => setModalDefaultOpen(false)}
                             fade={true}
                             fullscreen={true}
-                            className="flex justify-center items-center top-0 left-0 w-full h-full bg-black bg-opacity-50 fixed z-50"
+                            className="flex justify-center items-center top-0 left-0 w-full h-full bg-black bg-opacity-90 fixed z-50"
                           >
                             <div className=" modal-header">
                               <button
@@ -752,19 +747,27 @@ const EditProfile = () => {
               {/* Horoscope Chart */}
               <div className="md:mt-[-26rem] ml-[3rem]">
                 <span className="font-bold">Horoscope Chart</span>
-                <div className="flex flex-wrap justify-around mt-[4rem] ">
-                  <Image
-                    className="mb-8"
-                    src={
-                      img
-                        ? `http://172.105.57.17:1337${img?.[0]?.attributes?.url}`
-                        : horos
-                    }
-                    width={500}
-                    alt=""
-                    height={500}
-                  />
-                  <Image
+                {/* <div className="flex flex-wrap justify-around mt-[4rem] "> */}
+                <div className="grid grid-cols-2 gap-4 mt-[4rem] ">
+                  {img &&
+                    img.map((data, i) => {
+                      return (
+                          <Image
+                          key={i}
+                            className="mb-8"
+                            src={
+                              img
+                                ? `http://172.105.57.17:1337${img?.[i]?.attributes?.url}`
+                                : horos
+                            }
+                            width={500}
+                            alt="Horoscope Chart"
+                            height={500}
+                          />
+                      );
+                    })}
+
+                  {/* <Image
                     className="mb-8"
                     src={
                       img
@@ -774,7 +777,7 @@ const EditProfile = () => {
                     width={500}
                     alt=""
                     height={500}
-                  />
+                  /> */}
                 </div>
               </div>
             </div>
@@ -786,12 +789,7 @@ const EditProfile = () => {
           background: #e0e0e0;
         }
       `}</style>
-
-
-      
-
     </>
-    
   );
 };
 export default EditProfile;

@@ -41,7 +41,10 @@ const Likedprofile = () => {
   const allProfiles = useLikedProfiles();
 
   useEffect(() => {
-    setMyLikedprofiles(allProfiles);
+    if(allProfiles.length > 0) {
+      console.log("liked profiles", allProfiles);
+      setMyLikedprofiles(allProfiles);
+    }
   }, [allProfiles]);
 
   // dislike function
@@ -58,8 +61,9 @@ const Likedprofile = () => {
   };
 
   const handleHideDislikeProfile = (id) => {
+    console.log(id);
     let data = likedprofiles.filter((item) => {
-      return item.attributes?.user_profile?.data?.id != id;
+      return item.attributes.user_profiles?.data?.[0]?.id != id;
     });
     setlikedprofiles(data);
   };
@@ -67,7 +71,7 @@ const Likedprofile = () => {
   // valid liked profiles code start
   const validLikedProfiles = (myLikedprofiles) => {
     let validProfiles = myLikedprofiles.filter((items) => {
-      return items.attributes.user_profile.data != null;
+      return items.attributes?.user_permissions_users?.data?.[0] != null;
     });
     return validProfiles;
   };
@@ -75,7 +79,6 @@ const Likedprofile = () => {
 
   // pagination code
   useEffect(() => {
-    console.log("allprofiles", myLikedprofiles);
     if (myLikedprofiles.length > 0) {
       let validProfiles = validLikedProfiles(myLikedprofiles);
       setTotal(validProfiles.length);
@@ -527,7 +530,7 @@ const Likedprofile = () => {
                   </thead>
                   {likedprofiles.length > 0 &&
                     likedprofiles.map((profile, index) => {
-                      if (profile.attributes.user_profile.data == null) {
+                      if (profile.attributes.user_profiles?.data == null) {
                         return;
                       }
                       const {
@@ -537,9 +540,9 @@ const Likedprofile = () => {
                         profile_photo,
                         father_name,
                         phone_number,
-                      } = profile.attributes.user_profile.data?.attributes;
+                      } = profile.attributes.user_profiles?.data?.[0]?.attributes;
                       console.log("profile", profile);
-                      let id = profile.attributes.user_profile.data?.id;
+                      let id = profile.attributes.user_profiles?.data?.[0]?.id;
 
                       return (
                         <tbody key={index}>
@@ -619,9 +622,10 @@ const Likedprofile = () => {
                 {likedprofiles.length > 0 &&
                   likedprofiles.map((profile, index) => {
                     console.log("itmssss", profile);
-                    if (profile.attributes.user_profile.data == null) {
+                    if (profile.attributes.user_profiles?.data == null || profile.attributes.user_profiles?.data.length == 0) {
                       return;
                     }
+                  
                     const {
                       first_name,
                       last_name,
@@ -630,7 +634,7 @@ const Likedprofile = () => {
                       date_of_birth,
                       marriage_status,
                       profile_photo,
-                    } = profile.attributes.user_profile.data?.attributes;
+                    } = profile.attributes.user_profiles?.data?.[0]?.attributes;
                     const age = calculateAge(date_of_birth);
                     return (
                       <div
@@ -666,7 +670,7 @@ const Likedprofile = () => {
                                 onClick={(e) => {
                                   handleDislike(profile.id);
                                   handleHideDislikeProfile(
-                                    profile.attributes.user_profile.data?.id
+                                    profile.attributes.user_profiles?.data?.[0]?.id
                                   );
                                 }}
                                 // onMouseOver={() => src="/assets/redheart.png"}
@@ -691,7 +695,7 @@ const Likedprofile = () => {
                             onClick={() => {
                               router.push({
                                 pathname: "/profiledetail/[id]/",
-                                query: { id: profile.attributes.user_profile.data?.id },
+                                query: { id: profile.attributes.user_profiles?.data?.[0]?.id },
                               });
                             }}
                           >

@@ -591,8 +591,11 @@ const EditProfileForm2 = ({ screen, setScreen, userData }) => {
               type={"text"}
               value={phoneNumber}
               onChange={(e) => {
-                if (e.target.value.length <= 10) {
-                  setPhoneNumber(e.target.value);
+                const reg = /^[0-9\b]+$/;
+                if (e.target.value === '' || reg.test(e.target.value)) {
+                  if (e.target.value.length <= 10) {
+                    setPhoneNumber(e.target.value);
+                  }
                 }
               }}
               className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
