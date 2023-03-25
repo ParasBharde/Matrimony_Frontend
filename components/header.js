@@ -32,13 +32,13 @@ const Header = () => {
   const [userProfile, setUserProfile] = useState(null);
   const [isAdminLogin, setAdminLogin] = useState();
 
-  // const [isProfileChanged, setIsProfileChanges] = useState("false");
+  const [isProfileChanged, setIsProfileChanges] = useState("false");
 
-  // useEffect(() => {
-  //   if (pathname == "/profile") {
-  //     setIsProfileChanges("true");
-  //   }
-  // }, [pathname]);
+  useEffect(() => {
+    if (pathname == "/profile") {
+      setIsProfileChanges("true");
+    }
+  }, [pathname]);
 
   useEffect(() => {
     async function getUser() {
@@ -51,13 +51,13 @@ const Header = () => {
           userProfile?.[0]?.attributes?.profile_photo?.data?.[0]?.attributes
             ?.url
         );
-        // setIsProfileChanges("false");
+        setIsProfileChanges("false");
       } catch (error) {
         console.error(error);
       }
     }
     getUser();
-  }, [id]);
+  }, [id, isProfileChanged]);
 
   useEffect(() => {
     if (pathname == "/admin/welcome") {

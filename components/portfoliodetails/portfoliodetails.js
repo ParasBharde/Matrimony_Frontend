@@ -29,10 +29,10 @@ const Portfoliodetails = ({ allprofiles, total }) => {
 
   const Likedprofiles = useLikedProfiles();
   useEffect(() => {
-    if(Likedprofiles) {
+    if (Likedprofiles) {
       setMyLikedprofiles(Likedprofiles);
     }
-  },[Likedprofiles])
+  }, [Likedprofiles]);
   // console.log("myLikedprofiles",myLikedprofiles);
 
   // subscription code start
@@ -66,18 +66,38 @@ const Portfoliodetails = ({ allprofiles, total }) => {
 
   // check profile is liked or not
   const isProfileLiked = (id) => {
-    console.log("myLikedprofiles",myLikedprofiles);
+    console.log("myLikedprofiles", myLikedprofiles);
     for (let prop of myLikedprofiles) {
-      if (prop.attributes.user_profiles?.data?.[0]?.id == id || prop.id == id) {
-        console.log("idsssss", prop.attributes.user_profiles?.data?.[0]?.id, id);
+      if (prop.attributes?.user_profiles?.data?.[0]?.id == id || prop.id == id) {
+        // console.log("idsss prop", prop.attributes, id);
         return true;
       }
-      // if(prop.id == id){
-      //   console.log("idsss", prop.id, id);
-      //   return true;
-      // }
     }
     return false;
+  };
+
+  // dislike function
+  const handleDislike = (id) => {
+    console.log("dislike profile id: ", id);
+    axios
+      .delete(`http://172.105.57.17:1337/api/liked-profiles/${id}`)
+      .then((response) => {
+        console.log("dislike:", response);
+        router.push(router.pathname);
+      })
+      .catch((error) => {
+        console.error("dislike like error: ", error);
+      });
+  };
+
+  //findLikedProfileId
+  const findLikedProfileId = (id) => {
+    for (let prop of myLikedprofiles) {
+      if (prop.attributes.user_profiles?.data?.[0]?.id == id) {
+        console.log("idsssss", prop.id, id);
+        handleDislike(prop.id);
+      }
+    }
   };
 
   // pagination code
@@ -120,10 +140,9 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   // pagination code end
 
   // like profile code start
-  const handleLike = (itms) => {
-    // myLikedprofiles.push(itms);
-    setMyLikedprofiles([...myLikedprofiles,itms]);
-    console.log("liked id", itms.id, storageData.id);
+  const handleLike = (itms, e) => {
+    setMyLikedprofiles([...myLikedprofiles, itms.id]);
+    console.log("handle like event", e);
     let data = JSON.stringify({
       data: {
         user_permissions_users: [storageData.id],
@@ -142,6 +161,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
     };
     let res = axios(config)
       .then((response) => {
+        e.target.setAttribute("data-like-id", response.data.data.id);
         console.log(response);
       })
       .catch((error) => {
@@ -692,6 +712,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                               isProfileLiked(itms.id) && "text-[#F98B1D]"
                             }`}
                             id="heart"
+                            data-id="liked-profile"
                             onClick={(e) => {
                               if (storageData != null) {
                                 let res = isProfileLiked(itms.id);
@@ -705,6 +726,56 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                                 router.push("/signIn");
                               }
                             }}
+
+                            // onClick={(e) => {
+                            //   if (storageData != null) {
+                            //     if (
+                            //       e.target.classList.contains("text-[#F98B1D]")
+                            //     ) {
+                            //       e.target.classList.remove("text-[#F98B1D]");
+                            //     } else {
+                            //       e.target.classList.add("text-[#F98B1D]");
+                            //     }
+                            //     let res = isProfileLiked(itms.id);
+                            //     console.log("res", res);
+                            //     if (res != true) {
+                            //       handleLike(itms, e);
+                            //       setMyLikedprofiles([
+                            //         ...myLikedprofiles,
+                            //         itms,
+                            //       ]);
+                            //     } else {
+                            //       if (
+                            //         e.target.getAttribute("data-like-id") !=
+                            //         null
+                            //       ) {
+                            //         let newLikedProfiles = myLikedprofiles.filter((item) => {
+                            //             return (
+                            //               item.id !=
+                            //               e.target.getAttribute("data-like-id")
+                            //             );
+                            //           });
+                            //         setMyLikedprofiles(newLikedProfiles);
+                            //         handleDislike(e.target.getAttribute("data-like-id"));
+                            //       } else {
+                            //         let newLikedProfiles =
+                            //           myLikedprofiles.filter((item) => {
+                            //             console.log(
+                            //               "item.id",
+                            //               item.id,
+                            //               itms.id
+                            //             );
+                            //             return item.id != itms.id;
+                            //           });
+                            //         setMyLikedprofiles(newLikedProfiles);
+                            //         findLikedProfileId(itms.id);
+                            //       }
+                            //     }
+                            //   } else {
+                            //     toast.error("You must be login first!");
+                            //     router.push("/signIn");
+                            //   }
+                            // }}
                             width="24"
                             height="21"
                             viewBox="0 0 24 21"
@@ -712,6 +783,9 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                             xmlns="http://www.w3.org/2000/svg"
                           >
                             <path
+                              className={`${
+                                isProfileLiked(itms.id) && "text-[#F98B1D]"
+                              }`}
                               d="M20.8401 2.61085C20.3294 2.09985 19.7229 1.6945 19.0555 1.41793C18.388 1.14137 17.6726 0.999023 16.9501 0.999023C16.2276 0.999023 15.5122 1.14137 14.8448 1.41793C14.1773 1.6945 13.5709 2.09985 13.0601 2.61085L12.0001 3.67085L10.9401 2.61085C9.90843 1.57916 8.50915 0.999558 7.05012 0.999558C5.59109 0.999558 4.19181 1.57916 3.16012 2.61085C2.12843 3.64254 1.54883 5.04182 1.54883 6.50085C1.54883 7.95988 2.12843 9.35916 3.16012 10.3908L4.22012 11.4508L12.0001 19.2308L19.7801 11.4508L20.8401 10.3908C21.3511 9.88009 21.7565 9.27366 22.033 8.6062C22.3096 7.93875 22.4519 7.22334 22.4519 6.50085C22.4519 5.77836 22.3096 5.06295 22.033 4.39549C21.7565 3.72803 21.3511 3.12161 20.8401 2.61085V2.61085Z"
                               stroke="white"
                               strokeWidth="2"

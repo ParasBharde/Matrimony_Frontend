@@ -41,7 +41,7 @@ const Likedprofile = () => {
   const allProfiles = useLikedProfiles();
 
   useEffect(() => {
-    if(allProfiles.length > 0) {
+    if (allProfiles.length > 0) {
       console.log("liked profiles", allProfiles);
       setMyLikedprofiles(allProfiles);
     }
@@ -540,7 +540,8 @@ const Likedprofile = () => {
                         profile_photo,
                         father_name,
                         phone_number,
-                      } = profile.attributes.user_profiles?.data?.[0]?.attributes;
+                      } =
+                        profile.attributes.user_profiles?.data?.[0]?.attributes;
                       console.log("profile", profile);
                       let id = profile.attributes.user_profiles?.data?.[0]?.id;
 
@@ -622,10 +623,13 @@ const Likedprofile = () => {
                 {likedprofiles.length > 0 &&
                   likedprofiles.map((profile, index) => {
                     console.log("itmssss", profile);
-                    if (profile.attributes.user_profiles?.data == null || profile.attributes.user_profiles?.data.length == 0) {
+                    if (
+                      profile.attributes.user_profiles?.data == null ||
+                      profile.attributes.user_profiles?.data.length == 0
+                    ) {
                       return;
                     }
-                  
+
                     const {
                       first_name,
                       last_name,
@@ -661,7 +665,6 @@ const Likedprofile = () => {
                                 top: "10",
                                 right: "10",
                               }}
-                              // onClick={() => handleLike(itms.id)}
                               className="absolute top-0 right-0 m-2 rounded flex items-center justify-center w-10 h-11 text-white text-sm font-bold"
                             >
                               <svg
@@ -670,7 +673,8 @@ const Likedprofile = () => {
                                 onClick={(e) => {
                                   handleDislike(profile.id);
                                   handleHideDislikeProfile(
-                                    profile.attributes.user_profiles?.data?.[0]?.id
+                                    profile.attributes.user_profiles?.data?.[0]
+                                      ?.id
                                   );
                                 }}
                                 // onMouseOver={() => src="/assets/redheart.png"}
@@ -695,7 +699,10 @@ const Likedprofile = () => {
                             onClick={() => {
                               router.push({
                                 pathname: "/profiledetail/[id]/",
-                                query: { id: profile.attributes.user_profiles?.data?.[0]?.id },
+                                query: {
+                                  id: profile.attributes.user_profiles
+                                    ?.data?.[0]?.id,
+                                },
                               });
                             }}
                           >
