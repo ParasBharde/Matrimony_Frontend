@@ -5,11 +5,11 @@ const Footernav = () => {
     <>
       <footer className="footer bg-white shadow md:flex md:items-center md:justify-center md:p-6 overflow-visble max-md:hidden">
         <span style={{ color: 'color: rgba(30, 30, 30, 0.5)' }} className="text-sm  sm:text-center">
-          Copyright © {" "}
+          Copyright &copy; {" "}
           <span className="hover:underline">
-            Trichy Vayalur Road Reddy Trust All rights reserved.
-          </span>
-          . Theme Anews by themeuniver
+          Trichy Vayalur Road Reddy Trust All rights reserved. </span>
+          Made by Shubhchintak. <a href="https://shubhchintak.co/">https://shubhchintak.co/</a>
+          {/* . Theme Anews by themeuniver */}
         </span>
       </footer>
 
