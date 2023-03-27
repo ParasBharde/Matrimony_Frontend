@@ -118,7 +118,7 @@ const Aboutus = () => {
           <Image src={quote} alt="About Us Image 3" />
         </div>
       </div>
-      <div className="flex justify-center md:mb-64 mb-32">
+      <div className="flex justify-center md:mb-20 mb-10">
         <div className="md:w-96 w-72 flex bg-gray-100 justify-center align-center rounded-lg">
           <div className="p-8">
             <blockquote className="text-lg">
