@@ -135,7 +135,7 @@ const EditProfile = () => {
               <span className="text-white flex-1">Profile Detail</span>
               <div className="flex items-center ">
                 <button
-                  className="bg-white text-main md:px-[2rem] rounded md:py-[5px]"
+                  className="bg-white text-main px-[2rem] rounded py-[5px]"
                   onClick={() => router.push("/editProfile")}
                 >
                   Edit
@@ -159,15 +159,15 @@ const EditProfile = () => {
               </div>
               {/* personal information */}
               <div>
-                <div className="first_content p-4 sm:ml-64 ">
+                <div className="first_content p-4 sm:ml-64">
                   <div className="p-4 ">
                     <div className="grid grid-cols-4 gap-10 ">
-                      <div className="flex items-center justify-center h-24 rounded ">
+                      <div className="flex items-center justify-center h-24 rounded">
                         <div className="first_row">
-                          <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                          <span style={{ color: "rgba(30, 30, 30, 0.5)" }} className="">
                             Email
                           </span>
-                          <span>{email}</span>
+                          <span className="mt-5 lg:mt-0 md:mt-0">{email}</span>
                         </div>
                       </div>
                       <div className="flex items-center justify-center h-24 rounded ">
@@ -181,12 +181,12 @@ const EditProfile = () => {
                       <div className="flex items-center justify-center h-24 rounded ">
                         <div className="first_row">
                           <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                            Date of Birth
+                            {/* Date of Birth */} DOB
                           </span>
                           <span>{date_of_birth}</span>
                         </div>
                       </div>
-                      <div className="flex items-center justify-center h-24 ">
+                      <div className=" flex items-center justify-center h-24 ">
                         <div className="second_item relative">
                           <button
                             className=""
@@ -276,7 +276,7 @@ const EditProfile = () => {
                           </Modal>
                           <div className="flex justify-around md:ml-10 lg:ml-6 sm:ml-0">
                             <Image
-                              className="img_profile_g w-40 h-26 "
+                              className="img_profile_g w-40 h-26 respon_img1 "
                               src={
                                 profileImg
                                   ? `http://172.105.57.17:1337${profileImg?.[1]?.attributes?.url}`
@@ -287,7 +287,7 @@ const EditProfile = () => {
                               height={80}
                             />
                             <Image
-                              className="img_profile_g w-40 h-26"
+                              className="img_profile_g w-40 h-26 respon_img2"
                               src={
                                 profileImg
                                   ? `http://172.105.57.17:1337${profileImg?.[2]?.attributes?.url}`
@@ -298,7 +298,7 @@ const EditProfile = () => {
                               height={80}
                             />
                             <Image
-                              className="img_profile_g w-40 h-26"
+                              className="img_profile_g w-40 h-26 respon_img3"
                               src={
                                 profileImg
                                   ? `http://172.105.57.17:1337${profileImg?.[3]?.attributes?.url}`
@@ -425,7 +425,7 @@ const EditProfile = () => {
                       </div>
                       <div className="flex items-center justify-center h-24 rounded ">
                         <div className="fifth_row">
-                          <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                          <span style={{ color: "rgba(30, 30, 30, 0.5)" }} className="mt-20">
                             Expectation
                           </span>
                           <span>{Expection}</span>
@@ -600,7 +600,7 @@ const EditProfile = () => {
               <span className="line_two_2"></span>
 
               {/* Horoscope Information */}
-              <div className="third_content">
+              <div className="third_content ">
                 <span className="sec_text">Horoscope Information</span>
                 <div>
                   <div className="first_content p-4 sm:ml-64 ">
@@ -690,9 +690,9 @@ const EditProfile = () => {
                             <span>{birthplace}</span>
                           </div>
                         </div>
-                        <div className="flex items-center justify-center h-24 rounded ">
+                        <div className="flex items-center justify-center h-24 rounded">
                           <div className="third_row">
-                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }} className="mt-10 lg:mt-0 md:mt-0">
                               Presence Of Natal Direction
                             </span>
                             <span>{presence_of_natal_direction}</span>
@@ -701,7 +701,7 @@ const EditProfile = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="first_content p-4 sm:ml-64 ">
+                  <div className="first_content p-4 sm:ml-64">
                     {/* <div className="p-4 ">
                       <div className="grid grid-cols-4 gap-10 ">
                         <div className="flex items-center justify-center h-24 rounded ">
@@ -745,7 +745,7 @@ const EditProfile = () => {
               <span className="line_three_3 md:mt-[6rem]"></span>
 
               {/* Horoscope Chart */}
-              <div className="md:mt-[-26rem] ml-[3rem]">
+              <div className="md:mt-[-26rem] sm:mt-[-20rem] ml-[3rem]">
                 <span className="font-bold">Horoscope Chart</span>
                 {/* <div className="flex flex-wrap justify-around mt-[4rem] "> */}
                 <div className="grid grid-cols-2 gap-4 mt-[4rem] ">
@@ -760,9 +760,9 @@ const EditProfile = () => {
                                 ? `http://172.105.57.17:1337${img?.[i]?.attributes?.url}`
                                 : horos
                             }
-                            width={500}
+                            width={400}
                             alt="Horoscope Chart"
-                            height={500}
+                            height={400}
                           />
                       );
                     })}
