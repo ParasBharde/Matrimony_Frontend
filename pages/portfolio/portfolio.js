@@ -11,11 +11,9 @@ const Portfolio = () => {
   const router = useRouter();
   const [filteredProfiles, setFilteredProfiles] = useState({});
   const [profiles, setprofiles] = useState([]);
-  // const [length, setLength] = useState(0);
   const [total, setTotal] = useState(0);
   const storageData = useStorage();
 
-  //console.log("profiles", profiles);
   useEffect(() => {
     async function getUser() {
       var config = {
@@ -47,6 +45,14 @@ const Portfolio = () => {
   const calculateAge = useCalculateAge();
 
   const handleFilterQuery = (query) => {
+    console.log("query1", query);
+    // console.log("age type",typeof(query.ageFrom), typeof(query.ageTo));
+    if(query.looking == "Choose" && query.star == "Choose" && query.ageFrom == '' && query.ageTo == '' && query.marriageStatus == "Choose"){
+      setFilteredProfiles(profiles);
+      setTotal(profiles.length);
+      return;
+    }
+
     let filteredProfiles = profiles;
     if (query.looking != "Choose") {
       filteredProfiles = filteredProfiles.filter((profile) => {
@@ -60,7 +66,7 @@ const Portfolio = () => {
       });
     }
 
-    if (query.ageFrom != undefined) {
+    if (query.ageFrom != undefined && query.ageFrom != '') {
       let queryAgeFrom = Number(query.ageFrom);
       filteredProfiles = filteredProfiles.filter((profile) => {
         const age = calculateAge(profile.attributes.date_of_birth);
@@ -68,7 +74,7 @@ const Portfolio = () => {
       });
     }
 
-    if (query.ageTo != undefined) {
+    if (query.ageTo != undefined && query.ageTo != '') {
       let queryAgeTo = Number(query.ageTo);
       filteredProfiles = filteredProfiles.filter((profile) => {
         const age = calculateAge(profile.attributes.date_of_birth);
@@ -83,6 +89,7 @@ const Portfolio = () => {
     }
 
     setFilteredProfiles(filteredProfiles);
+    setTotal(filteredProfiles.length);
   };
   return (
     <>

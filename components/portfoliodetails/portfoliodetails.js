@@ -15,6 +15,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   const dropdownRef = useRef(null);
   const storageData = useStorage();
 
+  // console.log("allprofiles", allprofiles);
   const calculateAge = useCalculateAge();
   const [active, setActive] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,14 +30,6 @@ const Portfoliodetails = ({ allprofiles, total }) => {
 
   const [isPremiumUser, setIsPremiumUser] = useState(false);
 
-  // const Likedprofiles = useLikedProfiles();
-  // useEffect(() => {
-  //   if (Likedprofiles) {
-  //     setMyLikedprofiles(Likedprofiles);
-  //     console.log("myLikedprofiles",Likedprofiles);
-  //   }
-  // }, [Likedprofiles]);
-
   useEffect(() => {
     const getProfiles = () => {
       axios
@@ -45,7 +38,10 @@ const Portfoliodetails = ({ allprofiles, total }) => {
         )
         .then((response) => {
           let data = response.data.data.filter((profile) => {
-            return profile?.attributes?.user_permissions_user?.data?.id == storageData?.id;
+            return (
+              profile?.attributes?.user_permissions_user?.data?.id ==
+              storageData?.id
+            );
           });
           console.log("liked data", data);
           setMyLikedprofiles(data);
@@ -55,7 +51,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
         });
     };
     getProfiles();
-  },[storageData])
+  }, [storageData]);
 
   const getLikedProfiles = useCallback(() => {
     axios
@@ -147,6 +143,11 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   // pagination code
   useEffect(() => {
     // console.log("allprofiles", allprofiles);
+    if (allprofiles.length <= 0) {
+      setTotalPage(0);
+      setProfiles([]);
+    }
+
     if (allprofiles.length > 0) {
       setTotalPage(Math.ceil(allprofiles.length / profilePerPage));
       let totalProfiles = allprofiles.slice(0, profilePerPage);
@@ -185,7 +186,6 @@ const Portfoliodetails = ({ allprofiles, total }) => {
 
   // like profile code start
   const handleLike = (itms, e) => {
-    // console.log("handle like event", e);
     let data = JSON.stringify({
       data: {
         user_permissions_user: storageData.id,
@@ -227,6 +227,18 @@ const Portfoliodetails = ({ allprofiles, total }) => {
     const isChecked = event.target.checked;
     setSelectedRows(Array(profiles.length).fill(isChecked));
   };
+
+  if (profiles.length <= 0) {
+    return (
+      <>
+        <div className=" px-4 py-5 sm:px-[6rem] h-[80vh]">
+          <p className="text-center font-semibold text-xl mt-5">
+            Don&apos;t have matching profiles!
+          </p>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>

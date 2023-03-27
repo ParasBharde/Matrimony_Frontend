@@ -553,7 +553,7 @@ const Likedprofile = () => {
                             onClick={() => {
                               router.push({
                                 pathname: "/profiledetail/[id]/",
-                                query: { id: id },
+                                query: { id: id, isLiked: true },
                               });
                             }}
                           >
@@ -700,8 +700,8 @@ const Likedprofile = () => {
                               router.push({
                                 pathname: "/profiledetail/[id]/",
                                 query: {
-                                  id: profile.attributes.user_profiles
-                                    ?.data?.[0]?.id,
+                                  id: profile.attributes.user_profile?.data?.id,
+                                  isLiked: true
                                 },
                               });
                             }}
