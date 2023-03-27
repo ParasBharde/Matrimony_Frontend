@@ -738,7 +738,7 @@ const DownlodedProfiles = () => {
                             onClick={() => {
                               router.push({
                                 pathname: "/profiledetail/[id]/",
-                                query: { id: id },
+                                query: { id: id, isLiked: isProfileLiked(id) },
                               });
                             }}
                           >
