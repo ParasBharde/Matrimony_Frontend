@@ -12,7 +12,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
   const [file3, setFile3] = useState(null);
   const [file4, setFile4] = useState(null);
 
-  const [file1ID, setFile1ID] = useState(4);
+  const [file1ID, setFile1ID] = useState(4);                                                                                                                        
   const [file2ID, setFile2ID] = useState(4);
   const [file3ID, setFile3ID] = useState(4);
   const [file4ID, setFile4ID] = useState(4);

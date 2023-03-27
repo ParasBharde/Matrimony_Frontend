@@ -628,7 +628,7 @@ const EditProfileForm2 = ({ screen, setScreen, userData }) => {
         <div className="flex justify-between items-center max-lg:flex-col space-y-5 max-lg:flex max-lg:justify-start ">
           <div className="relative">
             {img1 && (
-              <div className="absolute w-full h-full bg-black/[0.2]">
+              <div className="absolute w-full h-full lg:h-48 bg-black/[0.2] bg-red-">
                 <span
                   className="cursor-pointer p-2 rounded absolute top-1 right-1 bg-black/[0.3]"
                   id={userData.profile_photo?.data?.[0]?.id}
@@ -783,6 +783,7 @@ const EditProfileForm2 = ({ screen, setScreen, userData }) => {
           <div className="relative">
             {img4 && (
               <div className="absolute w-full h-full bg-black/[0.2]">
+                {/* h-full */}
                 <span
                   className="cursor-pointer p-2 rounded absolute top-1 right-1 bg-black/[0.3]"
                   id={userData.profile_photo?.data?.[3]?.id}

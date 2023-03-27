@@ -11,6 +11,10 @@ const Footer = () => {
       router.pathname === "/pricingPlan" ||
       router.pathname === "/register" ||
       router.pathname === "/setNewPassword" ||
+      router.pathname === "/aboutus" ||
+      router.pathname === "/downloadProfile" ||
+      router.pathname === "/profile" ||
+      router.pathname === "/editProfile" ||
       router.pathname === "/contactus" ? (
         <div className="footer_main_1 bg-main flex flex-wrap justify-between items-center px-20  z-50 w-auto">
           {/* w-max */}
