@@ -171,6 +171,7 @@ const Header = () => {
 
         {/* add for responsive screen  */}
         {/* max-md:bg-black */}
+       
         <div className="absolute right-2 hidden max-md:block max-sm:block group dropdown">
           {/* <Hamburger onClick={() => console.log("Clicked")} className="bg-black"/> */}
           <i className="fa-solid fa-bars mr-3 mb-3"></i>
@@ -216,6 +217,7 @@ const Header = () => {
               <i className="fa-regular fa-user mr-5 text-main"></i>
               About Us
             </p>
+            
           </div>
         </div>
         {/* ..................   */}
@@ -234,6 +236,7 @@ const Header = () => {
               unoptimized
               alt="avatar"
             />
+            
             <div className="absolute group-hover:block dropdown-menu hidden h-auto right-2 shadow-lg top-11 z-50 bg-white">
               <p
                 className="m-3 w-[200px] cursor-pointer"
