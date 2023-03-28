@@ -74,6 +74,11 @@
     align-content: flex-start;
     flex-direction: column;
     width: 100%;
+    @include breakpoint-down(small) {
+        margin: 0rem 0rem 12rem -4rem;
+        padding: 2rem;
+        padding-top: -100px;
+    }
 }
 .second_row {
     display: flex;
@@ -146,19 +151,19 @@
 }
 .respon_img1{
     @include breakpoint-down(small) {
-       margin-left:30px;
+       margin-left:32px;
     }
 }
 .respon_img2{
     @include breakpoint-down(small) {
-       margin-top: 85px;
-       margin-left:-78px;
+       margin-top: 90px;
+       margin-left:-95px;
     }
 }
 .respon_img3{
     @include breakpoint-down(small) {
         margin-top: 185px;
-        margin-left:-78px;
+        margin-left:-95px;
     }
 }
 .line_one{
