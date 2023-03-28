@@ -264,7 +264,7 @@ const Header = () => {
               </p>
               <p
                 className="m-3 w-[200px] cursor-pointer"
-                onClick={() => router.push("/setNewPassword/")}
+                onClick={() => router.push("/changePassword")}
               >
                 <i className="fa-solid fa-lock mr-5 text-main"></i> Change
                 Password

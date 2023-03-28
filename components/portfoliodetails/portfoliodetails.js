@@ -736,7 +736,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                     key={index}
                     className="relative mb-2 hover:transform hover:scale-105 duration-300 max-lg:min-w-fit"
                   >
-                    <div className="cards relative">
+                    <div className="cards relative min-h-[400px]">
                       {!isPremiumUser && (
                         <div className="absolute top-0 left-0 w-full h-full bg-black/[0.3] z-40"></div>
                       )}
