@@ -159,34 +159,77 @@ const EditProfile = () => {
               </div>
               {/* personal information */}
               <div>
-                <div className="first_content p-4 sm:ml-64">
-                  <div className="p-4 ">
-                    <div className="grid grid-cols-4 gap-10 ">
-                      <div className="flex items-center justify-center h-24 rounded">
-                        <div className="first_row">
-                          <span style={{ color: "rgba(30, 30, 30, 0.5)" }} className="">
-                            Email
-                          </span>
-                          <span className="mt-5 lg:mt-0 md:mt-0">{email}</span>
+                <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1">
+                    <div className="p-5  ">
+                        <div className="ml-5">
+                          <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>Email </span>
+                          <p className="">{email}</p>
                         </div>
-                      </div>
-                      <div className="flex items-center justify-center h-24 rounded ">
-                        <div className="first_row">
-                          <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                            Phone
-                          </span>
-                          <span>{phone_number}</span>
+                        <div className="mt-5 ml-5">
+                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Age</p>
+                          <p>{calculateAge(date_of_birth)}</p>
                         </div>
-                      </div>
-                      <div className="flex items-center justify-center h-24 rounded ">
-                        <div className="first_row">
-                          <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                            {/* Date of Birth */} DOB
-                          </span>
-                          <span>{date_of_birth}</span>
+                        <div className="mt-5 ml-5">
+                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}> Height</p>
+                          <p>{Height}</p>
                         </div>
+                        <div className="mt-5 ml-5">
+                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}> Caste</p>
+                          <p>{caste}</p>
+                        </div>
+                        <div className="mt-5 ml-5">
+                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Career</p>
+                          <p>{career_detail}</p>
+                        </div>
+                        
+                  
+                    </div>
+                    <div className="p-5  ">
+                          <div className="ml-5">
+                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>Phone</span>
+                            <p className="">{phone_number}</p>
+                          </div>
+                          <div className="mt-5 ml-5">
+                            <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Star </p>
+                            <p>{star}</p>
+                          </div>
+                          <div className="mt-5 ml-5">
+                            <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Qualification</p>
+                            <p>{educational_qualification}</p>
+                          </div>
+                          <div className="mt-5 ml-5">
+                            <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Family Property </p>
+                            <p>{family_property_details}</p>
+                          </div>
+                          <div className="mt-5 ml-5">
+                            <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Salary</p>
+                            <p>{Salary_monthly_income}</p>
+                          </div>
+                    </div>
+                    <div className="p-5  ">
+                      <div className="ml-5">
+                        <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>Date of Birth</span>
+                        <p>{date_of_birth}</p>
                       </div>
-                      <div className=" flex items-center justify-center h-24 ">
+                      <div className="mt-5 ml-5">
+                        <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Marriage Status</p>
+                        <p>{marriage_status}</p>
+                      </div>
+                      <div className="mt-5 ml-5">
+                        <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Color</p>
+                        <p>{Color}</p>
+                      </div>
+                      <div className="mt-5 ml-5">
+                        <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Type of food</p>
+                        <p>{Choose_veg_nonveg}</p>
+                      </div>
+                      <div className="mt-5 ml-5">
+                        <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Expectation</p>
+                        <p>{Expection}</p>
+                      </div>
+                    </div>
+                    <div className="p-5 mt-7">
+                    <div className=" flex items-center justify-center h-24 ">
                         <div className="second_item relative">
                           <button
                             className=""
@@ -276,7 +319,7 @@ const EditProfile = () => {
                           </Modal>
                           <div className="flex justify-around md:ml-10 lg:ml-6 sm:ml-0">
                             <Image
-                              className="img_profile_g w-40 h-26 respon_img1 "
+                              className="img_profile_g w-40 h-26 "
                               src={
                                 profileImg
                                   ? `http://172.105.57.17:1337${profileImg?.[1]?.attributes?.url}`
@@ -287,7 +330,7 @@ const EditProfile = () => {
                               height={80}
                             />
                             <Image
-                              className="img_profile_g w-40 h-26 respon_img2"
+                              className="img_profile_g w-40 h-26"
                               src={
                                 profileImg
                                   ? `http://172.105.57.17:1337${profileImg?.[2]?.attributes?.url}`
@@ -298,7 +341,7 @@ const EditProfile = () => {
                               height={80}
                             />
                             <Image
-                              className="img_profile_g w-40 h-26 respon_img3"
+                              className="img_profile_g w-40 h-26 "
                               src={
                                 profileImg
                                   ? `http://172.105.57.17:1337${profileImg?.[3]?.attributes?.url}`
@@ -312,442 +355,139 @@ const EditProfile = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
                 </div>
-                <div className="first_content p-4 sm:ml-64 ">
-                  <div className="p-4 ">
-                    <div className="grid grid-cols-4 gap-10 ">
-                      <div className="flex items-center justify-center h-24 rounded ">
-                        <div className="second_row">
-                          <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                            Age
-                          </span>
-                          <span>{calculateAge(date_of_birth)}</span>
+                  
+                <p className="font-bold ml-10 mt-[120px] lg:mt-10 ">Family Information</p>
+                <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 ">
+                    <div className="p-5  ">
+                        <div className="ml-5">
+                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Father&apos;s Name</p>
+                          <p>{father_name}</p>
                         </div>
+                        <div className="mt-5 ml-5">
+                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Father&apos;s Profession</p>
+                          <p>{father_profession}</p>
+                        </div>
+                        <div  className="mt-5 ml-5">
+                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Brothers </p>
+                          <p>{brothers}</p>
+                        </div>
+                        <div className="mt-5 ml-5">
+                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Sisters </p>
+                          <p>{sisters}</p>
+                        </div> 
+                    </div>
+                    <div className="p-5  ">
+                        <div className="ml-5">
+                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}> Mother&apos;s Name </p>
+                          <p>{mother_name}</p>
+                        </div>
+                          <div className="mt-5 ml-5">
+                            <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Mother&apos;s Profession</p>
+                            <p>{mother_profession}</p>
+                          </div>
+                          <div className="mt-5 ml-5">
+                            <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Elder Brother </p>
+                            <p>{elder_brothers}</p>
+                          </div>
+                          <div className="mt-5 ml-5">
+                            <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Elder Sisters </p>
+                            <p>{elder_sisters}</p>
+                          </div>
+                    </div>
+                    <div className="p-5  ">
+                      <div className="ml-5">
+                        <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Father&apos;s Native</p>
+                        <p>{father_native}</p>
                       </div>
-                      <div className="flex items-center justify-center h-24 rounded ">
-                        <div className="second_row">
-                          <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                            Star
-                          </span>
-                          <span>{star}</span>
-                        </div>
+                      <div className="mt-5 ml-5">
+                        <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Phone Number</p>
+                        <p>{parents_contact_number}</p>
                       </div>
-                      <div className="flex items-center justify-center h-24 rounded ">
-                        <div className="second_row">
-                          <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                            Marriage Status
-                          </span>
-                          <span>{marriage_status}</span>
-                        </div>
+                      <div className="mt-5 ml-5">
+                        <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Younger Brother </p>
+                        <p>{younger_brothers}</p>
+                      </div>
+                      <div className="mt-5 ml-5">
+                        <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Younger Sisters </p>
+                        <p>{younger_sisters}</p>
                       </div>
                     </div>
-                  </div>
+                    <div className="p-5 ">
+                       <div className="ml-5">
+                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}> Mother&apos;s Native</p>
+                          <p>{mother_native}</p>
+                       </div>
+                       <div className="mt-5 ml-5">
+                        <p style={{ color: "rgba(30, 30, 30, 0.5)" }}> Address </p>
+                        <p>{address}</p>
+                       </div>
+                       <div className="mt-5 ml-5">
+                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Married</p>
+                          <p>{married_brothers}</p>
+                       </div>
+                       <div className="mt-5 ml-5">
+                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}> Married</p>
+                          <p>{married_sisters}</p>
+                       </div>
+                    </div>
                 </div>
-                <div className="first_content p-4 sm:ml-64 ">
-                  <div className="p-4 ">
-                    <div className="grid grid-cols-4 gap-10 ">
-                      <div className="flex items-center justify-center h-24 rounded ">
-                        <div className="third_row">
-                          <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                            Height
-                          </span>
-                          <span>{Height}</span>
+                <p className="font-bold ml-10 mt-5">Horoscope Information</p>
+                <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 ">
+                    <div className="p-5  ">
+                        <div className="ml-5">
+                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Zodiac Sign</p>
+                          <p>{zodiacs_sign}</p>
                         </div>
-                      </div>
-                      <div className="flex items-center justify-center h-24 rounded ">
-                        <div className="third_row">
-                          <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                            Qualification
-                          </span>
-                          <span>{educational_qualification}</span>
+                        <div className="mt-5 ml-5">
+                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Day </p>
+                          <p>{day}</p>
                         </div>
-                      </div>
-                      <div className="flex items-center justify-center h-24 rounded ">
-                        <div className="third_row">
-                          <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                            Color
-                          </span>
-                          <span>{Color}</span>
+                        <div className="mt-5 ml-5">
+                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Birthplace</p>
+                          <p>{birthplace}</p>
                         </div>
-                      </div>
+                        
                     </div>
-                  </div>
+                    <div className="p-5  ">
+                        <div className="ml-5">
+                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Tamil Year </p>
+                          <p>{tamil_year}</p>
+                        </div>
+                          <div className="mt-5 ml-5">
+                            <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Birth Time</p>
+                            <p>{birth_time}</p>
+                          </div>
+                          <div className="mt-5 ml-5">
+                            <p style={{ color: "rgba(30, 30, 30, 0.5)" }}> Presence Of Natal Direction </p>
+                            <p>{presence_of_natal_direction}</p>
+                          </div>
+                          
+                    </div>
+                    <div className="p-5  ">
+                      <div className="ml-5">
+                        <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Tamil Month</p>
+                        <p>{tamil_month}</p>
+                      </div>
+                      <div className="mt-5 ml-5">
+                        <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Star/Foot</p>
+                        <p>{star_foot}</p>
+                      </div>
+                     
+                    </div>
+                    <div className="p-5 ">
+                       <div className="ml-5">
+                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Udayati Nazhikai </p>
+                          <p>{udayati_nazhikai}</p>
+                       </div>
+                       <div className="mt-5 ml-5">
+                        <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Ascendant(Laknam)</p>
+                        <p>{ascendant}</p>
+                       </div>
+                      
+                    </div>
                 </div>
-                <div className="first_content p-4 sm:ml-64 ">
-                  <div className="p-4 ">
-                    <div className="grid grid-cols-4 gap-10 ">
-                      <div className="flex items-center justify-center h-24 rounded ">
-                        <div className="fourth_row">
-                          <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                            Caste
-                          </span>
-                          <span>{caste}</span>
-                        </div>
-                      </div>
-                      <div className="flex items-center justify-center h-24 rounded ">
-                        <div className="fourth_row">
-                          <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                            Family Property
-                          </span>
-                          <span>{family_property_details}</span>
-                        </div>
-                      </div>
-                      <div className="flex items-center justify-center h-24 rounded ">
-                        <div className="fourth_row">
-                          <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                            Type of food
-                          </span>
-                          <span>{Choose_veg_nonveg}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="first_content p-4 sm:ml-64 ">
-                  <div className="p-4 ">
-                    <div className="grid grid-cols-4 gap-10 ">
-                      <div className="flex items-center justify-center h-24 rounded ">
-                        <div className="fifth_row">
-                          <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                            Career
-                          </span>
-                          <span>{career_detail}</span>
-                        </div>
-                      </div>
-                      <div className="flex items-center justify-center h-24 rounded ">
-                        <div className="fifth_row">
-                          <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                            Salary
-                          </span>
-                          <span>{Salary_monthly_income}</span>
-                        </div>
-                      </div>
-                      <div className="flex items-center justify-center h-24 rounded ">
-                        <div className="fifth_row">
-                          <span style={{ color: "rgba(30, 30, 30, 0.5)" }} className="mt-20">
-                            Expectation
-                          </span>
-                          <span>{Expection}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <span className="line_one_1"></span>
-
-              {/*Family Information */}
-              <div className="second_content">
-                <span className="sec_text">Family Information</span>
-                <div>
-                  <div className="first_content p-4 sm:ml-64 ">
-                    <div className="p-4 ">
-                      <div className="grid grid-cols-4 gap-10 ">
-                        <div className="flex items-center justify-center h-24 rounded ">
-                          <div className="first_row">
-                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Father&apos;s Name
-                            </span>
-                            <span>{father_name}</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-center h-24 rounded ">
-                          <div className="first_row">
-                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Mother&apos;s Name
-                            </span>
-                            <span>{mother_name}</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-center h-24 ">
-                          <div className="first_row">
-                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Father&apos;s Native
-                            </span>
-                            <span>{father_native}</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-center h-24 ">
-                          <div className="first_row">
-                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Mother&apos;s Native
-                            </span>
-                            <span>{mother_native}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="first_content p-4 sm:ml-64 ">
-                    <div className="p-4 ">
-                      <div className="grid grid-cols-4 gap-10 ">
-                        <div className="flex items-center justify-center h-24 rounded ">
-                          <div className="second_row">
-                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Father&apos;s Profession
-                            </span>
-                            <span>{father_profession}</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-center h-24 rounded ">
-                          <div className="second_row">
-                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Mother&apos;s Profession
-                            </span>
-                            <span>{mother_profession}</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-center h-24 rounded ">
-                          <div className="second_row">
-                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Phone Number
-                            </span>
-                            <span>{parents_contact_number}</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-center h-24 rounded ">
-                          <div className="second_row">
-                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Address
-                            </span>
-                            <span>{address}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="first_content p-4 sm:ml-64 ">
-                    <div className="p-4 ">
-                      <div className="grid grid-cols-4 gap-10 ">
-                        <div className="flex items-center justify-center h-24 rounded ">
-                          <div className="third_row">
-                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Brothers
-                            </span>
-                            <span>{brothers}</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-center h-24 rounded ">
-                          <div className="third_row">
-                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Elder Brother
-                            </span>
-                            <span>{elder_brothers}</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-center h-24 rounded ">
-                          <div className="third_row">
-                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Younger Brother
-                            </span>
-                            <span>{younger_brothers}</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-center h-24 rounded ">
-                          <div className="third_row">
-                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Married
-                            </span>
-                            <span>{married_brothers}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="first_content p-4 sm:ml-64 ">
-                    <div className="p-4 ">
-                      <div className="grid grid-cols-4 gap-10 ">
-                        <div className="flex items-center justify-center h-24 rounded ">
-                          <div className="fourth_row">
-                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Sisters
-                            </span>
-                            <span>{sisters}</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-center h-24 rounded ">
-                          <div className="fourth_row">
-                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Elder Sisters
-                            </span>
-                            <span>{elder_sisters}</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-center h-24 rounded ">
-                          <div className="fourth_row">
-                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Younger Sisters
-                            </span>
-                            <span>{younger_sisters}</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-center h-24 rounded ">
-                          <div className="fourth_row">
-                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Married
-                            </span>
-                            <span>{married_sisters}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <span className="line_two_2"></span>
-
-              {/* Horoscope Information */}
-              <div className="third_content ">
-                <span className="sec_text">Horoscope Information</span>
-                <div>
-                  <div className="first_content p-4 sm:ml-64 ">
-                    <div className="p-4 ">
-                      <div className="grid grid-cols-4 gap-10 ">
-                        <div className="flex items-center justify-center h-24 rounded ">
-                          <div className="first_row">
-                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Zodiac Sign
-                            </span>
-                            <span>{zodiacs_sign}</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-center h-24 rounded ">
-                          <div className="first_row">
-                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Tamil Year
-                            </span>
-                            <span>{tamil_year}</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-center h-24 ">
-                          <div className="first_row">
-                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Tamil Month
-                            </span>
-                            <span>{tamil_month}</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-center h-24 ">
-                          <div className="first_row">
-                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Udayati Nazhikai
-                            </span>
-                            <span>{udayati_nazhikai}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="first_content p-4 sm:ml-64 ">
-                    <div className="p-4 ">
-                      <div className="grid grid-cols-4 gap-10 ">
-                        <div className="flex items-center justify-center h-24 rounded ">
-                          <div className="second_row">
-                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Day
-                            </span>
-                            <span>{day}</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-center h-24 rounded ">
-                          <div className="second_row">
-                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Birth Time
-                            </span>
-                            <span>{birth_time}</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-center h-24 rounded ">
-                          <div className="second_row">
-                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Star/Foot
-                            </span>
-                            <span>{star_foot}</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-center h-24 rounded ">
-                          <div className="second_row">
-                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Ascendant(Laknam)
-                            </span>
-                            <span>{ascendant}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="first_content p-4 sm:ml-64 ">
-                    <div className="p-4 ">
-                      <div className="grid grid-cols-4 gap-10 ">
-                        <div className="flex items-center justify-center h-24 rounded ">
-                          <div className="third_row">
-                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Birthplace
-                            </span>
-                            <span>{birthplace}</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-center h-24 rounded">
-                          <div className="third_row">
-                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }} className="mt-10 lg:mt-0 md:mt-0">
-                              Presence Of Natal Direction
-                            </span>
-                            <span>{presence_of_natal_direction}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="first_content p-4 sm:ml-64">
-                    {/* <div className="p-4 ">
-                      <div className="grid grid-cols-4 gap-10 ">
-                        <div className="flex items-center justify-center h-24 rounded ">
-                          <div className="fourth_row">
-                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Caste
-                            </span>
-                            <span>paras@scus.tech</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-center h-24 rounded ">
-                          <div className="fourth_row">
-                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Family Property
-                            </span>
-                            <span>+91-7894561235</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-center h-24 rounded ">
-                          <div className="fourth_row">
-                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Type of food
-                            </span>
-                            <span>40,000 -/ per month</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-center h-24 rounded ">
-                          <div className="fourth_row">
-                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                              Color
-                            </span>
-                            <span>White</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div> */}
-                  </div>
-                </div>
-              </div>
-
-              <span className="line_three_3 md:mt-[6rem]"></span>
-
-              {/* Horoscope Chart */}
-              <div className="md:mt-[-26rem] sm:mt-[-20rem] ml-[3rem]">
-                <span className="font-bold">Horoscope Chart</span>
-                {/* <div className="flex flex-wrap justify-around mt-[4rem] "> */}
+                <p className="font-bold ml-10 mt-5">Horoscope Chart</p>
                 <div className="grid grid-cols-2 gap-4 mt-[4rem] ">
                   {img &&
                     img.map((data, i) => {
@@ -779,16 +519,22 @@ const EditProfile = () => {
                     height={500}
                   /> */}
                 </div>
+
               </div>
+
             </div>
           </div>
         </div>
+
       </div>
       <style global jsx>{`
         .container {
           background: #e0e0e0;
         }
       `}</style>
+
+
+     
     </>
   );
 };

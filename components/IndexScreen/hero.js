@@ -243,6 +243,29 @@ const Hero = (props) => {
         </p>
       </div>
 
+      <div className="absolute right-[110px] top-14 hidden max-md:block max-sm:block">
+      <select
+            className="mx-10 cursor-pointer bg-transparent text-white"
+            value={lang}
+            onChange={(e) => {
+              getSelectedValue(e.target.value);
+              setLang(e.target.value);
+            }}
+          >
+            {locales.map((l) => {
+              return (
+                <option
+                  className="bg-black/[0.4] hover:bg-black/[0.5]"
+                  key={l}
+                  value={l}
+                >
+                  {l == "en" ? "EN" : "TA"}
+                </option>
+              );
+            })}
+          </select>
+      </div>
+
       <div className="absolute right-10 top-14 hidden max-md:block max-sm:block">
         <Hamburger
           className="relative"

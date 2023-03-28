@@ -98,7 +98,7 @@ const Right = () => {
         </p>
         <input
           placeholder="Enter Your Name"
-          className="border border-[#E1E1E1] lg:w-[400px] sm:w-[300px] w-[100%] py-2 px-8 rounded-md"
+          className="border border-[#E1E1E1] lg:w-[400px] sm:w-[300px] w-[100%] py-2 px-8 rounded-md text-black"
         />
       </div>
       {/* <div className="xl:w-[40%] lg:w-[50%] sm:w-[60%] w-full flex flex-col justify-center items-center">
@@ -118,7 +118,7 @@ const Right = () => {
             setEmail(e.target.value);
           }}
           placeholder="Enter Your Email"
-          className="border border-[#E1E1E1] lg:w-[400px] sm:w-[300px] w-[100%] py-2 px-8 rounded-md"
+          className="border border-[#E1E1E1] lg:w-[400px] sm:w-[300px] w-[100%] py-2 px-8 rounded-md text-black"
         />
       </div>
       <div className="mt-3 lg:w-[400px] sm:w-[300px] w-[90%] ">
@@ -130,7 +130,7 @@ const Right = () => {
           }}
           placeholder="Enter Your Password"
           type={"password"}
-          className="border border-[#E1E1E1] lg:w-[400px] sm:w-[300px] w-[100%] py-2 px-8 rounded-md"
+          className="border border-[#E1E1E1] lg:w-[400px] sm:w-[300px] w-[100%] py-2 px-8 rounded-md text-black"
         />
       </div>
       <div className="lg:w-[400px] sm:w-[300px] w-[90%] flex justify-between items-center mt-2">
@@ -143,14 +143,14 @@ const Right = () => {
               setRememberMe(e.target.checked);
             }}
           />
-          <label htmlFor="rememberMe" className="text-[#B6B3BE] ml-2">
+          <label htmlFor="rememberMe" className="lg:text-[#B6B3BE] ml-2 sm:text-white">
             Remember Me
           </label>
         </div>
 
         <div className="lg:w-[250px] sm:w-[300px] w-[90%] mx-auto flex justify-center items-center">
           <p
-            className="text-[#B6B3BE] cursor-pointer"
+            className="lg:text-[#B6B3BE] sm:text-white cursor-pointer ml-2"
             onClick={() => {
               router.push("/forgotPassword");
             }}
@@ -161,7 +161,7 @@ const Right = () => {
 
         <div className="lg:w-[250px] sm:w-[300px] w-[90%] mx-auto flex justify-end items-center">
           <p
-            className="text-[#B6B3BE] cursor-pointer"
+            className="lg:text-[#B6B3BE] sm:text-white cursor-pointer"
             onClick={() => {
               router.push("/admin/welcome");
             }}
