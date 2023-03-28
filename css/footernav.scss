@@ -27,7 +27,8 @@
    align-items: center;
     @include breakpoint-down(small){
       // width:42.3rem;
-      width:160%;
+      width:170%;
+      // width:100%;
       padding-top: 5rem;
     }
             @include breakpoint-up(medium) {

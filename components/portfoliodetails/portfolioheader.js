@@ -51,6 +51,7 @@ const Portfolioheader = ({ handleFilterQuery }) => {
       marriageStatus,
     };
     handleFilterQuery(query);
+    console.log(query);
   };
 
   return (

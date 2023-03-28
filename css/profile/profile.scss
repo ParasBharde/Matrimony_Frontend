@@ -62,6 +62,9 @@
     width: 100%;
     height: auto;
     gap: 2rem;
+    @include breakpoint-down(small) {
+        margin: 5rem 0rem 0rem 0rem;       
+    }
 }
 .first_row {
     display: flex;
@@ -133,7 +136,30 @@
     padding: 0rem;
     // margin-left: 1rem;
     align-content: flex-start;
-    
+    @include breakpoint-down(small) {
+        max-width: 20vw;
+        height: 10vh;
+        margin: -1rem 0rem 0rem -3rem;
+        
+    }
+
+}
+.respon_img1{
+    @include breakpoint-down(small) {
+       margin-left:30px;
+    }
+}
+.respon_img2{
+    @include breakpoint-down(small) {
+       margin-top: 85px;
+       margin-left:-78px;
+    }
+}
+.respon_img3{
+    @include breakpoint-down(small) {
+        margin-top: 185px;
+        margin-left:-78px;
+    }
 }
 .line_one{
     position: absolute;
