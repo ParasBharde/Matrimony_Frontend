@@ -71,7 +71,7 @@ const Hero = (props) => {
     <div className="relative h-[829.2px]">
       <div className="indexbg absolute top-0 w-full h-[829.2px] -z-10 "></div>
       <div className="absolute top-0 w-full h-[829.2px] bg-black bg-opacity-60 -z-10"></div>
-      <div className="flex justify-between items-center pt-10 px-16 z-10">
+      <div className="flex justify-between items-center pt-10 -md:px-2 lg:px-16 z-10">
         <Link href="/">
           <div>
             <Image src={logo} alt={"logo"} />
@@ -80,7 +80,7 @@ const Hero = (props) => {
         <div className="text-white flex justify-center items-center text-[16px] font-[600] max-md:hidden">
           <p className="mx-10 cursor-pointer">Home</p>
           <p
-            className="mx-10 cursor-pointer"
+            className="mx-5 lg:mx-10 cursor-pointer"
             onClick={() => {
               router.push("/pricingPlan");
             }}
@@ -88,7 +88,7 @@ const Hero = (props) => {
             Pricing Plan
           </p>
           <p
-            className="mx-10 cursor-pointer"
+            className="mx-5 lg:mx-10 cursor-pointer"
             onClick={() => {
               router.push("/portfolio/portfolio");
             }}
@@ -96,7 +96,7 @@ const Hero = (props) => {
             Search
           </p>
           <p
-            className="mx-10 cursor-pointer"
+            className="mx-5 lg:mx-10 cursor-pointer"
             onClick={() => {
               router.push("/contactus");
             }}
@@ -104,7 +104,7 @@ const Hero = (props) => {
             Contact Us
           </p>
           <p
-            className="mx-10 cursor-pointer"
+            className="mx-5 lg:mx-10 cursor-pointer"
             onClick={() => {
               router.push("/aboutus");
             }}
@@ -113,7 +113,7 @@ const Hero = (props) => {
           </p>
 
           <select
-            className="mx-10 cursor-pointer bg-transparent"
+            className="mx-5 lg:mx-10 cursor-pointer bg-transparent"
             value={lang}
             onChange={(e) => {
               getSelectedValue(e.target.value);
@@ -224,7 +224,7 @@ const Hero = (props) => {
       </div>
 
       {/* dublicate div start here   */}
-      <div className="flex justify-center items-center absolute bottom-[16rem] left-[14rem]  px-6 md:hidden max-md:flex">
+      <div className="flex justify-center items-center absolute bottom-[2rem] sm:bottom-[8rem] left-[2rem] sm:left-[16rem]  px-6 md:hidden max-md:flex">
         <p
           className="text-white bg-main py-2 px-5 rounded-md mx-2 cursor-pointer my-5"
           onClick={() => {
@@ -243,9 +243,9 @@ const Hero = (props) => {
         </p>
       </div>
 
-      <div className="absolute right-[110px] top-14 hidden max-md:block max-sm:block">
+      <div className="absolute right-[110px] top-14 hidden max-md:block max-sm:block text-white">
       <select
-            className="mx-10 cursor-pointer bg-transparent text-white"
+            className="mx-10 cursor-pointer bg-transparent"
             value={lang}
             onChange={(e) => {
               getSelectedValue(e.target.value);
@@ -282,7 +282,7 @@ const Hero = (props) => {
                 router.push("/");
               }}
             >
-              <i class="fa-solid fa-house mr-5 text-main"></i>
+              <i className="fa-solid fa-house mr-5 text-main"></i>
               Home
             </p>
             <p
@@ -291,7 +291,7 @@ const Hero = (props) => {
                 router.push("/pricingPlan");
               }}
             >
-              <i class="fa-regular fa-money-bill-1 mr-5 text-main"></i>
+              <i className="fa-regular fa-money-bill-1 mr-5 text-main"></i>
               Pricing Plan
             </p>
             <p
@@ -300,28 +300,28 @@ const Hero = (props) => {
                 router.push("/portfolio/portfolio");
               }}
             >
-              <i class="fa-solid fa-magnifying-glass mr-5 text-main"></i>
+              <i className="fa-solid fa-magnifying-glass mr-5 text-main"></i>
               Search
             </p>
             <p
               className="m-3 w-[200px] cursor-pointer"
               onClick={() => router.push("/contactus")}
             >
-              <i class="fa-regular fa-address-card mr-5 text-main"></i>
+              <i className="fa-regular fa-address-card mr-5 text-main"></i>
               Contact Us
             </p>
             <p
               className="m-3 w-[200px] cursor-pointer"
               onClick={() => router.push("/aboutus")}
             >
-              <i class="fa-regular fa-user mr-5 text-main"></i>
+              <i className="fa-regular fa-user mr-5 text-main"></i>
               About Us
             </p>
           </div>
         )}
       </div>
 
-      <p className="text-white font-[700] text-[4vw] text-center absolute top-[36%] w-full max-md:text-6xl  ">
+      <p className="text-white font-[700] text-[4vw] text-center absolute top-[36%] w-full max-md:text-4xl  ">
         {props.homedata.Hero_Title}
       </p>
       {/* <div className="hidden max-md:block">

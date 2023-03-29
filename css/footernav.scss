@@ -22,12 +22,12 @@
    text-align: center;
    width: 100;
    padding: 0.5rem;
-   font-size: 0.8rem;
+   font-size: 0.6rem;
    font-weight: 500;
    align-items: center;
     @include breakpoint-down(small){
       // width:42.3rem;
-      width:170%;
+      // width:170%;
       // width:100%;
       padding-top: 5rem;
     }
@@ -40,6 +40,7 @@
                            //  width: 100%;
                          }
 
+
 }
 .footer_main_1 {
    position: fixed;
@@ -50,7 +51,7 @@
    color: rgba(30, 30, 30, 0.5);
    text-align: center;
    padding: 0.5rem;
-   font-size: 0.8rem;
+   font-size: 0.6rem;
    font-weight: 500;
    align-items: center;
    @include breakpoint-down(small) {

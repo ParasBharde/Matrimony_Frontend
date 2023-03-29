@@ -66,13 +66,13 @@ const ContactInformation = () => {
       <div className="max-md:w-full ">
         <Image src={contactInfo} alt="Contact Info" className="max-md:w-full" />
       </div>
-      <div className="pt-10 max-md:w-full max-md:pl-20 max-md:text-3xl ">
+      <div className="pt-10 max-md:w-full max-md:pl-5 max-md:text-3xl ">
         <p className="text-dark text-3xl font-semibold pb-5 max-md:mb-11 max-md:text-5xl">
           Contact Information
         </p>
         <div className="flex items-center">
           <i className="fa-solid fa-phone text-main text-2xl"></i>
-          <div className="border-l border-[#D9D9D9] py-2 pl-8 ml-8 ">
+          <div className="border-l border-[#D9D9D9] py-2 pl-2 lg:pl-8 ml-8 ">
             <p className="text-dark text-[18px] font-semibold max-md:text-4xl ">
               Phone :
             </p>
@@ -83,18 +83,18 @@ const ContactInformation = () => {
         </div>
         <div className="flex  items-center mt-5 ">
           <i className="fa-solid fa-envelope text-main text-2xl"></i>
-          <div className="border-l border-[#D9D9D9] py-2 pl-8 ml-8">
+          <div className="border-l border-[#D9D9D9] py-2 pl-2 lg:pl-8 ml-8">
             <p className="text-dark text-[18px] font-semibold max-md:text-4xl ">
               Email :
             </p>
-            <p className="text-dark opacity-50 max-md:mb-5">
+            <p className="text-dark opacity-50 max-md:mb-5 break-all">
               vrrmatrimony@gmail.com
             </p>
           </div>
         </div>
         <div className="flex  items-center mt-5 ">
           <i className="fa-solid fa-clock text-main text-2xl"></i>
-          <div className="border-l border-[#D9D9D9] py-2 pl-8 ml-8">
+          <div className="border-l border-[#D9D9D9] py-2 pl-2 lg:pl-8 ml-8">
             <p className="text-dark text-[18px] font-semibold max-md:text-4xl ">
               Working Hours :
             </p>
@@ -105,7 +105,7 @@ const ContactInformation = () => {
         </div>
         <div className="flex  items-center mt-5 ">
           <i className="fa-solid fa-location-dot text-main text-3xl"></i>
-          <div className="border-l border-[#D9D9D9] py-2 pl-8 ml-8">
+          <div className="border-l border-[#D9D9D9] py-2 pl-2 lg:pl-8 ml-8">
             <p className="text-dark text-[18px] font-semibold max-md:text-4xl ">
               ADDRESS:
             </p>
