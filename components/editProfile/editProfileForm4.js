@@ -193,11 +193,12 @@ const EditProfileForm4 = ({ screen, setScreen, getAllDataAndPost, userData }) =>
 
   return (
     <>
-      <div className="w-[820px] mx-auto">
-        <p className="font-[600] text-[18px]">Horoscope Information</p>
+      <div className="w-auto mx-auto">
+      {/* w-[820px] */}
+        <p className="font-[600] text-[18px] mx-20 sm:text-center md:text-left lg:text-left">Horoscope Information</p>
       </div>
 
-      <div className="flex justify-center items-center gap-5">
+      <div className="sm:flex-wrap md:flex lg:flex mx-3 justify-center items-center gap-5">
         <div className="mt-5">
           <p className="text-dark font-[500] text-[14px] mb-2">Zodiac Sign *</p>
           <select
@@ -230,7 +231,7 @@ const EditProfileForm4 = ({ screen, setScreen, getAllDataAndPost, userData }) =>
         </div>
       </div>
 
-      <div className="flex justify-center items-center gap-5">
+      <div className="sm:flex-wrap md:flex lg:flex mx-3 justify-center items-center gap-5">
         <div className="mt-5">
           <p className="text-dark font-[500] text-[14px] mb-2">Tamil Month*</p>
           <input
@@ -259,7 +260,7 @@ const EditProfileForm4 = ({ screen, setScreen, getAllDataAndPost, userData }) =>
         </div>
       </div>
 
-      <div className="flex justify-center items-center gap-5">
+      <div className="sm:flex-wrap md:flex lg:flex mx-3 justify-center items-center gap-5">
         <div className="mt-5">
           <p className="text-dark font-[500] text-[14px] mb-2">Day *</p>
           <select
@@ -291,7 +292,7 @@ const EditProfileForm4 = ({ screen, setScreen, getAllDataAndPost, userData }) =>
         </div>
       </div>
 
-      <div className="flex justify-center items-center gap-5">
+      <div className="sm:flex-wrap md:flex lg:flex mx-3 justify-center items-center gap-5">
         <div className="mt-5">
           <p className="text-dark font-[500] text-[14px] mb-2">Star / Foot *</p>
           <select
@@ -332,7 +333,7 @@ const EditProfileForm4 = ({ screen, setScreen, getAllDataAndPost, userData }) =>
         </div>
       </div>
 
-      <div className="flex justify-center items-center gap-5">
+      <div className="sm:flex-wrap md:flex lg:flex mx-3 justify-center items-center gap-5">
         <div className="mt-5">
           <p className="text-dark font-[500] text-[14px] mb-2">Birthplace*</p>
           <input
@@ -403,8 +404,8 @@ const EditProfileForm4 = ({ screen, setScreen, getAllDataAndPost, userData }) =>
       </div> */}
       <div
         className={`${
-          screen != 1 ? "w-[800px]" : "w-[400px]"
-        } mx-auto flex justify-end my-3 gap-2`}
+          screen != 1 ? "w-[400px]" : "w-[200px]"
+        } mx-auto flex justify-center my-3 gap-2`}
       >
         {screen != 1 && (
           <p

@@ -161,8 +161,9 @@ const EditProfile = () => {
   return (
     <div
       className={
-        "bg-[#E0E0E0] py-10 w-full max-md:bg-white max-md:w-fit max-md:flex max-md:justify-start"
+        "bg-[#E0E0E0] py-10 w-full max-md:bg-white max-md:w-fit  max-md:justify-start"
       }
+      // max-md:flex
     >
       <div className="bg-white w-auto mx-auto pt-12 pb-10">
         <EditProfileHeader index={screen} />

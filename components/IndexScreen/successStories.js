@@ -21,7 +21,7 @@ const SuccessStories = (props) => {
 
       {/* using carousel create responsive successStoriesCard .....  */}
 
-      <div className="bg-[#f7f8fa] py-20  bg-[#E0E0E0] md:hidden ">
+      <div className="bg-[#f7f8fa] py-20  bg-[#E0E0E0] md:hidden mt-20">
         <p className="text-center font-semibold text-[30px] text-dark mb-3 ">
           Success Stories
         </p>
