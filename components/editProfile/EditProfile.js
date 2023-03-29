@@ -28,6 +28,7 @@ const EditProfile = () => {
   const [profileImg, setProfileImg] = useState();
   const [img, setImg] = useState([]);
 
+
   useEffect(() => {
     if (userProfile) {
       setProfileImg(userProfile?.profile_photo?.data);
@@ -276,7 +277,7 @@ const EditProfile = () => {
                                     );
                                     console.log("prev");
                                   }}
-                                  className="-ml-20 bg-white/50 hover:bg-white flex justify-center items-center w-10 h-10 rounded-full cursor-pointer"
+                                  className="-ml-10 sm:-ml-10 md:-ml-20 lg:-ml-20 bg-white/50 hover:bg-white flex justify-center items-center w-10 h-10 rounded-full cursor-pointer"
                                 >
                                   <svg
                                     className="h-4 w-4"
@@ -293,7 +294,7 @@ const EditProfile = () => {
                                     );
                                     console.log("next");
                                   }}
-                                  className="-mr-20 bg-white/50 hover:bg-white flex justify-center items-center w-10 h-10 rounded-full cursor-pointer"
+                                  className="-mr-10 sm:-mr-10 md:-mr-20 lg:-mr-20 bg-white/50 hover:bg-white flex justify-center items-center w-10 h-10 rounded-full cursor-pointer"
                                 >
                                   <svg
                                     className="h-4 w-4"
@@ -312,8 +313,8 @@ const EditProfile = () => {
                                     : profile
                                 }
                                 placeholder="image"
-                                width={500}
-                                height={500}
+                                width={250}
+                                height={250}
                               />
                             </div>
                           </Modal>
