@@ -12,7 +12,7 @@ const HeadingCard = ({desc}) => {
         <p className="text-dark text-[18px] font-medium text-center max-md:text-4xl max-md:pb-5">
           Best Matching
         </p>
-        <p className="text-dark text-[14px] font-normal text-center  max-md:text-3xl">
+        <p className="text-dark text-[14px] font-normal text-center  max-md:text-2xl">
           ipsum dolor sit amet consectetur.
           <br />
           Nec auctor non eu proin nulla <br />
