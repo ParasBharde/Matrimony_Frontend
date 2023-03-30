@@ -167,7 +167,7 @@ const DownlodedProfiles = () => {
         <Breadcrumb screens={["Home", "Downloaded Profiles"]} />
         {downloadedProfilese.length > 0 ? (
           <div className=" px-4 py-3 sm:px-[6rem] ">
-            <div className="lg:flex lg:flex-1 lg:items-center lg:justify-between sm:flex sm:flex-1 sm:items-center sm:justify-between ">
+            <div className="lg:flex lg:flex-1 lg:items-center lg:justify-between sm:flex sm:flex-1 sm:items-center sm:justify-between  ">
               <div>
                 <span className="text-sm text-gray-700">
                   {currentPage == 1 ? "1" : `${(currentPage - 1) * 10 + 1}`}-
@@ -179,7 +179,7 @@ const DownlodedProfiles = () => {
               </div>
               <div>
                 <nav
-                  className="isolate inline-flex -space-x-px max-md:relative max-md:top-[-2rem] left-[18rem] max-md:gap-2  "
+                  className="isolate inline-flex -space-x-px max-md:relative max-md:top-[-2rem] left-[15rem] max-md:gap-2  "
                   aria-label="Pagination"
                 >
                   <span className="px-2 py-1 max-md:hidden ">View by :</span>
@@ -675,14 +675,14 @@ const DownlodedProfiles = () => {
                       <div
                         key={index}
                         id={`liked-profile-${id}`}
-                        className="relative mb-2 hover:transform hover:scale-105 duration-300 max-lg:min-w-fit"
+                        className="relative mb-2 hover:transform hover:scale-105 duration-300 max-lg:min-w-fit "
                       >
                         <div className="cards">
                           {/* <div className="cards blur-sm"> */}
                           <div className="relative">
                             <picture>
                               <Image
-                                className="img_card "
+                                className="img_card"
                                 // src={profileImage}
                                 src={`http://172.105.57.17:1337${profile_photo.data[0].attributes.url}`}
                                 alt="profile photos"
@@ -754,7 +754,7 @@ const DownlodedProfiles = () => {
                               {educational_qualification}
                             </p>
                           </header>
-                          <footer className="card flex items-center justify-evenly leading-none p-4 md:p-4 ">
+                          <footer className="card flex items-center justify-evenly leading-none p-4 md:p-4">
                             <p className="ml-2 text-sm">
                               <svg
                                 width="16"
