@@ -12,16 +12,9 @@ import { Modal } from "reactstrap";
 import { useRouter } from "next/router";
 import { ShareSocial } from "react-share-social";
 import { useStorage } from "@/hooks/useStorage";
-
-import "jspdf-autotable";
-
+import autoprefixer from "autoprefixer";
 
 const Profiledetail = () => {
-  const [downloadProfile, setDownloadProfile] = useState([]);
-  const [ids, setIds] = useState([]);
-
-
-
   const [profilesdata, setprofilesdata] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalDefaultOpen, setModalDefaultOpen] = React.useState(false);
@@ -51,6 +44,49 @@ const Profiledetail = () => {
   }, [id]);
 
   // download pdf of profile
+  // function downloadPdf() {
+  //   const input = document.getElementById("pdf-content");
+  //   html2canvas(input, {
+  //     useCORS: true,
+  //   }).then((canvas) => {
+  //     const imgData = canvas.toDataURL("image/png");
+  //     const pdf = new jsPDF();
+  //     const imgProps = pdf.getImageProperties(imgData);
+  //     const pdfWidth = pdf.internal.pageSize.getWidth();
+    
+  //     const pdfHeight = pdf.internal.pageSize.getHeight();
+  //     pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+  //     pdf.save("download.pdf");
+  //   });
+
+  //   // api call to maintain download profile details
+  //   let data = JSON.stringify({
+  //     data: {
+  //       users_permissions_user: storage.id,
+  //       user_profiles: [id],
+  //       locale: "en",
+  //     },
+  //   });
+
+  //   var config = {
+  //     method: "post",
+  //     maxBodyLength: Infinity,
+  //     url: `http://172.105.57.17:1337/api/download-profiles`,
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     data: data,
+  //   };
+
+  //   axios(config)
+  //     .then((response) => {
+  //       console.log("download profile response ", response.data.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("download profile error: ", error);
+  //     });
+  // }
+
   function downloadPdf() {
     const input = document.getElementById("pdf-content");
     html2canvas(input, {
@@ -59,12 +95,29 @@ const Profiledetail = () => {
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF();
       const imgProps = pdf.getImageProperties(imgData);
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = pdf.internal.pageSize.getHeight();
-      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+  
+      // Get screen dimensions
+      const screenWidth = window.screen.width;
+      // const screenHeight = window.screen.height;
+      const screenHeight =100;
+  
+      // Calculate PDF width and height based on screen size
+      let pdfWidth, pdfHeight;
+      if (screenWidth < 768) {
+        pdfWidth = 23; // set desired width for small screens
+        pdfHeight = (imgProps.height * pdfWidth) / imgProps.width; // maintain aspect ratio
+      } else {
+        pdfWidth = 150; // set desired width for larger screens
+        pdfHeight = (imgProps.height * pdfWidth) / imgProps.width; // maintain aspect ratio
+      }
+  
+      // Add image to PDF using calculated width and height
+      pdf.addImage(imgData, "PNG", 10, 0, pdfWidth, pdfHeight);
+  
+      // Save PDF file
       pdf.save("download.pdf");
     });
-
+  
     // api call to maintain download profile details
     let data = JSON.stringify({
       data: {
@@ -73,7 +126,7 @@ const Profiledetail = () => {
         locale: "en",
       },
     });
-
+  
     var config = {
       method: "post",
       maxBodyLength: Infinity,
@@ -83,7 +136,7 @@ const Profiledetail = () => {
       },
       data: data,
     };
-
+  
     axios(config)
       .then((response) => {
         console.log("download profile response ", response.data.data);
@@ -92,63 +145,6 @@ const Profiledetail = () => {
         console.error("download profile error: ", error);
       });
   }
-
-  function pdf(){
-    console.log("name", data.attributes.first_name);
-  }
-
-    // download pdf functionality code .
-    function generatePDF() {
-      let doc = new jsPDF("p", "mm", "a3", "portrait");
-      let info = [];
-      downloadProfile.forEach((p, index, array) => {
-        console.log("element ", index, p);
-        info.push([
-          p.data.id,
-          data.attributes.first_name,
-          p.data.attributes.last_name,
-          p.data.attributes.email,
-          p.data.attributes.Color,
-          p.data.attributes.father_name,
-          p.attributes.Height,
-          p.attributes.mother_name,
-          p.attributes.Salary_monthly_income,
-          p.attributes.address,
-          p.attributes.birth_time,
-          p.attributes.birthplace,
-          p.attributes.date_of_birth,
-        ]);
-      });
-  
-      doc.autoTable({
-        head: [
-          [
-            "Id" ,<br />,
-            "First Name",<br />,
-            "Last Name",
-            "Email",
-            "Color",
-            "Father Name",
-            "Height",
-            "Mother Name",
-            "Salary",
-            "Address",
-            "Birth Time",
-            "Birth Place",
-            "Date of Birth",
-          ],
-        ],
-        margin: { top: 2, left: 2, right: 2, bottom: 2 },
-        headStyles: { fillColor: [255, 127, 0] },
-        alternateRowStyles: { fillColor: [255, 224, 204] },
-        body: info,
-      });
-  
-      doc.save("profils detail.pdf");
-      setIds([]);
-      setSelectedRows(Array(profileToShow.length).fill(false));
-      inputRef.current.checked = false;
-    }
   
 
   // share profile
@@ -232,9 +228,7 @@ const Profiledetail = () => {
                             className="mx-2"
                           />
                           <Image
-                            // onClick={downloadPdf}
-                            // onClick={generatePDF}
-                            onClick={pdf}
+                            onClick={downloadPdf}
                             src={Download}
                             width={24}
                             height={21}
@@ -592,7 +586,7 @@ const Profiledetail = () => {
                               </div>
                           </div>
                           <p className="font-bold ml-10 mt-5">Horoscope Chart</p>
-                          <div className="grid grid-cols-2 gap-4 mt-[4rem] ">
+                          <div className="grid grid-cols-2 gap-4 mt-[3rem] pb-4 scale-75">
                               {data.attributes.horoscope_document.data.map(
                                 (val, i) => {
                                   return (
