@@ -13,7 +13,15 @@ import { useRouter } from "next/router";
 import { ShareSocial } from "react-share-social";
 import { useStorage } from "@/hooks/useStorage";
 
+import "jspdf-autotable";
+
+
 const Profiledetail = () => {
+  const [downloadProfile, setDownloadProfile] = useState([]);
+  const [ids, setIds] = useState([]);
+
+
+
   const [profilesdata, setprofilesdata] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalDefaultOpen, setModalDefaultOpen] = React.useState(false);
@@ -84,6 +92,64 @@ const Profiledetail = () => {
         console.error("download profile error: ", error);
       });
   }
+
+  function pdf(){
+    console.log("name", data.attributes.first_name);
+  }
+
+    // download pdf functionality code .
+    function generatePDF() {
+      let doc = new jsPDF("p", "mm", "a3", "portrait");
+      let info = [];
+      downloadProfile.forEach((p, index, array) => {
+        console.log("element ", index, p);
+        info.push([
+          p.data.id,
+          data.attributes.first_name,
+          p.data.attributes.last_name,
+          p.data.attributes.email,
+          p.data.attributes.Color,
+          p.data.attributes.father_name,
+          p.attributes.Height,
+          p.attributes.mother_name,
+          p.attributes.Salary_monthly_income,
+          p.attributes.address,
+          p.attributes.birth_time,
+          p.attributes.birthplace,
+          p.attributes.date_of_birth,
+        ]);
+      });
+  
+      doc.autoTable({
+        head: [
+          [
+            "Id" ,<br />,
+            "First Name",<br />,
+            "Last Name",
+            "Email",
+            "Color",
+            "Father Name",
+            "Height",
+            "Mother Name",
+            "Salary",
+            "Address",
+            "Birth Time",
+            "Birth Place",
+            "Date of Birth",
+          ],
+        ],
+        margin: { top: 2, left: 2, right: 2, bottom: 2 },
+        headStyles: { fillColor: [255, 127, 0] },
+        alternateRowStyles: { fillColor: [255, 224, 204] },
+        body: info,
+      });
+  
+      doc.save("profils detail.pdf");
+      setIds([]);
+      setSelectedRows(Array(profileToShow.length).fill(false));
+      inputRef.current.checked = false;
+    }
+  
 
   // share profile
 
@@ -166,7 +232,9 @@ const Profiledetail = () => {
                             className="mx-2"
                           />
                           <Image
-                            onClick={downloadPdf}
+                            // onClick={downloadPdf}
+                            // onClick={generatePDF}
+                            onClick={pdf}
                             src={Download}
                             width={24}
                             height={21}
