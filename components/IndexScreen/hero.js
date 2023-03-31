@@ -134,6 +134,7 @@ const Hero = (props) => {
           </select>
         </div>
         <div></div>
+        
         <div className="flex justify-center items-center  max-md:hidden">
           {!login ? (
             <>
@@ -248,7 +249,7 @@ const Hero = (props) => {
           <>
             {data && (
                 <>
-                  <div className="relative max-md:right-10 top-[-44rem] left-[13rem] group dropdown">
+                  <div className="relative max-md:right-10 top-[-44rem] left-[12.5rem] group dropdown">
                     <Image
                       className="rounded-full max-w-[45px]"
                       loader={imgLoader}
@@ -313,7 +314,7 @@ const Hero = (props) => {
        
       </div>
 
-      <div className="absolute right-[110px] top-14 hidden max-md:block max-sm:block text-white">
+      <div className="absolute right-[125px] top-14 hidden max-md:block max-sm:block text-white">
       <select
             className="mx-10 cursor-pointer bg-transparent"
             value={lang}
@@ -336,7 +337,7 @@ const Hero = (props) => {
           </select>
       </div>
 
-      <div className="absolute right-10 top-14 hidden max-md:block max-sm:block">
+      <div className="absolute right-5 top-14 hidden max-md:block max-sm:block">
         <Hamburger
           className="relative"
           onClick={() => {

@@ -318,6 +318,7 @@ const EditProfile = () => {
                               />
                             </div>
                           </Modal>
+                           
                           <div className="flex justify-around md:ml-10 lg:ml-6 sm:ml-0">
                             <Image
                               className="img_profile_g w-40 h-26 "

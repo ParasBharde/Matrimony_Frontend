@@ -30,7 +30,7 @@ const Footer = () => {
         </div>
       ) : (
         <div className="footer_main  bg-main flex flex-wrap max-md:pb-5;">
-          <p className="text-white text-base flex-3 pl-15 max-md:text-2xl">
+          <p className="text-white text-base flex-3 pl-15 max-md:text-xl">
             Copyright © Trichy Vayalur Road Reddy Trust All rights reserved.
             Made by Shubhchintak.   <a href="https://shubhchintak.co/"> https://shubhchintak.co/</a>
           </p>
