@@ -182,7 +182,7 @@ const ContactUs = () => {
               <button
                 onClick={Postdata}
                 type="submit"
-                className="text-white bg-yellow-500 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-400 rounded text-lg w-full sm:w-full md:w-28 lg:w-28"
+                className="text-white bg-[#f98b1d] md:bg-yellow-500 lg:bg-yellow-500 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-400 rounded text-lg w-full sm:w-full md:w-28 lg:w-28"
               >
                 {loading ? (
                   <div className="flex justify-center items-center">
