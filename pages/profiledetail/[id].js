@@ -98,18 +98,38 @@ const Profiledetail = () => {
   
       // Get screen dimensions
       const screenWidth = window.screen.width;
-      // const screenHeight = window.screen.height;
-      const screenHeight =100;
+      const screenHeight = window.screen.height;
+      // const screenHeight =100;
   
-      // Calculate PDF width and height based on screen size
+     // Calculate PDF width and height based on screen size
       let pdfWidth, pdfHeight;
       if (screenWidth < 768) {
-        pdfWidth = 23; // set desired width for small screens
+        // pdfWidth = screenWidth - 300; // set desired width for small screens
+        pdfWidth =35; // set desired width for small screens
         pdfHeight = (imgProps.height * pdfWidth) / imgProps.width; // maintain aspect ratio
-      } else {
-        pdfWidth = 150; // set desired width for larger screens
+      } else if (screenWidth < 1200) {
+          pdfWidth = 150; // set desired width for medium screens
+          pdfHeight = (imgProps.height * pdfWidth) / imgProps.width; // maintain aspect ratio
+        }else if (screenWidth < 1050) {
+          pdfWidth = 50; // set desired width for medium screens
+          pdfHeight = (imgProps.height * pdfWidth) / imgProps.width; // maintain aspect ratio
+        }  
+        else { 
+        pdfWidth = 200; // set desired width for larger screens
         pdfHeight = (imgProps.height * pdfWidth) / imgProps.width; // maintain aspect ratio
       }
+
+    //   let pdfWidth, pdfHeight;
+    // if (screenWidth < 768) {
+    //   pdfWidth = screenWidth - 20; // set desired width for small screens
+    //   pdfHeight = (imgProps.height * pdfWidth) / imgProps.width; // maintain aspect ratio
+    // } else if (screenWidth < 1200) {
+    //   pdfWidth = 800; // set desired width for medium screens
+    //   pdfHeight = (imgProps.height * pdfWidth) / imgProps.width; // maintain aspect ratio
+    // } else { 
+    //   pdfWidth = 1000; // set desired width for larger screens
+    //   pdfHeight = (imgProps.height * pdfWidth) / imgProps.width; // maintain aspect ratio
+    // }
   
       // Add image to PDF using calculated width and height
       pdf.addImage(imgData, "PNG", 10, 0, pdfWidth, pdfHeight);

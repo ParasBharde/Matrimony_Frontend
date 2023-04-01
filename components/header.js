@@ -90,10 +90,10 @@ const Header = () => {
   };
 
   return (
-    <div className="bg-white flex flex-row justify-between items-center  max-md:pt-5 py-3 max-md:w-auto max-md:border-solid border-y-2 max-md:px-5">
+    <div className="bg-white flex flex-row justify-between items-center  max-md:pt-5 py-3 max-md:w-auto max-md:border-solid border-y-2 max-md:px-0">
       <Link href="/">
         <div>
-          <Image src={headerLogo} alt={"Header Logo"} className="pl-5" />
+          <Image src={headerLogo} alt={"Header Logo"} className="pl-0 sm:pl-0 md:pl-5 lg:pl-5 " />
         </div>
       </Link>
       <div className="flex justify-center items-center gap-16 pr-10">
@@ -172,6 +172,22 @@ const Header = () => {
         {/* add for responsive screen  */}
         {/* max-md:bg-black */}
        
+       <select
+            value={lang}
+            onChange={(e) => {
+              getSelectedValue(e.target.value);
+              setLang(e.target.value);
+            }}
+          >
+            {locales.map((l) => {
+              console.log(l);
+              return (
+                <option key={l} value={l}>
+                  {l == "en" ? "EN" : "TA"}
+                </option>
+              );
+            })}
+          </select>
         <div className="absolute right-2 hidden max-md:block max-sm:block group dropdown">
           {/* <Hamburger onClick={() => console.log("Clicked")} className="bg-black"/> */}
           <i className="fa-solid fa-bars mr-3 mb-3"></i>
