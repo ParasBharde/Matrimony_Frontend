@@ -242,8 +242,8 @@ const Portfoliodetails = ({ allprofiles, total }) => {
 
   return (
     <>
-      <div className=" px-4 py-3 sm:px-[6rem] ">
-        <div className="lg:flex lg:flex-1 lg:items-center lg:justify-between sm:flex sm:flex-1 sm:items-center sm:justify-between ">
+      <div className=" px-4 py-3 sm:px-[6rem] w-70 overflow-auto">
+        <div className="lg:flex lg:flex-1 lg:items-center lg:justify-between sm:flex sm:flex-1 sm:items-center sm:justify-between">
           <div>
             <span className="text-sm text-gray-700">
               {currentPage == 1 ? "1" : `${(currentPage - 1) * 10 + 1}`}-
@@ -595,7 +595,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
 
         {isList ? (
           <div className="list_data flex justify-center mt-[2rem] pb-[4rem] ">
-            <table className=" text-sm text-left text-gray-500 divide-y-4 divide-slate-400/[3rem] max-md:hidden  ">
+            <table className=" text-sm text-left text-gray-500 divide-y-4 divide-slate-400/[3rem]  ">
               <thead
                 style={{
                   color: "rgba(30, 30, 30, 0.5)",

@@ -337,7 +337,7 @@ const Hero = (props) => {
           </select>
       </div>
 
-      <div className="absolute right-5 top-14 hidden max-md:block max-sm:block">
+      <div className="absolute right-5 top-14 hidden max-md:block max-sm:block :">
         <Hamburger
           className="relative"
           onClick={() => {
