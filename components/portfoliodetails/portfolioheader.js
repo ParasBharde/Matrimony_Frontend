@@ -41,18 +41,6 @@ const Portfolioheader = ({ handleFilterQuery }) => {
     "Separated",
     "Registerd-Partnership",
   ];
-  // useEffect(() => {
-  //   if (star === "Choose") {
-  //     setVendorToShow(vendor);
-  //   } else {
-  //     setVendorToShow(
-  //       vendor.filter(
-  //         (vendor) =>
-  //           vendor.services && vendor.services.includes(selectedOption.label)
-  //       )
-  //     );
-  //   }
-  // }, [selectedOption]);
 
   const search = () => {
     const query = {
@@ -155,21 +143,27 @@ const Portfolioheader = ({ handleFilterQuery }) => {
               <div className="flex justify-around ">
                 <input
                   type="text"
-                  placeholder="  From"
+                  placeholder="From"
                   value={ageFrom}
                   onChange={(e) => {
-                    setAgeFrom(e.target.value);
+                    const reg = /^[0-9\b]+$/;
+                    if (e.target.value === '' || reg.test(e.target.value)) {
+                      setAgeFrom(e.target.value);
+                    }
                   }}
-                  className="border-gray-200 w-[100px] mx-1 py-2 mb-3 text-violet11 h-[2.5rem] rounded bg-white border-2 outline-none hover:bg-violet3 focus:shadow-[0_0_0_2px]"
+                  className="border-gray-200 w-[100px] mx-1 py-2 px-2 mb-3 text-violet11 h-[2.5rem] rounded bg-white border-2 outline-none hover:bg-violet3 focus:shadow-[0_0_0_2px]"
                 />
                 <input
                   type="text"
-                  placeholder="  To"
+                  placeholder="To"
                   value={ageTo}
                   onChange={(e) => {
-                    setAgeTo(e.target.value);
+                    const reg = /^[0-9\b]+$/;
+                    if (e.target.value === '' || reg.test(e.target.value)) {
+                      setAgeTo(e.target.value);
+                    }
                   }}
-                  className="border-gray-200 w-[100px] py-2 mb-3 text-violet11 h-[2.5rem] rounded bg-white border-2 outline-none hover:bg-violet3 focus:shadow-[0_0_0_2px]"
+                  className="border-gray-200 w-[100px] py-2 px-2 mb-3 text-violet11 h-[2.5rem] rounded bg-white border-2 outline-none hover:bg-violet3 focus:shadow-[0_0_0_2px]"
                 />
               </div>
             </div>

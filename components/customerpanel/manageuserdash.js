@@ -78,18 +78,46 @@ const Manageuserdash = () => {
   }, []);
 
   useEffect(() => {
+    // console.log("search type", typeof(search));
     if (!search) {
       setProfileToShow(profiles);
+    } else if (!isNaN(search)) {
+      let filteredProfiles = [];
+      if (search.length < 4) {
+        filteredProfiles = profiles.filter((item) => {
+          return item.id == Number(search);
+        });
+        setProfileToShow(filteredProfiles);
+      } else {
+        for (let i = 0; i < profiles.length; i++) {
+          if (profiles[i].attributes.phone_number.includes(search)) {
+            filteredProfiles.push(profiles[i]);
+          }
+        }
+        setProfileToShow(filteredProfiles);
+      }
+    } else if (
+      search.toLowerCase() == "male" ||
+      search.toLowerCase() == "female"
+    ) {
+      let filteredProfiles = [];
+      if (search == "male") {
+        filteredProfiles = profiles.filter((item) => {
+          return item.attributes.Chooese_groom_bride == "Groom";
+        });
+        setProfileToShow(filteredProfiles);
+      } else if (search == "female") {
+        filteredProfiles = profiles.filter((item) => {
+          return item.attributes.Chooese_groom_bride == "Bride";
+        });
+        setProfileToShow(filteredProfiles);
+      }
     } else {
       let a = [];
       for (let i = 0; i < profiles.length; i++) {
         if (profiles[i].attributes.first_name) {
-          console.log(
-            profiles[i].attributes.first_name
-              .toLowerCase()
-              .includes(search.toLowerCase()),
-            "first_name"
-          );
+          // console.log(profiles[i].attributes, "first_name");
+          // console.log(profiles[i].attributes.first_name.toLowerCase().includes(search.toLowerCase()),"first_name");
           if (
             profiles[i].attributes.first_name
               .toLowerCase()
@@ -352,12 +380,14 @@ const Manageuserdash = () => {
                           height={100}
                         />
                       </div>
-                      <button onClick={() => {
-                        router.push({
-                          pathname: "/admin/profile",
-                          query: {id: item.id}
-                        })
-                      }}>
+                      <button
+                        onClick={() => {
+                          router.push({
+                            pathname: "/admin/profile",
+                            query: { id: item.id },
+                          });
+                        }}
+                      >
                         <span>
                           {item.attributes.first_name +
                             " " +
@@ -430,7 +460,6 @@ const Manageuserdash = () => {
             })}
           </tbody>
         </table>
-
       </div>
       <div className="flex items-center px-4 py-[2rem] sm:px-6 mb-[2rem]">
         <div className="flex flex-1 justify-between sm:hidden">

@@ -17,7 +17,7 @@ const Header = () => {
   const { locale, locales, push } = useRouter();
   const [lang, setLang] = useState(locale);
 
-  console.log("pathname",pathname);
+  // console.log("pathname",pathname);
   const getSelectedValue = (e) => {
     router.push({ pathname, query }, asPath, { locale: e });
   };
@@ -32,13 +32,13 @@ const Header = () => {
   const [userProfile, setUserProfile] = useState(null);
   const [isAdminLogin, setAdminLogin] = useState();
 
-  // const [isProfileChanged, setIsProfileChanges] = useState("false");
+  const [isProfileChanged, setIsProfileChanges] = useState("false");
 
-  // useEffect(() => {
-  //   if (pathname == "/profile") {
-  //     setIsProfileChanges("true");
-  //   }
-  // }, [pathname]);
+  useEffect(() => {
+    if (pathname == "/profile") {
+      setIsProfileChanges("true");
+    }
+  }, [pathname]);
 
   useEffect(() => {
     async function getUser() {
@@ -51,13 +51,13 @@ const Header = () => {
           userProfile?.[0]?.attributes?.profile_photo?.data?.[0]?.attributes
             ?.url
         );
-        // setIsProfileChanges("false");
+        setIsProfileChanges("false");
       } catch (error) {
         console.error(error);
       }
     }
     getUser();
-  }, [id]);
+  }, [id, isProfileChanged]);
 
   useEffect(() => {
     if (pathname == "/admin/welcome") {
@@ -283,7 +283,7 @@ const Header = () => {
               </p>
               <p
                 className="m-3 w-[200px] cursor-pointer"
-                onClick={() => router.push("/setNewPassword/")}
+                onClick={() => router.push("/changePassword")}
               >
                 <i className="fa-solid fa-lock mr-5 text-main"></i> Change
                 Password

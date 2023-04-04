@@ -111,6 +111,7 @@ const EditProfile = () => {
         ascendant: edit4.ascendant,
         birthplace: edit4.birthplace,
         presence_of_natal_direction: edit4.presenceOfNatalDirection,
+        horoscope_document: edit4.horrorscopeImages,
         username: edit1.user,
         email: edit1.email,
       },

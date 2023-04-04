@@ -8,9 +8,8 @@ import { useRouter } from "next/router";
 const Topnav = () => {
   return (
     <>
-    {/* max-md:hidden */}
+      {/* max-md:hidden */}
 
-    
       <nav
         className="top_navv flex flex-wrap items-center justify-between py-4 bg-gray-100 text-gray-500 hover:text-gray-700
         focus:text-gray-700 shadow-lg navbar navbar-expand-lg navbar-light "
@@ -38,20 +37,26 @@ const Topnav = () => {
             </div> */}
 
             <div className="text-gray-500 hover:text-gray-700 focus:text-gray-700 mr-4">
-              <button
-                type="button"
-                className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                data-dropdown-toggle="language-dropdown-menu"
-              >
-                <Image
-                  className="h-8 w-8 rounded-full"
-                  src={profile}
-                  width={100}
-                  height={100}
-                  alt=""
-                />
-              </button>
-
+              <div className="group relative dropdown">
+                <div
+                  className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  data-dropdown-toggle="language-dropdown-menu"
+                >
+                  <Image
+                    className="h-8 w-8 rounded-full hover:border-5"
+                    src={profile}
+                    width={100}
+                    height={100}
+                    alt=""
+                  />
+                </div>
+                <div className="group-hover:block dropdown-menu hidden absolute right-2 bg-white">
+                  <p className="m-3 cursor-pointer flex items-center">
+                    <i className="fa-solid fa-right-from-bracket mr-5 text-main"></i>
+                    Logout
+                  </p>
+                </div>
+              </div>
               <div
                 className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700"
                 id="language-dropdown-menu"

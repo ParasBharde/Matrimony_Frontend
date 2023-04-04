@@ -1,21 +1,22 @@
 import React, { useState } from 'react'
 import Breadcrumb from '@/components/breadcrumb'
 import SnpHeader from '@/components/setNewPasswordScreen/snpHeader'
-import SnpForm from '@/components/setNewPasswordScreen/snpForm'
+import ChangePasswordForm from '@/components/changePasswordForm'
+// import SnpForm from '@/components/setNewPasswordScreen/snpForm'
 
 import snpH from "@/assets/setNewPasswordAssets/snpHeadingLogo.png"
 import snpL from "@/assets/setNewPasswordAssets/snpLogo.png"
 
 
 
-const SetNewPassword = () => {
+const ChangePassword = () => {
 
-  const [nextScreen,setNextScreen]=useState(false)
+  const [nextScreen,setNextScreen]=useState(false);
+
   return (
     <div className="bg-[#E0E0E0] pb-16 max-md:h-[90vh]">
       <Breadcrumb
-        screens={["Home", "Reset Password"]}
-        // className="max-md:bg-[#E0E0E0]"
+        screens={["Home", "Change Password"]}
       />
       {!nextScreen ? (
         <>
@@ -32,11 +33,11 @@ const SetNewPassword = () => {
       ) : (
         <>
           <SnpHeader image={snpL} />
-          <SnpForm />
+          <ChangePasswordForm />
         </>
       )}
     </div>
   );
 }
 
-export default SetNewPassword
+export default ChangePassword;

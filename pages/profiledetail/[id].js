@@ -246,6 +246,7 @@ const Profiledetail = () => {
                             height={21}
                             alt=""
                             className="mx-2"
+                            // onClick={() => isLiked=!isLiked}
                           />
                           <Image
                             onClick={downloadPdf}

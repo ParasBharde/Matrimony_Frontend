@@ -78,32 +78,32 @@ const DownlodedProfiles = () => {
   };
 
     // like profile code start
-    const handleLike = (id) => {
-      let data = JSON.stringify({
-        data: {
-          user: storage.id,
-          user_profile: id,
-        },
-      });
+    // const handleLike = (id) => {
+    //   let data = JSON.stringify({
+    //     data: {
+    //       user: storage.id,
+    //       user_profile: id,
+    //     },
+    //   });
   
-      var config = {
-        method: "post",
-        maxBodyLength: Infinity,
-        url: `http://172.105.57.17:1337/api/liked-profiles?populate=user_profile&user=${storage.id}`,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        data: data,
-      };
-      let res = axios(config)
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.error("like error: ", error);
-        });
-      console.log("res ", res);
-    };
+    //   var config = {
+    //     method: "post",
+    //     maxBodyLength: Infinity,
+    //     url: `http://172.105.57.17:1337/api/liked-profiles?populate=user_profile&user=${storage.id}`,
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     data: data,
+    //   };
+    //   let res = axios(config)
+    //     .then((response) => {
+    //       console.log(response);
+    //     })
+    //     .catch((error) => {
+    //       console.error("like error: ", error);
+    //     });
+    //   console.log("res ", res);
+    // };
     // like profile code end
   
 
@@ -704,18 +704,18 @@ const DownlodedProfiles = () => {
                             >
                               <svg
                                 // className={`absolute rounded cursor-pointer`}
-                                className={`absolute rounded cursor-pointer fill-current hover:text-[#F98B1D] ${
+                                className={`absolute rounded fill-current ${
                                   isProfileLiked(id) && "text-[#F98B1D]"
                                 }`}
-                                onClick={(e) => {
-                                  if (storage != null) {
-                                    handleLike(id);
-                                    e.target.classList.add("text-[#F98B1D]");
-                                  } else {
-                                    toast.error("You must be login first!");
-                                    router.push("/signIn");
-                                  }
-                                }}
+                                // onClick={(e) => {
+                                //   if (storage != null) {
+                                //     handleLike(id);
+                                //     e.target.classList.add("text-[#F98B1D]");
+                                //   } else {
+                                //     toast.error("You must be login first!");
+                                //     router.push("/signIn");
+                                //   }
+                                // }}
                                 id="heart"
                                 width="24"
                                 height="21"
@@ -738,7 +738,7 @@ const DownlodedProfiles = () => {
                             onClick={() => {
                               router.push({
                                 pathname: "/profiledetail/[id]/",
-                                query: { id: id },
+                                query: { id: id, isLiked: isProfileLiked(id) },
                               });
                             }}
                           >

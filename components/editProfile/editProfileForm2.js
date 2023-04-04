@@ -85,8 +85,7 @@ const EditProfileForm2 = ({ screen, setScreen, userData }) => {
   const [groomOrBride, setGroomOrBride] = useState("Groom");
   const [dateOfBirth, setDateOfBirth] = useState(null);
   const [height, setHeight] = useState(0);
-  const [educationalQualifications, setEducationalQualifications] =
-    useState("");
+  const [educationalQualifications, setEducationalQualifications] = useState("");
   const [salary, setSalary] = useState(0);
   const [expectation, setExpectation] = useState("");
   const [caste, setCaste] = useState("");
@@ -690,7 +689,6 @@ const EditProfileForm2 = ({ screen, setScreen, userData }) => {
                     setImg2(null);
                   }}
                 >
-                  {/* <TrashIcon className="h-10 w-10 text-red-700" /> */}
                   <svg
                     className="fill-current text-red-600"
                     width="15"

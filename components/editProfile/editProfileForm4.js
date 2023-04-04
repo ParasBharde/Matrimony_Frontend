@@ -4,8 +4,14 @@ import fileInputImage from "@/assets/fileInputBig.png";
 import { toast } from "react-toastify";
 
 import Files from "react-files";
+import axios from "axios";
 
-const EditProfileForm4 = ({ screen, setScreen, getAllDataAndPost, userData }) => {
+const EditProfileForm4 = ({
+  screen,
+  setScreen,
+  getAllDataAndPost,
+  userData,
+}) => {
   const signs = [
     "Aries",
     "Taurus",
@@ -30,27 +36,30 @@ const EditProfileForm4 = ({ screen, setScreen, getAllDataAndPost, userData }) =>
     "Saturday",
   ];
 
-  // const [file1, setFile1] = useState(null);
-  // const [file2, setFile2] = useState(null);
+  const [img1, setImg1] = useState();
+  const [img2, setImg2] = useState();
 
-  // const [file1ID, setFile1ID] = useState(null);
-  // const [file2ID, setFile2ID] = useState(null);
+  const [file1, setFile1] = useState(null);
+  const [file2, setFile2] = useState(null);
 
-  // function onFilesChange1(files) {
-  //   console.log("Files 1 : ", files);
-  //   setFile1(files);
-  // }
-  // function onFilesError1(error, file) {
-  //   console.log("error code on file 1" + error.code + ": " + error.message);
-  // }
+  const [file1ID, setFile1ID] = useState(null);
+  const [file2ID, setFile2ID] = useState(null);
 
-  // function onFilesChange2(files) {
-  //   console.log("Files 2 : ", files);
-  //   setFile2(files);
-  // }
-  // function onFilesError2(error, file) {
-  //   console.log("error code on file 2" + error.code + ": " + error.message);
-  // }
+  function onFilesChange1(files) {
+    console.log("Files 1 : ", files);
+    setFile1(files);
+  }
+  function onFilesError1(error, file) {
+    console.log("error code on file 1" + error.code + ": " + error.message);
+  }
+
+  function onFilesChange2(files) {
+    console.log("Files 2 : ", files);
+    setFile2(files);
+  }
+  function onFilesError2(error, file) {
+    console.log("error code on file 2" + error.code + ": " + error.message);
+  }
 
   const [zodiacSign, setZodiacSign] = useState("Aries");
   const [tamilYear, setTamilYear] = useState("");
@@ -67,28 +76,34 @@ const EditProfileForm4 = ({ screen, setScreen, getAllDataAndPost, userData }) =>
   const [birthplace, setBirthplace] = useState("");
   const [presenceOfNatalDirection, setPresenceOFNatalDirection] = useState("");
 
-  useEffect(()=>{
+  useEffect(() => {
     if (userData) {
       setZodiacSign(userData.zodiacs_sign);
       setTamilYear(userData.tamil_year);
       setTamilMonth(userData.tamil_month);
       setUdayatiNazhikai(userData.udayati_nazhikai);
       setDay(userData.day);
-      setBirthTime(userData.birth_time.slice(0,5));
+      setBirthTime(userData.birth_time.slice(0, 5));
       setStarFoot(userData.star_foot);
       setAscendant(userData.ascendant);
       setBirthplace(userData.birthplace);
       setPresenceOFNatalDirection(userData.presence_of_natal_direction);
+
+      setImg1(userData.horoscope_document?.data?.[0]?.attributes.url);
+      setImg2(userData.horoscope_document?.data?.[1]?.attributes.url);
+
+      setFile1ID(userData.horoscope_document?.data?.[0]?.id);
+      setFile2ID(userData.horoscope_document?.data?.[0]?.id);
     }
-  },[userData])
+  }, [userData]);
 
   useEffect(() => {
     const edit = sessionStorage.getItem("edit4");
     if (edit) {
       const jrg = JSON.parse(edit);
 
-      // setFile1(jrg.file1);
-      // setFile2(jrg.file2);
+      setFile1(jrg.file1);
+      setFile2(jrg.file2);
       setZodiacSign(jrg.zodiacSign);
       setTamilYear(jrg.tamilYear);
       setTamilMonth(jrg.tamilMonth);
@@ -102,54 +117,53 @@ const EditProfileForm4 = ({ screen, setScreen, getAllDataAndPost, userData }) =>
     }
   }, []);
 
-  // useEffect(() => {
-  //   if (file1) {
-  //     var formdata = new FormData();
-  //     formdata.append("files", file1[0], file1[0].preview.url);
-  //     var requestOptions = {
-  //       method: "put",
-  //       body: formdata,
-  //       redirect: "follow",
-  //     };
-  //     fetch("http://172.105.57.17:1337/api/upload", requestOptions)
-  //       .then((response) => response.json())
-  //       .then((result) => {
-  //         console.log(result);
-  //         setFile1ID(result[0].id);
-  //       })
-  //       .catch((error) => {
-  //         console.log("error", error);
-  //         setFile1ID(7);
-  //       });
-  //   }
-  // }, [file1]);
+  useEffect(() => {
+    if (file1) {
+      var formdata = new FormData();
+      formdata.append("files", file1[0], file1[0]?.preview?.url);
+      var requestOptions = {
+        method: "POST",
+        body: formdata,
+        redirect: "follow",
+      };
+      fetch("http://172.105.57.17:1337/api/upload", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+          setFile1ID(result[0].id);
+        })
+        .catch((error) => {
+          console.log("error", error);
+          setFile1ID(7);
+        });
+    }
+  }, [file1]);
 
-  // useEffect(() => {
-  //   if (file2) {
-  //     var formdata = new FormData();
-  //     formdata.append("files", file2[0], file2[0].preview.url);
-  //     var requestOptions = {
-  //       method: "POST",
-  //       body: formdata,
-  //       redirect: "follow",
-  //     };
-  //     fetch("http://172.105.57.17:1337/api/upload", requestOptions)
-  //       .then((response) => response.json())
-  //       .then((result) => {
-  //         console.log(result);
-  //         setFile2ID(result[0].id);
-  //       })
-  //       .catch((error) => {
-  //         console.log("error", error);
-  //         setFile2ID(8);
-  //       });
-  //   }
-  // }, [file2]);
+  useEffect(() => {
+    if (file2) {
+      var formdata = new FormData();
+      formdata.append("files", file2[0], file2[0]?.preview?.url);
+      var requestOptions = {
+        method: "POST",
+        body: formdata,
+        redirect: "follow",
+      };
+      fetch("http://172.105.57.17:1337/api/upload", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+          setFile2ID(result[0].id);
+        })
+        .catch((error) => {
+          console.log("error", error);
+          setFile2ID(8);
+        });
+    }
+  }, [file2]);
 
   const beforeNextScreen = () => {
     const edit4 = {
-      // horrorscopeImages: [file1ID],
-      // horrorscopeImages: [file1ID, file2ID],
+      horrorscopeImages: [file1ID, file2ID],
       zodiacSign,
       tamilYear,
       tamilMonth,
@@ -179,16 +193,28 @@ const EditProfileForm4 = ({ screen, setScreen, getAllDataAndPost, userData }) =>
       return false;
     }
 
-    // if (!file1) {
-    //   toast.error("Please Input all the files");
-    //   return false;
-    // }
+    if (!(file1 || img1) && (file2 || img2)) {
+      toast.error("Please Input all the files");
+      return false;
+    }
 
     // if (isNaN(Number(tamilYear))) {
     //   toast.error("Please Enter A Valid Tamil Year");
     //   return false;
     // }
     return true;
+  };
+
+  const deleteImage = (id) => {
+    console.log("image", id);
+    axios
+      .delete(`http://172.105.57.17:1337/api/upload/files/${id}`)
+      .then((res) => {
+        console.log("img deleted", res);
+      })
+      .catch((error) => {
+        console.log("image error", error);
+      });
   };
 
   return (
@@ -362,46 +388,106 @@ const EditProfileForm4 = ({ screen, setScreen, getAllDataAndPost, userData }) =>
         </div>
       </div>
 
-      {/* <div className="w-[820px] mx-auto mt-5">
+      <div className="w-[820px] mx-auto mt-5">
         <div className="w-full flex justify-between items-center">
           <p className="text-dark font-[500] text-[14px]">Horoscope Doucment</p>
-          <p className="text-main font-[400] text-[14px]">Add more</p>
+          {/* <p className="text-main font-[400] text-[14px]">Add more</p> */}
         </div>
         <div className="w-full flex justify-between items-center mt-3">
-          <Files
-            className="files-dropzone cursor-pointer"
-            onChange={onFilesChange1}
-            onError={onFilesError1}
-            accepts={["image/png"]}
-            maxFileSize={10000000}
-            minFileSize={0}
-            clickable
-          >
-            <Image
-              src={file1 ? file1[0].preview.url : fileInputImage}
-              alt={"File Input Image"}
-              width={400}
-              height={300}
-            />
-          </Files>
-          <Files
-            className="files-dropzone cursor-pointer"
-            onChange={onFilesChange2}
-            onError={onFilesError2}
-            accepts={["image/png"]}
-            maxFileSize={10000000}
-            minFileSize={0}
-            clickable
-          >
-            <Image
-              src={file2 ? file2[0].preview.url : fileInputImage}
-              alt={"File Input Image"}
-              width={400}
-              height={300}
-            />
-          </Files>
+          <div className="relative">
+            {img1 && (
+              <div className="absolute w-full h-full bg-black/[0.2]">
+                <span
+                  className="cursor-pointer p-2 rounded absolute top-1 right-1 bg-black/[0.3]"
+                  // id={userData.profile_photo?.data?.[0]?.id}
+                  onClick={(e) => {
+                    deleteImage(file1ID);
+                    setImg1(null);
+                  }}
+                >
+                  <svg
+                    className="fill-current text-red-600"
+                    width="15"
+                    height="18"
+                    viewBox="0 0 15 18"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M1.5 16C1.5 17.1 2.4 18 3.5 18H11.5C12.6 18 13.5 17.1 13.5 16V4H1.5V16ZM14.5 1H11L10 0H5L4 1H0.5V3H14.5V1Z" />
+                  </svg>
+                </span>
+              </div>
+            )}
+            <Files
+              className="files-dropzone cursor-pointer"
+              onChange={onFilesChange1}
+              onError={onFilesError1}
+              accepts={["image/png"]}
+              maxFileSize={10000000}
+              minFileSize={0}
+              clickable
+            >
+              <Image
+                src={
+                  file1
+                    ? file1[0]?.preview?.url
+                    : img1
+                    ? `http://172.105.57.17:1337${img1}`
+                    : fileInputImage
+                }
+                alt={"File Input Image"}
+                width={400}
+                height={300}
+              />
+            </Files>
+          </div>
+
+          <div className="relative">
+            {img2 && (
+              <div className="absolute w-full h-full bg-black/[0.2]">
+                <span
+                  className="cursor-pointer p-2 rounded absolute top-1 right-1 bg-black/[0.3]"
+                  onClick={(e) => {
+                    deleteImage(file2ID);
+                    setImg2(null);
+                  }}
+                >
+                  <svg
+                    className="fill-current text-red-600"
+                    width="15"
+                    height="18"
+                    viewBox="0 0 15 18"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M1.5 16C1.5 17.1 2.4 18 3.5 18H11.5C12.6 18 13.5 17.1 13.5 16V4H1.5V16ZM14.5 1H11L10 0H5L4 1H0.5V3H14.5V1Z" />
+                  </svg>
+                </span>
+              </div>
+            )}
+            <Files
+              className="files-dropzone cursor-pointer"
+              onChange={onFilesChange2}
+              onError={onFilesError2}
+              accepts={["image/png"]}
+              maxFileSize={10000000}
+              minFileSize={0}
+              clickable
+            >
+              <Image
+                src={
+                  file2
+                    ? file2[0]?.preview?.url
+                    : img2
+                    ? `http://172.105.57.17:1337${img2}`
+                    : fileInputImage
+                }
+                alt={"File Input Image"}
+                width={400}
+                height={300}
+              />
+            </Files>
+          </div>
         </div>
-      </div> */}
+      </div>
       <div
         className={`${
           screen != 1 ? "w-[400px]" : "w-[200px]"
