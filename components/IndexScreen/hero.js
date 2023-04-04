@@ -326,7 +326,7 @@ const Hero = (props) => {
             {locales.map((l) => {
               return (
                 <option
-                  className="bg-black/[0.4] hover:bg-black/[0.5]"
+                  className="bg-black/[0.4] hover:bg-black/[0.5] "
                   key={l}
                   value={l}
                 >

@@ -161,7 +161,7 @@ const Header = () => {
             {locales.map((l) => {
               console.log(l);
               return (
-                <option key={l} value={l}>
+                <option key={l} value={l} >
                   {l == "en" ? "EN" : "TA"}
                 </option>
               );
@@ -172,7 +172,7 @@ const Header = () => {
         {/* add for responsive screen  */}
         {/* max-md:bg-black */}
        
-       <select
+       <select className="block lg:hidden md:hidden"
             value={lang}
             onChange={(e) => {
               getSelectedValue(e.target.value);
