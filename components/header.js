@@ -172,7 +172,7 @@ const Header = () => {
         {/* add for responsive screen  */}
         {/* max-md:bg-black */}
        
-       <select className="block lg:hidden md:hidden"
+       <select className="block lg:hidden md:hidden mr-5"
             value={lang}
             onChange={(e) => {
               getSelectedValue(e.target.value);
