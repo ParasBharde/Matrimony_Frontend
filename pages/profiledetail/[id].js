@@ -197,7 +197,7 @@ const Profiledetail = () => {
     <>
       {modalOpen && (
         <div className="w-screen h-screen fixed flex justify-center items-center z-50 backdrop-blur-sm">
-          <div className="bg-slate-100 border border-black rounded-md px-4">
+          <div className="bg-slate-100 border border-black rounded-md px-4 scale-50 sm:scale-50 md:scale-100 lg:scale-100">
             <div className="py-2 flex justify-between items-center">
               <h3 className="font-semibold">Share Profile</h3>
               <span

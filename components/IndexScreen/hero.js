@@ -74,7 +74,7 @@ const Hero = (props) => {
       <div className="flex justify-between items-center pt-10 -md:px-2 lg:px-16 z-10">
         <Link href="/">
           <div>
-            <Image src={logo} alt={"logo"} />
+            <Image src={logo} alt={"logo"} className="w-24 sm:w-24 md:w-48 lg:w-48" />
           </div>
         </Link>
         <div className="text-white flex justify-center items-center text-[16px] font-[600] max-md:hidden">
@@ -249,7 +249,7 @@ const Hero = (props) => {
           <>
             {data && (
                 <>
-                  <div className="relative max-md:right-10 top-[-44rem] left-[12.5rem] group dropdown">
+                  <div className="relative max-md:right-10 top-[-44rem] left-[11rem] group dropdown">
                     <Image
                       className="rounded-full max-w-[45px]"
                       loader={imgLoader}
@@ -314,7 +314,7 @@ const Hero = (props) => {
        
       </div>
 
-      <div className="absolute right-[125px] top-14 hidden max-md:block max-sm:block text-white">
+      <div className="absolute right-[145px] top-14 hidden max-md:block max-sm:block text-white">
       <select
             className="mx-10 cursor-pointer bg-transparent"
             value={lang}
