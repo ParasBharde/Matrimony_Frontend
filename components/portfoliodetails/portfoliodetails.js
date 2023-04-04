@@ -25,16 +25,56 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   const [isGrid, issetGrid] = useState(false);
   const [profiles, setProfiles] = useState([]);
   const [myLikedprofiles, setMyLikedprofiles] = useState([]);
+  const [pageCount, setPageCount] = useState(1);
 
   const [currentLikes, setCurrentLikes] = useState([]);
 
   const [isPremiumUser, setIsPremiumUser] = useState(false);
 
   useEffect(() => {
-    const getProfiles = () => {
+    axios
+      .get("http://172.105.57.17:1337/api/liked-profiles")
+      .then((response) => {
+        if (response.data.meta) {
+          setPageCount(response.data.meta.pagination.pageCount);
+          console.log("pagecount", response.data.meta.pagination.pageCount);
+        }
+      })
+      .catch((error) => {
+        console.log("liked profile error", error);
+      });
+
+    let allData = [];
+    for (let i = 1; i <= pageCount; i++) {
+      const getProfiles = () => {
+        axios
+          .get(
+            `http://172.105.57.17:1337/api/liked-profiles?populate=user_permissions_user&populate=user_profile.profile_photo&pagination[page]=${i}`
+          )
+          .then((response) => {
+            let data = response.data.data.filter((profile) => {
+              return (
+                profile?.attributes?.user_permissions_user?.data?.id ==
+                storageData?.id
+              );
+            });
+            allData = [...allData, ...data];
+            setMyLikedprofiles(allData);
+          })
+          .catch((error) => {
+            console.error("error", error);
+          });
+      };
+      getProfiles();
+    }
+  }, [storageData, pageCount]);
+
+  const getLikedProfiles = useCallback(() => {
+    let allData = [];
+    for (let i = 1; i <= pageCount; i++) {
       axios
         .get(
-          "http://172.105.57.17:1337/api/liked-profiles?populate=user_permissions_user&populate=user_profile.profile_photo"
+          `http://172.105.57.17:1337/api/liked-profiles?populate=user_permissions_user&populate=user_profile.profile_photo&pagination[page]=${i}`
         )
         .then((response) => {
           let data = response.data.data.filter((profile) => {
@@ -43,35 +83,14 @@ const Portfoliodetails = ({ allprofiles, total }) => {
               storageData?.id
             );
           });
-          console.log("liked data", data);
-          setMyLikedprofiles(data);
+          allData = [...allData, ...data];
+          setMyLikedprofiles(allData);
         })
         .catch((error) => {
           console.error("error", error);
         });
-    };
-    getProfiles();
-  }, [storageData]);
-
-  const getLikedProfiles = useCallback(() => {
-    axios
-      .get(
-        "http://172.105.57.17:1337/api/liked-profiles?populate=user_permissions_user&populate=user_profile.profile_photo"
-      )
-      .then((response) => {
-        let data = response.data.data.filter((profile) => {
-          return (
-            profile?.attributes?.user_permissions_user?.data?.id ==
-            storageData?.id
-          );
-        });
-        console.log("liked data", data);
-        setMyLikedprofiles(data);
-      })
-      .catch((error) => {
-        console.error("error", error);
-      });
-  }, [storageData]);
+    }
+  }, [storageData, pageCount]);
 
   // subscription code start
   useEffect(() => {
