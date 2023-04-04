@@ -143,7 +143,7 @@ const Likedprofile = () => {
               </div>
               <div>
                 <nav
-                  className="isolate inline-flex -space-x-px max-md:relative max-md:top-[-2rem] left-[18rem] max-md:gap-2  "
+                  className="isolate inline-flex -space-x-px max-md:relative max-md:top-[-2rem] left-[12rem] max-md:gap-2  "
                   aria-label="Pagination"
                 >
                   <span className="px-2 py-1 max-md:hidden ">View by :</span>
