@@ -130,7 +130,7 @@ const Likedprofile = () => {
       <div style={{ background: "#E0E0E0" }}>
         <Breadcrumb screens={["Home", "Liked Profile"]} />
         {likedprofiles.length > 0 ? (
-          <div className=" px-4 py-3 sm:px-[6rem] w-70 overflow-auto">
+          <div className=" px-4 py-3 sm:px-[6rem] w-70 overflow-auto ">
             <div className="lg:flex lg:flex-1 lg:items-center lg:justify-between sm:flex sm:flex-1 sm:items-center sm:justify-between ">
               <div>
                 <span className="text-sm text-gray-700">
