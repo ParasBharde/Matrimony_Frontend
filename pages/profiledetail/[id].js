@@ -14,6 +14,9 @@ import { ShareSocial } from "react-share-social";
 import { useStorage } from "@/hooks/useStorage";
 import autoprefixer from "autoprefixer";
 
+import { useMediaQuery } from "@material-ui/core";
+
+
 const Profiledetail = () => {
   const [profilesdata, setprofilesdata] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
@@ -43,101 +46,24 @@ const Profiledetail = () => {
     }
   }, [id]);
 
+  
+
   // download pdf of profile
-  // function downloadPdf() {
-  //   const input = document.getElementById("pdf-content");
-  //   html2canvas(input, {
-  //     useCORS: true,
-  //   }).then((canvas) => {
-  //     const imgData = canvas.toDataURL("image/png");
-  //     const pdf = new jsPDF();
-  //     const imgProps = pdf.getImageProperties(imgData);
-  //     const pdfWidth = pdf.internal.pageSize.getWidth();
-    
-  //     const pdfHeight = pdf.internal.pageSize.getHeight();
-  //     pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-  //     pdf.save("download.pdf");
-  //   });
-
-  //   // api call to maintain download profile details
-  //   let data = JSON.stringify({
-  //     data: {
-  //       users_permissions_user: storage.id,
-  //       user_profiles: [id],
-  //       locale: "en",
-  //     },
-  //   });
-
-  //   var config = {
-  //     method: "post",
-  //     maxBodyLength: Infinity,
-  //     url: `http://172.105.57.17:1337/api/download-profiles`,
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     data: data,
-  //   };
-
-  //   axios(config)
-  //     .then((response) => {
-  //       console.log("download profile response ", response.data.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("download profile error: ", error);
-  //     });
-  // }
-
-  function downloadPdf() {
+  function downloadPdf1() {
     const input = document.getElementById("pdf-content");
     html2canvas(input, {
       useCORS: true,
     }).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF();
+      const pdf = new jsPDF("p","pt","a4");
       const imgProps = pdf.getImageProperties(imgData);
-  
-      // Get screen dimensions
-      const screenWidth = window.screen.width;
-      const screenHeight = window.screen.height;
-      // const screenHeight =100;
-  
-     // Calculate PDF width and height based on screen size
-      let pdfWidth, pdfHeight;
-      if (screenWidth < 768) {
-        // pdfWidth = screenWidth - 300; // set desired width for small screens
-        pdfWidth =35; // set desired width for small screens
-        pdfHeight = (imgProps.height * pdfWidth) / imgProps.width; // maintain aspect ratio
-      } else if (screenWidth < 1200) {
-          pdfWidth = 150; // set desired width for medium screens
-          pdfHeight = (imgProps.height * pdfWidth) / imgProps.width; // maintain aspect ratio
-        }else if (screenWidth < 1050) {
-          pdfWidth = 50; // set desired width for medium screens
-          pdfHeight = (imgProps.height * pdfWidth) / imgProps.width; // maintain aspect ratio
-        }  
-        else { 
-        pdfWidth = 200; // set desired width for larger screens
-        pdfHeight = (imgProps.height * pdfWidth) / imgProps.width; // maintain aspect ratio
-      }
-
-    //   let pdfWidth, pdfHeight;
-    // if (screenWidth < 768) {
-    //   pdfWidth = screenWidth - 20; // set desired width for small screens
-    //   pdfHeight = (imgProps.height * pdfWidth) / imgProps.width; // maintain aspect ratio
-    // } else if (screenWidth < 1200) {
-    //   pdfWidth = 800; // set desired width for medium screens
-    //   pdfHeight = (imgProps.height * pdfWidth) / imgProps.width; // maintain aspect ratio
-    // } else { 
-    //   pdfWidth = 1000; // set desired width for larger screens
-    //   pdfHeight = (imgProps.height * pdfWidth) / imgProps.width; // maintain aspect ratio
-    // }
-  
-      // Add image to PDF using calculated width and height
-      pdf.addImage(imgData, "PNG", 10, 0, pdfWidth, pdfHeight);
-  
-      // Save PDF file
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+    
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
       pdf.save("download.pdf");
     });
-  
+
     // api call to maintain download profile details
     let data = JSON.stringify({
       data: {
@@ -146,7 +72,7 @@ const Profiledetail = () => {
         locale: "en",
       },
     });
-  
+
     var config = {
       method: "post",
       maxBodyLength: Infinity,
@@ -156,7 +82,7 @@ const Profiledetail = () => {
       },
       data: data,
     };
-  
+
     axios(config)
       .then((response) => {
         console.log("download profile response ", response.data.data);
@@ -165,10 +91,156 @@ const Profiledetail = () => {
         console.error("download profile error: ", error);
       });
   }
+
+  // ................... 3rd code of download pdf ................
+
+  const [pdfWidth, setPdfWidth] = useState();
+  const [pdfHeight, setPdfHeight] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleDownloadPdf = async () => {
+    setIsLoading(true);
+    const input = document.getElementById("pdf-content");
+
+    try {
+      const canvas = await html2canvas(input, { useCORS: true });
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "pt", [pdfWidth, pdfHeight]);
+      const imgProps = pdf.getImageProperties(imgData);
+
+      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      pdf.save("download.pdf");
+
+      let data = JSON.stringify({
+        data: {
+          users_permissions_user: storage.id,
+          user_profiles: [id],
+          locale: "en",
+        },
+      });
+
+      var config = {
+        method: "post",
+        maxBodyLength: Infinity,
+        url: `http://172.105.57.17:1337/api/download-profiles`,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
+
+      const response = await axios(config);
+      console.log("download profile response ", response.data.data);
+    } catch (error) {
+      console.error("download profile error: ", error);
+    }
+
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    const updatePdfDimensions = () => {
+      const screenWidth = window.innerWidth;
+      let width, height;
+
+      if (screenWidth < 768) {
+        // For mobile devices
+        width = 80;
+        height = 600;
+      } else if (screenWidth >= 768 && screenWidth < 1024) {
+        // For tablet devices
+        width = 250;
+        height = 600;
+      } else {
+        // For desktop devices
+        width = 595;
+        height = 842;
+      }
+
+      setPdfWidth(width);
+      setPdfHeight(height);
+    };
+
+    updatePdfDimensions();
+    window.addEventListener("resize", updatePdfDimensions);
+
+    return () => {
+      window.removeEventListener("resize", updatePdfDimensions);
+    };
+  }, []);
+
+
+// ............................................................
   
+  // function downloadPdf() {
+  //   const input = document.getElementById("pdf-content");
+  //   html2canvas(input, {
+  //     useCORS: true,
+  //   }).then((canvas) => {
+  //     const imgData = canvas.toDataURL("image/png");
+  //     const pdf = new jsPDF();
+  //     const imgProps = pdf.getImageProperties(imgData);
+  
+  //     // Get screen dimensions
+  //     const screenWidth = window.screen.width;
+  //     const screenHeight = window.screen.height;
+  //     // const screenHeight =100;
+  
+  //    // Calculate PDF width and height based on screen size
+  //     let pdfWidth, pdfHeight;
+  //     if (screenWidth < 768) {
+  //       // pdfWidth = screenWidth - 300; // set desired width for small screens
+  //       pdfWidth =35; // set desired width for small screens
+  //       pdfHeight = (imgProps.height * pdfWidth) / imgProps.width; // maintain aspect ratio
+  //     } else if (screenWidth < 1200) {
+  //         pdfWidth = 150; // set desired width for medium screens
+  //         pdfHeight = (imgProps.height * pdfWidth) / imgProps.width; // maintain aspect ratio
+  //       }else if (screenWidth < 1050) {
+  //         pdfWidth = 50; // set desired width for medium screens
+  //         pdfHeight = (imgProps.height * pdfWidth) / imgProps.width; // maintain aspect ratio
+  //       }  
+  //       else { 
+  //       pdfWidth = 200; // set desired width for larger screens
+  //       pdfHeight = (imgProps.height * pdfWidth) / imgProps.width; // maintain aspect ratio
+  //     }
+  
+  //     // Add image to PDF using calculated width and height
+  //     pdf.addImage(imgData, "PNG", 10, 0, pdfWidth, pdfHeight);
+  
+  //     // Save PDF file
+  //     pdf.save("download.pdf");
+  //   });
+  
+  //   // api call to maintain download profile details
+  //   let data = JSON.stringify({
+  //     data: {
+  //       users_permissions_user: storage.id,
+  //       user_profiles: [id],
+  //       locale: "en",
+  //     },
+  //   });
+  
+  //   var config = {
+  //     method: "post",
+  //     maxBodyLength: Infinity,
+  //     url: `http://172.105.57.17:1337/api/download-profiles`,
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     data: data,
+  //   };
+  
+  //   axios(config)
+  //     .then((response) => {
+  //       console.log("download profile response ", response.data.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("download profile error: ", error);
+  //     });
+  // }
+
 
   // share profile
-
   const shareProfile = () => {
     setModalOpen(true);
   };
@@ -197,7 +269,7 @@ const Profiledetail = () => {
     <>
       {modalOpen && (
         <div className="w-screen h-screen fixed flex justify-center items-center z-50 backdrop-blur-sm">
-          <div className="bg-slate-100 border border-black rounded-md px-4">
+          <div className="bg-slate-100 border border-black rounded-md px-4 scale-50 sm:scale-50 md:scale-100 lg:scale-100">
             <div className="py-2 flex justify-between items-center">
               <h3 className="font-semibold">Share Profile</h3>
               <span
@@ -249,7 +321,7 @@ const Profiledetail = () => {
                             // onClick={() => isLiked=!isLiked}
                           />
                           <Image
-                            onClick={downloadPdf}
+                            onClick={handleDownloadPdf}
                             src={Download}
                             width={24}
                             height={21}
