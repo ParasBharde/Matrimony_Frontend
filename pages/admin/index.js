@@ -1,10 +1,20 @@
 import React from "react";
 import Dashboard from "@/components/customerpanel/dashboard";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const Adminpanel = () => {
+  const { data: session, status } = useSession({
+    required: true,
+  });
+  console.log("status", status);
+
+  if(!session) {
+    return <></>
+  }
+
   return (
     <>
-
       <Dashboard />
       <style jsx>{`
         button {

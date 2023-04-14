@@ -5,9 +5,9 @@ import { useRouter } from "next/router";
 import "@/css/allfile.scss";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useState } from "react";
+import { SessionProvider } from "next-auth/react";
 
-export default function App({ Component, pageProps }) {
+export default function App({ Component, pageProps: {session, ...pageProps} }) {
   const router = useRouter();
   return (
     <>
@@ -21,7 +21,9 @@ export default function App({ Component, pageProps }) {
       router.pathname == "/admin" ? null : (
         <Header />
       )}
-      <Component {...pageProps} />
+      <SessionProvider session={session}>
+        <Component {...pageProps} />
+      </SessionProvider>
       {router.pathname == "/signIn" ||
       router.pathname == "/admin/adminpanel" ||
       router.pathname == "/admin/manageuser" ||

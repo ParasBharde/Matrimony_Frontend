@@ -4,6 +4,7 @@ import profile from "@/assets/profile.png";
 import Link from "next/link";
 import { useOnHoverOutside } from "@/hooks/useOnHoverOutside";
 import { useRouter } from "next/router";
+import { signOut } from "next-auth/react";
 
 const Topnav = () => {
   return (
@@ -51,7 +52,7 @@ const Topnav = () => {
                   />
                 </div>
                 <div className="group-hover:block dropdown-menu hidden absolute right-2 bg-white">
-                  <p className="m-3 cursor-pointer flex items-center">
+                  <p className="m-3 cursor-pointer flex items-center" variant='contained' onClick={_ => signOut()}>
                     <i className="fa-solid fa-right-from-bracket mr-5 text-main"></i>
                     Logout
                   </p>

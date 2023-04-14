@@ -482,7 +482,7 @@ const Likedprofile = () => {
 
             {isList ? (
               <div className="list_data flex justify-center mt-[2rem] pb-[4rem] ">
-                <table className=" text-sm text-left text-gray-500 divide-y-4 divide-slate-400/[3rem] max-md:hidden  ">
+                <table className=" text-sm text-left text-gray-500 divide-y-4 divide-slate-400/[3rem] max-md:hidden">
                   <thead
                     style={{
                       color: "rgba(30, 30, 30, 0.5)",
