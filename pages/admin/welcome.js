@@ -5,12 +5,8 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
 import { redirect } from "next/dist/server/api-utils";
-// import { useSession } from "next-auth/react"
 
 const Welcome = () => {
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-
   const [authState, setAuthState] = useState({
     username: "",
     password: "",
@@ -22,10 +18,9 @@ const Welcome = () => {
 
   const router = useRouter();
 
-  // const [session, loading] = useSession();
-
-  const handleAuth = async () => {
-    signIn("credentials", {
+  const handleAuth = async (e) => {
+    e.preventDefault();
+    await signIn("credentials", {
       ...authState,
       redirect: false,
     })

@@ -9,8 +9,6 @@ import { signOut } from "next-auth/react";
 const Topnav = () => {
   return (
     <>
-      {/* max-md:hidden */}
-
       <nav
         className="top_navv flex flex-wrap items-center justify-between py-4 bg-gray-100 text-gray-500 hover:text-gray-700
         focus:text-gray-700 shadow-lg navbar navbar-expand-lg navbar-light "
@@ -52,7 +50,7 @@ const Topnav = () => {
                   />
                 </div>
                 <div className="group-hover:block dropdown-menu hidden absolute right-2 bg-white">
-                  <p className="m-3 cursor-pointer flex items-center" variant='contained' onClick={_ => signOut()}>
+                  <p className="m-3 cursor-pointer flex items-center" variant='contained' onClick={() => signOut()}>
                     <i className="fa-solid fa-right-from-bracket mr-5 text-main"></i>
                     Logout
                   </p>

@@ -9,7 +9,7 @@ const ManageList = () => {
   const { data: session, status } = useSession({
     required: true,
   });
-  console.log("status", status);
+  console.log("status", session);
 
   if(!session) {
     return <></>

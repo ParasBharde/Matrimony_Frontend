@@ -1,4 +1,3 @@
-import axios from "axios";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -10,17 +9,17 @@ export const authOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
-      //   async authorize(credentials, req) {
-      //     if (credentials.username === "shubham@gmail.com") {
-      //       return {
-      //         user: {
-      //           name: "ABC",
-      //         },
-      //       };
-      //     }
+        // async authorize(credentials, req) {
+        //   if (credentials.username === "shubham@gmail.com") {
+        //     return {
+        //       user: {
+        //         name: "ABC",
+        //       },
+        //     };
+        //   }
 
-      //     return null;
-      //   },
+        //   return null;
+        // },
       async authorize(credentials, req) {
         var data = JSON.stringify({
           identifier: credentials.username,
@@ -46,9 +45,9 @@ export const authOptions = {
           }
         );
         const userRes = await nextRes.json();
-        // console.log("userRes", userRes);
-
+        
         if (userRes && userRes.isAdmin == true) {
+          console.log("userRes", userRes);
           return userRes;
         }
         return null;
