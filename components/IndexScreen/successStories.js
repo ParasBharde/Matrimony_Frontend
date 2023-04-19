@@ -4,14 +4,15 @@ import SuccessStoriesCard from './successStoriesCard'
 const SuccessStories = (props) => {
   return (
     <>
-      <div className="bg-[#E0E0E0]  py-20 max-md:min-w-fit max-md:hidden ">
+      <div className=" py-20 max-md:min-w-fit max-md:hidden ">
+      {/* bg-[#E0E0E0]  */}
         <p className="text-center font-semibold text-[30px] text-dark mb-3 ">
           Success Stories
         </p>
         <p className="text-center font-normal text-sm text-dark break-normal md:break-all ">
           {props.homedata.Success_Story_desc}
         </p>
-        <div className="flex justify-center items-center mt-10 max-md:flex-row ">
+        <div className="flex justify-center items-center mt-10 max-md:flex-row">
           <SuccessStoriesCard />
           <SuccessStoriesCard />
           <SuccessStoriesCard />
@@ -21,7 +22,8 @@ const SuccessStories = (props) => {
 
       {/* using carousel create responsive successStoriesCard .....  */}
 
-      <div className="bg-[#f7f8fa] py-20  bg-[#E0E0E0] md:hidden mt-20">
+      <div className="bg-[#f7f8fa] bg-white py-20  md:hidden mt-52">
+         {/* bg-[#E0E0E0] */}
         <p className="text-center font-semibold text-[30px] text-dark mb-3 ">
           Success Stories
         </p>
