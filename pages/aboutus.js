@@ -53,13 +53,13 @@ const Aboutus = () => {
           </div>
         </div>
       </div>
-      <div className="bg-gray-200 py-3  border-b border-gray-300">
+      {/* <div className="bg-gray-200 py-3  border-b border-gray-300">
         <p className="md:ml-48 ml-6">
           <span>Home</span>
           <span className="mx-5">{">"}</span>
           <span className="text-gray-600">About Us</span>
         </p>
-      </div>
+      </div> */}
       <div className="grid grid-cols-1 ml-5 md:grid-cols-2 gap-y-6 gap-x-6 xl:ml-44 xl:mr-44 lg:ml-24 lg:mr-24 md:ml-4 md:mr-4 mt-8">
         <div>
           <h2 className="text-2xl mb-6  md:mt-24">{about.label1} </h2>

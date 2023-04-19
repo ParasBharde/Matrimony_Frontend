@@ -21,7 +21,7 @@ useEffect(() => {
 }, [])
   return (
     <>
-      <div className="w-max bg-white shadow-md rounded-md m-5 max-md:w-full">
+      <div className="w-max bg-white shadow-2xl rounded-md m-5 max-md:w-full">
         <div className="max-md:">
           <Image src={ss} alt="ss" className="max-md:min-w-full " />
 

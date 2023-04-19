@@ -3,7 +3,8 @@ import HeadingCard from "./headingCard";
 
 const Heading = ({ homedata }) => {
   return (
-    <div className="bg-white md:bg-[#E0E0E0] lg:bg-[#E0E0E0] py-20  max-md:pr-6">
+    <div className="bg-white py-20  max-md:pr-6">
+      {/* md:bg-[#E0E0E0] lg:bg-[#E0E0E0] */}
       <p className="text-center text-dark text-[30px] font-semibold mb-5">
         Trusted Matrimony & Matchmaking Service
       </p>

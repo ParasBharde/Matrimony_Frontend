@@ -5,7 +5,7 @@ import logo from "@/assets/indexAssets/bestMatching.png"
 const HeadingCard = ({desc}) => {
   return (
     <>
-      <div className="bg-white py-8 mx-3 rounded shadow-md max-md:w-full">
+      <div className="bg-white py-8 mx-3 rounded shadow-2xl max-md:w-full">
         <div className="flex justify-center max-md:">
           <Image src={logo} alt="logo" />
         </div>
