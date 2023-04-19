@@ -128,7 +128,7 @@ const EditProfile = () => {
   // }
   return (
     <>
-      <div className="container ">
+      <div className="container" style={{backgroundColor:"white"}}>
         <Breadcrumb screens={["Home", "Search", "My Profile Details"]} />
         <div className="main_container flex justify-center">
           <div className="lg:px-10 md:px-5 sm:px-5">
@@ -159,7 +159,7 @@ const EditProfile = () => {
                 </div>
               </div>
               {/* personal information */}
-              <div>
+              <div className="shadow-2xl">
                 <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1">
                     <div className="p-5  ">
                         <div className="ml-5">

@@ -127,7 +127,8 @@ const Likedprofile = () => {
     
   return (
     <>
-      <div style={{ background: "#E0E0E0" }}>
+      <div style={{ background: "white"}}>
+      {/* background: "#E0E0E0"  */}
         <Breadcrumb screens={["Home", "Liked Profile"]} />
         {likedprofiles.length > 0 ? (
           <div className=" px-4 py-3 sm:px-[6rem] w-70 overflow-auto ">
@@ -646,7 +647,7 @@ const Likedprofile = () => {
                       <div
                         key={index}
                         id={`liked-profile-${profile.id}`}
-                        className="relative mb-2 hover:transform hover:scale-105 duration-300 max-lg:min-w-fit"
+                        className="relative mb-2 hover:transform hover:scale-105 duration-300 max-lg:min-w-fit shadow-2xl"
                       >
                         <div className="cards">
                           {/* <div className="cards blur-sm"> */}

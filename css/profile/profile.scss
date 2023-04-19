@@ -126,7 +126,6 @@
 }
 .img_profile_portfolio{
     min-width: 20vw;
-
     border-radius: 2px;
     margin: 0rem 0rem 0rem 0rem;
     padding: 0rem;
@@ -144,8 +143,7 @@
     @include breakpoint-down(small) {
         max-width: 20vw;
         height: 10vh;
-        margin: -1rem 0rem 0rem -3rem;
-        
+        margin: -1rem 0rem 0rem -3rem; 
     }
 
 }
