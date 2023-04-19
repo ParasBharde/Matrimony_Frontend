@@ -301,11 +301,10 @@ const Profiledetail = () => {
           console.log("data", data);
           return (
             <>
-              <div className="container" key={index}>
+              <div className="container" key={index} style={{backgroundColor:"white"}}>
                 <Breadcrumb screens={["Home", "Search", "Profile Details"]} />
-
-                <div className="main_container flex justify-center overflow-auto">
-                  <table>
+                <div className="main_container flex justify-center overflow-auto bg-white">
+                  <table className="shadow-2xl">
                     <tr>
                       <td className="flex items-center w-full bg-main h-24 px-5">
                         <span className="text-white flex-1">

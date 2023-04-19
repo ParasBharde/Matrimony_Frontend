@@ -93,8 +93,8 @@ const Portfolio = () => {
   };
   return (
     <>
-      <div className="colo" style={{}}>
-        <Portfolioheader handleFilterQuery={handleFilterQuery} />
+      <div className="colo" style={{backgroundColor:"white"}}>
+        <Portfolioheader handleFilterQuery={handleFilterQuery} className="bg-blue-500"/>
         <Portfoliodetails allprofiles={filteredProfiles} total={total} />
       </div>
       <style jsx>{`

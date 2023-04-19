@@ -14,7 +14,8 @@ const ChangePassword = () => {
   const [nextScreen,setNextScreen]=useState(false);
 
   return (
-    <div className="bg-[#E0E0E0] pb-16 max-md:h-[90vh]">
+    <div className="bg-white pb-16 max-md:h-[90vh]">
+      {/* bg-[#E0E0E0] */}
       <Breadcrumb
         screens={["Home", "Change Password"]}
       />

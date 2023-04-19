@@ -163,7 +163,8 @@ const DownlodedProfiles = () => {
 
   return (
     <>
-      <div style={{ background: "#E0E0E0" }}>
+      <div style={{ background: "white"}}>
+      {/* background: "#E0E0E0"  */}
         <Breadcrumb screens={["Home", "Downloaded Profiles"]} />
         {downloadedProfilese.length > 0 ? (
           <div className=" px-4 py-3 sm:px-[6rem] w-70 overflow-auto">
@@ -518,8 +519,8 @@ const DownlodedProfiles = () => {
             </div>
 
             {isList ? (
-              <div className="list_data flex justify-center mt-[2rem] pb-[4rem] ">
-                <table className=" text-sm text-left text-gray-500 divide-y-4 divide-slate-400/[3rem]">
+              <div className="list_data flex justify-center mt-[2rem] pb-[4rem]">
+                <table className=" text-sm text-left text-gray-500 divide-y-4 divide-slate-400/[3rem] shadow-2xl">
                   <thead
                     style={{
                       color: "rgba(30, 30, 30, 0.5)",
@@ -675,7 +676,7 @@ const DownlodedProfiles = () => {
                       <div
                         key={index}
                         id={`liked-profile-${id}`}
-                        className="relative mb-2 hover:transform hover:scale-105 duration-300 max-lg:min-w-fit "
+                        className="relative mb-2 hover:transform hover:scale-105 duration-300 max-lg:min-w- shadow-2xl "
                       >
                         <div className="cards">
                           {/* <div className="cards blur-sm"> */}

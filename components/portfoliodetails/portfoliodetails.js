@@ -614,7 +614,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
 
         {isList ? (
           <div className="list_data flex justify-center mt-[2rem] pb-[4rem] ">
-            <table className=" text-sm text-left text-gray-500 divide-y-4 divide-slate-400/[3rem]  ">
+            <table className=" text-sm text-left text-gray-500 divide-y-4 divide-slate-400/[3rem] shadow-2xl ">
               <thead
                 style={{
                   color: "rgba(30, 30, 30, 0.5)",
@@ -755,7 +755,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                     key={index}
                     className="relative mb-2 hover:transform hover:scale-105 duration-300 max-lg:min-w-fit"
                   >
-                    <div className="cards relative min-h-[400px]">
+                    <div className="cards relative min-h-[400px] shadow-2xl">
                       {!isPremiumUser && (
                         <div className="absolute top-0 left-0 w-full h-full bg-black/[0.3] z-40"></div>
                       )}
