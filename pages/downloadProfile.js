@@ -519,7 +519,8 @@ const DownlodedProfiles = () => {
             </div>
 
             {isList ? (
-              <div className="list_data flex justify-center mt-[2rem] pb-[4rem]">
+              <div className="list_data flex  mt-[2rem] pb-[4rem]">
+                {/* justify-center */}
                 <table className=" text-sm text-left text-gray-500 divide-y-4 divide-slate-400/[3rem] shadow-2xl">
                   <thead
                     style={{
