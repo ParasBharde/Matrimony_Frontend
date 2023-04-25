@@ -613,8 +613,9 @@ const Portfoliodetails = ({ allprofiles, total }) => {
         </div>
 
         {isList ? (
-          <div className="list_data flex justify-center mt-[2rem] pb-[4rem] ">
-            <table className=" text-sm text-left text-gray-500 divide-y-4 divide-slate-400/[3rem] shadow-2xl ">
+          <div className="list_data mt-[2rem] pb-[4rem]">
+            {/* flex justify-center */}
+            <table className=" text-sm text-left text-gray-500 divide-y-4 shadow-2xl">
               <thead
                 style={{
                   color: "rgba(30, 30, 30, 0.5)",
@@ -622,7 +623,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                   backgroundColor: "#F98B1D",
                   height: "3rem",
                 }}
-                className="text-xs  uppercase"
+                className="text-xs uppercase ml-52"
               >
                 <tr>
                   <th
