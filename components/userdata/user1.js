@@ -10,7 +10,7 @@ const App=()=>
       const [profile,setprofile ] =useState([]);
       const router=useRouter();
       const {query:id}=router;
-      console.log("idd",id.ids);
+      // console.log("idd",id.ids);
 
       useEffect(() => {
         var config = {
@@ -27,7 +27,7 @@ const App=()=>
             // let id = [20, 21];
 
            let res = response.data.data;
-        let filteredRes = [];
+           let filteredRes = [];
        
         // for (let i = 0; i < id.ids.length; i++) {
         //   for (let j = 0; j < res.length; j++) {
@@ -61,7 +61,7 @@ const App=()=>
           .catch(function (error) {
             console.log(error);
           });
-      }, [router]);
+      }, [router,id.ids]);
 
 
       function downloadPdf() {
