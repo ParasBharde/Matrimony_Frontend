@@ -257,9 +257,9 @@ const RegisterForm3 = ({ screen, setScreen }) => {
           </div>
         </div>
       </div>
-      <div className=" w-[820px] ml-64 max-md:flex max-md:gap-5 max-md:w-auto max-md:m-3">
-        <div className="flex justify-between items-center mt-5 w-[820px] mx-auto max-md:flex max-md:flex-col max-md:items-center max-md:justify-center max-md:w-[10rem] mr-2 max-md:ml-4 max-md:gap-3">
-          <div className="max-md:flex max-md:flex-col ">
+      <div className="">
+        <div className="flex justify-between items-center mt-5 w-[820px] mx-auto max-md:flex max-md:flex-col max-md:items-center max-md:justify-center max-md:w-[10rem] max-md:ml-4 max-md:gap-3">
+          <div className="max-md:flex max-md:flex-col">
             <p className="text-dark font-[500] text-[14px] mb-2 ">Brothers *</p>
             <select
               value={brothers}

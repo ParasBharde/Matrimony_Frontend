@@ -76,6 +76,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
   const [firstName, setFirstName] = useState("");
   const [groomOrBride, setGroomOrBride] = useState("Groom");
   const [dateOfBirth, setDateOfBirth] = useState(null);
+  console.log('dateOfBirth',dateOfBirth)
   const [height, setHeight] = useState(0);
   const [educationalQualifications, setEducationalQualifications] =
     useState("");
@@ -236,7 +237,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
   // var nameRegex = /[A-Za-z]+/g;
   var nameRegex = /\d/g;
   var phoneRegex = /^(0|91)?[6-9][0-9]{9}$/;
-  
+  var dateRegex = /^\d{4}-\d{2}-\d{2}$/;
   // var phoneRegex = /^([0|+[0-9]{1,5})?([7-9][0-9]{9})$/ ;
 
   const validate = () => {
@@ -283,9 +284,64 @@ const RegisterForm2 = ({ screen, setScreen }) => {
     if (!phoneRegex.test(phoneNumber)) {
       toast.error("Please enter a valid phone number");
       return false;
-    }
+    } 
+  
 
     return true;
+  };
+
+  const formatInputValue = (value) => {
+    if (value.length <= 4) {
+      return value;
+    } else if (value.length <= 6) {
+      return `${value.slice(0, 4)}-${value.slice(4)}`;
+    } else {
+      return `${value.slice(0, 4)}-${value.slice(4, 6)}-${value.slice(6, 8)}`;
+    }
+  };
+
+  const handleInputChange = (event) => {
+    const { value } = event.target;
+    const sanitizedValue = value.replace(/[^0-9]/g, '');
+    const formattedValue = formatInputValue(sanitizedValue);
+    setDateOfBirth(formattedValue);
+  };
+
+ 
+  const isValidDate = (dateString) => {
+    const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+    if (!datePattern.test(dateOfBirth)) {
+      toast.error("Please enter a valid month");
+
+      return false;
+    }
+
+    const [year, month, day] = dateOfBirth.split('-').map(Number);
+
+    if (month < 1 || month > 12) {
+      toast.error("Please enter a valid month");
+      return false;
+    }
+
+    if (day < 1 || day > 31) {
+      toast.error("Please enter a valid day");
+      return false;
+    }
+
+    const today = new Date();
+    const currentYear = today.getFullYear();
+
+    if (year > currentYear) {
+      toast.error("Please enter a valid year");
+      return false;
+    }
+
+    const date = new Date(year, month - 1, day);
+    return (
+      date.getFullYear() === year &&
+      date.getMonth() === month - 1 &&
+      date.getDate() === day
+    );
   };
 
   return (
@@ -341,10 +397,10 @@ const RegisterForm2 = ({ screen, setScreen }) => {
             </p>
             <input
               value={dateOfBirth}
-              onChange={(e) => {
-                setDateOfBirth(e.target.value);
-              }}
-              type={"date"}
+              onChange={(event)=>handleInputChange(event)}
+              type="text"
+              id="dateInput" 
+              placeholder="YYYY-MM-DD"
               className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
             />
           </div>
@@ -567,7 +623,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
             className="files-dropzone cursor-pointer"
             onChange={onFilesChange1}
             onError={onFilesError1}
-            accepts={["image/png", "image/jpg"]}
+            accepts={["image/png", "image/jpg","image/jpeg","image/svg+xml"]}
             maxFileSize={10000000}
             minFileSize={0}
             clickable
@@ -585,13 +641,13 @@ const RegisterForm2 = ({ screen, setScreen }) => {
             className="files-dropzone cursor-pointer"
             onChange={onFilesChange2}
             onError={onFilesError2}
-            accepts={["image/png", "image/jpg"]}
+            accepts={["image/png", "image/jpg","image/jpeg","image/svg+xml"]}
             maxFileSize={10000000}
             minFileSize={0}
             clickable
           >
             <Image
-              src={file2 ? file2[0].preview.url : fileInputImage}
+              src={file2 ? file2[0].preview?.url : fileInputImage}
               width={190}
               height={190}
               className="md:w-[190px] h-[190px] max-lg:w-[22rem] max-lg:h-[22rem]"
@@ -603,7 +659,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
             className="files-dropzone cursor-pointer"
             onChange={onFilesChange3}
             onError={onFilesError3}
-            accepts={["image/png", "image/jpg"]}
+            accepts={["image/png", "image/jpg","image/jpeg","image/svg+xml"]}
             maxFileSize={10000000}
             minFileSize={0}
             clickable
@@ -620,7 +676,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
             className="files-dropzone cursor-pointer"
             onChange={onFilesChange4}
             onError={onFilesError4}
-            accepts={["image/png", "image/jpg"]}
+            accepts={["image/png", "image/jpg","image/jpeg","image/svg+xml"]}
             maxFileSize={10000000}
             minFileSize={0}
             clickable
@@ -653,7 +709,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
         <p
           className="text-white bg-main py-2 px-5 rounded-md cursor-pointer max-w-max"
           onClick={() => {
-            if (validate()) {
+            if (validate() && isValidDate()) {
               if (screen <= 3) {
                 setScreen(screen + 1);
               }
