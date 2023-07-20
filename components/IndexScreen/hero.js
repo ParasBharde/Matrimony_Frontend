@@ -12,7 +12,7 @@ import axios from "axios";
 const Hero = (props) => {
   const [login, setLogin] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
-
+console.log('userProfile',userProfile)
   const dropdownRef = useRef(null);
   const [isMenuDropDownOpen, setMenuDropDownOpen] = useState(false);
 
@@ -33,16 +33,19 @@ const Hero = (props) => {
       setLogin(true);
     }
   }, [data]);
-
+console.log(data)
   useEffect(() => {
     async function getUser() {
       try {
         const response = await axios.get(
           `http://172.105.57.17:1337/api/profiles/?populate=%2A`
         );
+        console.log(response.data.data)
+
         let userProfileImage = response.data.data.filter(
-          (u) => u.id == data?.user_profile?.id
-        );
+          (u) => u.id == data?.data?.id
+          );
+          console.log(userProfileImage)
         setUserProfile(
           userProfileImage?.[0]?.attributes?.profile_photo?.data?.[0]?.attributes
             ?.url

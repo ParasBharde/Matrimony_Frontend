@@ -31,7 +31,7 @@ const EditProfile = () => {
             `http://172.105.57.17:1337/api/profiles/?populate=%2A`
           );
           console.log("response", response.data.data);
-          let userProfile = response.data.data.filter((u) => u.id == storageData?.user_profile?.id);
+          let userProfile = response.data.data.filter((u) => u.id == storageData?.data?.id);
           setUserProfile(userProfile[0].attributes);
           console.log("userProfile ",userProfile);
         } catch (error) {

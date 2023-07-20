@@ -24,14 +24,14 @@ const Header = () => {
 
   const storage = useStorage();
   let id = storage?.user_profile;
-
+console.log(storage)
   const dropdownRef = useRef(null);
   const dropdownRef1 = useRef(null);
   const [isMenuDropDownOpen, setMenuDropDownOpen] = useState(false);
   const [isMenuDropDownOpen1, setMenuDropDownOpen1] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
   const [isAdminLogin, setAdminLogin] = useState();
-
+console.log('userProfile',userProfile)
   const [isProfileChanged, setIsProfileChanges] = useState("false");
 
   useEffect(() => {
@@ -46,7 +46,7 @@ const Header = () => {
         const response = await axios.get(
           `http://172.105.57.17:1337/api/profiles/?populate=%2A`
         );
-        let userProfile = response.data.data.filter((u) => u.id == id?.id);
+        let userProfile = response.data.data.filter((u) => u.id == storage?.data?.id);
         setUserProfile(
           userProfile?.[0]?.attributes?.profile_photo?.data?.[0]?.attributes
             ?.url

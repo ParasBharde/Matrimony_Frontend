@@ -185,7 +185,9 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
         udayatiNazhikai &&
         birthTime &&
         presenceOfNatalDirection &&
-        birthplace
+        birthplace && 
+        file1 &&
+        file2
       )
     ) {
       toast.error("Please Enter All The fields");
@@ -376,7 +378,7 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
 
       <div className="w-[820px] mx-auto mt-5">
         <div className="w-full flex justify-between items-center">
-          <p className="text-dark font-[500] text-[14px]">Horoscope Doucment</p>
+          <p className="text-dark font-[500] text-[14px]">Horoscope Doucment *</p>
           <button
             onClick={() => {
               console.log("add more");

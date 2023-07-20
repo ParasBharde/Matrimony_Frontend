@@ -284,8 +284,15 @@ const RegisterForm2 = ({ screen, setScreen }) => {
     if (!phoneRegex.test(phoneNumber)) {
       toast.error("Please enter a valid phone number");
       return false;
-    } 
-  
+    } if (parseFloat(height) < 1 || parseFloat(height) === 0 ) {
+      toast.error("Please enter a valid Height");
+      return false
+    }
+    if (parseFloat(salary) < 1 || parseFloat(salary) === 0 ) {
+      toast.error("Please enter a valid Salary");
+      return false
+    }
+    
 
     return true;
   };

@@ -35,7 +35,7 @@ const EditProfile = () => {
       setImg(userProfile.horoscope_document?.data);
     }
   }, [userProfile]);
-
+console.log('storageData',storageData)
   function downloadPdf() {
     const input = document.getElementById("pdf-content");
     html2canvas(input).then((canvas) => {
@@ -61,7 +61,7 @@ const EditProfile = () => {
           console.log("response", response.data.data);
           let userProfile = response.data.data.filter(
             // (u) => u.id == 23
-            (u) => u.id == storageData?.user_profile?.id
+            (u) => u.id == storageData?.data?.id
           );
           setUserProfile(userProfile[0].attributes);
           console.log("userProfile ", userProfile);
@@ -238,7 +238,7 @@ const EditProfile = () => {
                             onClick={() => setModalDefaultOpen(true)}
                           >
                             <Image
-                              className="img_profile_portfolio object-contain w-40 min-h-full"
+                              className="img_profile_portfolio object-contain "
                               object-fit="true"
                               src={
                                 profileImg
@@ -246,8 +246,8 @@ const EditProfile = () => {
                                   : profile
                               }
                               alt={"logo"}
-                              width={500}
-                              height={500}
+                              width={250}
+                              height={250}
                             />
                           </button>
                           <Modal
@@ -319,7 +319,7 @@ const EditProfile = () => {
                             </div>
                           </Modal>
                            
-                          <div className="flex justify-around md:ml-10 lg:ml-6 sm:ml-0">
+                          <div className="flex justify-center md:ml-10 lg:ml-0 sm:ml-0">
                             <Image
                               className="img_profile_g w-40 h-26 "
                               src={
@@ -490,7 +490,7 @@ const EditProfile = () => {
                     </div>
                 </div>
                 <p className="font-bold ml-10 mt-5">Horoscope Chart</p>
-                <div className="grid grid-cols-2 gap-4 mt-[4rem] ">
+                <div className="grid justify-items-center grid-cols-2 gap-4 mt-[4rem] ">
                   {img &&
                     img.map((data, i) => {
                       return (
