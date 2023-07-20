@@ -395,7 +395,7 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
             className="files-dropzone cursor-pointer"
             onChange={onFilesChange1}
             onError={onFilesError1}
-            accepts={["image/png"]}
+            accepts={["image/png", "image/jpg","image/jpeg","image/svg+xml"]}
             maxFileSize={10000000}
             minFileSize={0}
             clickable
@@ -433,7 +433,7 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
                   className="files-dropzone cursor-pointer"
                   onChange={uploadFile}
                   onError={onFilesError1}
-                  accepts={["image/png"]}
+                  accepts={["image/png", "image/jpg","image/jpeg","image/svg+xml"]}
                   maxFileSize={10000000}
                   minFileSize={0}
                   clickable

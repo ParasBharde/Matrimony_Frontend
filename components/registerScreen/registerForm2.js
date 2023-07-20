@@ -236,7 +236,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
 
   // var nameRegex = /[A-Za-z]+/g;
   var nameRegex = /\d/g;
-  var phoneRegex = /^(0|91)?[6-9][0-9]{9}$/;
+  var phoneRegex = /^(?:(?:\+91)|(?:91)|(?:0))?[7-9][0-9]{9}$/;
   var dateRegex = /^\d{4}-\d{2}-\d{2}$/;
   // var phoneRegex = /^([0|+[0-9]{1,5})?([7-9][0-9]{9})$/ ;
 

@@ -39,20 +39,20 @@ const Register = () => {
       password: rg1.pass,
     });
 
-    var config = {
-      method: "post",
+    let config = {
+      method: 'post',
       maxBodyLength: Infinity,
-      url: "http://172.105.57.17:1337/api/auth/local/register",
-      headers: {
-        "Content-Type": "application/json",
+      url: 'http://172.105.57.17:1337/api/auth/local/register',
+      headers: { 
+        'Content-Type': 'application/json'
       },
-      data: data,
+      data : data
     };
 
     axios(config)
       .then(function (response) {
         console.log("First User Registered", response.data);
-
+        toast.success("Account Created")
         var data2 = JSON.stringify({
           data: {
             first_name: rg2.firstName,
@@ -108,7 +108,7 @@ const Register = () => {
           },
         });
 
-        var config2 = {
+ var config2 = {
           method: "post",
           maxBodyLength: Infinity,
           url: "http://172.105.57.17:1337/api/profiles",
@@ -135,10 +135,11 @@ const Register = () => {
               toast.error(e[i].message);
             }
           });
+       
       })
       .catch(function (error) {
         console.log(error);
-        toast.error(error.error.message);
+        toast.error(error)
       });
   };
 
