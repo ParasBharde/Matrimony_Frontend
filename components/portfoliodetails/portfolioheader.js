@@ -94,7 +94,7 @@ const Portfolioheader = ({ handleFilterQuery }) => {
       {/* this part hidden for responsive  */}
 
       <div className="portfolio_header max-md:hidden ">
-        <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-2  ">
+        <div className="flex justify-around px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-2  ">
           <div className="grid lg:grid-cols-5 sm:grid-cols-1">
             <div className="mt-5 text-center grid max-w-min mx-10">
               <p className="text-dark text-left font-[500] text-[14px] mb-2">

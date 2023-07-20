@@ -28,14 +28,12 @@ const EditProfile = () => {
   const [profileImg, setProfileImg] = useState();
   const [img, setImg] = useState([]);
 
-
   useEffect(() => {
     if (userProfile) {
       setProfileImg(userProfile?.profile_photo?.data);
       setImg(userProfile.horoscope_document?.data);
     }
   }, [userProfile]);
-console.log('storageData',storageData)
   function downloadPdf() {
     const input = document.getElementById("pdf-content");
     html2canvas(input).then((canvas) => {
@@ -58,13 +56,13 @@ console.log('storageData',storageData)
       async function getUser() {
         try {
           const response = await axios.get(api);
-          console.log("response", response.data.data);
-          let userProfile = response.data.data.filter(
-            // (u) => u.id == 23
-            (u) => u.id == storageData?.data?.id
+          // console.log("response", response.data.data);
+          const userProfile = response.data.data.filter(
+            (u) => u.id === storageData?.user_profile?.id
           );
+
+          // console.log("userProfile ", userProfile);
           setUserProfile(userProfile[0].attributes);
-          console.log("userProfile ", userProfile);
         } catch (error) {
           console.error(error);
         }
@@ -229,7 +227,7 @@ console.log('storageData',storageData)
                         <p>{Expection}</p>
                       </div>
                     </div>
-                    <div className="p-5 mt-7">
+                    <div className="p-5">
                     <div className=" flex items-center justify-center h-24 ">
                         <div className="second_item relative">
                           <button
@@ -246,7 +244,7 @@ console.log('storageData',storageData)
                                   : profile
                               }
                               alt={"logo"}
-                              width={250}
+                              width={200}
                               height={250}
                             />
                           </button>
@@ -319,7 +317,7 @@ console.log('storageData',storageData)
                             </div>
                           </Modal>
                            
-                          <div className="flex justify-center md:ml-10 lg:ml-0 sm:ml-0">
+                          <div className="flex justify-center md:ml-2 lg:ml-0 sm:ml-0">
                             <Image
                               className="img_profile_g w-40 h-26 "
                               src={

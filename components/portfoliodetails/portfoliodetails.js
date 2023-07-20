@@ -262,7 +262,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   return (
     <>
       <div className=" px-4 py-3 sm:px-[6rem] w-70 overflow-auto">
-        <div className="lg:flex lg:flex-1 lg:items-center lg:justify-between sm:flex sm:flex-1 sm:items-center sm:justify-between">
+        <div className="lg:flex max-md:flex max-md:justify-between lg:flex-1 lg:items-center lg:justify-between sm:flex sm:flex-1 sm:items-center sm:justify-between">
           <div>
             <span className="text-sm text-gray-700">
               {currentPage == 1 ? "1" : `${(currentPage - 1) * 10 + 1}`}-
@@ -274,7 +274,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
           </div>
           <div>
             <nav
-              className="isolate inline-flex -space-x-px max-md:relative max-md:top-[-2rem] left-[15rem] max-md:gap-2  "
+              className="isolate inline-flex -space-x-px "
               aria-label="Pagination"
             >
               <span className="px-2 py-1 max-md:hidden ">View by :</span>
@@ -746,7 +746,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
             </table>
           </div>
         ) : (
-          <div className="container_card inline-grid grid-cols-4 gap-[4rem] max-w-screen-2xl max-lg:flex max-lg:flex-col max-lg:min-w-fit">
+          <div className="container_card inline-grid grid-cols-4 max-lg:inline-grid max-lg:grid-cols-3 max-md:inline-grid max-md:grid-cols-2 gap-[4rem]">
             {profiles.length > 0 &&
               profiles.map((itms, index) => {
                 // console.log("itmssss", itms);
@@ -756,13 +756,34 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                     key={index}
                     className="relative mb-2 hover:transform hover:scale-105 duration-300 max-lg:min-w-fit"
                   >
+                     {!isPremiumUser && (
+                      <div className="absolute grid justify-items-center inset-y-36 inset-x-7 z-50 ">
+                        <svg
+                          className="  flex justify-center items-center w-8 h-12 text-white"
+                          viewBox="0 0 26 34"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M3.49967 33.833C2.62884 33.833 1.88362 33.5232 1.26401 32.9036C0.643341 32.2829 0.333008 31.5372 0.333008 30.6663V14.833C0.333008 13.9622 0.643341 13.2164 1.26401 12.5958C1.88362 11.9761 2.62884 11.6663 3.49967 11.6663H5.08301V8.49967C5.08301 6.3094 5.85515 4.44212 7.39942 2.89784C8.94265 1.35462 10.8094 0.583008 12.9997 0.583008C15.19 0.583008 17.0572 1.35462 18.6015 2.89784C20.1447 4.44212 20.9163 6.3094 20.9163 8.49967V11.6663H22.4997C23.3705 11.6663 24.1163 11.9761 24.7369 12.5958C25.3565 13.2164 25.6663 13.9622 25.6663 14.833V30.6663C25.6663 31.5372 25.3565 32.2829 24.7369 32.9036C24.1163 33.5232 23.3705 33.833 22.4997 33.833H3.49967ZM12.9997 25.9163C13.8705 25.9163 14.6163 25.6065 15.2369 24.9869C15.8565 24.3663 16.1663 23.6205 16.1663 22.7497C16.1663 21.8788 15.8565 21.1331 15.2369 20.5124C14.6163 19.8928 13.8705 19.583 12.9997 19.583C12.1288 19.583 11.3836 19.8928 10.764 20.5124C10.1433 21.1331 9.83301 21.8788 9.83301 22.7497C9.83301 23.6205 10.1433 24.3663 10.764 24.9869C11.3836 25.6065 12.1288 25.9163 12.9997 25.9163ZM8.24967 11.6663H17.7497V8.49967C17.7497 7.18023 17.2879 6.0587 16.3643 5.13509C15.4406 4.21148 14.3191 3.74967 12.9997 3.74967C11.6802 3.74967 10.5587 4.21148 9.63509 5.13509C8.71148 6.0587 8.24967 7.18023 8.24967 8.49967V11.6663Z"
+                            fill="#F98B1D"
+                          />
+                        </svg>
+                        <button
+                          className="border-2 border-main bg-main rounded flex justify-center items-center   h-10 p-4 text-white"
+                          onClick={() => router.push("/pricingPlan/")}
+                        >
+                          Purchase Plan
+                        </button>
+                      </div>
+                    )}
                     <div className="cards relative min-h-[400px] shadow-2xl">
                       {!isPremiumUser && (
                         <div className="absolute top-0 left-0 w-full h-full bg-black/[0.3] z-40"></div>
                       )}
                       <div className="relative h-3/5">
                         {!isPremiumUser && (
-                          <div className="absolute top-0 left-0 z-40 w-full h-full backdrop-blur-sm"></div>
+                          <div className="absolute top-0 left-0 z-40 w-full h-full backdrop-blur-lg"></div>
                         )}
                         <picture>
                           <img
@@ -835,6 +856,9 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                         }}
                       >
                         <h1 className="text-lg">
+                        {!isPremiumUser && (
+                          <div className="absolute top-0 left-0 z-40 w-full h-full backdrop-blur-sm"></div>
+                        )}
                           <span className="no-underline hover:underline text-black cursor-pointer">
                             {itms.attributes.first_name}{" "}
                             {itms.attributes.last_name}
@@ -915,28 +939,8 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                           {itms.attributes.marriage_status}
                         </p>
                       </footer>
+                      
                     </div>
-                    {!isPremiumUser && (
-                      <div className="absolute grid place-items-center top-32 ml-16 z-50">
-                        <svg
-                          className="  flex justify-center items-center w-8 h-12 text-white"
-                          viewBox="0 0 26 34"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M3.49967 33.833C2.62884 33.833 1.88362 33.5232 1.26401 32.9036C0.643341 32.2829 0.333008 31.5372 0.333008 30.6663V14.833C0.333008 13.9622 0.643341 13.2164 1.26401 12.5958C1.88362 11.9761 2.62884 11.6663 3.49967 11.6663H5.08301V8.49967C5.08301 6.3094 5.85515 4.44212 7.39942 2.89784C8.94265 1.35462 10.8094 0.583008 12.9997 0.583008C15.19 0.583008 17.0572 1.35462 18.6015 2.89784C20.1447 4.44212 20.9163 6.3094 20.9163 8.49967V11.6663H22.4997C23.3705 11.6663 24.1163 11.9761 24.7369 12.5958C25.3565 13.2164 25.6663 13.9622 25.6663 14.833V30.6663C25.6663 31.5372 25.3565 32.2829 24.7369 32.9036C24.1163 33.5232 23.3705 33.833 22.4997 33.833H3.49967ZM12.9997 25.9163C13.8705 25.9163 14.6163 25.6065 15.2369 24.9869C15.8565 24.3663 16.1663 23.6205 16.1663 22.7497C16.1663 21.8788 15.8565 21.1331 15.2369 20.5124C14.6163 19.8928 13.8705 19.583 12.9997 19.583C12.1288 19.583 11.3836 19.8928 10.764 20.5124C10.1433 21.1331 9.83301 21.8788 9.83301 22.7497C9.83301 23.6205 10.1433 24.3663 10.764 24.9869C11.3836 25.6065 12.1288 25.9163 12.9997 25.9163ZM8.24967 11.6663H17.7497V8.49967C17.7497 7.18023 17.2879 6.0587 16.3643 5.13509C15.4406 4.21148 14.3191 3.74967 12.9997 3.74967C11.6802 3.74967 10.5587 4.21148 9.63509 5.13509C8.71148 6.0587 8.24967 7.18023 8.24967 8.49967V11.6663Z"
-                            fill="#F98B1D"
-                          />
-                        </svg>
-                        <button
-                          className="border-2 border-main bg-main rounded mt-5 flex justify-center items-center  h-10 p-4 text-white"
-                          onClick={() => router.push("/pricingPlan/")}
-                        >
-                          Purchase Plan
-                        </button>
-                      </div>
-                    )}
                   </div>
                 );
               })}

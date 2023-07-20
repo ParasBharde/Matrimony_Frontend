@@ -424,8 +424,7 @@ const Profiledetail = () => {
                                   <p>{data.attributes.Expection}</p>
                                 </div>
                               </div>
-                              <div>
-                                <div className="flex items-center justify-center h-24 mt-20 ml-10 md:ml-5 lg:-ml-5 ">
+                                <div className="column items-center justify-center h-36   md:ml-5">
                                     <div className="second_item relative">
                                       <button
                                         className=""
@@ -539,8 +538,6 @@ const Profiledetail = () => {
                                       </div>
                                     </div>
                                   </div>
-                                
-                                </div>
                           </div>
                           <p className="font-bold ml-10 mt-[140px] lg:mt-20 ">Family Information</p>
                           <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 ">

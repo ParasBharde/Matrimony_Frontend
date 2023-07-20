@@ -125,25 +125,30 @@
     flex-direction: column;
 }
 .img_profile_portfolio{
-    min-width: 20vw;
+    min-width: 17vw;
     border-radius: 2px;
     margin: 0rem 0rem 0rem 0rem;
     padding: 0rem;
     align-content: flex-start;
     flex-direction: column;
+    @include breakpoint-down(medium) {
+       justify-items: center;
+    }
 }
 .img_profile_g {
-    max-width: 7vw;
-    height: 15vh;
+    max-width: 6vw;
+    height: 12vh;
     border-radius: 2px;
-    margin: 0rem 0rem 0rem 1rem;
+    margin: 0rem 1rem 0rem 1rem;
     padding: 0rem;
     // margin-left: 1rem;
     align-content: flex-start;
+    @include breakpoint-down(medium) {
+        justify-items: center;
+        margin: 0 4rem 0rem 0rem;
+    }
     @include breakpoint-down(small) {
-        max-width: 20vw;
-        height: 10vh;
-        margin: -1rem 0rem 0rem -3rem; 
+      
     }
 
 }

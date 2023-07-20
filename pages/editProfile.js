@@ -17,7 +17,7 @@ const EditProfile = () => {
   const [screen, setScreen] = useState(1);
   const [userProfile, setUserProfile] = useState([]);
   const storageData = useStorage();
-  // console.log("storageData", storageData);
+  console.log("storageData", storageData);
 
   // useEffect(() => {
   //   setUserProfile(storageData?.user_profile);
@@ -31,8 +31,8 @@ const EditProfile = () => {
             `http://172.105.57.17:1337/api/profiles/?populate=%2A`
           );
           console.log("response", response.data.data);
-          let userProfile = response.data.data.filter((u) => u.id == storageData?.data?.id);
-          setUserProfile(userProfile[0].attributes);
+          let userProfile = response.data.data.filter((u) => u.id == storageData?.user_profile?.id);
+          setUserProfile(userProfile[0]?.attributes);
           console.log("userProfile ",userProfile);
         } catch (error) {
           console.error(error);

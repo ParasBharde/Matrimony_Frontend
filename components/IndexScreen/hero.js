@@ -43,7 +43,7 @@ console.log(data)
         console.log(response.data.data)
 
         let userProfileImage = response.data.data.filter(
-          (u) => u.id == data?.data?.id
+          (u) => u.id == data?.user_profile?.id
           );
           console.log(userProfileImage)
         setUserProfile(

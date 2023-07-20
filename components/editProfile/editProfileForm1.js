@@ -33,7 +33,7 @@ const EditProfileForm1 = ({ screen, setScreen, userData }) => {
           <p className='font-[600] text-[18px]'>Account Information</p>
         </div>
         <div className='mt-5 max-w-min mx-auto'>
-        <p className='text-dark font-[500] text-[14px] mb-2'>User*</p>
+        <p className='text-dark font-[500] text-[14px] mb-2'>Username*</p>
         <input readOnly placeholder='Enter Username' value={user} type={"text"} className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3 cursor-not-allowed' />
       </div>
       <div className='mt-5 max-w-min mx-auto'>
