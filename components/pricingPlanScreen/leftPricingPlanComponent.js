@@ -1,8 +1,11 @@
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
+import { useStorage } from "@/hooks/useStorage";
 
 const LeftPricingPlanComponent = (props) => {
   const router = useRouter();
+  const storage = useStorage();
+console.log(storage)
   useEffect(()=>{
 
   },[])
@@ -33,13 +36,19 @@ const LeftPricingPlanComponent = (props) => {
       <div className="flex justify-center items-center">
         <button
           onClick={() => {
-            router.push(
-              {
-                pathname: "/checkout",
-                query: { plan: 1 },
-              },
-              "/checkout"
-            );
+            if (storage) {
+              router.push(
+                {
+                  pathname: "/checkout",
+                  query: { plan: 1 },
+                },
+                "/checkout"
+              );
+            } else {
+            router.push('/signIn')
+
+            }
+           
           }}
           className="text-main bg-white py-2 px-10 rounded-md mx-auto cursor-pointer text-center mt-10"
         >
