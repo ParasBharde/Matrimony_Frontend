@@ -1,9 +1,11 @@
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect } from "react";
 
 const LeftPricingPlanComponent = (props) => {
   const router = useRouter();
-  console.log("props", props);
+  useEffect(()=>{
+
+  },[])
   return (
     <div className="bg-main text-white py-5 px-14 rounded-lg max-md:w-full max-md:text-center max-md:text-2xl max-md:p-5 shadow-2xl">
       <p className="text-[16px] font-[400] text-center mb-5">Free Plan</p>

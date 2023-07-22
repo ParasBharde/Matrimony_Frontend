@@ -2,11 +2,18 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Breadcrumb from "./breadcrumb";
+import { toast } from "react-toastify";
+import { useStorage } from "@/hooks/useStorage";
 
 const PaymentCheckout = () => {
-  const [year, setYear] = useState([]);
   const { query: plan } = useRouter();
-//   console.log("plan", plan);
+  const [cardNumber, setCardNumber] = useState("");
+  const [cvv, setCvv] = useState("");
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [expiry, setExpiry] = useState("");
+  const [focused, setFocused] = useState("");
+  const storage = useStorage();
 
   const [pricing, setpricing] = useState([]);
   async function getUser() {
@@ -23,29 +30,172 @@ const PaymentCheckout = () => {
     axios(config)
       .then(function (response) {
         setpricing(response.data.data.attributes);
-        // console.log(
-        //   "response.data.data.attributes",
-        //   response.data.data.attributes
-        // );
       })
       .catch(function (error) {
         console.log(error);
       });
   }
 
-  useEffect(() => {
-    getUser();
-  }, []);
+ 
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+  const day = String(currentDate.getDate()).padStart(2, '0');
+  const dateOnly = `${year}-${month}-${day}`;
+  console.log(dateOnly);
+
+
+  const postCardData = () => {
+    let data = JSON.stringify({
+      data: {
+        name: name,
+        card_number: cardNumber,
+        secure_code: cvv,
+        email: email,
+        user: storage?.id,
+        user_profile: storage?.user_profile?.id,
+        expiry_date: expiry
+      }
+    });
+    
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'http://172.105.57.17:1337/api/card-detail',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+    axios.request(config)
+    .then((response) => {
+      toast.success("Purchased Successfully",1000)
+      let data1 = JSON.stringify({
+        data: {
+          users_permissions_user: storage?.id,
+          user_profile:  storage?.user_profile?.id,
+          start_date: dateOnly,
+          end_date: dateOnly,
+          status: "active",
+          card_detail: response?.data?.data?.id
+        }
+      });
+      
+      let config1 = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: 'http://172.105.57.17:1337/api/subscription-details',
+        headers: { 
+          'Content-Type': 'application/json'
+        },
+        data : data1
+      };
+      
+      axios.request(config1)
+      .then((response) => {
+        console.log(response)
+        toast.success("Subscription Activated!",1000)
+        getSubscriptionDetail()
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+      
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  };
+
+
+const getSubscriptionDetail = () => {
+  let config = {
+    method: 'get',
+    maxBodyLength: Infinity,
+    url: 'http://172.105.57.17:1337/api/subscription-details?populate=card_detail.user_profile.user',
+    headers: { }
+  };
+  
+  axios.request(config)
+  .then((response) => {
+    let data = response.data.data.filter((profile) => profile?.attributes?.card_detail?.data?.attributes?.user_profile?.data?.attributes?.user?.data?.id === storage?.id
+    );
+    sessionStorage.setItem('subscription', JSON.stringify(data))
+
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+}
 
   useEffect(() => {
-    let startYear = 1999;
-    let endYear = 3000;
-    let years = [];
-    for (let i = startYear; i < endYear; i++) {
-      years.push(i + 1);
-    }
-    setYear(years);
+    getUser();
+    getSubscriptionDetail()
   }, []);
+
+
+  const handleCVCChange = (e) => {
+    setCvv(e.target.value);
+  };
+
+
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+  };
+  const handleCardNumberChange = (event) => {
+    const formattedNumber = formatCardNumber(event.target.value);
+    setCardNumber(formattedNumber);
+  };
+
+  const handleFocusChange = (event) => {
+    setFocused(event.target.name);
+  };
+
+  const handleExpiryChange = (event) => {
+    const { value } = event.target;
+    const formattedExpiry = value
+      .replace(/\s/g, '') // Remove spaces
+      .replace(/[^0-9]/g, '') // Remove non-numeric characters
+      .slice(0, 4); // Limit to 4 characters (MMYY)
+  
+    if (formattedExpiry.length <= 2) {
+      setExpiry(formattedExpiry);
+    } else {
+      const month = formattedExpiry.slice(0, 2);
+      const year = formattedExpiry.slice(2, 4);
+  
+      const truncatedMonth = Math.min(12, parseInt(month, 10));
+      const expiryDate = `${truncatedMonth.toString().padStart(2, '0')}/${year}`;
+  
+      setExpiry(expiryDate);
+    }
+  };
+
+  const clearData = () => {
+    setCardNumber("")
+    setCvv("")
+    setEmail("")
+    setName("")
+    setExpiry("")
+  }
+
+  const validate = () => {
+    if ((cardNumber === "" && cvv === "" && email === "" && expiry === "") || name === "") {
+      toast.error("Mandetory fields are Required!");
+      return false;
+    } else {
+       postCardData()
+       clearData()
+      }
+  };
+
+  const formatCardNumber = (input) => {
+    return input
+      .replace(/\D/g, "")
+      .replace(/(.{4})/g, "$1 ")
+      .trim();
+  };
+
   return (
     <div style={{ background: "#E0E0E0" }} className="pb-5">
       <Breadcrumb screens={["Home", "Payment Checkout"]} />
@@ -63,12 +213,15 @@ const PaymentCheckout = () => {
                     htmlFor="email"
                     className="text-xs font-semibold text-gray-500"
                   >
-                    Email
+                    Email *
                   </label>
                   <input
+                    title="Plan Already Purchased!"
                     type="email"
                     id="email"
                     name="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     placeholder="john.capler@fang.com"
                     className="mt-1 block w-full rounded border-gray-300 bg-gray-50 py-3 px-4 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-orange-400"
                   />
@@ -78,92 +231,76 @@ const PaymentCheckout = () => {
                     htmlFor="card-number"
                     className="text-xs font-semibold text-gray-500"
                   >
-                    Card number
+                    Card number *
                   </label>
                   <input
-                    type="text"
-                    id="card-number"
-                    name="card-number"
+                    title="Plan Already Purchased!"
+                    type="tel"
+                    name="number"
+                    onFocus={handleFocusChange}
+                    id="cardNumber"
+                    value={cardNumber}
+                    onChange={handleCardNumberChange}
+                    maxLength={19}
                     placeholder="1234-5678-XXXX-XXXX"
-                    className="block w-full rounded border-gray-300 bg-gray-50 py-3 px-4 pr-10 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-orange-400"
+                    className="block w-full rounded border-gray-300 bg-gray-50 py-3 px-4 pr-10 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-orange-400" 
+                
                   />
-                  {/* <img
-                    src="/images/uQUFIfCYVYcLK0qVJF5Yw.png"
-                    alt=""
-                    className="absolute bottom-3 right-3 max-h-4"
-                  /> */}
                 </div>
-                <div>
-                  <p className="text-xs font-semibold text-gray-500">
-                    Expiration date
-                  </p>
-                  <div className="mr-6 flex flex-wrap">
-                    <div className="my-1">
-                      <label htmlFor="month" className="sr-only">
-                        Select expiration month
-                      </label>
-                      <select
-                        name="month"
-                        id="month"
-                        className="cursor-pointer rounded border-gray-300 bg-gray-50 py-3 px-2 text-sm shadow-sm outline-none transition focus:ring-2 focus:ring-orange-400"
-                      >
-                        <option value="Month">Month</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="">12</option>
-                      </select>
-                    </div>
-                    <div className="my-1 ml-3 mr-6">
-                      <label htmlFor="year" className="sr-only">
-                        Select expiration year
-                      </label>
-                      <select
-                        name="year"
-                        id="year"
-                        className="cursor-pointer rounded border-gray-300 bg-gray-50 py-3 px-2 text-sm shadow-sm outline-none transition focus:ring-2 focus:ring-orange-400"
-                      >
-                        <option value="">Year</option>
-                        {year.map((data) => {
-                          return (
-                            <option key={data} value={data}>
-                              {data}
-                            </option>
-                          );
-                        })}
-                      </select>
-                    </div>
-                    <div className="relative my-1">
-                      <label htmlFor="security-code" className="sr-only">
-                        Security code
-                      </label>
-                      <input
-                        type="text"
-                        id="security-code"
-                        name="security-code"
-                        placeholder="Security code"
-                        className="block w-36 rounded border-gray-300 bg-gray-50 py-3 px-4 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-orange-400"
-                      />
-                    </div>
+                <div className="flex  items-start">
+                  <div className="mr-6 block">
+                    <p className="text-xs font-semibold text-gray-500">
+                      Expiration date *
+                    </p>
+                    <input
+                      title="Plan Already Purchased!"
+                      type="tel"
+                      name="expiry"
+                      placeholder="MM/YY Expiry"
+                      value={expiry}
+                      onChange={handleExpiryChange}
+                      onFocus={handleFocusChange}
+                      className="block w-36 rounded border-gray-300 bg-gray-50 py-3 px-4 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-orange-400"
+                    />
+                  </div>
+                  <div className="mr-6 block">
+                    <p
+                      htmlFor="security-code"
+                      className="text-xs font-semibold text-gray-500"
+                    >
+                      Security code *
+                    </p>
+                    <input
+                      title="Plan Already Purchased!"
+                      id="cvv"
+                      value={cvv}
+                      maxLength={3}
+                      placeholder="Security code"
+                      type="tel"
+                      name="cvc"
+                      onChange={handleCVCChange}
+                      onFocus={handleFocusChange}
+                      className="block w-36 rounded border-gray-300 bg-gray-50 py-3 px-4 text-sm placeholder-gray-300 
+                        shadow-sm outline-none transition focus:ring-2 focus:ring-orange-400"
+                    />
                   </div>
                 </div>
                 <div>
-                  <label htmlFor="card-name" className="sr-only">
+                  <label
+                    htmlFor="card-name"
+                    className="text-xs font-semibold text-gray-500"
+                  >
                     Card name
                   </label>
                   <input
+                    title="Plan Already Purchased!"
                     type="text"
-                    id="card-name"
-                    name="card-name"
-                    placeholder="Name on the card"
+                    name="name"
+                    placeholder="Cardholder Name"
+                    value={name}
+                    onChange={handleNameChange}
+                    onFocus={handleFocusChange}
+                    id="name"
                     className="mt-1 block w-full rounded border-gray-300 bg-gray-50 py-3 px-4 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-orange-400"
                   />
                 </div>
@@ -178,8 +315,14 @@ const PaymentCheckout = () => {
                 </a>
               </p>
               <button
+                title="Plan Already Purchased!"
                 type="submit"
-                className="mt-4 inline-flex w-full items-center justify-center rounded bg-main py-2.5 px-4 text-base font-semibold tracking-wide text-white text-opacity-80 outline-none ring-offset-2 transition hover:text-opacity-100 focus:ring-2 focus:ring-orange-400 sm:text-lg"
+                className="mt-4 inline-flex w-full items-center justify-center rounded
+                 bg-main py-2.5 px-4 text-base font-semibold 
+                 tracking-wide text-white text-opacity-80 outline-none ring-offset-2
+                  transition hover:text-opacity-100 focus:ring-2 focus:ring-orange-400
+                   sm:text-lg"
+                onClick={validate}
               >
                 Place Order
               </button>
@@ -231,7 +374,8 @@ const PaymentCheckout = () => {
                   <span>
                     {plan.plan == "1"
                       ? pricing.Pricing_Plan1
-                      : pricing.Pricing_Plan2} /-
+                      : pricing.Pricing_Plan2}{" "}
+                    /-
                   </span>
                 </p>
               </div>
@@ -243,7 +387,8 @@ const PaymentCheckout = () => {
                 <span className="font-light">(International)</span>
               </p>
               <p className="mt-1 text-sm font-semibold">
-                support@matrimony.com <span className="font-light">(Email)</span>
+                support@matrimony.com{" "}
+                <span className="font-light">(Email)</span>
               </p>
               <p className="mt-2 text-xs font-medium">
                 Call us now for payment related issues

@@ -24,14 +24,13 @@ const Header = () => {
 
   const storage = useStorage();
   let id = storage?.user_profile;
-console.log(storage)
+
   const dropdownRef = useRef(null);
   const dropdownRef1 = useRef(null);
   const [isMenuDropDownOpen, setMenuDropDownOpen] = useState(false);
   const [isMenuDropDownOpen1, setMenuDropDownOpen1] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
   const [isAdminLogin, setAdminLogin] = useState();
-console.log('userProfile',userProfile)
   const [isProfileChanged, setIsProfileChanges] = useState("false");
 
   useEffect(() => {
@@ -159,7 +158,7 @@ console.log('userProfile',userProfile)
             }}
           >
             {locales.map((l) => {
-              console.log(l);
+            
               return (
                 <option key={l} value={l} >
                   {l == "en" ? "EN" : "TA"}
@@ -180,7 +179,6 @@ console.log('userProfile',userProfile)
             }}
           >
             {locales.map((l) => {
-              console.log(l);
               return (
                 <option key={l} value={l}>
                   {l == "en" ? "EN" : "TA"}

@@ -15,7 +15,6 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   const dropdownRef = useRef(null);
   const storageData = useStorage();
 
-  // console.log("allprofiles", allprofiles);
   const calculateAge = useCalculateAge();
   const [active, setActive] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,10 +25,11 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   const [profiles, setProfiles] = useState([]);
   const [myLikedprofiles, setMyLikedprofiles] = useState([]);
   const [pageCount, setPageCount] = useState(1);
-
+  
   const [currentLikes, setCurrentLikes] = useState([]);
-
+  
   const [isPremiumUser, setIsPremiumUser] = useState(false);
+  console.log("isPremiumUser", isPremiumUser);
 
   useEffect(() => {
     axios
@@ -94,25 +94,30 @@ const Portfoliodetails = ({ allprofiles, total }) => {
 
   // subscription code start
   useEffect(() => {
-    if (storageData) {
-      axios
-        .get(
-          `http://172.105.57.17:1337/api/profiles/${storageData?.user_profile?.id}?populate=%2A`
-        )
-        .then((response) => {
-          // console.log("premium",response.data.data.attributes.subscriptions_detail.data.attributes.isTxnSuccessful);
-          let subscription =
-            response.data.data?.attributes?.subscriptions_detail?.data;
-          if (subscription != null) {
-            if (subscription?.attributes?.isTxnSuccessful) {
-              setIsPremiumUser(subscription?.attributes?.isTxnSuccessful);
-            }
-          }
-        })
-        .catch((error) => {
-          console.log("error fetching premium user", error);
-        });
-    }
+    const subscription = () => {
+      if (storageData) {
+        let config = {
+          method: "get",
+          maxBodyLength: Infinity,
+          url: "http://172.105.57.17:1337/api/subscription-details?populate=card_detail.user_profile.user",
+          headers: {},
+        };
+
+        axios
+          .request(config)
+          .then((response) => {
+            let sub = response.data.data.filter((u)=> u.attributes.card_detail.data.attributes.user_profile.data.attributes.user.data.id === storageData?.id)
+            console.log(sub)
+            setIsPremiumUser(sub[0].attributes.status === "active")
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else {
+        return false;
+      }
+    };
+    subscription();
   }, [storageData]);
   // subscription code end
 
@@ -756,7 +761,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                     key={index}
                     className="relative mb-2 hover:transform hover:scale-105 duration-300 max-lg:min-w-fit"
                   >
-                     {!isPremiumUser && (
+                    {!isPremiumUser && (
                       <div className="absolute grid justify-items-center inset-y-36 inset-x-7 z-50 ">
                         <svg
                           className="  flex justify-center items-center w-8 h-12 text-white"
@@ -856,9 +861,9 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                         }}
                       >
                         <h1 className="text-lg">
-                        {!isPremiumUser && (
-                          <div className="absolute top-0 left-0 z-40 w-full h-full backdrop-blur-sm"></div>
-                        )}
+                          {!isPremiumUser && (
+                            <div className="absolute top-0 left-0 z-40 w-full h-full backdrop-blur-sm"></div>
+                          )}
                           <span className="no-underline hover:underline text-black cursor-pointer">
                             {itms.attributes.first_name}{" "}
                             {itms.attributes.last_name}
@@ -939,7 +944,6 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                           {itms.attributes.marriage_status}
                         </p>
                       </footer>
-                      
                     </div>
                   </div>
                 );

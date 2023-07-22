@@ -8,6 +8,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import { useStorage } from "@/hooks/useStorage";
 
 const Managelistdash = () => {
   const [profiles, setprofiles] = useState([]);
@@ -19,13 +20,14 @@ const Managelistdash = () => {
   const [ids, setIds] = useState([]);
   const [downloadProfile, setDownloadProfile] = useState([]);
   const inputRef = useRef(false);
-
+  const [isPremiumUser, setIsPremiumUser] = useState([]);
+  console.log("isPremiumUser", isPremiumUser);
   useEffect(() => {
     async function getUser() {
       var config = {
         method: "get",
         maxBodyLength: Infinity,
-        url: "http://172.105.57.17:1337/api/profiles/?populate=%2A ",
+        url: "http://172.105.57.17:1337/api/profiles/?populate=%2A",
         headers: {
           Authorization:
             "Bearer Bearer 3ad527b6e04e45a25b5c7a57d8e796af06f0853e2fa7c4551566c2096b18b80500bdaf2fc61dace337df1dc8c2a0026075026b10589f9c9d009a72165635b72012c305bf52929b73a79c97e1e5a53e7193f812604f83fa679731fa19540e9ecd7112dc224f0cccd4624294b05ec2864b552bdf7905d65736410f0cf2774c3994",
@@ -34,8 +36,9 @@ const Managelistdash = () => {
 
       axios(config)
         .then(function (response) {
+          const dtmap =   response.data.data.filter((u)=>u.id === isPremiumUser.attributes.card_detail.data.attributes.user_profile.data.id).map((u)=>u)
+console.log(dtmap)
           setprofiles(response.data.data);
-          console.log("premimum", response.data.data);
           setProfileToShow(response.data.data);
           setLength(Math.ceil(response.data.data.length / 10));
           setTotal(response.data.data.length);
@@ -44,8 +47,29 @@ const Managelistdash = () => {
           console.log(error);
         });
     }
-    console.log("profiles", profiles);
     getUser();
+  }, []);
+
+  useEffect(() => {
+    const subscription = () => {
+      let config = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: "http://172.105.57.17:1337/api/subscription-details?populate=card_detail.user_profile.user",
+        headers: {},
+      };
+
+      axios
+        .request(config)
+        .then((response) => {
+          let sub = response.data.data;
+          setIsPremiumUser(sub)
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    subscription();
   }, []);
 
   useEffect(() => {
@@ -177,8 +201,6 @@ const Managelistdash = () => {
     setSelectedRows(Array(profileToShow.length).fill(false));
     inputRef.current.checked = false;
   }
-
-
 
   return (
     <>
@@ -346,7 +368,7 @@ const Managelistdash = () => {
                       </span>
                     ) : (
                       <span className="bg-red-600 text-white py-2 px-4 rounded text-base cursor-pointer">
-                        Expairy
+                        Expaired
                       </span>
                     )}
                   </td>

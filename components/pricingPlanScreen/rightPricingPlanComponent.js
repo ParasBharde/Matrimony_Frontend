@@ -3,7 +3,6 @@ import React from "react";
 
 const RightPricingPlanComponent = (props) => {
   const router = useRouter();
-  console.log("props", props);
   return (
     <div className="bg-white py-5 px-14 rounded-lg max-md:w-full max-md:text-center max-md:text-2xl shadow-2xl">
       <p className="text-[16px] font-[400] text-center mb-5">Member Plan</p>
