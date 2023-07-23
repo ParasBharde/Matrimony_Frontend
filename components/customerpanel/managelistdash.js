@@ -20,7 +20,7 @@ const Managelistdash = () => {
   const [ids, setIds] = useState([]);
   const [downloadProfile, setDownloadProfile] = useState([]);
   const inputRef = useRef(false);
-  const [isPremiumUser, setIsPremiumUser] = useState([]);
+  const [isPremiumUser, setIsPremiumUser] = useState({});
   console.log("isPremiumUser", isPremiumUser);
   useEffect(() => {
     async function getUser() {
@@ -36,8 +36,8 @@ const Managelistdash = () => {
 
       axios(config)
         .then(function (response) {
-          const dtmap =   response.data.data.filter((u)=>u.id === isPremiumUser.attributes.card_detail.data.attributes.user_profile.data.id).map((u)=>u)
-console.log(dtmap)
+          // console.log(response.data.data)
+          // const dtmap =   response.data.data.filter((u)=> u?.id === isPremiumUser?.data?.id).map((u)=>console.log(u))
           setprofiles(response.data.data);
           setProfileToShow(response.data.data);
           setLength(Math.ceil(response.data.data.length / 10));
@@ -62,7 +62,8 @@ console.log(dtmap)
       axios
         .request(config)
         .then((response) => {
-          let sub = response.data.data;
+          console.log(response.data.data)
+          let sub = response.data.data.map((u)=>u.attributes.card_detail.data.attributes.user_profile);
           setIsPremiumUser(sub)
         })
         .catch((error) => {
@@ -308,6 +309,7 @@ console.log(dtmap)
           </thead>
           <tbody>
             {profileToShow.map((item, index) => {
+              console.log(item)
               return (
                 <tr key={index} className="bg-white border-b">
                   <td className="px-6 py-4">
@@ -359,11 +361,10 @@ console.log(dtmap)
                   </td>
                   <td className="px-6 py-4">{item.attributes.email}</td>
                   <td className="px-6 py-4">{item.attributes.phone_number}</td>
-                  <td className="px-6 py-4">23/04/2002</td>
+                  <td className="px-6 py-4">{item?.attributes?.subscriptions_detail?.data?.attributes?.start_date ? item?.attributes?.subscriptions_detail?.data?.attributes?.start_date : "--/--"}</td>
                   <td className="font-medium text-left px-2 py-4">
-                    {item?.attributes?.subscriptions_detail?.data?.attributes
-                      ?.isTxnSuccessful ? (
-                      <span className="bg-green-600 text-white py-2 px-5 rounded text-base cursor-pointer">
+                    {item?.attributes?.subscriptions_detail?.data?.attributes?.status === "active" ? (
+                      <span className="bg-green-600 text-white py-2 px-6 rounded text-base cursor-pointer">
                         Active
                       </span>
                     ) : (

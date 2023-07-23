@@ -18,8 +18,8 @@ const ManageList = () => {
     <>
       <Sidenav />
       <Topnav />
-      <Footernav />
       <Managelistdash />
+      <Footernav />
     </>
   );
 };

@@ -38,11 +38,10 @@ const PaymentCheckout = () => {
 
   const currentDate = new Date();
   const year = currentDate.getFullYear();
-  const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-  const day = String(currentDate.getDate()).padStart(2, '0');
+  const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+  const day = String(currentDate.getDate()).padStart(2, "0");
   const dateOnly = `${year}-${month}-${day}`;
   console.log(dateOnly);
-
 
   const postCardData = () => {
     let data = JSON.stringify({
@@ -53,90 +52,95 @@ const PaymentCheckout = () => {
         email: email,
         user: storage?.id,
         user_profile: storage?.user_profile?.id,
-        expiry_date: expiry
-      }
-    });
-    
-    let config = {
-      method: 'post',
-      maxBodyLength: Infinity,
-      url: 'http://172.105.57.17:1337/api/card-detail',
-      headers: { 
-        'Content-Type': 'application/json'
+        expiry_date: expiry,
       },
-      data : data
+    });
+
+    let config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: "http://172.105.57.17:1337/api/card-detail",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
     };
-    axios.request(config)
-    .then((response) => {
-      toast.success("Purchased Successfully",1000)
-      let data1 = JSON.stringify({
-        data: {
-          users_permissions_user: storage?.id,
-          user_profile:  storage?.user_profile?.id,
-          start_date: dateOnly,
-          end_date: dateOnly,
-          status: "active",
-          card_detail: response?.data?.data?.id
-        }
-      });
-      
-      let config1 = {
-        method: 'post',
-        maxBodyLength: Infinity,
-        url: 'http://172.105.57.17:1337/api/subscription-details',
-        headers: { 
-          'Content-Type': 'application/json'
-        },
-        data : data1
-      };
-      
-      axios.request(config1)
+    axios
+      .request(config)
       .then((response) => {
-        console.log(response)
-        toast.success("Subscription Activated!",1000)
-        getSubscriptionDetail()
+        toast.success("Purchased Successfully", 1000);
+        let data1 = JSON.stringify({
+          data: {
+            users_permissions_user: storage?.id,
+            user_profile: storage?.user_profile?.id,
+            start_date: dateOnly,
+            end_date: dateOnly,
+            status: "active",
+            card_detail: response?.data?.data?.id,
+          },
+        });
+
+        let config1 = {
+          method: "post",
+          maxBodyLength: Infinity,
+          url: "http://172.105.57.17:1337/api/subscription-details",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: data1,
+        };
+
+        axios
+          .request(config1)
+          .then((response) => {
+            console.log(response);
+            toast.success("Subscription Activated!", 1000);
+            getSubscriptionDetail();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       })
       .catch((error) => {
         console.log(error);
       });
-      
-    })
-    .catch((error) => {
-      console.log(error);
-    });
   };
 
+  const [checkPrem, setprem] = useState();
+  console.log(checkPrem);
+  const getSubscriptionDetail = () => {
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: "http://172.105.57.17:1337/api/subscription-details?populate=card_detail.user_profile.user",
+      headers: {},
+    };
 
-const getSubscriptionDetail = () => {
-  let config = {
-    method: 'get',
-    maxBodyLength: Infinity,
-    url: 'http://172.105.57.17:1337/api/subscription-details?populate=card_detail.user_profile.user',
-    headers: { }
+    axios
+      .request(config)
+      .then((response) => {
+        console.log("data",response.data);
+
+        let data = response.data.data.filter(
+          (profile) =>
+          profile.attributes.card_detail.data.attributes.user_profile.data.attributes.user.data?.id === storage?.id
+          );
+          console.log("data",data);
+        setprem(data[0]?.attributes?.status);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
-  
-  axios.request(config)
-  .then((response) => {
-    let data = response.data.data.filter((profile) => profile?.attributes?.card_detail?.data?.attributes?.user_profile?.data?.attributes?.user?.data?.id === storage?.id
-    );
-    sessionStorage.setItem('subscription', JSON.stringify(data))
-
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-}
 
   useEffect(() => {
     getUser();
-    getSubscriptionDetail()
+    getSubscriptionDetail();
   }, []);
-
 
   const handleCVCChange = (e) => {
     setCvv(e.target.value);
   };
-
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -153,39 +157,44 @@ const getSubscriptionDetail = () => {
   const handleExpiryChange = (event) => {
     const { value } = event.target;
     const formattedExpiry = value
-      .replace(/\s/g, '') // Remove spaces
-      .replace(/[^0-9]/g, '') // Remove non-numeric characters
+      .replace(/\s/g, "") // Remove spaces
+      .replace(/[^0-9]/g, "") // Remove non-numeric characters
       .slice(0, 4); // Limit to 4 characters (MMYY)
-  
+
     if (formattedExpiry.length <= 2) {
       setExpiry(formattedExpiry);
     } else {
       const month = formattedExpiry.slice(0, 2);
       const year = formattedExpiry.slice(2, 4);
-  
+
       const truncatedMonth = Math.min(12, parseInt(month, 10));
-      const expiryDate = `${truncatedMonth.toString().padStart(2, '0')}/${year}`;
-  
+      const expiryDate = `${truncatedMonth
+        .toString()
+        .padStart(2, "0")}/${year}`;
+
       setExpiry(expiryDate);
     }
   };
 
   const clearData = () => {
-    setCardNumber("")
-    setCvv("")
-    setEmail("")
-    setName("")
-    setExpiry("")
-  }
+    setCardNumber("");
+    setCvv("");
+    setEmail("");
+    setName("");
+    setExpiry("");
+  };
 
   const validate = () => {
-    if ((cardNumber === "" && cvv === "" && email === "" && expiry === "") || name === "") {
+    if (
+      (cardNumber === "" && cvv === "" && email === "" && expiry === "") ||
+      name === ""
+    ) {
       toast.error("Mandetory fields are Required!");
       return false;
     } else {
-       postCardData()
-       clearData()
-      }
+      postCardData();
+      clearData();
+    }
   };
 
   const formatCardNumber = (input) => {
@@ -215,14 +224,13 @@ const getSubscriptionDetail = () => {
                     Email *
                   </label>
                   <input
-                    title="Plan Already Purchased!"
                     type="email"
                     id="email"
                     name="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="john.capler@fang.com"
-                    className="mt-1 block w-full rounded border-gray-300 bg-gray-50 py-3 px-4 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-orange-400"
+                    className={`mt-1 block w-full rounded border-gray-300 bg-gray-50 py-3 px-4 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-orange-400`}
                   />
                 </div>
                 <div className="relative">
@@ -233,7 +241,6 @@ const getSubscriptionDetail = () => {
                     Card number *
                   </label>
                   <input
-                    title="Plan Already Purchased!"
                     type="tel"
                     name="number"
                     onFocus={handleFocusChange}
@@ -242,8 +249,7 @@ const getSubscriptionDetail = () => {
                     onChange={handleCardNumberChange}
                     maxLength={19}
                     placeholder="1234-5678-XXXX-XXXX"
-                    className="block w-full rounded border-gray-300 bg-gray-50 py-3 px-4 pr-10 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-orange-400" 
-                
+                    className={`block w-full rounded border-gray-300 bg-gray-50 py-3 px-4 pr-10 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-orange-400`}
                   />
                 </div>
                 <div className="flex  items-start">
@@ -252,7 +258,6 @@ const getSubscriptionDetail = () => {
                       Expiration date *
                     </p>
                     <input
-                      title="Plan Already Purchased!"
                       type="tel"
                       name="expiry"
                       placeholder="MM/YY Expiry"
@@ -270,7 +275,6 @@ const getSubscriptionDetail = () => {
                       Security code *
                     </p>
                     <input
-                      title="Plan Already Purchased!"
                       id="cvv"
                       value={cvv}
                       maxLength={3}
@@ -292,7 +296,6 @@ const getSubscriptionDetail = () => {
                     Card name
                   </label>
                   <input
-                    title="Plan Already Purchased!"
                     type="text"
                     name="name"
                     placeholder="Cardholder Name"
@@ -314,14 +317,26 @@ const getSubscriptionDetail = () => {
                 </a>
               </p>
               <button
-                title="Plan Already Purchased!"
+                title={checkPrem === "active" ? "Plan Already Purchased!" : ""}
                 type="submit"
-                className="mt-4 inline-flex w-full items-center justify-center rounded
+                className={`mt-4 inline-flex w-full items-center justify-center rounded
                  bg-main py-2.5 px-4 text-base font-semibold 
                  tracking-wide text-white text-opacity-80 outline-none ring-offset-2
                   transition hover:text-opacity-100 focus:ring-2 focus:ring-orange-400
-                   sm:text-lg"
-                onClick={validate}
+                   sm:text-lg ${
+                     checkPrem === "active"
+                       ? "cursor-not-allowed"
+                       : "cursor-pointer"
+                   }`}
+                onClick={() => {
+                  if (checkPrem === "active") {
+                    console.log("false")
+                    return false;
+                  } else {
+                    validate();
+                    return true;
+                  }
+                }}
               >
                 Place Order
               </button>
