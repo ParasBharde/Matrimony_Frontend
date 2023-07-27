@@ -54,6 +54,8 @@ const Dashboard = () => {
     getUser();
   }, []);
 
+  const [subCount, setsubCount] = useState()
+  console.log(subCount)
   useEffect(() => {
     async function getPremiumUsers() {
       var config = {
@@ -65,6 +67,7 @@ const Dashboard = () => {
       axios(config)
         .then((response) => {
           console.log("premium ",response.data.data);
+          setsubCount(response.data.data)
           let premium = response.data.data;
           let count = 0;
           for(let i=0; i<premium.length; i++) {
@@ -245,7 +248,7 @@ const Dashboard = () => {
             </div>
             <div className="flex items-center justify-center h-24 rounded bg-gray-50">
               <div className="grid grid-rows-2 gap-2 flex-1 justify-start align-middle ml-6">
-                <span style={{ fontSize: "1.5rem" }}>{premiumCount}</span>
+                <span style={{ fontSize: "1.5rem" }}>{subCount?.length}</span>
                 <p className="text-sm">Total Paid Members</p>
               </div>
               <svg

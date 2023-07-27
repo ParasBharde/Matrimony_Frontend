@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Breadcrumb from "./breadcrumb";
 import { toast } from "react-toastify";
@@ -95,6 +95,7 @@ const PaymentCheckout = () => {
           .then((response) => {
             console.log(response);
             toast.success("Subscription Activated!", 1000);
+          router.push("/portfolio/portfolio");
             getSubscriptionDetail();
           })
           .catch((error) => {
