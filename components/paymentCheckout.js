@@ -14,7 +14,8 @@ const PaymentCheckout = () => {
   const [expiry, setExpiry] = useState("");
   const [focused, setFocused] = useState("");
   const storage = useStorage();
-  const router = useRouter()
+  // console.log(storage)
+  const router = useRouter();
   const [pricing, setpricing] = useState([]);
   async function getUser() {
     var config = {
@@ -108,7 +109,6 @@ const PaymentCheckout = () => {
   };
 
   const [checkPrem, setprem] = useState();
-  console.log(checkPrem);
   const getSubscriptionDetail = () => {
     let config = {
       method: "get",
@@ -120,24 +120,27 @@ const PaymentCheckout = () => {
     axios
       .request(config)
       .then((response) => {
-        console.log("data",response.data);
-
-        let data = response.data.data.filter(
-          (profile) =>
-          profile.attributes.card_detail.data.attributes.user_profile.data.attributes.user.data?.id === storage?.id
-          );
-          console.log("data",data);
-        setprem(data[0]?.attributes?.status);
+        console.log("data", response.data.data);
+        response.data.data
+          ?.filter(
+            (u) =>
+              u?.attributes?.card_detail?.data?.attributes?.user_profile?.data
+                ?.id === storage?.user_profile?.id
+          )
+          .map((m) => {
+            setprem(m.attributes.status);
+          });
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error)
       });
   };
+  console.log(checkPrem);
 
-  useEffect(() => {
+  React.useEffect(() => {
     getUser();
     getSubscriptionDetail();
-  }, []);
+  }, [storage]);
 
   const handleCVCChange = (e) => {
     setCvv(e.target.value);
@@ -331,11 +334,10 @@ const PaymentCheckout = () => {
                    }`}
                 onClick={() => {
                   if (checkPrem === "active") {
-                    console.log("false")
-                 toast.info("Subscription Already Purchased!", 1000);
+                    console.log("false");
+                    toast.info("Subscription Already Purchased!", 1000);
 
                     return false;
-
                   } else {
                     validate();
                     return true;
