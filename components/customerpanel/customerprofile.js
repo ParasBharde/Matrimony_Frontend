@@ -165,7 +165,51 @@ const Customerpofile = () => {
           </div>
         </div>
       )}
-
+    <div className="flex justify-end space-x-2 mt-2 max-md:hidden mr-10 max-md:justify-center max-sm:justify-center">
+            
+            <button
+              className="px-5 rounded  bg-orange-400 py-1.5"
+              onClick={downloadPdf}
+            >
+              <Link className="flex text-white" href="#">
+                <svg
+                  className="mr-2 mt-1"
+                  width="17"
+                  height="16"
+                  viewBox="0 0 17 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M14.5 11V14H2.5V11H0.5V14C0.5 15.1 1.4 16 2.5 16H14.5C15.6 16 16.5 15.1 16.5 14V11H14.5ZM13.5 7L12.09 5.59L9.5 8.17V0H7.5V8.17L4.91 5.59L3.5 7L8.5 12L13.5 7Z"
+                    fill="white"
+                  />
+                </svg>
+                Download
+              </Link>
+            </button>
+            <button
+              onClick={() => setModalOpen(true)}
+              className="px-5 rounded bg-orange-600 py-1.5"
+            >
+              <span className="flex text-white">
+                <svg
+                  className="mr-2 mt-1"
+                  width="17"
+                  height="16"
+                  viewBox="0 0 15 18"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M1.5 16C1.5 17.1 2.4 18 3.5 18H11.5C12.6 18 13.5 17.1 13.5 16V4H1.5V16ZM14.5 1H11L10 0H5L4 1H0.5V3H14.5V1Z"
+                    fill="white"
+                  />
+                </svg>
+                Delete
+              </span>
+            </button>
+          </div>
       <div className="parent w-screen">
         <table className="child table-auto" id="pdf-content">
           <div className="table_header flex">
@@ -180,51 +224,7 @@ const Customerpofile = () => {
                 </td>
               </div>
             </thead>
-            <div className="flex space-x-2 mt-2 max-md:hidden ">
-            
-              <button
-                className="px-5 rounded  bg-orange-400 py-1.5"
-                onClick={downloadPdf}
-              >
-                <Link className="flex text-white" href="#">
-                  <svg
-                    className="mr-2 mt-1"
-                    width="17"
-                    height="16"
-                    viewBox="0 0 17 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M14.5 11V14H2.5V11H0.5V14C0.5 15.1 1.4 16 2.5 16H14.5C15.6 16 16.5 15.1 16.5 14V11H14.5ZM13.5 7L12.09 5.59L9.5 8.17V0H7.5V8.17L4.91 5.59L3.5 7L8.5 12L13.5 7Z"
-                      fill="white"
-                    />
-                  </svg>
-                  Download
-                </Link>
-              </button>
-              <button
-                onClick={() => setModalOpen(true)}
-                className="px-5 rounded bg-orange-600 py-1.5"
-              >
-                <span className="flex text-white">
-                  <svg
-                    className="mr-2 mt-1"
-                    width="17"
-                    height="16"
-                    viewBox="0 0 15 18"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M1.5 16C1.5 17.1 2.4 18 3.5 18H11.5C12.6 18 13.5 17.1 13.5 16V4H1.5V16ZM14.5 1H11L10 0H5L4 1H0.5V3H14.5V1Z"
-                      fill="white"
-                    />
-                  </svg>
-                  Delete
-                </span>
-              </button>
-            </div>
+        
           </div>
 
           <div className="first_content p-4 sm:ml-64 ">
@@ -255,7 +255,7 @@ const Customerpofile = () => {
                   </div>
                 </div>
                 <div className="flex items-center justify-center h-24 max-md:hidden">
-                  <div className="second_item relative  max-md:w-full">
+                  <div className="second_item_admin relative  max-md:w-full">
                     <Image
                       className="img_profile object-contain w-40 h-60"
                       object-fit

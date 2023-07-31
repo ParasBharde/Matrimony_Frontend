@@ -343,7 +343,7 @@ const Dashboard = () => {
                         <td className="px-6 py-4">
                           {itms.attributes.phone_number}
                         </td>
-                        <td className="px-6 py-4">
+                        <td className="px-6 py-4 cursor-pointer">
                           <svg
                             onClick={() => {
                               router.push({

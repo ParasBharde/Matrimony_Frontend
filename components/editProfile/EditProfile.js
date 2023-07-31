@@ -228,8 +228,8 @@ const EditProfile = () => {
                       </div>
                     </div>
                     <div className="p-5">
-                    <div className=" flex items-center justify-center h-24 ">
-                        <div className="second_item relative">
+                    <div className=" flex items-center justify-center ">
+                        <div className="second_item_edit relative">
                           <button
                             className=""
                             type="button"
@@ -357,7 +357,7 @@ const EditProfile = () => {
                     </div>
                 </div>
                   
-                <p className="font-bold ml-10 mt-[120px] lg:mt-10 ">Family Information</p>
+                <p className="font-bold ml-10 lg:mt-[-8rem]">Family Information</p>
                 <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 ">
                     <div className="p-5  ">
                         <div className="ml-5">

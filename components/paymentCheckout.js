@@ -14,7 +14,7 @@ const PaymentCheckout = () => {
   const [expiry, setExpiry] = useState("");
   const [focused, setFocused] = useState("");
   const storage = useStorage();
-
+  const router = useRouter()
   const [pricing, setpricing] = useState([]);
   async function getUser() {
     var config = {
@@ -95,7 +95,7 @@ const PaymentCheckout = () => {
           .then((response) => {
             console.log(response);
             toast.success("Subscription Activated!", 1000);
-          router.push("/portfolio/portfolio");
+            router.push("/portfolio/portfolio");
             getSubscriptionDetail();
           })
           .catch((error) => {
@@ -332,7 +332,10 @@ const PaymentCheckout = () => {
                 onClick={() => {
                   if (checkPrem === "active") {
                     console.log("false")
+                 toast.info("Subscription Already Purchased!", 1000);
+
                     return false;
+
                   } else {
                     validate();
                     return true;
