@@ -221,14 +221,14 @@ const Header = () => {
               className="m-3 w-[200px] cursor-pointer"
               onClick={() => router.push("/contactus")}
             >
-              <i className="fa-regular fa-address-card mr-5 text-main"></i>
+              <i className="fa-regular fa-address-card  text-main"></i>
               Contact Us
             </p>
             <p
               className="m-3 w-[200px] cursor-pointer"
               onClick={() => router.push("/aboutus")}
             >
-              <i className="fa-regular fa-user mr-5 text-main"></i>
+              <i className="fa-regular fa-user  text-main"></i>
               About Us
             </p>
             
@@ -293,74 +293,7 @@ const Header = () => {
             </div>
           </div>
         )}
-        {/* {data && (
-          <div
-            ref={dropdownRef}
-            className="relative max-md:right-10 right-[2rem]"
-          >
-            <Image
-              className="rounded-full max-w-[45px] "
-              loader={imgLoader}
-              src={
-                userProfile != null
-                  ? `http://172.105.57.17:1337${userProfile}`
-                  : avatar
-              }
-              width="100"
-              height="100"
-              unoptimized
-              alt="avatar"
-              onMouseOver={() => setMenuDropDownOpen(true)}
-            />
-            {isMenuDropDownOpen && (
-              <div
-                className="absolute bg-white right-2 shadow-lg top-11 z-50"
-                onMouseLeave={() => setMenuDropDownOpen(false)}
-              >
-                <p
-                  className="m-3 w-[200px] cursor-pointer"
-                  //onClick={() => router.push('/profile/')}
-                  onClick={() => {
-                    router.push("/profile");
-                    // setMenuDropDownOpen(false)
-                  }}
-                >
-                  <i className="fa-regular fa-circle-user mr-5 text-main"></i>
-                  Profile
-                </p>
-                <p
-                  className="m-3 w-[200px] cursor-pointer"
-                  onClick={() => {
-                    router.push("/likedprofile/" + data.id);
-                  }}
-                >
-                  <i className="fa-regular fa-heart mr-5 text-main"></i>
-                  Liked Profile
-                </p>
-                <p
-                  className="m-3 w-[200px] cursor-pointer"
-                  onClick={() => {
-                    router.push("/downloadProfile");
-                  }}
-                >
-                  <i className="fa-solid fa-download mr-5 text-main"></i>
-                  Download Profile
-                </p>
-                <p
-                  className="m-3 w-[200px] cursor-pointer"
-                  onClick={() => router.push("/setNewPassword/")}
-                >
-                  <i className="fa-solid fa-lock mr-5 text-main"></i> Change
-                  Password
-                </p>
-                <p className="m-3 w-[200px] cursor-pointer" onClick={logout}>
-                  <i className="fa-solid fa-right-from-bracket mr-5 text-main"></i>
-                  Logout
-                </p>
-              </div>
-            )}
-          </div>
-        )} */}
+     
       </div>
     </div>
   );
