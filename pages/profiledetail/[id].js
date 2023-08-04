@@ -12,17 +12,14 @@ import { Modal } from "reactstrap";
 import { useRouter } from "next/router";
 import { ShareSocial } from "react-share-social";
 import { useStorage } from "@/hooks/useStorage";
-import autoprefixer from "autoprefixer";
-
-import { useMediaQuery } from "@material-ui/core";
-
+import { useCalculateAge } from "@/hooks/useCalculateAge";
 
 const Profiledetail = () => {
   const [profilesdata, setprofilesdata] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalDefaultOpen, setModalDefaultOpen] = React.useState(false);
   const [modalImage, setModalImage] = useState(2);
-
+  const calculateAge = useCalculateAge();
   const router = useRouter();
   const { id, isLiked } = router.query;
   console.log("isLiked",isLiked);
@@ -170,76 +167,6 @@ const Profiledetail = () => {
   }, []);
 
 
-// ............................................................
-  
-  // function downloadPdf() {
-  //   const input = document.getElementById("pdf-content");
-  //   html2canvas(input, {
-  //     useCORS: true,
-  //   }).then((canvas) => {
-  //     const imgData = canvas.toDataURL("image/png");
-  //     const pdf = new jsPDF();
-  //     const imgProps = pdf.getImageProperties(imgData);
-  
-  //     // Get screen dimensions
-  //     const screenWidth = window.screen.width;
-  //     const screenHeight = window.screen.height;
-  //     // const screenHeight =100;
-  
-  //    // Calculate PDF width and height based on screen size
-  //     let pdfWidth, pdfHeight;
-  //     if (screenWidth < 768) {
-  //       // pdfWidth = screenWidth - 300; // set desired width for small screens
-  //       pdfWidth =35; // set desired width for small screens
-  //       pdfHeight = (imgProps.height * pdfWidth) / imgProps.width; // maintain aspect ratio
-  //     } else if (screenWidth < 1200) {
-  //         pdfWidth = 150; // set desired width for medium screens
-  //         pdfHeight = (imgProps.height * pdfWidth) / imgProps.width; // maintain aspect ratio
-  //       }else if (screenWidth < 1050) {
-  //         pdfWidth = 50; // set desired width for medium screens
-  //         pdfHeight = (imgProps.height * pdfWidth) / imgProps.width; // maintain aspect ratio
-  //       }  
-  //       else { 
-  //       pdfWidth = 200; // set desired width for larger screens
-  //       pdfHeight = (imgProps.height * pdfWidth) / imgProps.width; // maintain aspect ratio
-  //     }
-  
-  //     // Add image to PDF using calculated width and height
-  //     pdf.addImage(imgData, "PNG", 10, 0, pdfWidth, pdfHeight);
-  
-  //     // Save PDF file
-  //     pdf.save("download.pdf");
-  //   });
-  
-  //   // api call to maintain download profile details
-  //   let data = JSON.stringify({
-  //     data: {
-  //       users_permissions_user: storage.id,
-  //       user_profiles: [id],
-  //       locale: "en",
-  //     },
-  //   });
-  
-  //   var config = {
-  //     method: "post",
-  //     maxBodyLength: Infinity,
-  //     url: `http://172.105.57.17:1337/api/download-profiles`,
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     data: data,
-  //   };
-  
-  //   axios(config)
-  //     .then((response) => {
-  //       console.log("download profile response ", response.data.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("download profile error: ", error);
-  //     });
-  // }
-
-
   // share profile
   const shareProfile = () => {
     setModalOpen(true);
@@ -298,7 +225,8 @@ const Profiledetail = () => {
       )}
       {profilesdata.length > 0 &&
         profilesdata.map((data, index) => {
-          console.log("data", data);
+          const age = calculateAge(data.attributes.date_of_birth)
+          console.log('ageCheck',age)
           return (
             <>
               <div className="container" key={index} style={{backgroundColor:"white"}}>
@@ -360,7 +288,7 @@ const Profiledetail = () => {
                                     <div className="mt-5 ml-5">
                                       <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Age</p>
                                       {/* <p>{calculateAge(date_of_birth)}</p> */}
-                                      <p>28 year</p>
+                                      <p>{age}</p>
                                     </div>
                                     <div className="mt-5 ml-5">
                                       <p style={{ color: "rgba(30, 30, 30, 0.5)" }}> Height</p>
@@ -405,7 +333,7 @@ const Profiledetail = () => {
                               <div className="p-5  ">
                                 <div className="ml-5">
                                   <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>Date of Birth</span>
-                                  <p>04 Feb 2023</p>
+                                  <p>{data.attributes.date_of_birth}</p>
                                 </div>
                                 <div className="mt-5 ml-5">
                                   <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Marriage Status</p>

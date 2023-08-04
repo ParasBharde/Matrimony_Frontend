@@ -7,7 +7,7 @@ import BestGiftFromYou from "@/components/IndexScreen/bestGiftFromYou";
 import ContactInformation from "@/components/IndexScreen/contactInformation";
 import { useRouter } from "next/router";
 import axios from "axios";
-
+import Script from 'next/script'
 const Index = ({ props }) => {
   const router = useRouter();
   const { locale } = useRouter();
@@ -54,6 +54,7 @@ const Index = ({ props }) => {
         <BestGiftFromYou homedata={home} />
         <ContactInformation homedata={home} />
       </div>
+      <Script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" strategy="afterInteractive"/>
     </>
   );
 };
