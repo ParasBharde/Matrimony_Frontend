@@ -16,10 +16,12 @@ const Customerpofile = () => {
   const [img, setImg] = useState();
   const [modalOpen, setModalOpen] = useState(false);
   // const [isDeleteProfile, setIsDeleteProfile] = useState(false);
+const [uname, setuname] = useState('')
+const [uid, setuid] = useState('')
 
   const router = useRouter();
   // const storageData = useStorage();
-
+console.log(userProfile)
   useEffect(() => {
     console.log("getting user", router.query.id);
     if (router.query.id) {
@@ -30,6 +32,10 @@ const Customerpofile = () => {
         .then((response) => {
           // console.log("response", response.data.data);
           setUserProfile(response?.data?.data);
+          setuname(response?.data?.data?.attributes?.username);
+          setuid(response?.data?.data?.id);
+
+
         })
         .catch((error) => {
           console.error("error", error);
@@ -44,6 +50,7 @@ const Customerpofile = () => {
     }
   }, [userProfile]);
 
+  console.log(uname,'123')
   function downloadPdf() {
     const input = document.getElementById("pdf-content");
     html2canvas(input, {
@@ -58,7 +65,7 @@ const Customerpofile = () => {
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = pdf.internal.pageSize.getHeight();
       pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-      pdf.save("download.pdf");
+      pdf.save(`${uname}(${uid})`);
     });
   }
 

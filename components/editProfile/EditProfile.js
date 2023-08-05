@@ -317,7 +317,7 @@ const EditProfile = () => {
                             </div>
                           </Modal>
                            
-                          <div className="flex justify-center md:ml-2 lg:ml-0 sm:ml-0">
+                          <div className="img_profile_portfolio_sec flex justify-center md:ml-2 lg:ml-0 sm:ml-0">
                             <Image
                               className="img_profile_g w-40 h-26 "
                               src={

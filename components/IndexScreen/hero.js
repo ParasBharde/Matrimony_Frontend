@@ -11,7 +11,6 @@ import axios from "axios";
 import GoogleTranslate from "../googleTranslate";
 import Script from "next/script";
 
-
 const Hero = (props) => {
   const [login, setLogin] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
@@ -84,7 +83,7 @@ const Hero = (props) => {
               <Image
                 src={logo}
                 alt={"logo"}
-                className="w-24 sm:w-24 md:w-48 lg:w-48"
+                className="img_mob w-24 sm:w-24 md:w-48 lg:w-48"
               />
             </div>
           </Link>
@@ -125,7 +124,13 @@ const Hero = (props) => {
               </p>
             </div>
           </div>
-                <GoogleTranslate />
+          {!login ? (
+            <span className="not-login">
+              <GoogleTranslate />
+            </span>
+          ) : (
+            <GoogleTranslate />
+          )}
 
           <div className="flex justify-center items-center  max-md:hidden">
             {!login ? (
@@ -153,7 +158,7 @@ const Hero = (props) => {
                   <>
                     <div className="relative max-md:right-10 right-[1rem] group dropdown">
                       <Image
-                        className="rounded-full max-w-[45px]"
+                        className=" rounded-full max-w-[45px]"
                         loader={imgLoader}
                         src={
                           userProfile != null
@@ -217,7 +222,7 @@ const Hero = (props) => {
         </div>
 
         {/* dublicate div start here   */}
-        <div className="flex justify-center items-center absolute bottom-[2rem] sm:bottom-[8rem] left-[2rem] sm:left-[16rem]  px-6 md:hidden max-md:flex">
+        <div className="mob-view flex justify-center items-center absolute bottom-[2rem] sm:bottom-[8rem] left-[2rem] sm:left-[16rem]  px-6 md:hidden max-md:flex">
           {!login ? (
             <>
               <p
@@ -241,7 +246,7 @@ const Hero = (props) => {
             <>
               {data && (
                 <>
-                  <div className="relative max-md:right-10 top-[-44rem] left-[11rem] group dropdown">
+                  <div className="relative max-md:right-10 top-[-44rem] left-[12rem] group dropdown">
                     <Image
                       className="rounded-full max-w-[45px]"
                       loader={imgLoader}
@@ -305,7 +310,7 @@ const Hero = (props) => {
           )}
         </div>
 
-        <div className="absolute right-[100px] top-14 hidden max-md:block max-sm:block text-white">
+        {/* <div className="absolute right-[100px] top-14 hidden max-md:block max-sm:block text-white">
           <select
             className=" cursor-pointer bg-transparent"
             value={lang}
@@ -326,7 +331,7 @@ const Hero = (props) => {
               );
             })}
           </select>
-        </div>
+        </div> */}
 
         <div className="absolute right-5 top-14 hidden max-md:block max-sm:block :">
           <Hamburger

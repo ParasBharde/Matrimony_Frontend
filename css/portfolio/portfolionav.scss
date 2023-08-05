@@ -49,7 +49,11 @@
 .container_card {
     margin: 2rem 2rem;
     padding: 1rem; 
+    @include breakpoint-down(small) {
+       display: block;
+    }
 }
+
 .cards {
     margin: 0px;
     background-color: #fbf9f9;

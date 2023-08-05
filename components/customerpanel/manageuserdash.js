@@ -18,12 +18,13 @@ const Manageuserdash = () => {
   const [length, setLength] = useState(0);
   const [total, setTotal] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-
+  const [uname, setuname] = useState('')
+  const [uid, setuid] = useState('')
   const [downloadedProfile, setDownloadedProfile] = useState([]);
   const [ids, setIds] = useState([]);
   const [downloadProfile, setDownloadProfile] = useState([]);
   const inputRef = useRef(false);
-
+console.log(profileToShow)
   const getAllProfiles = () => {
     var config = {
       method: "get",
@@ -36,6 +37,8 @@ const Manageuserdash = () => {
       .then(function (response) {
         setProfiles(response.data.data);
         setProfileToShow(response.data.data);
+        setuname(response?.data?.data?.attributes?.username);
+        setuname(response?.data?.data?.id);
         setLength(Math.ceil(response.data.data.length / 10));
         setTotal(response.data.data.length);
       })
@@ -226,7 +229,7 @@ const Manageuserdash = () => {
       body: info,
     });
 
-    doc.save("profils detail.pdf");
+    doc.save(`${uname}(${uid})`);
     setIds([]);
     setSelectedRows(Array(profileToShow.length).fill(false));
     inputRef.current.checked = false;
@@ -235,7 +238,7 @@ const Manageuserdash = () => {
   return (
     <>
       <div className="lg:txt lg:flex md:flex justify-around mx-10 relative mt-10 ">
-        <span>Manage Users</span>
+        <span className="font-medium ml-60 text-center align-middle justify-center">Manage Users</span>
         <div className="search_download flex space-x-2 items-center">
           <form>
             <div className="relative w-full">

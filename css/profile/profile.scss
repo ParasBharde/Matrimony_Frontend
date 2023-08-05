@@ -63,7 +63,7 @@
     height: auto;
     gap: 2rem;
     @include breakpoint-down(small) {
-        margin: 5rem 0rem 0rem 0rem;       
+        margin: 0rem 0rem 0rem 0rem;  
     }
 }
 .second_item_edit {
@@ -160,6 +160,18 @@
     @include breakpoint-down(medium) {
        justify-items: center;
     }
+    @include breakpoint-down(small) {
+        display: inline;
+     }
+}
+.img_profile_portfolio_sec{
+    @include breakpoint-down(medium) {
+        justify-items: center;
+     }
+     @include breakpoint-down(small) {
+         display: flex;
+         justify-content: center;
+      }
 }
 .img_profile_g {
     max-width: 6vw;
@@ -174,7 +186,8 @@
         margin: 0 4rem 0rem 0rem;
     }
     @include breakpoint-down(small) {
-      
+      min-width: 15vw;
+      height: 19vh;
     }
 
 }

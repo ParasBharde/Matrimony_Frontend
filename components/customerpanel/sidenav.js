@@ -50,7 +50,7 @@ const Sidenav = () => {
             <ul className="space-y-4">
               <li>
                 <Link
-                  href="#"
+                  href="/admin"
                   className="flex justify-center items-center p-2 text-base font-normal"
                 >
                   <svg

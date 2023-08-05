@@ -206,7 +206,7 @@ const Managelistdash = () => {
   return (
     <>
       <div className="lg:txt lg:flex md:flex justify-around  relative mt-5 mx-5">
-        <span className="font-medium">Members Lists</span>
+        <span className="font-medium ml-60">Members Lists</span>
         <div className="search_download flex space-x-2 items-center">
           <form>
             <div className="relative w-full">

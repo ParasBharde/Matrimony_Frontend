@@ -20,8 +20,9 @@ const Topnav = () => {
           </span>
 
           <div className="flex items-center">
+            <span className="mr-5">
           <GoogleTranslate />
-
+          </span>
             <div className="text-gray-500 hover:text-gray-700 focus:text-gray-700 mr-4">
               <div className="group relative dropdown">
                 <div
