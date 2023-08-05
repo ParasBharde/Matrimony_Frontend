@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useOnHoverOutside } from "@/hooks/useOnHoverOutside";
 import { useRouter } from "next/router";
 import { signOut } from "next-auth/react";
+import GoogleTranslate from "../googleTranslate";
 
 const Topnav = () => {
   return (
@@ -19,6 +20,8 @@ const Topnav = () => {
           </span>
 
           <div className="flex items-center">
+          <GoogleTranslate />
+
             <div className="text-gray-500 hover:text-gray-700 focus:text-gray-700 mr-4">
               <div className="group relative dropdown">
                 <div
