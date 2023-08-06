@@ -179,17 +179,18 @@ const Profiledetail = () => {
       border: 0,
       boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
       color: "white",
-      padding: "1rem 2rem",
+      padding: "1rem 5rem",
     },
     copyContainer: {
       border: "1px solid blue",
       background: "rgb(0,0,0,0.7)",
-      padding: "0.5rem",
+      width: '30vw',
     },
     title: {
       color: "aquamarine",
       fontStyle: "italic",
     },
+    
   };
 
   return (
@@ -210,7 +211,7 @@ const Profiledetail = () => {
             </div>
             <hr />
             <div>
-              <div className="flex py-6">
+              <div className="flex py-8 px-8">
                 <ShareSocial
                   title={"Matrimony Profile"}
                   url={`http://172.105.57.17:3000/profiledetail/${id}`}
