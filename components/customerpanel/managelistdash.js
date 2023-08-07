@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef,useCallback } from "react";
 import Image from "next/image";
 import profile from "@/assets/profile.png";
 import Link from "next/link";
@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { useStorage } from "@/hooks/useStorage";
+import { toast } from "react-toastify";
 
 const Managelistdash = () => {
   const [profiles, setprofiles] = useState([]);
@@ -21,13 +22,13 @@ const Managelistdash = () => {
   const [downloadProfile, setDownloadProfile] = useState([]);
   const inputRef = useRef(false);
   const [isPremiumUser, setIsPremiumUser] = useState({});
-  console.log("isPremiumUser", isPremiumUser);
+  const [checkactive, setcheckactive] = useState([]);
   useEffect(() => {
     async function getUser() {
       var config = {
         method: "get",
         maxBodyLength: Infinity,
-        url: "http://172.105.57.17:1337/api/profiles/?populate=%2A",
+        url: "http://172.105.57.17:1337/api/profiles/?populate=%2A&user",
         headers: {
           Authorization:
             "Bearer Bearer 3ad527b6e04e45a25b5c7a57d8e796af06f0853e2fa7c4551566c2096b18b80500bdaf2fc61dace337df1dc8c2a0026075026b10589f9c9d009a72165635b72012c305bf52929b73a79c97e1e5a53e7193f812604f83fa679731fa19540e9ecd7112dc224f0cccd4624294b05ec2864b552bdf7905d65736410f0cf2774c3994",
@@ -50,8 +51,8 @@ const Managelistdash = () => {
     getUser();
   }, []);
 
-  useEffect(() => {
-    const subscription = () => {
+
+    const subscription = useCallback(() => {
       let config = {
         method: "get",
         maxBodyLength: Infinity,
@@ -62,17 +63,21 @@ const Managelistdash = () => {
       axios
         .request(config)
         .then((response) => {
-          console.log(response.data.data)
-          let sub = response.data.data.map((u)=>u.attributes.card_detail.data.attributes.user_profile);
-          setIsPremiumUser(sub)
+          setcheckactive(response.data.data);
+          let sub = response.data.data.map(
+            (u) => u?.attributes?.card_detail?.data?.attributes?.user_profile
+          );
+          setIsPremiumUser(sub);
         })
         .catch((error) => {
           console.log(error);
         });
-    };
-    subscription();
-  }, []);
+        subscription();
+    },[profileToShow]);
+ 
 
+    
+console.log(profileToShow)
   useEffect(() => {
     if (!search) {
       setProfileToShow(profiles);
@@ -124,6 +129,71 @@ const Managelistdash = () => {
     let newIds = ids.filter((item) => item != profileId);
     console.log(newIds);
     setIds(newIds);
+  };
+
+  const [stDate, setstDate] = useState("");
+  const [expiry, setExpiry] = useState("");
+  useEffect(() => {
+//Today Date
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+    const day = String(currentDate.getDate()).padStart(2, "0");
+    const dateOnly = `${year}-${month}-${day}`;
+    setstDate(dateOnly);
+// Expiry
+    const oneMonthFromToday = new Date();
+    oneMonthFromToday.setMonth(oneMonthFromToday.getMonth() + 1);
+    const year1 = oneMonthFromToday.getFullYear();
+    const month1 = String(oneMonthFromToday.getMonth() + 1).padStart(2, "0");
+    const day1 = String(oneMonthFromToday.getDate()).padStart(2, "0");
+    const dateOnly1 = `${year1}-${month1}-${day1}`;
+    setExpiry(dateOnly1);
+  }, []);
+
+
+  const purchasePlan = (item) => {
+    const chec = checkactive.filter(
+      (u) =>
+        u?.attributes?.card_detail?.data?.attributes?.user_profile?.data
+          ?.attributes?.user?.data?.id === item?.attributes?.user?.data?.id
+    );
+
+    if (chec.length > 0) {
+      toast.success("Already Purchased!", 1000);
+      return false;
+    } else {
+      let data = JSON.stringify({
+        data: {
+          users_permissions_user: item?.user?.id,
+          user_profile: item?.id,
+          start_date: stDate,
+          end_date: expiry,
+          status:"active",
+        },
+      });
+      let config = {
+        method: "post",
+        maxBodyLength: Infinity,
+        url: "http://172.105.57.17:1337/api/Subscription-details",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
+
+      axios
+        .request(config)
+        .then((response) => {
+          // subscription();
+          console.log(JSON.stringify(response.data));
+          toast.success("Subscription Activated!", 1000);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      console.log("test");
+    }
   };
 
   useEffect(() => {
@@ -303,13 +373,16 @@ const Managelistdash = () => {
                 Purchase Date
               </th>
               <th scope="col" className="px-6 py-3">
+                Plan
+              </th>
+              <th scope="col" className="px-6 py-3">
                 Status
               </th>
             </tr>
           </thead>
           <tbody>
             {profileToShow.map((item, index) => {
-              console.log(item)
+              // console.log(item)
               return (
                 <tr key={index} className="bg-white border-b">
                   <td className="px-6 py-4">
@@ -361,9 +434,24 @@ const Managelistdash = () => {
                   </td>
                   <td className="px-6 py-4">{item.attributes.email}</td>
                   <td className="px-6 py-4">{item.attributes.phone_number}</td>
-                  <td className="px-6 py-4">{item?.attributes?.subscriptions_detail?.data?.attributes?.start_date ? item?.attributes?.subscriptions_detail?.data?.attributes?.start_date : "--/--"}</td>
+                  <td className="px-6 py-4">
+                    {item?.attributes?.subscriptions_detail?.data?.attributes
+                      ?.start_date
+                      ? item?.attributes?.subscriptions_detail?.data?.attributes
+                          ?.start_date
+                      : "--/--"}
+                  </td>
+                  <td className="px-6 py-4">
+                    <button
+                      className="bg-main text-white rounded py-2 px-6"
+                      onClick={() => purchasePlan(item)}
+                    >
+                      Purchased
+                    </button>
+                  </td>
                   <td className="font-medium text-left px-2 py-4">
-                    {item?.attributes?.subscriptions_detail?.data?.attributes?.status === "active" ? (
+                    {item?.attributes?.subscriptions_detail?.data?.attributes
+                      ?.status === "active" ? (
                       <span className="bg-green-600 text-white py-2 px-6 rounded text-base cursor-pointer">
                         Active
                       </span>

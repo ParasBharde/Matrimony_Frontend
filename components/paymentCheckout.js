@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import Breadcrumb from "./breadcrumb";
 import { toast } from "react-toastify";
 import { useStorage } from "@/hooks/useStorage";
+import Image from "next/image";
+import Pay from "@/assets/pay.png";
 
 const PaymentCheckout = () => {
   const { query: plan } = useRouter();
@@ -132,7 +134,7 @@ const PaymentCheckout = () => {
           });
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
       });
   };
   console.log(checkPrem);
@@ -214,103 +216,120 @@ const PaymentCheckout = () => {
       <div className="relative mx-auto w-[80%] bg-white">
         <div className="grid min-h-screen grid-cols-10">
           <div className="col-span-full py-6 px-4 sm:py-12 lg:col-span-6 lg:py-24">
-            <div className="mx-auto w-full max-w-lg">
+            <div className="mx-auto w-full">
               <h1 className="relative text-2xl font-medium text-gray-700 sm:text-3xl">
                 Secure Checkout
                 <span className="mt-2 block h-1 w-10 bg-main sm:w-20"></span>
               </h1>
-              <form action="" className="mt-10 flex flex-col space-y-4">
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="text-xs font-semibold text-gray-500"
-                  >
-                    Email *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="john.capler@fang.com"
-                    className={`mt-1 block w-full rounded border-gray-300 bg-gray-50 py-3 px-4 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-orange-400`}
-                  />
-                </div>
-                <div className="relative">
-                  <label
-                    htmlFor="card-number"
-                    className="text-xs font-semibold text-gray-500"
-                  >
-                    Card number *
-                  </label>
-                  <input
-                    type="tel"
-                    name="number"
-                    onFocus={handleFocusChange}
-                    id="cardNumber"
-                    value={cardNumber}
-                    onChange={handleCardNumberChange}
-                    maxLength={19}
-                    placeholder="1234-5678-XXXX-XXXX"
-                    className={`block w-full rounded border-gray-300 bg-gray-50 py-3 px-4 pr-10 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-orange-400`}
-                  />
-                </div>
-                <div className="flex  items-start">
-                  <div className="mr-6 block">
-                    <p className="text-xs font-semibold text-gray-500">
-                      Expiration date *
-                    </p>
-                    <input
-                      type="tel"
-                      name="expiry"
-                      placeholder="MM/YY Expiry"
-                      value={expiry}
-                      onChange={handleExpiryChange}
-                      onFocus={handleFocusChange}
-                      className="block w-36 rounded border-gray-300 bg-gray-50 py-3 px-4 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-orange-400"
-                    />
-                  </div>
-                  <div className="mr-6 block">
-                    <p
-                      htmlFor="security-code"
-                      className="text-xs font-semibold text-gray-500"
-                    >
-                      Security code *
-                    </p>
-                    <input
-                      id="cvv"
-                      value={cvv}
-                      maxLength={3}
-                      placeholder="Security code"
-                      type="tel"
-                      name="cvc"
-                      onChange={handleCVCChange}
-                      onFocus={handleFocusChange}
-                      className="block w-36 rounded border-gray-300 bg-gray-50 py-3 px-4 text-sm placeholder-gray-300 
+
+              <div className="main_frm">
+                <div className="frm flex flex-row p-10">
+                  <form action="" className="mt-10 flex flex-col space-y-4">
+                    <div>
+                      <label
+                        htmlFor="email"
+                        className="text-xs font-semibold text-gray-500"
+                      >
+                        Email *
+                      </label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="john.capler@fang.com"
+                        className={`mt-1 block w-80 rounded border-gray-300 bg-gray-50 py-3 px-4 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-orange-400`}
+                      />
+                    </div>
+                    <div className="relative">
+                      <label
+                        htmlFor="card-number"
+                        className="text-xs font-semibold text-gray-500"
+                      >
+                        Card number *
+                      </label>
+                      <input
+                        type="tel"
+                        name="number"
+                        onFocus={handleFocusChange}
+                        id="cardNumber"
+                        value={cardNumber}
+                        onChange={handleCardNumberChange}
+                        maxLength={19}
+                        placeholder="1234-5678-XXXX-XXXX"
+                        className={`block w-80 rounded border-gray-300 bg-gray-50 py-3 px-4 pr-10 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-orange-400`}
+                      />
+                    </div>
+                    <div className="flex  items-start">
+                      <div className="mr-6 block">
+                        <p className="text-xs font-semibold text-gray-500">
+                          Expiration date *
+                        </p>
+                        <input
+                          type="tel"
+                          name="expiry"
+                          placeholder="MM/YY Expiry"
+                          value={expiry}
+                          onChange={handleExpiryChange}
+                          onFocus={handleFocusChange}
+                          className="block w-36 rounded border-gray-300 bg-gray-50 py-3 px-4 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-orange-400"
+                        />
+                      </div>
+                      <div className="mr-6 block">
+                        <p
+                          htmlFor="security-code"
+                          className="text-xs font-semibold text-gray-500"
+                        >
+                          Security code *
+                        </p>
+                        <input
+                          id="cvv"
+                          value={cvv}
+                          maxLength={3}
+                          placeholder="Security code"
+                          type="tel"
+                          name="cvc"
+                          onChange={handleCVCChange}
+                          onFocus={handleFocusChange}
+                          className="block w-[9.5rem] rounded border-gray-300 bg-gray-50 py-3 px-4 text-sm placeholder-gray-300 
                         shadow-sm outline-none transition focus:ring-2 focus:ring-orange-400"
-                    />
-                  </div>
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="card-name"
+                        className="text-xs font-semibold text-gray-500"
+                      >
+                        Card name
+                      </label>
+                      <input
+                        type="text"
+                        name="name"
+                        placeholder="Cardholder Name"
+                        value={name}
+                        onChange={handleNameChange}
+                        onFocus={handleFocusChange}
+                        id="name"
+                        className="mt-1 block w-80 rounded border-gray-300 bg-gray-50 py-3 px-4 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-orange-400"
+                      />
+                    </div>
+                  </form>
+                  <h1 className="qrcode relative text-2xl font-medium text-gray-700 sm:text-2xl ">
+                    Or
+                  </h1>
                 </div>
-                <div>
-                  <label
-                    htmlFor="card-name"
-                    className="text-xs font-semibold text-gray-500"
-                  >
-                    Card name
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Cardholder Name"
-                    value={name}
-                    onChange={handleNameChange}
-                    onFocus={handleFocusChange}
-                    id="name"
-                    className="mt-1 block w-full rounded border-gray-300 bg-gray-50 py-3 px-4 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-orange-400"
-                  />
-                </div>
-              </form>
+                <div className="block">
+                <Image
+                  src={Pay}
+                  className="qrpay h-52 w-56 object-cover "
+                  alt="Picture of the author"
+                />
+                <address ><span className="font-bold text-red-700 ">Note:</span>If your payment is done. Kindly contact to admin.
+                <br/><a className="font-medium" href="mailto:paras@scus.tech">Click Here</a></address>
+              </div>
+              </div>
               <p className="mt-10 text-center text-sm font-semibold text-gray-500">
                 By placing this order you agree to the{" "}
                 <a
