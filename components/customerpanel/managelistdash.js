@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect, useRef,useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import profile from "@/assets/profile.png";
 import Link from "next/link";
@@ -23,8 +23,10 @@ const Managelistdash = () => {
   const inputRef = useRef(false);
   const [isPremiumUser, setIsPremiumUser] = useState({});
   const [checkactive, setcheckactive] = useState([]);
+
+  
   useEffect(() => {
-    async function getUser() {
+    const getUser = () => {
       var config = {
         method: "get",
         maxBodyLength: Infinity,
@@ -37,8 +39,6 @@ const Managelistdash = () => {
 
       axios(config)
         .then(function (response) {
-          // console.log(response.data.data)
-          // const dtmap =   response.data.data.filter((u)=> u?.id === isPremiumUser?.data?.id).map((u)=>console.log(u))
           setprofiles(response.data.data);
           setProfileToShow(response.data.data);
           setLength(Math.ceil(response.data.data.length / 10));
@@ -47,12 +47,12 @@ const Managelistdash = () => {
         .catch(function (error) {
           console.log(error);
         });
-    }
+    };
     getUser();
   }, []);
 
-
-    const subscription = useCallback(() => {
+  useEffect(() => {
+    const subscription = () => {
       let config = {
         method: "get",
         maxBodyLength: Infinity,
@@ -72,12 +72,10 @@ const Managelistdash = () => {
         .catch((error) => {
           console.log(error);
         });
-        subscription();
-    },[profileToShow]);
- 
+    };
+    subscription();
+  }, [profileToShow]);
 
-    
-console.log(profileToShow)
   useEffect(() => {
     if (!search) {
       setProfileToShow(profiles);
@@ -134,14 +132,14 @@ console.log(profileToShow)
   const [stDate, setstDate] = useState("");
   const [expiry, setExpiry] = useState("");
   useEffect(() => {
-//Today Date
+    //Today Date
     const currentDate = new Date();
     const year = currentDate.getFullYear();
     const month = String(currentDate.getMonth() + 1).padStart(2, "0");
     const day = String(currentDate.getDate()).padStart(2, "0");
     const dateOnly = `${year}-${month}-${day}`;
     setstDate(dateOnly);
-// Expiry
+    // Expiry
     const oneMonthFromToday = new Date();
     oneMonthFromToday.setMonth(oneMonthFromToday.getMonth() + 1);
     const year1 = oneMonthFromToday.getFullYear();
@@ -151,15 +149,11 @@ console.log(profileToShow)
     setExpiry(dateOnly1);
   }, []);
 
-
   const purchasePlan = (item) => {
-    const chec = checkactive.filter(
-      (u) =>
-        u?.attributes?.card_detail?.data?.attributes?.user_profile?.data
-          ?.attributes?.user?.data?.id === item?.attributes?.user?.data?.id
-    );
-
-    if (chec.length > 0) {
+    const chec = profileToShow
+      .filter((u) => u?.id === item?.id)
+      .map((u) => u);
+    if (chec[0].attributes.subscriptions_detail.data !== null) {
       toast.success("Already Purchased!", 1000);
       return false;
     } else {
@@ -169,7 +163,7 @@ console.log(profileToShow)
           user_profile: item?.id,
           start_date: stDate,
           end_date: expiry,
-          status:"active",
+          status: "active",
         },
       });
       let config = {
@@ -185,7 +179,7 @@ console.log(profileToShow)
       axios
         .request(config)
         .then((response) => {
-          // subscription();
+         
           console.log(JSON.stringify(response.data));
           toast.success("Subscription Activated!", 1000);
         })
