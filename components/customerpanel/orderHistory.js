@@ -643,7 +643,7 @@ const [checkstatus, setcheckstatus] = useState('')
                       >
                         <span>
                           {/* {item.attributes.first_name + */}
-                            " " +
+                            {"+"}
                             {/* item.attributes.last_name} */}
                         </span>
                       </button>

@@ -92,7 +92,7 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
 
   const [starFoot, setStarFoot] = useState("Aries");
   const [ascendant, setAscendant] = useState("Aries");
-console.log(starFoot)
+  console.log(starFoot);
   const [birthplace, setBirthplace] = useState("");
   const [presenceOfNatalDirection, setPresenceOFNatalDirection] = useState("");
 
@@ -141,7 +141,7 @@ console.log(starFoot)
   useEffect(() => {
     if (file2) {
       var formdata = new FormData();
-      formdata.append("files", file1[0], file1[0].preview.url);
+      formdata.append("files", file2[0], file2[0].preview.url);
       var requestOptions = {
         method: "POST",
         body: formdata,
@@ -185,7 +185,7 @@ console.log(starFoot)
         udayatiNazhikai &&
         birthTime &&
         presenceOfNatalDirection &&
-        birthplace && 
+        birthplace &&
         file1 &&
         file2
       )
@@ -378,7 +378,9 @@ console.log(starFoot)
 
       <div className="w-[820px] mx-auto mt-5">
         <div className="w-full flex justify-between items-center">
-          <p className="text-dark font-[500] text-[14px]">Horoscope Doucment *</p>
+          <p className="text-dark font-[500] text-[14px]">
+            Horoscope Doucment *
+          </p>
           <button
             onClick={() => {
               console.log("add more");
@@ -397,7 +399,7 @@ console.log(starFoot)
             className="files-dropzone cursor-pointer"
             onChange={onFilesChange1}
             onError={onFilesError1}
-            accepts={["image/png", "image/jpg","image/jpeg","image/svg+xml"]}
+            accepts={["image/png", "image/jpg", "image/jpeg", "image/svg+xml"]}
             maxFileSize={10000000}
             minFileSize={0}
             clickable
@@ -431,11 +433,16 @@ console.log(starFoot)
             return (
               <>
                 <Files
-                  key={i} 
+                  key={i}
                   className="files-dropzone cursor-pointer"
                   onChange={uploadFile}
                   onError={onFilesError1}
-                  accepts={["image/png", "image/jpg","image/jpeg","image/svg+xml"]}
+                  accepts={[
+                    "image/png",
+                    "image/jpg",
+                    "image/jpeg",
+                    "image/svg+xml",
+                  ]}
                   maxFileSize={10000000}
                   minFileSize={0}
                   clickable
