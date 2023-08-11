@@ -6,7 +6,7 @@ import Link from "next/link";
 import axios from "axios";
 import profile from "@/assets/profile.png";
 import { useRouter } from "next/router";
-
+import Select from "react-select";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 
@@ -245,6 +245,52 @@ const Orderhistory = () => {
     inputRef.current.checked = false;
   }
 
+
+  const [options, setOptions] = useState([]);
+  const [selectedOption, setSelectedOption] = useState('');
+const [plan, setplan] = useState('');
+const [checkstatus, setcheckstatus] = useState('')
+
+  console.log(selectedOption,checkstatus,plan)
+  const getUserProfile = async () => {
+    let config = {
+      method: 'get',
+      maxBodyLength: Infinity,
+      url: 'http://172.105.57.17:1337/api/profiles?populate=*',
+      headers: { }
+    };
+    
+    axios.request(config)
+    .then((response) => {
+      const transformedOptions = response.data.data.map(item => ({ 
+        value: item.attributes.user.data.id,
+        label: `${item.attributes.first_name} ${item.attributes.last_name} `,
+      })); 
+      setOptions(transformedOptions)
+    })
+      
+    .catch((error) => {
+      console.log(error);
+    });
+    
+  }
+
+  useEffect(()=>{
+    getUserProfile()
+  },[])
+  const plans = [
+    { value: "None", label: "None" },
+    { value: "Basic Plan", label: "Basic Plan" },
+    { value: "Super Plan", label: "Super Plan" },
+    { value: "Master Plan", label: "Master Plan" },
+  ];
+
+  const status = [
+    { value: "Pending", label: "Pending" },
+    { value: "Active", label: "Active" },
+    { value: "Expired", label: "Expired" },
+  ];
+
   return (
     <>
       <div className="lg:txt lg:flex md:flex mx-20 relative mt-10 justify-between lg:items-center">
@@ -260,19 +306,191 @@ const Orderhistory = () => {
             Add Order
           </button>
           {modalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-xl">
-            <h2 className="text-xl font-semibold mb-2">Modal Content</h2>
-            <p>This is the content of the modal.</p>
-            <button
-              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md"
-              onClick={closeModal}
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
+            <div className="fixed inset-0 flex items-center justify-center z-50 shadow-lg shadow-indigo-500/40">
+              <div className="bg-white p-6 rounded-lg shadow-xl h-[30rem] w-[35rem]">
+                <form>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    <div  style={{ marginRight: "10px", width: "50%", }}>
+                      <label className="my-5" htmlFor="dropdown">User Name:</label>
+                      <Select options={options} isSearchable={true} 
+                        onChange={(e) => { setSelectedOption(e)}} 
+                      />
+                    </div>
+                  </div>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        marginRight: "10px",
+                        width: "50%",
+                        gap: 5,
+                      }}
+                    >
+                      <label htmlFor="input1">Paying Person Name:</label>
+                      <input
+                        style={{
+                          border: "1px solid #ccc",
+                          height: "2.3rem",
+                          borderRadius: "4px",
+                        }}
+                        type="text"
+                        id="input1"
+                        name="input1"
+                      />
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        marginRight: "10px",
+                        width: "50%",
+                        gap: 5,
+                      }}
+                    >
+                      <label htmlFor="input1">UPI Ref No:</label>
+                      <input
+                        style={{
+                          border: "1px solid #ccc",
+                          height: "2.3rem",
+                          borderRadius: "4px",
+                        }}
+                        type="text"
+                        id="input1"
+                        name="input1"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      marginRight: "10px",
+                      width: "50%",
+                      gap: 5,
+                    }}
+                  >
+                    <label htmlFor="input1">Payment Screenshot:</label>
+                    <input
+                      style={{
+                        height: "2.3rem",
+                        borderRadius: "4px",
+                      }}
+                      type="file"
+                      id="input1"
+                      name="input1"
+                    />
+                  </div>
+                  <div style={{ display: "flex", marginTop:'0.5rem' }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        marginRight: "10px",
+                        width: "50%",
+                        gap: 5,
+                      }}
+                    >
+                      <label htmlFor="input1">Purchase Plan:</label>
+                      <select value={plan} onChange={(e) => setplan(e.target.value)} id="dropdown" className="border-y-2 py-2 border-x-2 rounded" name="dropdown">
+                        {plans.map((option) => (
+                      
+                        <option key={option.value}
+                         value={option.value} >
+                            {option.label}
+                          </option>
+                        ))}
+                        
+                      </select>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        marginRight: "10px",
+                        width: "50%",
+                        gap: 5,
+                      }}
+                    >
+                      <label htmlFor="input1">Status:</label>
+                      <select value={checkstatus} onChange={(e) => setcheckstatus(e.target.value)} id="dropdown" name="dropdown"  className="border-y-2 py-2 border-x-2 rounded">
+                        {status.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                  <div style={{ display: "flex", marginTop:'0.9rem' }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        marginRight: "10px",
+                        width: "50%",
+                        gap: 5,
+                      }}
+                    >
+                      <label htmlFor="input1">Subscription Start Date:</label>
+                      <input
+                        style={{
+                          border: "1px solid #ccc",
+                          height: "2.3rem",
+                          borderRadius: "4px",
+                        }}
+                        type="date"
+                        id="input1"
+                        name="input1"
+                      />
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        marginRight: "10px",
+                        width: "50%",
+                        gap: 5,
+                      }}
+                    >
+                      <label htmlFor="input1">Subscription End Date:</label>
+                      <input
+                        style={{
+                          border: "1px solid #ccc",
+                          height: "2.3rem",
+                          borderRadius: "4px",
+                        }}
+                        type="date"
+                        id="input1"
+                        name="input1"
+                      />
+                    </div>
+                  </div>
+                </form>
+                <div className="flex justify-evenly mt-8">
+                <button onClick={closeModal} className=" px-5 rounded bg-orange-400 py-2 my-3">
+                    Cancel
+                  </button>
+                  <button onClick={closeModal} className=" px-5 rounded bg-orange-400 py-2 my-3">
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
           <form>
             <div className="relative w-full">
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -378,15 +596,14 @@ const Orderhistory = () => {
             </tr>
           </thead>
           <tbody>
-            {profileToShow.map((item, index) => {
-              return (
-                <tr key={index} className="bg-white border-b">
+            
+                <tr className="bg-white border-b">
                   <td className="px-6 py-4">
                     <input
                       placeholder="check box"
                       type="checkbox"
                       className="row-checkbox cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white focus:outline-none focus:ring-2  focus:ring-gray-400"
-                      checked={selectedRows[index]}
+                      // checked={selectedRows[index]}
                       onChange={(event) => {
                         const newSelectedRows = [...selectedRows];
                         newSelectedRows[index] = !newSelectedRows[index];
@@ -403,7 +620,7 @@ const Orderhistory = () => {
                     scope="row"
                     className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                   >
-                    {item.id}
+                    {/* {item.id} */}1
                   </td>
                   <td className="py-3 px-6 text-left">
                     <div className="flex items-center">
@@ -411,7 +628,7 @@ const Orderhistory = () => {
                         <img
                           alt="logo"
                           className="w-6 h-6 rounded-full"
-                          src={`http://172.105.57.17:1337${item.attributes.profile_photo.data[0].attributes.url}`}
+                          // src={`http://172.105.57.17:1337${item.attributes.profile_photo.data[0].attributes.url}`}
                           width={100}
                           height={100}
                         />
@@ -420,28 +637,28 @@ const Orderhistory = () => {
                         onClick={() => {
                           router.push({
                             pathname: "/admin/profile",
-                            query: { id: item.id },
+                            // query: { id: item.id },
                           });
                         }}
                       >
                         <span>
-                          {item.attributes.first_name +
+                          {/* {item.attributes.first_name + */}
                             " " +
-                            item.attributes.last_name}
+                            {/* item.attributes.last_name} */}
                         </span>
                       </button>
                     </div>
                   </td>
                   {/* <td className="px-20 py-4">Sliver</td> */}
                   <td className="px-6 py-4">
-                    {item.attributes.Chooese_groom_bride == "Bride"
+                    {/* {item.attributes.Chooese_groom_bride == "Bride"
                       ? "Female"
-                      : "Male"}
+                      : "Male"} */}
                   </td>
-                  <td className="px-6 py-4">{item.attributes.father_name}</td>
-                  <td className="px-6 py-4">{item.attributes.date_of_birth}</td>
-                  <td className="px-6 py-4">{item.attributes.phone_number}</td>
-                  <td className="px-6 py-4 ">{getDownlodCount(item.id)}</td>
+                  <td className="px-6 py-4">test</td>
+                  <td className="px-6 py-4">test</td>
+                  <td className="px-6 py-4">test</td>
+                  <td className="px-6 py-4 ">test</td>
 
                   <td className="px-6 py-4 flex items-center justify-evenly">
                     <svg
@@ -455,7 +672,7 @@ const Orderhistory = () => {
                         router.push(
                           {
                             pathname: "/admin/profile",
-                            query: { id: item.id, prevUrl: router.pathname },
+                            // query: { id: item.id, prevUrl: router.pathname },
                           },
                           "/admin/profile"
                         );
@@ -492,8 +709,7 @@ const Orderhistory = () => {
                     </button>
                   </td>
                 </tr>
-              );
-            })}
+           
           </tbody>
         </table>
       </div>
