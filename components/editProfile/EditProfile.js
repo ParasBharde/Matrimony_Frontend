@@ -56,13 +56,13 @@ const EditProfile = () => {
       async function getUser() {
         try {
           const response = await axios.get(api);
-          // console.log("response", response.data.data);
+          console.log("response", response.data.data);
           const userProfile = response.data.data.filter(
-            (u) => u.id === storageData?.user_profile?.id
+            (u) => u.id === storageData?.data?.id
           );
 
           // console.log("userProfile ", userProfile);
-          setUserProfile(userProfile[0].attributes);
+          setUserProfile(userProfile[0]?.attributes);
         } catch (error) {
           console.error(error);
         }

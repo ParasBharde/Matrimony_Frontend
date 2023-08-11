@@ -23,6 +23,17 @@
     align-items: center;
     padding-inline: 2rem;
     padding: 10px;
+    bottom: 0;
+
+   //  color: rgba(30, 30, 30, 0.5);
+   //  font-size: 0.6rem;
+   //  font-weight: 500;
+   //  display: flex;
+   //  justify-content: space-between;
+   //  width: 100%;
+   //   padding: 10px;
+   //   bottom: 0;
+   //   position: fixed;
     @include breakpoint-down(small){
    
     }

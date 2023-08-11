@@ -28,8 +28,8 @@ const Portfolio = () => {
   
       axios(config)
         .then(function (response) {
-          let profiles = response.data.data.filter((item) => {
-            return item.id != storageData?.user_profile?.id;
+          let profiles = response.data.data.filter((item) => { console.log(item)
+            return console.log(item), item.id != storageData?.user_profile?.id;
           })
           setprofiles(profiles);
           setFilteredProfiles(profiles);
@@ -42,6 +42,7 @@ const Portfolio = () => {
     getUser();
   }, [storageData]);
 
+  console.log('filteredProfiles',filteredProfiles)
   const calculateAge = useCalculateAge();
 
   const handleFilterQuery = (query) => {

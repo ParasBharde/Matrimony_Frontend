@@ -14,7 +14,7 @@ import Script from "next/script";
 const Hero = (props) => {
   const [login, setLogin] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
-  console.log("userProfile", userProfile);
+ 
   const dropdownRef = useRef(null);
   const [isMenuDropDownOpen, setMenuDropDownOpen] = useState(false);
 
@@ -32,6 +32,7 @@ const Hero = (props) => {
 
   useEffect(() => {
     if (data) {
+      console.log(data)
       setLogin(true);
     }
   }, [data]);
@@ -45,7 +46,7 @@ const Hero = (props) => {
         console.log(response.data.data);
 
         let userProfileImage = response.data.data.filter(
-          (u) => u.id == data?.user_profile?.id
+          (u) => u.id == data?.data?.id
         );
         console.log(userProfileImage);
         setUserProfile(
@@ -170,7 +171,7 @@ const Hero = (props) => {
                         unoptimized
                         alt="avatar"
                       />
-                      <div className="absolute group-hover:block dropdown-menu hidden h-auto text-white right-2 shadow-lg top-11 z-50 bg-black/[0.4]">
+                      <div className="absolute group-hover:block dropdown-menu hidden h-auto text-white right-2 shadow-lg  z-50 bg-black/[0.4]">
                         <p
                           className="m-3 w-[200px] cursor-pointer"
                           onClick={() => {
@@ -188,6 +189,15 @@ const Hero = (props) => {
                         >
                           <i className="fa-regular fa-heart mr-5 text-main"></i>
                           Liked Profile
+                        </p>
+                        <p
+                          className="m-3 w-[200px] cursor-pointer"
+                          onClick={() => {
+                            router.push("/orderHistory");
+                          }}
+                        >
+                          <i className="fa-solid fa fa-history mr-5 text-main"></i>
+                          Order History
                         </p>
                         <p
                           className="m-3 w-[200px] cursor-pointer"

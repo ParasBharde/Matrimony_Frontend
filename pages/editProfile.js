@@ -42,12 +42,6 @@ const EditProfile = () => {
     }
   }, [storageData]);
 
-  // useEffect(() => {
-  //   if (storageData == null) {
-  //     toast.error("You must be loged in first!");
-  //     router.push("/signIn");
-  //   }
-  // }, [storageData]);
 
   const getAllDataAndPost = (userid) => {
     const edit1 = JSON.parse(sessionStorage.getItem("edit1"));

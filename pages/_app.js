@@ -23,6 +23,7 @@ export default function App({
       router.pathname == "/admin/adminpanel" ||
       router.pathname == "/admin/manageuser" ||
       router.pathname == "/admin/managelist" ||
+      router.pathname == "/admin/orderHistory" ||
       router.pathname == "/admin/profile" ||
       router.pathname == "/admin" ? null : (
         <>
@@ -38,6 +39,7 @@ export default function App({
       router.pathname == "/admin/adminpanel" ||
       router.pathname == "/admin/manageuser" ||
       router.pathname == "/admin/managelist" ||
+      router.pathname == "/admin/orderHistory" ||
       router.pathname == "/admin/profile" ||
       router.pathname == "/admin" ? null : (
         <Footer />

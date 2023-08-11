@@ -15,7 +15,6 @@ const Header = () => {
   const router = useRouter();
   const { pathname, asPath, query } = router;
   const { locale, locales, push } = useRouter();
-  const [lang, setLang] = useState(locale);
 
   // console.log("pathname",pathname);
   const getSelectedValue = (e) => {
@@ -23,6 +22,8 @@ const Header = () => {
   };
 
   const storage = useStorage();
+  console.log(storage);
+
   let id = storage?.user_profile;
 
   const dropdownRef = useRef(null);
@@ -39,24 +40,24 @@ const Header = () => {
     }
   }, [pathname]);
 
-  useEffect(() => {
-    async function getUser() {
-      try {
-        const response = await axios.get(
-          `http://172.105.57.17:1337/api/profiles/?populate=%2A`
-        );
-        let userProfile = response.data.data.filter(
-          (u) => u.id == storage?.user_profile?.id
-        );
-        setUserProfile(
-          userProfile?.[0]?.attributes?.profile_photo?.data?.[0]?.attributes
-            ?.url
-        );
-        setIsProfileChanges("false");
-      } catch (error) {
-        console.error(error);
-      }
+  async function getUser() {
+    try {
+      const response = await axios.get(
+        `http://172.105.57.17:1337/api/profiles/?populate=%2A`
+      );
+      console.log(response.data);
+      let userProfile = response.data.data.filter(
+        (u) => u.id == storage?.data?.id
+      );
+      setUserProfile(
+        userProfile?.[0]?.attributes?.profile_photo?.data?.[0]?.attributes?.url
+      );
+      setIsProfileChanges("false");
+    } catch (error) {
+      console.error(error);
     }
+  }
+  useEffect(() => {
     getUser();
   }, [id, isProfileChanged]);
 
@@ -76,7 +77,7 @@ const Header = () => {
   useOnHoverOutside(dropdownRef1, closeHoverMenu1);
 
   const data = useStorage();
-
+  console.log("data", data);
   const logout = () => {
     localStorage.clear();
     sessionStorage.clear();
@@ -156,18 +157,11 @@ const Header = () => {
             About Us
           </p>
           {/* <span> */}
-            <GoogleTranslate/>
+          <GoogleTranslate />
           {/* </span> */}
         </div>
-
-        {/* add for responsive screen  */}
-        {/* max-md:bg-black */}
-
-        {/* <span> */}
-          <GoogleTranslate />
-        {/* </span> */}
+        <GoogleTranslate />
         <div className="absolute right-2 hidden max-md:block max-sm:block group dropdown">
-          {/* <Hamburger onClick={() => console.log("Clicked")} className="bg-black"/> */}
           <i className="fa-solid fa-bars mr-3 mb-3"></i>
           <div className="absolute group-hover:block dropdown-menu hidden h-auto right-2 shadow-lg top-11 z-50 bg-white">
             <p
@@ -230,7 +224,7 @@ const Header = () => {
               alt="avatar"
             />
 
-            <div className="absolute group-hover:block dropdown-menu hidden h-auto right-2 shadow-lg top-11 z-50 bg-white">
+            <div className="absolute group-hover:block dropdown-menu hidden h-auto right-2 shadow-lg z-50 bg-white">
               <p
                 className="m-3 w-[200px] cursor-pointer"
                 onClick={() => {
@@ -257,6 +251,15 @@ const Header = () => {
               >
                 <i className="fa-solid fa-download mr-5 text-main"></i>
                 Download Profile
+              </p>
+              <p
+                className="m-3 w-[200px] cursor-pointer"
+                onClick={() => {
+                  router.push("/orderHistory");
+                }}
+              >
+                <i className="fa-solid fa fa-history mr-5 text-main"></i>
+                Order History
               </p>
               <p
                 className="m-3 w-[200px] cursor-pointer"

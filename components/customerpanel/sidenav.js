@@ -147,6 +147,22 @@ const Sidenav = () => {
                   </span>
                 </Link>
               </li>
+              <li
+                className={
+                  isActive("admin/orderHistory")
+                    ? "flex items-center p-2 text-base rounded text-black bg-white left-0 right-[1196px] bottom-[664px] top-[228px] font-bold"
+                    : "flex items-center p-2 text-base font-normal text-white rounded hover:text-white"
+                }
+              >
+                <Link href="/admin/orderHistory">
+                  <span
+                    onClick={() => setIsOpen(false)}
+                    className="flex-1 ml-3 whitespace-nowrap"
+                  >
+                    Order History
+                  </span>
+                </Link>
+              </li>
             </ul>
           </div>
         </aside>

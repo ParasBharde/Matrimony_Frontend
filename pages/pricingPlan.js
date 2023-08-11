@@ -1,8 +1,10 @@
 import React,{useState,useEffect} from 'react'
 import Breadcrumb from '@/components/breadcrumb'
-import LeftPricingPlanComponent from '@/components/pricingPlanScreen/leftPricingPlanComponent'
-import RightPricingPlanComponent from '@/components/pricingPlanScreen/rightPricingPlanComponent'
+import LeftPricingPlanComponent from '@/components/pricingPlanScreen/leftPricingPlanComponent';
+import RightPricingPlanComponent from '@/components/pricingPlanScreen/rightPricingPlanComponent';
+
 import axios from 'axios';
+import MiddlePricingPlanComponent from '@/components/pricingPlanScreen/middlePricingPlanComponent';
 
 const PricingPlan = () => {
 
@@ -42,12 +44,14 @@ useEffect(() => {
         Choose your Pricing Plan
       </p>
       <p className="font-[400] text-dark text-[14px] opacity-50 text-center pb-16 max-md:text-xl">
-        {pricing.Pricing_Label}
+        {""}
       </p>
       <div className="flex justify-center items-center gap-16 pb-20 max-md:flex-col max-md:w-full max-md:bg-white ">
       {/* max-md:bg-[#E0E0E0] */}
         <LeftPricingPlanComponent pricing={pricing} />
         <RightPricingPlanComponent pricing={pricing} />
+        <MiddlePricingPlanComponent pricing={pricing} />
+        
       </div>
     </div>
   );

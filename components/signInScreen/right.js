@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 const Right = () => {
   const router = useRouter();
-
+  const [user, setUser] = useState("")
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
@@ -63,13 +63,18 @@ const Right = () => {
   };
 
   var emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  var phoneRegex = /^(?:(?:(?:\+|0{0,2})91(\s*[\-\s]\s*)?|[0]?)?[789]\d{9})$/;
 
   const validate = () => {
-    if (!(email && password)) {
+    if (!(user && email && password)) {
       toast.error("Enter All Fields");
       return false;
     }
 
+    if (!phoneRegex.test(user)) {
+      toast.error("Please enter a valid phone number");
+      return false;
+    }
     if (!emailRegex.test(email)) {
       toast.error("Enter Valid Email");
       return false;
@@ -97,7 +102,8 @@ const Right = () => {
           Username*
         </p>
         <input
-          placeholder="Enter Your Name"
+        value={user} onChange={(e) => { setUser(e.target.value) }} type={"number"}
+          placeholder="Enter Mobile Number"
           className="border border-[#E1E1E1] lg:w-[400px] sm:w-[300px] w-[100%] py-2 px-8 rounded-md text-black"
         />
       </div>

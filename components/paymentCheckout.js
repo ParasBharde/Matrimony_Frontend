@@ -203,6 +203,30 @@ const PaymentCheckout = () => {
     }
   };
 
+  const Pointone = () => {
+    if (plan.plan == "1") return pricing.pricing_plan1_point1;
+    else if (plan.plan == "2") return pricing.pricing_plan2_point1;
+    else if (plan.plan == "3") return pricing.pricing_plan3_point1;
+  };
+
+  const Pointtwo = () => {
+    if (plan.plan == "1") return pricing.pricing_plan1_point2;
+    else if (plan.plan == "2") return pricing.pricing_plan2_point2;
+    else if (plan.plan == "3") return pricing.pricing_plan3_point2;
+  };
+
+  const Pointthree = () => {
+    if (plan.plan == "1") return pricing.pricing_plan1_point3;
+    else if (plan.plan == "2") return pricing.pricing_plan2_point3;
+    else if (plan.plan == "3") return pricing.pricing_plan3_point3;
+  };
+
+  const PricingPlan = () => {
+    if (plan.plan == "1") return pricing.Pricing_Plan1;
+    else if (plan.plan == "2") return pricing.Pricing_Plan2;
+    else if (plan.plan == "3") return pricing.Pricing_Plan3;
+  };
+
   const formatCardNumber = (input) => {
     return input
       .replace(/\D/g, "")
@@ -218,163 +242,26 @@ const PaymentCheckout = () => {
           <div className="col-span-full py-6 px-4 sm:py-12 lg:col-span-6 lg:py-24">
             <div className="mx-auto w-full">
               <h1 className="relative text-2xl font-medium text-gray-700 sm:text-3xl">
-                Secure Checkout
+                Payment Options
                 <span className="mt-2 block h-1 w-10 bg-main sm:w-20"></span>
               </h1>
-
-              <div className="main_frm">
-                <div className="frm flex flex-row p-10">
-                  <form action="" className="mt-10 flex flex-col space-y-4">
-                    <div>
-                      <label
-                        htmlFor="email"
-                        className="text-xs font-semibold text-gray-500"
-                      >
-                        Email *
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="john.capler@fang.com"
-                        className={`mt-1 block w-80 rounded border-gray-300 bg-gray-50 py-3 px-4 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-orange-400`}
-                      />
-                    </div>
-                    <div className="relative">
-                      <label
-                        htmlFor="card-number"
-                        className="text-xs font-semibold text-gray-500"
-                      >
-                        Card number *
-                      </label>
-                      <input
-                        type="tel"
-                        name="number"
-                        onFocus={handleFocusChange}
-                        id="cardNumber"
-                        value={cardNumber}
-                        onChange={handleCardNumberChange}
-                        maxLength={19}
-                        placeholder="1234-5678-XXXX-XXXX"
-                        className={`block w-80 rounded border-gray-300 bg-gray-50 py-3 px-4 pr-10 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-orange-400`}
-                      />
-                    </div>
-                    <div className="flex  items-start">
-                      <div className="mr-6 block">
-                        <p className="text-xs font-semibold text-gray-500">
-                          Expiration date *
-                        </p>
-                        <input
-                          type="tel"
-                          name="expiry"
-                          placeholder="MM/YY Expiry"
-                          value={expiry}
-                          onChange={handleExpiryChange}
-                          onFocus={handleFocusChange}
-                          className="block w-36 rounded border-gray-300 bg-gray-50 py-3 px-4 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-orange-400"
-                        />
-                      </div>
-                      <div className="mr-6 block">
-                        <p
-                          htmlFor="security-code"
-                          className="text-xs font-semibold text-gray-500"
-                        >
-                          Security code *
-                        </p>
-                        <input
-                          id="cvv"
-                          value={cvv}
-                          maxLength={3}
-                          placeholder="Security code"
-                          type="tel"
-                          name="cvc"
-                          onChange={handleCVCChange}
-                          onFocus={handleFocusChange}
-                          className="block w-[9.5rem] rounded border-gray-300 bg-gray-50 py-3 px-4 text-sm placeholder-gray-300 
-                        shadow-sm outline-none transition focus:ring-2 focus:ring-orange-400"
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="card-name"
-                        className="text-xs font-semibold text-gray-500"
-                      >
-                        Card name
-                      </label>
-                      <input
-                        type="text"
-                        name="name"
-                        placeholder="Cardholder Name"
-                        value={name}
-                        onChange={handleNameChange}
-                        onFocus={handleFocusChange}
-                        id="name"
-                        className="mt-1 block w-80 rounded border-gray-300 bg-gray-50 py-3 px-4 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-orange-400"
-                      />
-                    </div>
-                  </form>
-                  <h1 className="qrcode relative text-2xl font-medium text-gray-700 sm:text-2xl ">
-                    Or
-                  </h1>
-                </div>
-                <div className="block">
+              <div className="block py-5">
                 <Image
                   src={Pay}
                   className="qrpay h-52 w-56 object-cover "
                   alt="Picture of the author"
                 />
-                <address ><span className="font-bold text-red-700 ">Note:</span>If your payment is done. Kindly contact to admin.
-                <br/><a className="font-medium" href="mailto:paras@scus.tech">Click Here</a></address>
+                <address className="mt-5">
+                  <span className="font-bold text-red-700 ">Note:</span> <br/>
+                  Kindly inform the payment deposited details at us by Call or SMS at <p className="lin " ><a className="ab font-semibold" href="tel:9730832482">9730832482</a> or by Email <a className="ab font-semibold" href="mailto:paras.bharde@shubhchintak.co">paras.bharde@shubhchintak.co</a></p> 
+                  <br />
+                </address>
               </div>
-              </div>
-              <p className="mt-10 text-center text-sm font-semibold text-gray-500">
-                By placing this order you agree to the{" "}
-                <a
-                  href="#"
-                  className="whitespace-nowrap text-main underline hover:text-orange-600"
-                >
-                  Terms and Conditions
-                </a>
-              </p>
-              <button
-                title={checkPrem === "active" ? "Plan Already Purchased!" : ""}
-                type="submit"
-                className={`mt-4 inline-flex w-full items-center justify-center rounded
-                 bg-main py-2.5 px-4 text-base font-semibold 
-                 tracking-wide text-white text-opacity-80 outline-none ring-offset-2
-                  transition hover:text-opacity-100 focus:ring-2 focus:ring-orange-400
-                   sm:text-lg ${
-                     checkPrem === "active"
-                       ? "cursor-not-allowed"
-                       : "cursor-pointer"
-                   }`}
-                onClick={() => {
-                  if (checkPrem === "active") {
-                    console.log("false");
-                    toast.info("Subscription Already Purchased!", 1000);
-
-                    return false;
-                  } else {
-                    validate();
-                    return true;
-                  }
-                }}
-              >
-                Place Order
-              </button>
             </div>
           </div>
           <div className="relative col-span-full flex flex-col py-6 pl-8 pr-4 sm:py-12 lg:col-span-4 lg:py-24">
             <h2 className="sr-only">Order summary</h2>
             <div>
-              {/* <img
-                src="https://images.unsplash.com/photo-1581318694548-0fb6e47fe59b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
-                alt=""
-                className="absolute inset-0 h-full w-full object-cover"
-              /> */}
               <div className="absolute inset-0 h-full w-full bg-gradient-to-t from-main to-orange-500 opacity-95"></div>
             </div>
             <div className="relative">
@@ -384,37 +271,27 @@ const PaymentCheckout = () => {
               <p className="mb-3">
                 <i className="fa-solid text-white fa-circle-check"></i>
                 <span className="text-sm font-medium ml-2 text-white">
-                  {plan.plan == "1"
-                    ? pricing.pricing_plan1_point1
-                    : pricing.pricing_plan2_point1}
+                  <Pointone />
                 </span>
               </p>
               <p className="mb-3">
                 <i className="fa-solid text-white fa-circle-check"></i>
                 <span className="text-sm font-medium ml-2 text-white">
-                  {plan.plan == "1"
-                    ? pricing.pricing_plan1_point2
-                    : pricing.pricing_plan2_point2}{" "}
+                  <Pointtwo />
                 </span>
               </p>
               <p className="mb-3">
                 <i className="fa-solid text-white fa-circle-check"></i>
                 <span className="text-sm font-medium ml-2 text-white">
-                  {plan.plan == "1"
-                    ? pricing.pricing_plan1_point3
-                    : pricing.pricing_plan2_point3}{" "}
+                  <Pointthree />
                 </span>
               </p>
-
               <div className="my-5 h-0.5 w-full bg-white bg-opacity-30"></div>
               <div className="space-y-2">
                 <p className="flex justify-between text-lg font-bold text-white">
                   <span>Total price:</span>
                   <span>
-                    {plan.plan == "1"
-                      ? pricing.Pricing_Plan1
-                      : pricing.Pricing_Plan2}{" "}
-                    /-
+                    <PricingPlan /> /-
                   </span>
                 </p>
               </div>
@@ -431,16 +308,6 @@ const PaymentCheckout = () => {
               </p>
               <p className="mt-2 text-xs font-medium">
                 Call us now for payment related issues
-              </p>
-            </div>
-            <div className="relative mt-10 flex">
-              <p className="flex flex-col">
-                <span className="text-sm font-bold text-white">
-                  Money Back Guarantee
-                </span>
-                <span className="text-xs font-medium text-white">
-                  within 30 days of purchase
-                </span>
               </p>
             </div>
           </div>

@@ -11,11 +11,12 @@ const Welcome = () => {
     username: "",
     password: "",
   });
+  const [rememberMe, setRememberMe] = useState(false);
 
   const handleFieldChange = (e) => {
     setAuthState((old) => ({ ...old, [e.target.id]: e.target.value }));
   };
-
+// console.log(authState)
   const router = useRouter();
 
   const handleAuth = async (e) => {
@@ -26,10 +27,16 @@ const Welcome = () => {
     })
       .then((response) => {
         console.log("response", response);
-        if (response.ok) {
+        if (response.ok && rememberMe) {
+          localStorage.setItem("adminUser", response.ok);
           toast.success("Successfully Logged In");
           router.push("/admin");
-        } else {
+        } else if (response.ok){
+          sessionStorage.setItem("adminUser", response.ok);
+          toast.success("Successfully Logged In");
+          router.push("/admin");
+        }
+         else {
           toast.error("Invalid login credentials");
         }
       })
@@ -147,12 +154,15 @@ const Welcome = () => {
               placeholder="Enter Your Password"
             />
           </div>
-          <div className=" flex justify-between">
+          {/* <div className=" flex justify-between">
             <label className="block my-0">
               <input
                 type="checkbox"
                 className="leading-loose"
                 style={{ width: "1.5rem", height: "1rem" }}
+                onChange={(e) => {
+                  setRememberMe(e.target.checked);
+                }}
               />
               <span
                 style={{ color: "#B6B3BE", fontSize: "1.1rem" }}
@@ -162,7 +172,7 @@ const Welcome = () => {
                 Remember me{" "}
               </span>
             </label>
-          </div>
+          </div> */}
           <p
             className="text-white bg-main py-2 px-5 rounded-md cursor-pointer  lg:w-[400px] sm:w-[300px] w-[90%] text-center my-5"
             onClick={handleAuth}

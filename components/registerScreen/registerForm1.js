@@ -31,6 +31,7 @@ const RegisterForm1 = ({ screen, setScreen }) => {
 
   var nameRegex = /\d/g;
   var emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  var phoneRegex = /^(?:(?:(?:\+|0{0,2})91(\s*[\-\s]\s*)?|[0]?)?[789]\d{9})$/;
 
   const validate = () => {
 
@@ -39,9 +40,9 @@ const RegisterForm1 = ({ screen, setScreen }) => {
       return false;
     }
 
-    if (nameRegex.test(user)) {
-      toast.error("Username must not contain any number")
-      return false
+    if (!phoneRegex.test(user)) {
+      toast.error("Please enter a valid phone number");
+      return false;
     }
 
     if (!(emailRegex.test(email))) {
@@ -113,8 +114,8 @@ const RegisterForm1 = ({ screen, setScreen }) => {
           <p className='font-[600] text-[18px]'>Account Information</p>
         </div>
         <div className='mt-5 max-w-min mx-auto'>
-        <p className='text-dark font-[500] text-[14px] mb-2'>User*</p>
-        <input placeholder='Enter Username' value={user} onChange={(e) => { setUser(e.target.value) }} type={"text"} className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
+        <p className='text-dark font-[500] text-[14px] mb-2'>Username*</p>
+        <input placeholder='Enter Mobile Number' value={user} onChange={(e) => { setUser(e.target.value) }} type={"number"} className='border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3' />
       </div>
       <div className='mt-5 max-w-min mx-auto'>
         <p className='text-dark font-[500] text-[14px] mb-2'>Email*</p>

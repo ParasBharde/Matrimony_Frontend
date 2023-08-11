@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 
-const Manageuserdash = () => {
+const Orderhistory = () => {
   const router = useRouter();
 
   const [profiles, setProfiles] = useState([]);
@@ -25,6 +25,15 @@ const Manageuserdash = () => {
   const [ids, setIds] = useState([]);
   const [downloadProfile, setDownloadProfile] = useState([]);
   const inputRef = useRef(false);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
 
   const getAllProfiles = () => {
     var config = {
@@ -238,20 +247,32 @@ const Manageuserdash = () => {
 
   return (
     <>
-      <div className="lg:txt lg:flex md:flex mx-14 relative mt-10 justify-between lg:items-center">
+      <div className="lg:txt lg:flex md:flex mx-20 relative mt-10 justify-between lg:items-center">
         <span className="font-medium ml-60 align-self-center">
-          Manage Users
+          Order History
         </span>
 
         <div className="search_download flex space-x-2 items-center">
           <button
-            onClick={() => {
-              router.push("/register");
-            }}
+            onClick={openModal}
             className="px-5 rounded bg-orange-400 py-2 my-2 text-white"
           >
-            Add User
+            Add Order
           </button>
+          {modalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-xl">
+            <h2 className="text-xl font-semibold mb-2">Modal Content</h2>
+            <p>This is the content of the modal.</p>
+            <button
+              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md"
+              onClick={closeModal}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
           <form>
             <div className="relative w-full">
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -567,4 +588,4 @@ const Manageuserdash = () => {
   );
 };
 
-export default Manageuserdash;
+export default Orderhistory;

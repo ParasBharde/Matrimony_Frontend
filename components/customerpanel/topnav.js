@@ -8,6 +8,16 @@ import { signOut } from "next-auth/react";
 import GoogleTranslate from "../googleTranslate";
 
 const Topnav = () => {
+  const handleLog = () => {
+    if (localStorage.getItem("adminUser")) {
+      signOut()
+      localStorage.clear();
+    } 
+    sessionStorage.clear();
+    signOut();
+
+  }
+  // signOut()
   return (
     <>
       <nav
@@ -68,7 +78,7 @@ const Topnav = () => {
                   <p
                     className="m-3 cursor-pointer flex items-center"
                     variant="contained"
-                    onClick={() => signOut()}
+                    onClick={() => handleLog()}
                   >
                     <i className="fa-solid fa-right-from-bracket mr-5 text-main"></i>
                     Logout

@@ -23,7 +23,7 @@ const Managelistdash = () => {
   const inputRef = useRef(false);
   const [isPremiumUser, setIsPremiumUser] = useState({});
   const [checkactive, setcheckactive] = useState([]);
-
+console.log(checkactive)
   
   useEffect(() => {
     const getUser = () => {
@@ -56,7 +56,7 @@ const Managelistdash = () => {
       let config = {
         method: "get",
         maxBodyLength: Infinity,
-        url: "http://172.105.57.17:1337/api/subscription-details?populate=card_detail.user_profile.user",
+        url: "http://172.105.57.17:1337/api/subscription-details?populate=user_profile.profile_photo.user",
         headers: {},
       };
 
@@ -269,7 +269,7 @@ const Managelistdash = () => {
 
   return (
     <>
-      <div className="lg:txt lg:flex md:flex justify-around  relative mt-5 mx-5">
+      <div className="lg:txt lg:flex md:flex relative mt-5 mx-14 justify-between lg:items-center">
         <span className="font-medium ml-60">Members Lists</span>
         <div className="search_download flex space-x-2 items-center">
           <form>
@@ -375,8 +375,8 @@ const Managelistdash = () => {
             </tr>
           </thead>
           <tbody>
-            {profileToShow.map((item, index) => {
-              // console.log(item)
+            {checkactive.map((item, index) => {
+              console.log(item)
               return (
                 <tr key={index} className="bg-white border-b">
                   <td className="px-6 py-4">
@@ -409,15 +409,15 @@ const Managelistdash = () => {
                         <img
                           alt="user image"
                           className="w-6 h-6 rounded-full"
-                          src={`http://172.105.57.17:1337${item.attributes.profile_photo.data[0].attributes.url}`}
+                          src={`http://172.105.57.17:1337${item?.attributes?.user_profile?.data?.attributes?.profile_photo?.data[0]?.attributes.url}`}
                           width={100}
                           height={100}
                         />
                       </div>
                       <span>
-                        {item.attributes.first_name +
+                        {item?.attributes?.user_profile?.data?.attributes.first_name +
                           " " +
-                          item.attributes.last_name}
+                          item?.attributes?.user_profile?.data?.attributes.last_name}
                       </span>
                     </div>
                   </td>
@@ -426,8 +426,8 @@ const Managelistdash = () => {
                       ? "Female"
                       : "Male"}
                   </td>
-                  <td className="px-6 py-4">{item.attributes.email}</td>
-                  <td className="px-6 py-4">{item.attributes.phone_number}</td>
+                  <td className="px-6 py-4">{item?.attributes?.user_profile?.data?.attributes.email}</td>
+                  <td className="px-6 py-4">{item?.attributes?.user_profile?.data?.attributes.phone_number}</td>
                   <td className="px-6 py-4">
                     {item?.attributes?.subscriptions_detail?.data?.attributes
                       ?.start_date
@@ -436,12 +436,7 @@ const Managelistdash = () => {
                       : "--/--"}
                   </td>
                   <td className="px-6 py-4">
-                    <button
-                      className="bg-main text-white rounded py-2 px-6"
-                      onClick={() => purchasePlan(item)}
-                    >
-                      Purchased
-                    </button>
+                   Basic Plan
                   </td>
                   <td className="font-medium text-left px-2 py-4">
                     {item?.attributes?.subscriptions_detail?.data?.attributes

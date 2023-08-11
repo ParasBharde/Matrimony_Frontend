@@ -92,7 +92,7 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
 
   const [starFoot, setStarFoot] = useState("Aries");
   const [ascendant, setAscendant] = useState("Aries");
-
+console.log(starFoot)
   const [birthplace, setBirthplace] = useState("");
   const [presenceOfNatalDirection, setPresenceOFNatalDirection] = useState("");
 
@@ -141,7 +141,7 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
   useEffect(() => {
     if (file2) {
       var formdata = new FormData();
-      formdata.append("files", file2[0], file2[0].preview.url);
+      formdata.append("files", file1[0], file1[0].preview.url);
       var requestOptions = {
         method: "POST",
         body: formdata,
@@ -419,7 +419,7 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
             clickable
           >
             <Image
-              src={file2 ? file2[0].preview.url : fileInputImage}
+              src={file2 ? file2[0]?.preview?.url : fileInputImage}
               alt={"File Input Image"}
               width={400}
               height={300}

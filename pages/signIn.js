@@ -16,7 +16,7 @@ const SignIn = () => {
     if(storageData)
     {
       toast.info("User Already Logged In")
-      router.push("/profiledetail/" + storageData.user_profile.id)
+      router.push("/profiledetail/" + storageData?.user_profile?.id)
     }
   },[storageData])
 

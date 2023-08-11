@@ -50,11 +50,26 @@
   max-width: 630px;
 }
 
+.lin {
+  a,.ab:visited {
+    color: blue;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  a:hover {
+    color: blue;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+  a:active {
+    color: rgb(98, 205, 55);
+    background-color: transparent;
+    text-decoration: underline;
+  }
+}
+
 // QR
 .main_frm {
-  width: 4;
-  display: flex;
-  justify-content: space-around;
   margin: auto;
   
   @include breakpoint-down(small) {
