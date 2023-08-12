@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import Select from "react-select";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
-
+import { toast } from "react-toastify";
 const Orderhistory = () => {
   const router = useRouter();
 
@@ -245,51 +245,206 @@ const Orderhistory = () => {
     inputRef.current.checked = false;
   }
 
-
   const [options, setOptions] = useState([]);
-  const [selectedOption, setSelectedOption] = useState('');
-const [plan, setplan] = useState('');
-const [checkstatus, setcheckstatus] = useState('')
+  const [selectedOption, setSelectedOption] = useState("");
+  const [plan, setplan] = useState("");
+  const [checkstatus, setcheckstatus] = useState("");
+  const [price, setprice] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [fileId, setfileId] = useState("");
+  const [birthTime, setBirthTime] = useState("");
+  const [expiryDate, setExpiryDate] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [refer, setrefer] = useState("");
+  const [marriageStatuss, setmarriageStatuss] = useState("");
+  const [checkactive, setcheckactive] = useState([]);
+const [personName, setPerson] = useState('')
 
-  console.log(selectedOption,checkstatus,plan)
   const getUserProfile = async () => {
     let config = {
-      method: 'get',
+      method: "get",
       maxBodyLength: Infinity,
-      url: 'http://172.105.57.17:1337/api/profiles?populate=*',
-      headers: { }
+      url: "http://172.105.57.17:1337/api/profiles?populate=*",
+      headers: {},
     };
-    
-    axios.request(config)
-    .then((response) => {
-      const transformedOptions = response.data.data.map(item => ({ 
-        value: item.attributes.user.data.id,
-        label: `${item.attributes.first_name} ${item.attributes.last_name} `,
-      })); 
-      setOptions(transformedOptions)
-    })
-      
-    .catch((error) => {
-      console.log(error);
-    });
-    
-  }
 
-  useEffect(()=>{
-    getUserProfile()
-  },[])
+    axios
+      .request(config)
+      .then((response) => {
+        const transformedOptions = response.data.data.map((item) => ({
+          value: item.id,
+          label: `${item.attributes.first_name} ${item.attributes.last_name} `,
+        }));
+        setOptions(transformedOptions);
+      })
+
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getUserProfile();
+  }, []);
+
   const plans = [
-    { value: "None", label: "None" },
-    { value: "Basic Plan", label: "Basic Plan" },
-    { value: "Super Plan", label: "Super Plan" },
-    { value: "Master Plan", label: "Master Plan" },
+    { value: "none", label: "None" },
+    { value: "basic", label: "Basic Plan" },
+    { value: "super", label: "Super Plan" },
+    { value: "master", label: "Master Plan" },
   ];
 
   const status = [
-    { value: "Pending", label: "Pending" },
-    { value: "Active", label: "Active" },
-    { value: "Expired", label: "Expired" },
+    { value: "none", label: "None" },
+    { value: "pending", label: "Pending" },
+    { value: "active", label: "Active" },
+    { value: "expired", label: "Expired" },
   ];
+
+  const marriageStatus = [
+    { value: "none", label: "None" },
+    { value: "applicable", label: "Applicable" },
+    { value: "not_applicable", label: "Not Applicable" },
+  ];
+
+  const handleFileChange = (event) => {
+    console.log(event);
+    const file = event.target.files[0];
+    setSelectedFile(file);
+  };
+
+  const handlePlanChange = (event) => {
+    console.log(event);
+    setplan(event.target.value);
+  };
+
+  // Image Uplaod
+  useEffect(() => {
+    if (selectedFile) {
+      var formdata = new FormData();
+      formdata.append("files", selectedFile);
+      var requestOptions = {
+        method: "POST",
+        body: formdata,
+        redirect: "follow",
+      };
+      fetch("http://172.105.57.17:1337/api/upload", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+          toast.success("Image Uploaded Successfully");
+          setfileId(result[0].id);
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    }
+  }, [selectedFile]);
+
+  const calculateExpiryDate = () => {
+    let durationInYears = 0;
+    if (plan === "basic") {
+      durationInYears = 2;
+    } else if (plan === "super") {
+      durationInYears = 3;
+    } else if (plan === "master") {
+      // Handle unlimited plan duration, e.g., set to a large value
+      durationInYears = 100;
+    }
+
+    if (startDate) {
+      const start = new Date(startDate);
+      const expiry = new Date(start.getTime());
+
+      expiry.setFullYear(expiry.getFullYear() + durationInYears);
+
+      // Format the expiry date as "YYYY-MM-DD"
+      const formattedExpiry = expiry.toISOString().split("T")[0];
+
+      setExpiryDate(formattedExpiry);
+    }
+  };
+
+  useEffect(() => {
+    calculateExpiryDate();
+  }, [startDate, plan, checkstatus, expiryDate]);
+
+  const handleStartDateChange = (event) => {
+    setStartDate(event.target.value);
+    calculateExpiryDate();
+  };
+
+  const postData = () => {
+    const formData = new FormData();
+    formData.append("file", selectedFile);
+
+    let data = JSON.stringify({
+      data: {
+        reference_id_or_utr_id: refer,
+        payment_proof: [fileId],
+        subscription_start_date: startDate,
+        // subscription_end_date: expiryDate,
+        status: checkstatus,
+        purchase_plan: plan,
+        user_id: selectedOption.value,
+        member_display_limit: 0,
+        price: price,
+        marriage_fixed: false,
+        marriage_fix_status:
+          plan === "master" ? marriageStatuss : "not_applicable",
+      },
+      
+    paying_person_name: personName
+    });
+
+    let config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: "http://172.105.57.17:1337/api/order-histories",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+        toast.success(`${plan} Plan activated Successfully`);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  // getOrder History
+
+  useEffect(() => {
+    const subscription = () => {
+      let config = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: "http://172.105.57.17:1337/api/order-histories?populate=user_id.profile_photo.user",
+        headers: {},
+      };
+
+      axios
+        .request(config)
+        .then((response) => {
+          setcheckactive(response.data.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    subscription();
+  }, []);
+
+  // UpperCase
+  function capitalizeFirstLetter(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  }
 
   return (
     <>
@@ -307,7 +462,7 @@ const [checkstatus, setcheckstatus] = useState('')
           </button>
           {modalOpen && (
             <div className="fixed inset-0 flex items-center justify-center z-50 shadow-lg shadow-indigo-500/40">
-              <div className="bg-white p-6 rounded-lg shadow-xl h-[30rem] w-[35rem]">
+              <div className="bg-white p-6 rounded-lg shadow-xl h-[35rem] w-[35rem]">
                 <form>
                   <div
                     style={{
@@ -316,10 +471,16 @@ const [checkstatus, setcheckstatus] = useState('')
                       marginBottom: "10px",
                     }}
                   >
-                    <div  style={{ marginRight: "10px", width: "50%", }}>
-                      <label className="my-5" htmlFor="dropdown">User Name:</label>
-                      <Select options={options} isSearchable={true} 
-                        onChange={(e) => { setSelectedOption(e)}} 
+                    <div style={{ marginRight: "10px", width: "50%" }}>
+                      <label className="my-5" htmlFor="dropdown">
+                        User Name:
+                      </label>
+                      <Select
+                        options={options}
+                        isSearchable={true}
+                        onChange={(e) => {
+                          setSelectedOption(e);
+                        }}
                       />
                     </div>
                   </div>
@@ -350,6 +511,8 @@ const [checkstatus, setcheckstatus] = useState('')
                         type="text"
                         id="input1"
                         name="input1"
+                        value={personName}
+                        onChange={(e) => setPerson(e.target.value)}
                       />
                     </div>
                     <div
@@ -363,6 +526,8 @@ const [checkstatus, setcheckstatus] = useState('')
                     >
                       <label htmlFor="input1">UPI Ref No:</label>
                       <input
+                        value={refer}
+                        onChange={(e) => setrefer(e.target.value)}
                         style={{
                           border: "1px solid #ccc",
                           height: "2.3rem",
@@ -377,24 +542,48 @@ const [checkstatus, setcheckstatus] = useState('')
                   <div
                     style={{
                       display: "flex",
-                      flexDirection: "column",
-                      marginRight: "10px",
-                      width: "50%",
-                      gap: 5,
                     }}
                   >
-                    <label htmlFor="input1">Payment Screenshot:</label>
-                    <input
+                    <div
                       style={{
-                        height: "2.3rem",
-                        borderRadius: "4px",
+                        display: "grid",
+                        alignItems: "center",
+                        justifyItems: "stretch",
                       }}
-                      type="file"
-                      id="input1"
-                      name="input1"
-                    />
+                    >
+                      <label htmlFor="input1">Payment Screenshot:</label>
+                      <input
+                        style={{
+                          height: "2.3rem",
+                          borderRadius: "4px",
+                        }}
+                        type="file"
+                        id="input1"
+                        name="input1"
+                        onChange={handleFileChange}
+                        accept="image/*"
+                      />
+                    </div>
+                    <div
+                      style={{
+                        display: "grid",
+                      }}
+                    >
+                      <label>Price</label>
+                      <input
+                        type="number"
+                        value={price}
+                        onChange={(e) => setprice(e.target.value)}
+                        style={{
+                          border: "1px solid #ccc",
+                          height: "2.3rem",
+                          borderRadius: "4px",
+                          width: "16rem",
+                        }}
+                      />
+                    </div>
                   </div>
-                  <div style={{ display: "flex", marginTop:'0.5rem' }}>
+                  <div style={{ display: "flex", marginTop: "0.5rem" }}>
                     <div
                       style={{
                         display: "flex",
@@ -405,15 +594,18 @@ const [checkstatus, setcheckstatus] = useState('')
                       }}
                     >
                       <label htmlFor="input1">Purchase Plan:</label>
-                      <select value={plan} onChange={(e) => setplan(e.target.value)} id="dropdown" className="border-y-2 py-2 border-x-2 rounded" name="dropdown">
+                      <select
+                        value={plan}
+                        onChange={handlePlanChange}
+                        id="dropdown"
+                        className="border-y-2 py-2 border-x-2 rounded"
+                        name="dropdown"
+                      >
                         {plans.map((option) => (
-                      
-                        <option key={option.value}
-                         value={option.value} >
+                          <option key={option.value} value={option.value}>
                             {option.label}
                           </option>
                         ))}
-                        
                       </select>
                     </div>
                     <div
@@ -426,7 +618,13 @@ const [checkstatus, setcheckstatus] = useState('')
                       }}
                     >
                       <label htmlFor="input1">Status:</label>
-                      <select value={checkstatus} onChange={(e) => setcheckstatus(e.target.value)} id="dropdown" name="dropdown"  className="border-y-2 py-2 border-x-2 rounded">
+                      <select
+                        value={checkstatus}
+                        onChange={(e) => setcheckstatus(e.target.value)}
+                        id="dropdown"
+                        name="dropdown"
+                        className="border-y-2 py-2 border-x-2 rounded"
+                      >
                         {status.map((option) => (
                           <option key={option.value} value={option.value}>
                             {option.label}
@@ -435,27 +633,39 @@ const [checkstatus, setcheckstatus] = useState('')
                       </select>
                     </div>
                   </div>
-                  <div style={{ display: "flex", marginTop:'0.9rem' }}>
+                  <div style={{ display: "flex", marginTop: "0.9rem", gap: 5 }}>
                     <div
                       style={{
                         display: "flex",
                         flexDirection: "column",
                         marginRight: "10px",
                         width: "50%",
-                        gap: 5,
+                        gap: 10,
                       }}
                     >
                       <label htmlFor="input1">Subscription Start Date:</label>
-                      <input
-                        style={{
-                          border: "1px solid #ccc",
-                          height: "2.3rem",
-                          borderRadius: "4px",
-                        }}
-                        type="date"
-                        id="input1"
-                        name="input1"
-                      />
+                      <div className="flex gap-2">
+                        <input
+                          style={{
+                            border: "1px solid #ccc",
+                            height: "2.3rem",
+                            borderRadius: "4px",
+                            width: "100%",
+                          }}
+                          onChange={handleStartDateChange}
+                          type="date"
+                          id="input1"
+                          name="input1"
+                        />
+                        <input
+                          type={"time"}
+                          value={birthTime}
+                          onChange={(e) => {
+                            setBirthTime(e.target.value);
+                          }}
+                          className="border border-gray-400 rounded"
+                        />
+                      </div>
                     </div>
                     <div
                       style={{
@@ -463,28 +673,59 @@ const [checkstatus, setcheckstatus] = useState('')
                         flexDirection: "column",
                         marginRight: "10px",
                         width: "50%",
-                        gap: 5,
+                        gap: 10,
                       }}
                     >
                       <label htmlFor="input1">Subscription End Date:</label>
                       <input
+                        type="date"
+                        className="py-2"
                         style={{
                           border: "1px solid #ccc",
-                          height: "2.3rem",
                           borderRadius: "4px",
                         }}
-                        type="date"
-                        id="input1"
-                        name="input1"
+                        value={expiryDate}
+                        disabled
                       />
                     </div>
                   </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      marginRight: "10px",
+                      marginTop: "1rem",
+                    }}
+                  >
+                    <label htmlFor="input1">
+                      Marriage Status:(If Choosen Master Plan)
+                    </label>
+                    <select
+                      value={marriageStatuss}
+                      onChange={(e) => setmarriageStatuss(e.target.value)}
+                      id="dropdown"
+                      className="border-y-2 py-2 border-x-2 rounded w-auto"
+                      name="dropdown"
+                    >
+                      {marriageStatus.map((option) => (
+                        <option key={option.value} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 </form>
                 <div className="flex justify-evenly mt-8">
-                <button onClick={closeModal} className=" px-5 rounded bg-orange-400 py-2 my-3">
+                  <button
+                    onClick={closeModal}
+                    className=" px-5 rounded bg-orange-400 py-2 my-3"
+                  >
                     Cancel
                   </button>
-                  <button onClick={closeModal} className=" px-5 rounded bg-orange-400 py-2 my-3">
+                  <button
+                    onClick={postData}
+                    className=" px-5 rounded bg-orange-400 py-2 my-3"
+                  >
                     Submit
                   </button>
                 </div>
@@ -521,7 +762,7 @@ const [checkstatus, setcheckstatus] = useState('')
             </div>
           </form>
 
-          <button
+          {/* <button
             className={`px-5 rounded bg-orange-400 py-2 my-3 ${
               downloadProfile.length <= 1 && "cursor-not-allowed"
             }`}
@@ -544,7 +785,7 @@ const [checkstatus, setcheckstatus] = useState('')
               </svg>
               Download
             </span>
-          </button>
+          </button> */}
         </div>
       </div>
       <div className="user_dash relative overflow-x-auto mt-8 ">
@@ -576,34 +817,61 @@ const [checkstatus, setcheckstatus] = useState('')
                 Profile
               </th>
               <th scope="col" className="px-6 py-3">
-                Gender
+                Plan
               </th>
               <th scope="col" className="px-6 py-3">
-                Father Name
+                Start Date
               </th>
               <th scope="col" className="px-6 py-3">
-                DOB
+                End Date
               </th>
               <th scope="col" className="px-6 py-3">
-                Contact.No
+                Price
               </th>
               <th scope="col" className="px-6 py-3">
-                Downloads
+                Marriage Fix Status
               </th>
               <th scope="col" className="px-6 py-3">
-                Action
+                Status
               </th>
             </tr>
           </thead>
           <tbody>
-            
-                <tr className="bg-white border-b">
+            {checkactive.map((item, index) => {
+              console.log(item);
+              // start Date
+              const dateStringFromBackend =
+                item.attributes.subscription_start_date;
+              const dateFromBackend = new Date(dateStringFromBackend);
+              const year = dateFromBackend.getFullYear();
+              const month = dateFromBackend.getMonth() + 1; // Months are 0-indexed, so add 1
+              const day = dateFromBackend.getDate();
+              const formattedDate = `${year}-${month < 10 ? "0" : ""}${month}-${
+                day < 10 ? "0" : ""
+              }${day}`;
+
+              // End Date
+              const dateStringFromBackend1 =
+                item.attributes.subscription_end_date;
+              const dateFromBackend1 = new Date(dateStringFromBackend1);
+              const year1 = dateFromBackend1.getFullYear();
+              const month1 = dateFromBackend1.getMonth() + 1; // Months are 0-indexed, so add 1
+              const day1 = dateFromBackend1.getDate();
+              const formattedDate1 = `${year1}-${
+                month1 < 10 ? "0" : ""
+              }${month1}-${day1 < 10 ? "0" : ""}${day1}`;
+
+              // upperCase
+              const plan = item.attributes.purchase_plan;
+              const capitalizedWord = capitalizeFirstLetter(plan);
+              return (
+                <tr key={index} className="bg-white border-b">
                   <td className="px-6 py-4">
                     <input
                       placeholder="check box"
+                      className="row-checkbox cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white focus:outline-none  focus:ring-2  focus:ring-gray-400"
                       type="checkbox"
-                      className="row-checkbox cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white focus:outline-none focus:ring-2  focus:ring-gray-400"
-                      // checked={selectedRows[index]}
+                      checked={selectedRows[index]}
                       onChange={(event) => {
                         const newSelectedRows = [...selectedRows];
                         newSelectedRows[index] = !newSelectedRows[index];
@@ -620,96 +888,54 @@ const [checkstatus, setcheckstatus] = useState('')
                     scope="row"
                     className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                   >
-                    {/* {item.id} */}1
+                    {item.attributes.user_id.data.id}
                   </td>
                   <td className="py-3 px-6 text-left">
                     <div className="flex items-center">
                       <div className="mr-2 hover:transform hover:scale-150 duration-300">
                         <img
-                          alt="logo"
+                          alt="user image"
                           className="w-6 h-6 rounded-full"
-                          // src={`http://172.105.57.17:1337${item.attributes.profile_photo.data[0].attributes.url}`}
+                          src={`http://172.105.57.17:1337${item?.attributes?.user_id?.data?.attributes?.profile_photo?.data[0]?.attributes.url}`}
                           width={100}
                           height={100}
                         />
                       </div>
-                      <button
-                        onClick={() => {
-                          router.push({
-                            pathname: "/admin/profile",
-                            // query: { id: item.id },
-                          });
-                        }}
-                      >
-                        <span>
-                          {/* {item.attributes.first_name + */}
-                            {"+"}
-                            {/* item.attributes.last_name} */}
-                        </span> 
-                      </button>
+                      <span>
+                        {item.attributes.user_id.data.attributes.first_name +
+                          " " +
+                          item.attributes.user_id.data.attributes.last_name}
+                      </span>
                     </div>
                   </td>
-                  {/* <td className="px-20 py-4">Sliver</td> */}
+                  <td className="px-6 py-4">{capitalizedWord}</td>
                   <td className="px-6 py-4">
-                    {/* {item.attributes.Chooese_groom_bride == "Bride"
-                      ? "Female"
-                      : "Male"} */}
+                    {item.attributes.subscription_start_date
+                      ? formattedDate
+                      : "--/--"}
                   </td>
-                  <td className="px-6 py-4">test</td>
-                  <td className="px-6 py-4">test</td>
-                  <td className="px-6 py-4">test</td>
-                  <td className="px-6 py-4 ">test</td>
-
-                  <td className="px-6 py-4 flex items-center justify-evenly">
-                    <svg
-                      className="cursor-pointer"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      onClick={() => {
-                        router.push(
-                          {
-                            pathname: "/admin/profile",
-                            // query: { id: item.id, prevUrl: router.pathname },
-                          },
-                          "/admin/profile"
-                        );
-                      }}
-                    >
-                      <path
-                        d="M12 6.5C13.8387 6.49389 15.6419 7.00678 17.2021 7.97973C18.7624 8.95267 20.0164 10.3462 20.82 12C19.17 15.37 15.8 17.5 12 17.5C8.2 17.5 4.83 15.37 3.18 12C3.98362 10.3462 5.23763 8.95267 6.79788 7.97973C8.35813 7.00678 10.1613 6.49389 12 6.5ZM12 4.5C7 4.5 2.73 7.61 1 12C2.73 16.39 7 19.5 12 19.5C17 19.5 21.27 16.39 23 12C21.27 7.61 17 4.5 12 4.5ZM12 9.5C12.663 9.5 13.2989 9.76339 13.7678 10.2322C14.2366 10.7011 14.5 11.337 14.5 12C14.5 12.663 14.2366 13.2989 13.7678 13.7678C13.2989 14.2366 12.663 14.5 12 14.5C11.337 14.5 10.7011 14.2366 10.2322 13.7678C9.76339 13.2989 9.5 12.663 9.5 12C9.5 11.337 9.76339 10.7011 10.2322 10.2322C10.7011 9.76339 11.337 9.5 12 9.5ZM12 7.5C9.52 7.5 7.5 9.52 7.5 12C7.5 14.48 9.52 16.5 12 16.5C14.48 16.5 16.5 14.48 16.5 12C16.5 9.52 14.48 7.5 12 7.5Z"
-                        fill="#F98B1D"
-                      />
-                    </svg>
-                    <button
-                      disabled={downloadProfile.length != 1 ? true : false}
-                      onClick={generatePDF}
-                      className={`${
-                        downloadProfile.length != 1
-                          ? "cursor-not-allowed"
-                          : "cursor-pointer"
-                      }`}
-                    >
-                      <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 14 14"
-                        fill="none"
-                        // className="cursor-pointer"
-                        xmlns="http://www.w3.org/2000/svg"
-                        id="down1"
-                      >
-                        <path
-                          d="M12.0007 9.4987V11.9987H2.00065V9.4987H0.333984V11.9987C0.333984 12.9154 1.08398 13.6654 2.00065 13.6654H12.0007C12.9173 13.6654 13.6673 12.9154 13.6673 11.9987V9.4987H12.0007ZM11.1673 6.16536L9.99232 4.99036L7.83398 7.14036V0.332031H6.16732V7.14036L4.00898 4.99036L2.83398 6.16536L7.00065 10.332L11.1673 6.16536Z"
-                          fill="#F98B1D"
-                        />
-                      </svg>
-                    </button>
+                  <td className="px-6 py-4">
+                  {item.attributes.subscription_start_date
+                      ? formattedDate1
+                      : "--/--"}
+                  </td>
+                   
+                  <td className="px-6 py-4"> {item.attributes.price}   </td>
+                  <td className="px-6 py-4"> {item.attributes.marriage_fixed === false ? "No" : "Yes"} </td>
+                  <td className="font-medium text-left px-2 py-4">
+                    {item?.attributes?.status === "active" ? (
+                      <span className="bg-green-600 text-white py-2 px-6 rounded text-base ">
+                        Active
+                      </span>
+                    ) : (
+                      <span className="bg-red-600 text-white py-2 px-4 rounded text-base ">
+                        Expaired
+                      </span>
+                    )}
                   </td>
                 </tr>
-           
+              );
+            }, [])}
           </tbody>
         </table>
       </div>

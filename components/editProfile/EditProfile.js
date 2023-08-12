@@ -27,13 +27,14 @@ const EditProfile = () => {
   const [userProfile, setUserProfile] = useState([]);
   const [profileImg, setProfileImg] = useState();
   const [img, setImg] = useState([]);
-
+console.log(storageData)
   useEffect(() => {
     if (userProfile) {
       setProfileImg(userProfile?.profile_photo?.data);
       setImg(userProfile.horoscope_document?.data);
     }
   }, [userProfile]);
+
   function downloadPdf() {
     const input = document.getElementById("pdf-content");
     html2canvas(input).then((canvas) => {
@@ -58,10 +59,10 @@ const EditProfile = () => {
           const response = await axios.get(api);
           console.log("response", response.data.data);
           const userProfile = response.data.data.filter(
-            (u) => u.id === storageData?.data?.id
+            (u) => u.id === storageData?.user_profile?.id
           );
 
-          // console.log("userProfile ", userProfile);
+          console.log("userProfile ", userProfile);
           setUserProfile(userProfile[0]?.attributes);
         } catch (error) {
           console.error(error);
@@ -119,6 +120,8 @@ const EditProfile = () => {
     birthplace,
     presence_of_natal_direction,
   } = userProfile;
+
+  console.log(first_name)
   // console.log("url",userProfile.horoscope_document?.data?.[0]?.attributes?.url);
 
   // const imageLoader = ({src}) => {

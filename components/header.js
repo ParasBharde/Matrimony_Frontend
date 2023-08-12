@@ -28,7 +28,7 @@ const Header = () => {
   const [userProfile, setUserProfile] = useState(null);
   const [isAdminLogin, setAdminLogin] = useState();
   const [isProfileChanged, setIsProfileChanges] = useState("false");
-
+console.log(storage)
   useEffect(() => {
     if (pathname == "/profile") {
       setIsProfileChanges("true");
@@ -42,7 +42,7 @@ const Header = () => {
       );
       console.log(response.data);
       let userProfile = response.data.data.filter(
-        (u) => u.id == storage?.data?.id
+        (u) => u.id == storage?.user_profile?.id
       );
       setUserProfile(
         userProfile?.[0]?.attributes?.profile_photo?.data?.[0]?.attributes?.url
@@ -54,7 +54,7 @@ const Header = () => {
   }
   useEffect(() => {
     getUser();
-  }, [isProfileChanged]);
+  }, [id, isProfileChanged]);
 
   useEffect(() => {
     if (pathname == "/admin/welcome") {
@@ -81,15 +81,11 @@ const Header = () => {
   };
 
   const imgLoader = () => {
-
-      if (userProfile) {
-        return `http://172.105.57.17:1337${userProfile}`;
-      }
- 
+    if (userProfile) {
+      return `http://172.105.57.17:1337${userProfile}`;
+    } else return avatar
   };
-  useEffect(()=>{
-
-},[userProfile])
+  console.log(userProfile)
 
   return (
     <div className="bg-white flex flex-row justify-between items-center  max-md:pt-5 py-3 max-md:w-auto max-md:border-solid border-y-2 max-md:px-0">
@@ -214,10 +210,10 @@ const Header = () => {
         {data && (
           <div className="relative max-md:right-10 right-[2rem] group dropdown">
             <Image
-              className="rounded-full max-w-[50px]"
+              className="rounded-full max-w-[45px]"
               loader={imgLoader}
               src={
-                userProfile != null
+                userProfile != undefined || null || ""
                   ? `http://172.105.57.17:1337${userProfile}`
                   : avatar
               }

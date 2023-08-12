@@ -23,8 +23,8 @@ const Managelistdash = () => {
   const inputRef = useRef(false);
   const [isPremiumUser, setIsPremiumUser] = useState({});
   const [checkactive, setcheckactive] = useState([]);
-console.log(checkactive)
-  
+  console.log(checkactive);
+
   useEffect(() => {
     const getUser = () => {
       var config = {
@@ -51,12 +51,13 @@ console.log(checkactive)
     getUser();
   }, []);
 
+  // getData
   useEffect(() => {
     const subscription = () => {
       let config = {
         method: "get",
         maxBodyLength: Infinity,
-        url: "http://172.105.57.17:1337/api/subscription-details?populate=user_profile.profile_photo.user",
+        url: "http://172.105.57.17:1337/api/order-histories?populate=user_id.profile_photo.user",
         headers: {},
       };
 
@@ -150,9 +151,7 @@ console.log(checkactive)
   }, []);
 
   const purchasePlan = (item) => {
-    const chec = profileToShow
-      .filter((u) => u?.id === item?.id)
-      .map((u) => u);
+    const chec = profileToShow.filter((u) => u?.id === item?.id).map((u) => u);
     if (chec[0].attributes.subscriptions_detail.data !== null) {
       toast.success("Already Purchased!", 1000);
       return false;
@@ -179,7 +178,6 @@ console.log(checkactive)
       axios
         .request(config)
         .then((response) => {
-         
           console.log(JSON.stringify(response.data));
           toast.success("Subscription Activated!", 1000);
         })
@@ -265,6 +263,11 @@ console.log(checkactive)
     setIds([]);
     setSelectedRows(Array(profileToShow.length).fill(false));
     inputRef.current.checked = false;
+  }
+
+  // UpperCase
+  function capitalizeFirstLetter(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
   }
 
   return (
@@ -364,7 +367,7 @@ console.log(checkactive)
                 Contact.No
               </th>
               <th scope="col" className="px-6 py-3">
-                Purchase Date
+                End Date
               </th>
               <th scope="col" className="px-6 py-3">
                 Plan
@@ -376,7 +379,21 @@ console.log(checkactive)
           </thead>
           <tbody>
             {checkactive.map((item, index) => {
-              console.log(item)
+              console.log(item);
+              // Date
+              const dateStringFromBackend =
+                item.attributes.subscription_end_date;
+              const dateFromBackend = new Date(dateStringFromBackend);
+              const year = dateFromBackend.getFullYear();
+              const month = dateFromBackend.getMonth() + 1; // Months are 0-indexed, so add 1
+              const day = dateFromBackend.getDate();
+              const formattedDate = `${year}-${month < 10 ? "0" : ""}${month}-${
+                day < 10 ? "0" : ""
+              }${day}`;
+
+              // upperCase
+              const plan = item.attributes.purchase_plan;
+              const capitalizedWord = capitalizeFirstLetter(plan);
               return (
                 <tr key={index} className="bg-white border-b">
                   <td className="px-6 py-4">
@@ -401,7 +418,7 @@ console.log(checkactive)
                     scope="row"
                     className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                   >
-                    {item.id}
+                    {item.attributes.user_id.data.id}
                   </td>
                   <td className="py-3 px-6 text-left">
                     <div className="flex items-center">
@@ -409,15 +426,15 @@ console.log(checkactive)
                         <img
                           alt="user image"
                           className="w-6 h-6 rounded-full"
-                          src={`http://172.105.57.17:1337${item?.attributes?.user_profile?.data?.attributes?.profile_photo?.data[0]?.attributes.url}`}
+                          src={`http://172.105.57.17:1337${item?.attributes?.user_id?.data?.attributes?.profile_photo?.data[0]?.attributes.url}`}
                           width={100}
                           height={100}
                         />
                       </div>
                       <span>
-                        {item?.attributes?.user_profile?.data?.attributes.first_name +
+                        {item.attributes.user_id.data.attributes.first_name +
                           " " +
-                          item?.attributes?.user_profile?.data?.attributes.last_name}
+                          item.attributes.user_id.data.attributes.last_name}
                       </span>
                     </div>
                   </td>
@@ -426,26 +443,25 @@ console.log(checkactive)
                       ? "Female"
                       : "Male"}
                   </td>
-                  <td className="px-6 py-4">{item?.attributes?.user_profile?.data?.attributes.email}</td>
-                  <td className="px-6 py-4">{item?.attributes?.user_profile?.data?.attributes.phone_number}</td>
                   <td className="px-6 py-4">
-                    {item?.attributes?.subscriptions_detail?.data?.attributes
-                      ?.start_date
-                      ? item?.attributes?.subscriptions_detail?.data?.attributes
-                          ?.start_date
+                    {item.attributes.user_id.data.attributes.email}
+                  </td>
+                  <td className="px-6 py-4">
+                    {item.attributes.user_id.data.attributes.phone_number}
+                  </td>
+                  <td className="px-6 py-4">
+                    {item.attributes.subscription_start_date
+                      ? formattedDate
                       : "--/--"}
                   </td>
-                  <td className="px-6 py-4">
-                   Basic Plan
-                  </td>
+                  <td className="px-6 py-4">{capitalizedWord}</td>
                   <td className="font-medium text-left px-2 py-4">
-                    {item?.attributes?.subscriptions_detail?.data?.attributes
-                      ?.status === "active" ? (
-                      <span className="bg-green-600 text-white py-2 px-6 rounded text-base cursor-pointer">
+                    {item?.attributes?.status === "active" ? (
+                      <span className="bg-green-600 text-white py-2 px-6 rounded text-base ">
                         Active
                       </span>
                     ) : (
-                      <span className="bg-red-600 text-white py-2 px-4 rounded text-base cursor-pointer">
+                      <span className="bg-red-600 text-white py-2 px-4 rounded text-base ">
                         Expaired
                       </span>
                     )}
