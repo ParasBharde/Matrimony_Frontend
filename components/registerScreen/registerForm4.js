@@ -141,7 +141,7 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
   useEffect(() => {
     if (file2) {
       var formdata = new FormData();
-      formdata.append("files", file2[0], file2[0].preview.url);
+      formdata.append("files", file2[0], file2[0]?.preview.url);
       var requestOptions = {
         method: "POST",
         body: formdata,
@@ -405,7 +405,7 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
             clickable
           >
             <Image
-              src={file1 ? file1[0].preview.url : fileInputImage}
+              src={file1 ? file1[0]?.preview?.url : fileInputImage}
               alt={"File Input Image"}
               width={400}
               height={300}
@@ -415,7 +415,7 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
             className="files-dropzone cursor-pointer"
             onChange={onFilesChange2}
             onError={onFilesError2}
-            accepts={["image/png"]}
+            accepts={["image/png", "image/jpg", "image/jpeg", "image/svg+xml"]}
             maxFileSize={10000000}
             minFileSize={0}
             clickable

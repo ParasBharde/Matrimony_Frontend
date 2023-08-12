@@ -15,17 +15,12 @@ const Header = () => {
   const router = useRouter();
   const { pathname, asPath, query } = router;
   const { locale, locales, push } = useRouter();
-
-  // console.log("pathname",pathname);
   const getSelectedValue = (e) => {
     router.push({ pathname, query }, asPath, { locale: e });
   };
 
   const storage = useStorage();
-  console.log(storage);
-
   let id = storage?.user_profile;
-
   const dropdownRef = useRef(null);
   const dropdownRef1 = useRef(null);
   const [isMenuDropDownOpen, setMenuDropDownOpen] = useState(false);
@@ -86,9 +81,12 @@ const Header = () => {
   };
 
   const imgLoader = () => {
-    if (userProfile) {
-      return `http://172.105.57.17:1337${userProfile}`;
-    }
+    useEffect(()=>{
+      if (userProfile) {
+        return `http://172.105.57.17:1337${userProfile}`;
+      }
+    },[])
+ 
   };
 
   return (
@@ -156,11 +154,12 @@ const Header = () => {
           >
             About Us
           </p>
-          {/* <span> */}
+
           <GoogleTranslate />
-          {/* </span> */}
+
         </div>
         <GoogleTranslate />
+
         <div className="absolute right-2 hidden max-md:block max-sm:block group dropdown">
           <i className="fa-solid fa-bars mr-3 mb-3"></i>
           <div className="absolute group-hover:block dropdown-menu hidden h-auto right-2 shadow-lg top-11 z-50 bg-white">
@@ -207,11 +206,13 @@ const Header = () => {
             </p>
           </div>
         </div>
+
         {/* ..................   */}
+
         {data && (
           <div className="relative max-md:right-10 right-[2rem] group dropdown">
             <Image
-              className="rounded-full max-w-[45px]"
+              className="rounded-full max-w-[50px]"
               loader={imgLoader}
               src={
                 userProfile != null

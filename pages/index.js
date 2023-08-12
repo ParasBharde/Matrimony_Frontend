@@ -46,7 +46,6 @@ const Index = ({ props }) => {
   return (
     <>
       <div className=""> 
-      {/* min-w-min md:w-full */}
         <Hero homedata={home} />
         <Heading homedata={home} />
         <AboutUs homedata={home} />

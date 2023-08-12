@@ -645,7 +645,7 @@ const [checkstatus, setcheckstatus] = useState('')
                           {/* {item.attributes.first_name + */}
                             {"+"}
                             {/* item.attributes.last_name} */}
-                        </span>
+                        </span> 
                       </button>
                     </div>
                   </td>

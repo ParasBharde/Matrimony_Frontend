@@ -31,7 +31,6 @@ export default function App({
         </>
       )}
       <SessionProvider session={session}>
-        {/* <GoogleTranslate /> */}
         <Component {...pageProps} />
         <Script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" strategy="lazyOnload"/>
       </SessionProvider>
