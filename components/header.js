@@ -54,7 +54,7 @@ const Header = () => {
   }
   useEffect(() => {
     getUser();
-  }, [id, isProfileChanged]);
+  }, [isProfileChanged]);
 
   useEffect(() => {
     if (pathname == "/admin/welcome") {
@@ -79,7 +79,7 @@ const Header = () => {
     toast.success("Logged Out");
     router.push("/");
   };
-  useEffect(()=>{
+
   const imgLoader = () => {
 
       if (userProfile) {
@@ -87,6 +87,8 @@ const Header = () => {
       }
  
   };
+  useEffect(()=>{
+
 },[userProfile])
 
   return (
