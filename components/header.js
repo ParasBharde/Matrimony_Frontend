@@ -79,15 +79,15 @@ const Header = () => {
     toast.success("Logged Out");
     router.push("/");
   };
-
+  useEffect(()=>{
   const imgLoader = () => {
-    useEffect(()=>{
+
       if (userProfile) {
         return `http://172.105.57.17:1337${userProfile}`;
       }
-    },[])
  
   };
+},[userProfile])
 
   return (
     <div className="bg-white flex flex-row justify-between items-center  max-md:pt-5 py-3 max-md:w-auto max-md:border-solid border-y-2 max-md:px-0">
