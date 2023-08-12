@@ -142,7 +142,7 @@ const PaymentCheckout = () => {
   React.useEffect(() => {
     getUser();
     getSubscriptionDetail();
-  }, [storage]);
+  }, []);
 
   const handleCVCChange = (e) => {
     setCvv(e.target.value);

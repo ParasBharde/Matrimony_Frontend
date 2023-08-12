@@ -6,29 +6,7 @@ function OrderSummery() {
   const storageData = useStorage();
   const [subData, setsubData] = useState([]) 
 
-const getSubDetail = () => {
-    let config = {
-        method: 'get',
-        maxBodyLength: Infinity,
-        url: 'http://172.105.57.17:1337/api/Subscription-details?populate=user_profile',
-        headers: { }
-      };
-      
-      axios.request(config)
-      .then((response) => {
-        response.data.data.filter(u => u?.attributes?.user_profile?.data?.id === storageData?.user_profile?.id)
-        .map(u => console.log(u));
-      })
-     
-      .catch((error) => {
-        console.log(error);
-      });
-      
-}
 
-useEffect(()=>{
-    getSubDetail();
-},[])
 
   return (
     <div className="relative  shadow mx-10 my-10">
