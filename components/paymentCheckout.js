@@ -16,7 +16,7 @@ const PaymentCheckout = () => {
   const [expiry, setExpiry] = useState("");
   const [focused, setFocused] = useState("");
   const storage = useStorage();
-  // console.log(storage)
+  console.log(storage)
   const router = useRouter();
   const [pricing, setpricing] = useState([]);
   async function getUser() {
@@ -239,7 +239,10 @@ const PaymentCheckout = () => {
       <Breadcrumb screens={["Home", "Payment Checkout"]} />
       <div className="relative mx-auto w-[80%] bg-white">
         <div className="grid min-h-screen grid-cols-10">
-          <div className="col-span-full py-6 px-4 sm:py-12 lg:col-span-6 lg:py-24">
+          <div
+            style={{ marginLeft: "auto", marginRight: "auto", width: "50%" }}
+            className="col-span-full py-6 px-4 sm:py-12 lg:col-span-6 lg:py-24"
+          >
             <div className="mx-auto w-full">
               <h1 className="relative text-2xl font-medium text-gray-700 sm:text-3xl">
                 Payment Options
@@ -248,17 +251,32 @@ const PaymentCheckout = () => {
               <div className="block py-5">
                 <Image
                   src={Pay}
-                  className="qrpay h-52 w-56 object-cover "
+                  className="qrpay h-52 w-56"
                   alt="Picture of the author"
                 />
-                <address className="mt-5">
-                  <span className="font-bold text-red-700 ">Note:</span> <br/>
-                  Kindly inform the payment deposited details at us by Call or SMS at <p className="lin " ><a className="ab font-semibold" href="tel:9730832482">9730832482</a> or by Email <a className="ab font-semibold" href="mailto:paras.bharde@shubhchintak.co">paras.bharde@shubhchintak.co</a></p> 
+               
+              </div>
+ 
+            </div>
+            <address className="lin">
+            
+                  Kindly inform the payment deposited details and Your User ID : <p className="font-bold">{storage?.user_profile?.id}</p> at us by Call or
+                  SMS at {""}
+                    <a className="ab font-semibold" href="tel:9730832482">
+                      9730832482 {""}
+                    </a>
+                    or by Email {""}
+                    <a
+                      className="ab font-semibold"
+                      href="mailto:paras.bharde@shubhchintak.co"
+                    >
+                      paras.bharde@shubhchintak.co
+                    </a>
+                
                   <br />
                 </address>
-              </div>
-            </div>
           </div>
+          
           <div className="relative col-span-full flex flex-col py-6 pl-8 pr-4 sm:py-12 lg:col-span-4 lg:py-24">
             <h2 className="sr-only">Order summary</h2>
             <div>
@@ -311,8 +329,10 @@ const PaymentCheckout = () => {
               </p>
             </div>
           </div>
+   
         </div>
       </div>
+      
     </div>
   );
 };

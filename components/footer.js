@@ -15,7 +15,8 @@ const Footer = () => {
       router.pathname === "/downloadProfile" ||
       router.pathname === "/profile" ||
       router.pathname === "/editProfile" ||
-      router.pathname === "/contactus" ? (
+      router.pathname === "/contactus" || 
+      router.pathname === "/orderHistory"      ? (
         <div className="footer_main_1 bg-main flex flex-wrap justify-between items-center z-50">
           {/* w-max */}
           <p className="text-white text-base">
