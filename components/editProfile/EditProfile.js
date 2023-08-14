@@ -27,6 +27,7 @@ const EditProfile = () => {
   const [userProfile, setUserProfile] = useState([]);
   const [profileImg, setProfileImg] = useState();
   const [img, setImg] = useState([]);
+
 console.log(storageData)
   useEffect(() => {
     if (userProfile) {
@@ -61,9 +62,12 @@ console.log(storageData)
           const userProfile = response.data.data.filter(
             (u) => u.id === storageData?.user_profile?.id
           );
+          const userRegisterProfile =  response.data.data.filter(
+            (u) => u.id === storageData?.data?.id
+          );
 
           console.log("userProfile ", userProfile);
-          setUserProfile(userProfile[0]?.attributes);
+          setUserProfile(userRegisterProfile ? userRegisterProfile[0]?.attributes:userProfile[0]?.attributes);
         } catch (error) {
           console.error(error);
         }

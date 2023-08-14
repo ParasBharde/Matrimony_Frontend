@@ -22,12 +22,8 @@ const PaymentCheckout = () => {
   const path = router.pathname; 
   
   useEffect(()=>{
-     if (storage) {
-      router.push('/pricingPlan')
-     } else {
-      router.push('/signIn')
-     }
-  },[router])
+   
+ },[router])
   
   async function getUser() {
     var config = {
@@ -64,7 +60,7 @@ const PaymentCheckout = () => {
         secure_code: cvv,
         email: email,
         user: storage?.id,
-        user_profile: storage?.user_profile?.id,
+        user_profile: storage?.id,
         expiry_date: expiry,
       },
     });
@@ -270,7 +266,7 @@ const PaymentCheckout = () => {
             </div>
             <address className="lin">
             
-                  Kindly inform the payment deposited details and Your User ID : <p className="font-bold">{storage?.user_profile?.id}</p> at us by Call or
+                  Kindly inform the payment deposited details and Your User ID : <p className="font-bold">{storage?.id}</p> at us by Call or
                   SMS at {""}
                     <a className="ab font-semibold" href="tel:9730832482">
                       9730832482 {""}

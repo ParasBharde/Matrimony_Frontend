@@ -40,7 +40,8 @@ export default function App({
       router.pathname == "/admin/managelist" ||
       router.pathname == "/admin/orderHistory" ||
       router.pathname == "/admin/profile" ||
-      router.pathname == "/admin" ? null : (
+      router.pathname == "/admin" ||
+      router.pathname == "/changePassword" ? null : (
         <Footer />
       )}
     </>

@@ -49,10 +49,14 @@ const Hero = (props) => {
         let userProfileImage = response.data.data.filter(
           (u) => u.id == storage?.user_profile?.id
         );
+
+        let userRegisterProfile = response.data.data.filter(
+          (u) => u.id == storage?.id
+        );
         
         console.log(userProfileImage);
-        setUserProfile(
-          userProfileImage?.[0]?.attributes?.profile_photo?.data?.[0]
+        setUserProfile( userRegisterProfile ? userRegisterProfile?.[0]?.attributes?.profile_photo?.data?.[0]
+          ?.attributes?.url : userProfileImage?.[0]?.attributes?.profile_photo?.data?.[0]
             ?.attributes?.url
         );
       } catch (error) {
@@ -186,7 +190,7 @@ const Hero = (props) => {
                         <p
                           className="m-3 w-[200px] cursor-pointer"
                           onClick={() => {
-                            router.push("/likedprofile/" + data.id);
+                            router.push("/likedprofile/" + storage.id);
                           }}
                         >
                           <i className="fa-regular fa-heart mr-5 text-main"></i>

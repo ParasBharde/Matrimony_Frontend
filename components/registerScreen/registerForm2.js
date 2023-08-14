@@ -306,69 +306,6 @@ const RegisterForm2 = ({ screen, setScreen }) => {
     }
   };
 
-  // const handleInputChange = (event) => {
-  //   const { value } = event.target;
-  //   const sanitizedValue = value.replace(/[^0-9]/g, "");
-  //   const formattedValue = formatInputValue(sanitizedValue);
-  //   setDateOfBirth(formattedValue);
-  // };
-
-  // const isValidDate = () => {
-  //   // useEffect(()=>{})
-  //   const datePattern = /^\d{4}-\d{2}-\d{2}$/;
-  //   if (!datePattern.test(dateOfBirth)) {
-  //     toast.error("Please enter a valid month");
-
-  //     return false;
-  //   }
-
-  //   const [year, month, day] = dateOfBirth.split("-").map(Number);
-
-  //   if (month < 1 || month > 12) {
-  //     toast.error("Please enter a valid month");
-  //     return false;
-  //   }
-
-  //   if (day < 1 || day > 31) {
-  //     toast.error("Please enter a valid day");
-  //     return false;
-  //   }
-
-  //   const today = new Date();
-  //   const currentYear = today.getFullYear();
-
-  //   if (year > currentYear) {
-  //     toast.error("Please enter a valid year");
-  //     return false;
-  //   }
-
-  //   const date = new Date(year, month - 1, day);
-  //   return (
-  //     date.getFullYear() === year &&
-  //     date.getMonth() === month - 1 &&
-  //     date.getDate() === day
-  //   );
-  // };
-
-  const handleDOBChange = (event) => {
-    const inputDate = event.target.value;
-    const pattern = /^\d{4}-\d{2}-\d{2}$/;
-    if (pattern.test(inputDate)) {
-      const [year, month, day] = inputDate.split("-");
-      const isValidYear = !isNaN(year) && year <= new Date().getFullYear();
-      const isValidMonth = !isNaN(month) && month >= 1 && month <= 12;
-      const isValidDay = !isNaN(day) && day >= 1 && day <= 31;
-
-      if (isValidYear && isValidMonth && isValidDay) {
-        setDateOfBirth(inputDate);
-        setIsValid(true);
-      } else {
-        setIsValid(false);
-      }
-    } else {
-      setIsValid(false);
-    }
-  };
 
   const handleHeight = (event) => {
     const inputHeight = event.target.value;
@@ -379,6 +316,40 @@ const RegisterForm2 = ({ screen, setScreen }) => {
       setHeightValid(true);
     }
   };
+
+
+  const handleDOBChange = (event) => {
+    const inputDate = event.target.value;
+
+    // Regular expression to match YYYY-MM-DD format
+    const pattern = /^\d{4}-\d{2}-\d{2}$/;
+
+    if (pattern.test(inputDate)) {
+      const [year, month, day] = inputDate.split('-');
+      const currentDate = new Date();
+      const enteredDate = new Date(year, month - 1, day);
+
+      const isValidDate =
+        !isNaN(year) &&
+        !isNaN(month) &&
+        !isNaN(day) &&
+        year <= currentDate.getFullYear() &&
+        month <= 12 &&
+        day <= 31 &&
+        enteredDate <= currentDate;
+
+      if (isValidDate) {
+        setDateOfBirth(inputDate);
+        setIsValid(true);
+      } else {
+        setIsValid(false);
+      }
+    } else {
+      setIsValid(false);
+    }
+  };
+
+
   return (
     <>
       <div className="flex justify-center gap-5 items-center p-4 max-lg:min-w-min max-lg:flex max-lg:flex-col max-lg:items-center">
@@ -394,7 +365,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
                 setFirstName(e.target.value);
               }}
               type={"text"}
-              className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
+              className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-5"
             />
           </div>
 
@@ -433,6 +404,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
             >
               Date Of Birth *
             </label>
+            <div className="">
             <input
               value={dateOfBirth}
               onChange={handleDOBChange}
@@ -443,9 +415,11 @@ const RegisterForm2 = ({ screen, setScreen }) => {
               className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
             />
             {!isValid && (
-              <p style={{ color: "red" }}>Invalid date format or values.</p>
+              <p style={{ color: "red",marginTop:'-1rem' }}>Invalid date format or values.</p>
             )}
+           </div>
           </div>
+
           <div className="mt-5 max-w-min mx-auto">
             <p className="text-dark font-[500] text-[14px] mb-2">Height *</p>
             <input
@@ -460,6 +434,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
               <p style={{ color: "red" }}>Height Should be less than 200 cm.</p>
             )}
           </div>
+
           <div className="mt-5 max-w-min mx-auto">
             <p className="text-dark font-[500] text-[14px] mb-2">
               Educational Qualification *
@@ -489,6 +464,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
               className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
             />
           </div>
+
           <div className="mt-5 max-w-min mx-auto">
             <p className="text-dark font-[500] text-[14px] mb-2">
               Expectation *
@@ -503,6 +479,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
               className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
             />
           </div>
+
           <div className="mt-5 max-w-min mx-auto">
             <p className="text-dark font-[500] text-[14px] mb-2">Caste *</p>
             <input
@@ -515,9 +492,11 @@ const RegisterForm2 = ({ screen, setScreen }) => {
               className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
             />
           </div>
+
         </div>
         <div>
-          <div className="mt-5 max-w-min mx-auto">
+
+          <div className="mt-6 max-w-min mx-auto">
             <p className="text-dark font-[500] text-[14px] mb-2">Last Name *</p>
             <input
               placeholder="Enter Your Last Name"
@@ -576,6 +555,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
               })}
             </select>
           </div>
+
           <div className="mt-5 max-w-min mx-auto">
             <p className="text-dark font-[500] text-[14px] mb-2">Color *</p>
             <input
@@ -588,6 +568,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
               className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
             />
           </div>
+
           <div className="mt-5 max-w-min mx-auto">
             <p className="text-dark font-[500] text-[14px] mb-2">
               Career Details *
@@ -617,12 +598,14 @@ const RegisterForm2 = ({ screen, setScreen }) => {
               className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
             />
           </div>
+
           <div className="mt-5 max-w-min mx-auto">
             <p className="text-dark font-[500] text-[14px] mb-2">
               Phone Number *
             </p>
             <input
               // type={"number"}
+              placeholder="Enter Contact Number"
               pattern="[0-9]"
               type={"text"}
               value={phoneNumber}
@@ -637,6 +620,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
               className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
             />
           </div>
+
           <div className="mt-5 max-w-min mx-auto">
             <p className="text-dark font-[500] text-[14px] mb-2">
               Marriage Status *

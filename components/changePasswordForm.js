@@ -11,10 +11,11 @@ const ChangePasswordForm = () => {
   const [email, setEmail] = useState("");
   const router = useRouter();
   const storage = useStorage();
+  console.log(storage)
   useEffect(() => {
     if(storage) {
-      setEmail(storage.user_profile.email);
-      console.log("storage", storage.user_profile.email);
+      setEmail(storage.attributes.email?storage.attributes.email:storage.user_profile.email);
+      console.log("storage", storage.attributes.email);
     }
   },[storage])
 

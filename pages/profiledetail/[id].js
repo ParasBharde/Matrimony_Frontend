@@ -24,7 +24,7 @@ const Profiledetail = () => {
   const { id, isLiked } = router.query;
   console.log("isLiked",isLiked);
   const storage = useStorage();
-
+console.log(storage)
   useEffect(() => {
     if (id) {
       async function getUser() {

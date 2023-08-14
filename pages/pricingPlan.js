@@ -2,13 +2,20 @@ import React,{useState,useEffect} from 'react'
 import Breadcrumb from '@/components/breadcrumb'
 import LeftPricingPlanComponent from '@/components/pricingPlanScreen/leftPricingPlanComponent';
 import RightPricingPlanComponent from '@/components/pricingPlanScreen/rightPricingPlanComponent';
-
+import { useStorage } from "@/hooks/useStorage";
 import axios from 'axios';
+import { Router, useRouter } from "next/router";
+
 import MiddlePricingPlanComponent from '@/components/pricingPlanScreen/middlePricingPlanComponent';
 
 const PricingPlan = () => {
 
   const [pricing, setpricing] = useState([]);
+  const storage = useStorage()
+   const router = useRouter()
+
+
+
   async function getUser() {
 
     var config = {

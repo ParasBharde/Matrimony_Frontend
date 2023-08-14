@@ -108,6 +108,7 @@ const Right = () => {
             setUser(e.target.value);
           }}
           type={"number"}
+          onWheel={(event) => event.currentTarget.blur()}
           placeholder="Enter Mobile Number"
           className="border border-[#E1E1E1] lg:w-[400px] sm:w-[300px] w-[100%] py-2 px-8 rounded-md text-black"
         />

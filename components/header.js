@@ -33,7 +33,7 @@ console.log(storage)
     if (pathname == "/profile") {
       setIsProfileChanges("true");
     }
-  }, [pathname]);
+  }, [pathname,storage]);
 
   useEffect(() => {
   async function getUser() {
@@ -43,9 +43,13 @@ console.log(storage)
       );
       console.log(response.data);
       let userProfile = response.data.data.filter(
-        (u) => u.id == storage.user_profile.id
-      );
-      setUserProfile(
+        (u) => u.id == storage?.user_profile?.id );
+
+      let userRegisterProfile = response.data.data.filter(
+        (u) => u.id == storage?.id );
+      console.log(userRegisterProfile)
+      setUserProfile( userRegisterProfile ?
+        userRegisterProfile?.[0]?.attributes?.profile_photo?.data?.[0]?.attributes?.url : 
         userProfile?.[0]?.attributes?.profile_photo?.data?.[0]?.attributes?.url
       );
       setIsProfileChanges("false");
@@ -72,8 +76,6 @@ console.log(storage)
   // useOnHoverOutside(dropdownRef, closeHoverMenu);
   useOnHoverOutside(dropdownRef1, closeHoverMenu1);
 
-  const data = useStorage();
-  console.log("data", data);
   const logout = () => {
     localStorage.clear();
     sessionStorage.clear();
@@ -208,7 +210,7 @@ console.log(storage)
 
         {/* ..................   */}
 
-        {data && (
+        {storage && (
           <div className="relative max-md:right-10 right-[2rem] group dropdown">
             <Image
               className="rounded-full max-w-[45px]"
@@ -237,7 +239,7 @@ console.log(storage)
               <p
                 className="m-3 w-[200px] cursor-pointer"
                 onClick={() => {
-                  router.push("/likedprofile/" + data.id);
+                  router.push("/likedprofile/" + storage.id);
                 }}
               >
                 <i className="fa-regular fa-heart mr-5 text-main"></i>

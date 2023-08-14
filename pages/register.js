@@ -154,10 +154,13 @@ const Register = () => {
                 localStorage.clear("rg2");
                 localStorage.clear("rg3");
                 localStorage.clear("rg4");
-                localStorage.setItem("user", JSON.stringify(response.data));
+                localStorage.setItem("user", JSON.stringify(response.data.data));
+                console.log(response.data.data,'after Register')
               }
 
-              localStorage.setItem("user", JSON.stringify(response.data));
+              localStorage.setItem("user", JSON.stringify(response.data.data));
+              console.log(response.data.data,'after Register')
+
             })
             .catch(function (error) {
               let e = error?.response?.data?.error?.details?.errors;
