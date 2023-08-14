@@ -387,16 +387,14 @@ const [personName, setPerson] = useState('')
         status: checkstatus,
         purchase_plan: plan,
         user_id: selectedOption.value,
-        member_display_limit: 0,
         price: price,
         marriage_fixed: false,
-        marriage_fix_status:
-          plan === "master" ? marriageStatuss : "not_applicable",
+        marriage_fix_status: marriageStatuss,
+        paying_person_name: personName,
       },
-      
-    paying_person_name: personName
+     
     });
-
+   console.log(data)
     let config = {
       method: "post",
       maxBodyLength: Infinity,
@@ -484,7 +482,6 @@ const [personName, setPerson] = useState('')
                       />
                     </div>
                   </div>
-
                   <div
                     style={{
                       display: "flex",

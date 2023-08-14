@@ -61,7 +61,7 @@ const Dashboard = () => {
       var config = {
         method: "get",
         maxBodyLength: Infinity,
-        url: "http://172.105.57.17:1337/api/subscription-details?populate=user&populate=user_profile",
+        url: "http://172.105.57.17:1337/api/order-histories?populate=user_id.profile_photo.user",
       };
 
       axios(config)
