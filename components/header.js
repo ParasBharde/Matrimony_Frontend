@@ -42,7 +42,7 @@ console.log(storage)
       );
       console.log(response.data);
       let userProfile = response.data.data.filter(
-        (u) => u.id == storage?.user_profile?.id
+        (u) => u.id == storage?.data?.id
       );
       setUserProfile(
         userProfile?.[0]?.attributes?.profile_photo?.data?.[0]?.attributes?.url
@@ -62,7 +62,7 @@ console.log(storage)
     } else {
       setAdminLogin(false);
     }
-  }, [pathname]);
+  }, [pathname,userProfile]);
 
   const closeHoverMenu1 = () => {
     setMenuDropDownOpen1(false);

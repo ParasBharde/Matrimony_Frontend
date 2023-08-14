@@ -14,7 +14,7 @@ import Script from "next/script";
 const Hero = (props) => {
   const [login, setLogin] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
- 
+
   const dropdownRef = useRef(null);
   const [isMenuDropDownOpen, setMenuDropDownOpen] = useState(false);
 
@@ -28,16 +28,16 @@ const Hero = (props) => {
     router.push({ pathname, query }, asPath, { locale: e });
   };
 
-  const data = useStorage();
-
+  const storage = useStorage();
+  console.log(storage);
   useEffect(() => {
-    console.log('data',data)
-    if (data) {
-      console.log(data)
+    console.log("storage", storage);
+    if (storage) {
+      console.log(storage);
       setLogin(true);
     }
-  }, [data]);
-  console.log(data);
+  }, [storage]);
+
   useEffect(() => {
     async function getUser() {
       try {
@@ -47,8 +47,9 @@ const Hero = (props) => {
         console.log(response.data.data);
 
         let userProfileImage = response.data.data.filter(
-          (u) => u.id == data?.user_profile?.id
+          (u) => u.id == storage?.data?.id
         );
+        
         console.log(userProfileImage);
         setUserProfile(
           userProfileImage?.[0]?.attributes?.profile_photo?.data?.[0]
@@ -59,7 +60,7 @@ const Hero = (props) => {
       }
     }
     getUser();
-  }, [data]);
+  }, [userProfile]);
 
   const logout = () => {
     localStorage.clear();
@@ -156,7 +157,7 @@ const Hero = (props) => {
               </>
             ) : (
               <>
-                {data && (
+                {storage && (
                   <>
                     <div className="relative max-md:right-10 right-[1rem] group dropdown">
                       <Image
@@ -255,7 +256,7 @@ const Hero = (props) => {
             </>
           ) : (
             <>
-              {data && (
+              {storage && (
                 <>
                   <div className="relative max-md:right-10 top-[-44rem] left-[12rem] group dropdown">
                     <Image
@@ -320,7 +321,6 @@ const Hero = (props) => {
             </>
           )}
         </div>
-
 
         <div className="absolute right-5 top-14 hidden max-md:block max-sm:block :">
           <Hamburger
