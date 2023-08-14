@@ -260,7 +260,7 @@ const RegisterForm3 = ({ screen, setScreen }) => {
       <div className="">
         <div className="flex justify-between items-center mt-5 w-[820px] mx-auto max-md:flex max-md:flex-col max-md:items-center max-md:justify-center max-md:w-[10rem] max-md:ml-4 max-md:gap-3">
           <div className="max-md:flex max-md:flex-col">
-            <p className="text-dark font-[500] text-[14px] mb-2 ">Brothers *</p>
+            <p className="text-dark font-[500] text-[14px] mb-2 ">Brothers </p>
             <select
               value={brothers}
               onChange={(e) => {
@@ -279,7 +279,7 @@ const RegisterForm3 = ({ screen, setScreen }) => {
           </div>
           <div>
             <p className="text-dark font-[500] text-[14px] mb-2">
-              Younger Brothers *
+              Younger Brothers 
             </p>
             <select
               value={youngerBrothers}
@@ -299,7 +299,7 @@ const RegisterForm3 = ({ screen, setScreen }) => {
           </div>
           <div className="">
             <p className="text-dark font-[500] text-[14px] mb-2">
-              Elder Brothers *
+              Elder Brothers 
             </p>
             <select
               value={elderBrothers}
@@ -318,7 +318,7 @@ const RegisterForm3 = ({ screen, setScreen }) => {
             </select>
           </div>
           <div>
-            <p className="text-dark font-[500] text-[14px] mb-2">Married *</p>
+            <p className="text-dark font-[500] text-[14px] mb-2">Married </p>
             <select
               value={marriedBrothers}
               onChange={(e) => {
@@ -339,7 +339,7 @@ const RegisterForm3 = ({ screen, setScreen }) => {
 
         <div className="flex  justify-between items-center mt-5 w-[820px] mx-auto mb-3 max-md:flex-1 max-md:flex-col max-md:items-center max-md:justify-center max-md:w-[10rem] max-md:gap-3 max-md:ml-3">
           <div>
-            <p className="text-dark font-[500] text-sm  mb-2">Sisters *</p>
+            <p className="text-dark font-[500] text-sm  mb-2">Sisters </p>
             <select
               value={sisters}
               onChange={(e) => {
@@ -358,7 +358,7 @@ const RegisterForm3 = ({ screen, setScreen }) => {
           </div>
           <div>
             <p className="text-dark font-[500] text-[14px] mb-2">
-              Younger Sisters *
+              Younger Sisters 
             </p>
             <select
               value={youngerSisters}
@@ -378,7 +378,7 @@ const RegisterForm3 = ({ screen, setScreen }) => {
           </div>
           <div>
             <p className="text-dark font-[500] text-[14px] mb-2">
-              Elder Sisters *
+              Elder Sisters 
             </p>
             <select
               value={elderSisters}
@@ -397,7 +397,7 @@ const RegisterForm3 = ({ screen, setScreen }) => {
             </select>
           </div>
           <div>
-            <p className="text-dark font-[500] text-[14px] mb-2">Married *</p>
+            <p className="text-dark font-[500] text-[14px] mb-2">Married </p>
             <select
               value={marriedSisters}
               onChange={(e) => {

@@ -24,12 +24,12 @@ const Hero = (props) => {
   const [lang, setLang] = useState(locale);
 
   const getSelectedValue = (e) => {
-    // push('/portfolio/portfolio', undefined, {locale: e.target.value})
     router.push({ pathname, query }, asPath, { locale: e });
   };
 
   const storage = useStorage();
   console.log(storage);
+  
   useEffect(() => {
     console.log("storage", storage);
     if (storage) {
@@ -47,7 +47,7 @@ const Hero = (props) => {
         console.log(response.data.data);
 
         let userProfileImage = response.data.data.filter(
-          (u) => u.id == storage?.data?.id
+          (u) => u.id == storage?.user_profile?.id
         );
         
         console.log(userProfileImage);

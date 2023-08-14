@@ -5,7 +5,7 @@ import { useStorage } from "@/hooks/useStorage";
 const MiddlePricingPlanComponent = (props) => {
   const router = useRouter();
   const storage = useStorage();
-  console.log(storage);
+  // console.log(storage);
   useEffect(() => {}, []);
   return (
     <div className="bg-main text-white py-5 px-14 rounded-lg max-md:w-full max-md:text-center max-md:text-2xl max-md:p-5 shadow-2xl">

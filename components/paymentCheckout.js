@@ -19,6 +19,16 @@ const PaymentCheckout = () => {
   console.log(storage)
   const router = useRouter();
   const [pricing, setpricing] = useState([]);
+  const path = router.pathname; 
+  
+  useEffect(()=>{
+     if (storage) {
+      router.push('/checkout')
+     } else {
+      router.push('/signIn')
+     }
+  },[router])
+  
   async function getUser() {
     var config = {
       method: "get",
@@ -246,7 +256,7 @@ const PaymentCheckout = () => {
             <div className="mx-auto w-full">
               <h1 className="relative text-2xl font-medium text-gray-700 sm:text-3xl">
                 Payment Options
-                <span className="mt-2 block h-1 w-10 bg-main sm:w-20"></span>
+                <span className="mt-2 block h-1 w-40 bg-main sm:w-20"></span>
               </h1>
               <div className="block py-5">
                 <Image

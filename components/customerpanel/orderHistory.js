@@ -711,8 +711,7 @@ const [personName, setPerson] = useState('')
                       ))}
                     </select>
                   </div>
-                </form>
-                <div className="flex justify-evenly mt-8">
+                  <div className="flex justify-evenly mt-8">
                   <button
                     onClick={closeModal}
                     className=" px-5 rounded bg-orange-400 py-2 my-3"
@@ -726,6 +725,8 @@ const [personName, setPerson] = useState('')
                     Submit
                   </button>
                 </div>
+                </form>
+          
               </div>
             </div>
           )}

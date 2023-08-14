@@ -12,7 +12,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
   const [file3, setFile3] = useState(null);
   const [file4, setFile4] = useState(null);
 
-  const [file1ID, setFile1ID] = useState(4);                                                                                                                        
+  const [file1ID, setFile1ID] = useState(4);
   const [file2ID, setFile2ID] = useState(4);
   const [file3ID, setFile3ID] = useState(4);
   const [file4ID, setFile4ID] = useState(4);
@@ -75,12 +75,13 @@ const RegisterForm2 = ({ screen, setScreen }) => {
 
   const [firstName, setFirstName] = useState("");
   const [groomOrBride, setGroomOrBride] = useState("Groom");
-  const [dateOfBirth, setDateOfBirth] = useState(null);
-  console.log('dateOfBirth',dateOfBirth)
-  const [height, setHeight] = useState(0);
+  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [isValid, setIsValid] = useState(true);
+  const [isHeightValid, setHeightValid] = useState(true);
+  const [height, setHeight] = useState("");
   const [educationalQualifications, setEducationalQualifications] =
     useState("");
-  const [salary, setSalary] = useState(0);
+  const [salary, setSalary] = useState("");
   const [expectation, setExpectation] = useState("");
   const [caste, setCaste] = useState("");
 
@@ -209,7 +210,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
           setFile4ID(4);
         });
     }
-  }, [file4]);
+  }, [file4, height]);
 
   const beforeNextScreen = () => {
     const rg2 = {
@@ -234,11 +235,9 @@ const RegisterForm2 = ({ screen, setScreen }) => {
     sessionStorage.setItem("rg2", JSON.stringify(rg2));
   };
 
-  // var nameRegex = /[A-Za-z]+/g;
   var nameRegex = /\d/g;
   var phoneRegex = /^(?:(?:\+91)|(?:91)|(?:0))?[7-9][0-9]{9}$/;
   var dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-  // var phoneRegex = /^([0|+[0-9]{1,5})?([7-9][0-9]{9})$/ ;
 
   const validate = () => {
     if (
@@ -284,15 +283,15 @@ const RegisterForm2 = ({ screen, setScreen }) => {
     if (!phoneRegex.test(phoneNumber)) {
       toast.error("Please enter a valid phone number");
       return false;
-    } if (parseFloat(height) < 1 || parseFloat(height) === 0 ) {
+    }
+    if (parseFloat(height) < 1 || parseFloat(height) === 0) {
       toast.error("Please enter a valid Height");
-      return false
+      return false;
     }
-    if (parseFloat(salary) < 1 || parseFloat(salary) === 0 ) {
+    if (parseFloat(salary) < 1 || parseFloat(salary) === 0) {
       toast.error("Please enter a valid Salary");
-      return false
+      return false;
     }
-    
 
     return true;
   };
@@ -307,50 +306,79 @@ const RegisterForm2 = ({ screen, setScreen }) => {
     }
   };
 
-  const handleInputChange = (event) => {
-    const { value } = event.target;
-    const sanitizedValue = value.replace(/[^0-9]/g, '');
-    const formattedValue = formatInputValue(sanitizedValue);
-    setDateOfBirth(formattedValue);
+  // const handleInputChange = (event) => {
+  //   const { value } = event.target;
+  //   const sanitizedValue = value.replace(/[^0-9]/g, "");
+  //   const formattedValue = formatInputValue(sanitizedValue);
+  //   setDateOfBirth(formattedValue);
+  // };
+
+  // const isValidDate = () => {
+  //   // useEffect(()=>{})
+  //   const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+  //   if (!datePattern.test(dateOfBirth)) {
+  //     toast.error("Please enter a valid month");
+
+  //     return false;
+  //   }
+
+  //   const [year, month, day] = dateOfBirth.split("-").map(Number);
+
+  //   if (month < 1 || month > 12) {
+  //     toast.error("Please enter a valid month");
+  //     return false;
+  //   }
+
+  //   if (day < 1 || day > 31) {
+  //     toast.error("Please enter a valid day");
+  //     return false;
+  //   }
+
+  //   const today = new Date();
+  //   const currentYear = today.getFullYear();
+
+  //   if (year > currentYear) {
+  //     toast.error("Please enter a valid year");
+  //     return false;
+  //   }
+
+  //   const date = new Date(year, month - 1, day);
+  //   return (
+  //     date.getFullYear() === year &&
+  //     date.getMonth() === month - 1 &&
+  //     date.getDate() === day
+  //   );
+  // };
+
+  const handleDOBChange = (event) => {
+    const inputDate = event.target.value;
+    const pattern = /^\d{4}-\d{2}-\d{2}$/;
+    if (pattern.test(inputDate)) {
+      const [year, month, day] = inputDate.split("-");
+      const isValidYear = !isNaN(year) && year <= new Date().getFullYear();
+      const isValidMonth = !isNaN(month) && month >= 1 && month <= 12;
+      const isValidDay = !isNaN(day) && day >= 1 && day <= 31;
+
+      if (isValidYear && isValidMonth && isValidDay) {
+        setDateOfBirth(inputDate);
+        setIsValid(true);
+      } else {
+        setIsValid(false);
+      }
+    } else {
+      setIsValid(false);
+    }
   };
 
- 
-  const isValidDate = (dateString) => {
-    const datePattern = /^\d{4}-\d{2}-\d{2}$/;
-    if (!datePattern.test(dateOfBirth)) {
-      toast.error("Please enter a valid month");
-
-      return false;
+  const handleHeight = (event) => {
+    const inputHeight = event.target.value;
+    if (inputHeight > 200) {
+      setHeightValid(false);
+    } else {
+      setHeight(inputHeight);
+      setHeightValid(true);
     }
-
-    const [year, month, day] = dateOfBirth.split('-').map(Number);
-
-    if (month < 1 || month > 12) {
-      toast.error("Please enter a valid month");
-      return false;
-    }
-
-    if (day < 1 || day > 31) {
-      toast.error("Please enter a valid day");
-      return false;
-    }
-
-    const today = new Date();
-    const currentYear = today.getFullYear();
-
-    if (year > currentYear) {
-      toast.error("Please enter a valid year");
-      return false;
-    }
-
-    const date = new Date(year, month - 1, day);
-    return (
-      date.getFullYear() === year &&
-      date.getMonth() === month - 1 &&
-      date.getDate() === day
-    );
   };
-
   return (
     <>
       <div className="flex justify-center gap-5 items-center p-4 max-lg:min-w-min max-lg:flex max-lg:flex-col max-lg:items-center">
@@ -399,17 +427,24 @@ const RegisterForm2 = ({ screen, setScreen }) => {
           </div>
 
           <div className="mt-5 max-w-min mx-auto">
-            <p className="text-dark font-[500] text-[14px] mb-2">
+            <label
+              htmlFor="dateOfBirth"
+              className="text-dark font-[500] text-[14px] mb-2"
+            >
               Date Of Birth *
-            </p>
+            </label>
             <input
               value={dateOfBirth}
-              onChange={(event)=>handleInputChange(event)}
-              type="text"
-              id="dateInput" 
+              onChange={handleDOBChange}
+              type="date"
+              id="dateOfBirth"
+              name="dateOfBirth"
               placeholder="YYYY-MM-DD"
               className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
             />
+            {!isValid && (
+              <p style={{ color: "red" }}>Invalid date format or values.</p>
+            )}
           </div>
           <div className="mt-5 max-w-min mx-auto">
             <p className="text-dark font-[500] text-[14px] mb-2">Height *</p>
@@ -417,11 +452,13 @@ const RegisterForm2 = ({ screen, setScreen }) => {
               placeholder="Enter height in cm"
               type={"text"}
               value={height}
-              onChange={(e) => {
-                setHeight(e.target.value);
-              }}
+              onChange={handleHeight}
               className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
             />
+
+            {!isHeightValid && (
+              <p style={{ color: "red" }}>Height Should be less than 200 cm.</p>
+            )}
           </div>
           <div className="mt-5 max-w-min mx-auto">
             <p className="text-dark font-[500] text-[14px] mb-2">
@@ -591,7 +628,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
               value={phoneNumber}
               onChange={(e) => {
                 const reg = /^[0-9\b]+$/;
-                if (e.target.value === '' || reg.test(e.target.value)) {
+                if (e.target.value === "" || reg.test(e.target.value)) {
                   if (e.target.value.length <= 10) {
                     setPhoneNumber(e.target.value);
                   }
@@ -630,7 +667,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
             className="files-dropzone cursor-pointer"
             onChange={onFilesChange1}
             onError={onFilesError1}
-            accepts={["image/png", "image/jpg","image/jpeg","image/svg+xml"]}
+            accepts={["image/png", "image/jpg", "image/jpeg", "image/svg+xml"]}
             maxFileSize={10000000}
             minFileSize={0}
             clickable
@@ -648,7 +685,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
             className="files-dropzone cursor-pointer"
             onChange={onFilesChange2}
             onError={onFilesError2}
-            accepts={["image/png", "image/jpg","image/jpeg","image/svg+xml"]}
+            accepts={["image/png", "image/jpg", "image/jpeg", "image/svg+xml"]}
             maxFileSize={10000000}
             minFileSize={0}
             clickable
@@ -666,7 +703,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
             className="files-dropzone cursor-pointer"
             onChange={onFilesChange3}
             onError={onFilesError3}
-            accepts={["image/png", "image/jpg","image/jpeg","image/svg+xml"]}
+            accepts={["image/png", "image/jpg", "image/jpeg", "image/svg+xml"]}
             maxFileSize={10000000}
             minFileSize={0}
             clickable
@@ -683,7 +720,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
             className="files-dropzone cursor-pointer"
             onChange={onFilesChange4}
             onError={onFilesError4}
-            accepts={["image/png", "image/jpg","image/jpeg","image/svg+xml"]}
+            accepts={["image/png", "image/jpg", "image/jpeg", "image/svg+xml"]}
             maxFileSize={10000000}
             minFileSize={0}
             clickable
@@ -716,7 +753,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
         <p
           className="text-white bg-main py-2 px-5 rounded-md cursor-pointer max-w-max"
           onClick={() => {
-            if (validate() && isValidDate()) {
+            if (validate()) {
               if (screen <= 3) {
                 setScreen(screen + 1);
               }

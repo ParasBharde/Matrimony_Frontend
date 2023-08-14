@@ -121,7 +121,7 @@ console.log(storageData)
     presence_of_natal_direction,
   } = userProfile;
 
-  console.log(first_name)
+  // console.log(first_name)
   // console.log("url",userProfile.horoscope_document?.data?.[0]?.attributes?.url);
 
   // const imageLoader = ({src}) => {

@@ -20,21 +20,22 @@ const Header = () => {
   };
 
   const storage = useStorage();
-  let id = storage?.user_profile;
+
   const dropdownRef = useRef(null);
   const dropdownRef1 = useRef(null);
-  const [isMenuDropDownOpen, setMenuDropDownOpen] = useState(false);
   const [isMenuDropDownOpen1, setMenuDropDownOpen1] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
   const [isAdminLogin, setAdminLogin] = useState();
   const [isProfileChanged, setIsProfileChanges] = useState("false");
 console.log(storage)
+
   useEffect(() => {
     if (pathname == "/profile") {
       setIsProfileChanges("true");
     }
   }, [pathname]);
 
+  useEffect(() => {
   async function getUser() {
     try {
       const response = await axios.get(
@@ -42,7 +43,7 @@ console.log(storage)
       );
       console.log(response.data);
       let userProfile = response.data.data.filter(
-        (u) => u.id == storage?.data?.id
+        (u) => u.id == storage.user_profile.id
       );
       setUserProfile(
         userProfile?.[0]?.attributes?.profile_photo?.data?.[0]?.attributes?.url
@@ -52,9 +53,9 @@ console.log(storage)
       console.error(error);
     }
   }
-  useEffect(() => {
+ 
     getUser();
-  }, [id, isProfileChanged]);
+  }, [storage]);
 
   useEffect(() => {
     if (pathname == "/admin/welcome") {

@@ -5,7 +5,7 @@ import { useStorage } from "@/hooks/useStorage";
 const LeftPricingPlanComponent = (props) => {
   const router = useRouter();
   const storage = useStorage();
-console.log(storage)
+// console.log(storage)
   useEffect(()=>{
 
   },[])
