@@ -23,7 +23,7 @@ const PaymentCheckout = () => {
   
   useEffect(()=>{
      if (storage) {
-      router.push('/checkout')
+      router.push('/pricingPlan')
      } else {
       router.push('/signIn')
      }
