@@ -391,9 +391,24 @@ const Managelistdash = () => {
                 day < 10 ? "0" : ""
               }${day}`;
 
+
+              // End Date
+              const dateStringFromBackend1 =
+                item.attributes.subscription_end_date;
+              const dateFromBackend1 = new Date(dateStringFromBackend1);
+              const year1 = dateFromBackend1.getFullYear();
+              const month1 = dateFromBackend1.getMonth() + 1; // Months are 0-indexed, so add 1
+              const day1 = dateFromBackend1.getDate();
+              const formattedDate1 = `${year1}-${
+                month1 < 10 ? "0" : ""
+              }${month1}-${day1 < 10 ? "0" : ""}${day1}`;
+
               // upperCase
               const plan = item.attributes.purchase_plan;
               const capitalizedWord = capitalizeFirstLetter(plan);
+
+                // check status
+             const checkStatus = new Date().toISOString().split("T")[0] > formattedDate1;
               return (
                 <tr key={index} className="bg-white border-b">
                   <td className="px-6 py-4">
@@ -456,7 +471,7 @@ const Managelistdash = () => {
                   </td>
                   <td className="px-6 py-4">{capitalizedWord}</td>
                   <td className="font-medium text-left px-2 py-4">
-                    {item?.attributes?.status === "active" ? (
+                    {!checkStatus ? (
                       <span className="bg-green-600 text-white py-2 px-6 rounded text-base ">
                         Active
                       </span>

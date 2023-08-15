@@ -28,7 +28,7 @@ const EditProfile = () => {
   const [profileImg, setProfileImg] = useState();
   const [img, setImg] = useState([]);
 
-console.log(storageData)
+// console.log(storageData)
   useEffect(() => {
     if (userProfile) {
       setProfileImg(userProfile?.profile_photo?.data);
@@ -58,16 +58,19 @@ console.log(storageData)
       async function getUser() {
         try {
           const response = await axios.get(api);
-          console.log("response", response.data.data);
+          // console.log("response", response.data.data);
           const userProfile = response.data.data.filter(
             (u) => u.id === storageData?.user_profile?.id
           );
           const userRegisterProfile =  response.data.data.filter(
-            (u) => u.id === storageData?.data?.id
+            (u) => u.id === storageData?.id
           );
+          const udata = userProfile[0]?.attributes;
+          const uRdata = userRegisterProfile[0]?.attributes
+          // console.log(udata)
+          // console.log(uRdata)
 
-          console.log("userProfile ", userProfile);
-          setUserProfile(userRegisterProfile ? userRegisterProfile[0]?.attributes:userProfile[0]?.attributes);
+          setUserProfile(uRdata != undefined ? uRdata : udata);
         } catch (error) {
           console.error(error);
         }
@@ -75,7 +78,7 @@ console.log(storageData)
       getUser();
     }
   }, [storageData, locale]);
-
+// console.log(userProfile)
   if (!userProfile) {
     return;
   }

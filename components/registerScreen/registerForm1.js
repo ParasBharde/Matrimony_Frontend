@@ -11,7 +11,9 @@ const RegisterForm1 = ({ screen, setScreen }) => {
   const [isRevealPwd, setIsRevealPwd] = useState(false);
   const [accept, setAccept] = useState(false);
   const [profiles, setprofiles] = useState([]);
-
+  const [isValidusername, setIsValidusername] = useState(true);
+  const [isValidemail, setIsValidemail] = useState(true);
+console.log(user,email)
   useEffect(() => {
     const rg = sessionStorage.getItem("rg1");
     if (rg) {
@@ -84,27 +86,41 @@ const RegisterForm1 = ({ screen, setScreen }) => {
         console.log(error);
       });
   }
-  //console.log("profiles", profiles);
+  // console.log("profiles", profiles);
   useEffect(() => {
     getUser();
   }, []);
 
-  const validateUserNameEmail = () => {
+  const validateUserName = (event) => {
+    const uname = event.target.value;
     if (profiles) {
       for (let profileData of profiles) {
-        if (profileData.attributes.username == user) {
-          toast.error("UserName is already taken");
+        if (profileData.attributes.username === uname) {
+          setIsValidusername(false);
           return false;
-        }
-        if (profileData.attributes.email == email) {
-          toast.error("Email is already registered");
-          return false;
+        } else {
+          setIsValidusername(true);
+          setUser(uname);
         }
       }
-      return true;
     }
   };
 
+  const validateEmail = (event) => {
+    const uemail = event.target.value;
+    if (profiles) {
+      for (let profileData of profiles) {
+        if (profileData.attributes.email === uemail) {
+          // toast.error("Email is already registered");
+          setIsValidemail(false);
+          return false;
+        } else {
+       setIsValidemail(true)
+       setEmail(uemail)
+        }
+      }
+    }
+  };
 
   return (
     <>
@@ -116,26 +132,31 @@ const RegisterForm1 = ({ screen, setScreen }) => {
         <input
           placeholder="Enter Mobile Number"
           value={user}
-          onChange={(e) => {
-            setUser(e.target.value);
-          }}
+          onChange={validateUserName}
           onWheel={(event) => event.currentTarget.blur()}
-
           type={"number"}
           className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
         />
+        {!isValidusername && (
+          <p style={{ color: "red", marginTop: "-1rem" }}>
+            Username already taken.
+          </p>
+        )}
       </div>
       <div className="mt-5 max-w-min mx-auto">
         <p className="text-dark font-[500] text-[14px] mb-2">Email*</p>
         <input
           placeholder="Enter Your Email"
           value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
+          onChange={validateEmail}
           type={"email"}
           className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
         />
+        {!isValidemail && (
+          <p style={{ color: "red", marginTop: "-1rem" }}>
+            Email Id already used.
+          </p>
+        )}
       </div>
       <div className="mt-5 max-w-min mx-auto">
         <p className="text-dark font-[500] text-[14px] mb-2">Password*</p>
@@ -213,16 +234,16 @@ const RegisterForm1 = ({ screen, setScreen }) => {
           Confirm Password*
         </p>
         <div className="flex relative" style={{ width: "100%" }}>
-        <input
-          placeholder="Confirm Your Password"
-          value={confirmPass}
-          onChange={(e) => {
-            setConfirmPass(e.target.value);
-          }}
-          type={isRevealPwd ? "text" : "password"}
-          className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
-        />
-            <div
+          <input
+            placeholder="Confirm Your Password"
+            value={confirmPass}
+            onChange={(e) => {
+              setConfirmPass(e.target.value);
+            }}
+            type={isRevealPwd ? "text" : "password"}
+            className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
+          />
+          <div
             style={{
               display: "flex",
               alignItems: "center",
@@ -278,7 +299,7 @@ const RegisterForm1 = ({ screen, setScreen }) => {
               </svg>
             )}
           </div>
-      </div>
+        </div>
       </div>
 
       <div className="w-[400px] mx-auto mb-12">

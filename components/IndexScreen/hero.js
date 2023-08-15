@@ -23,49 +23,15 @@ const Hero = (props) => {
   const { locale, locales, push } = useRouter();
   const [lang, setLang] = useState(locale);
 
-  const getSelectedValue = (e) => {
-    router.push({ pathname, query }, asPath, { locale: e });
-  };
-
   const storage = useStorage();
-  console.log(storage);
-  
+
   useEffect(() => {
-    console.log("storage", storage);
     if (storage) {
-      console.log(storage);
       setLogin(true);
     }
   }, [storage]);
 
-  useEffect(() => {
-    async function getUser() {
-      try {
-        const response = await axios.get(
-          `http://172.105.57.17:1337/api/profiles/?populate=%2A`
-        );
-        console.log(response.data.data);
-
-        let userProfileImage = response.data.data.filter(
-          (u) => u.id == storage?.user_profile?.id
-        );
-
-        let userRegisterProfile = response.data.data.filter(
-          (u) => u.id == storage?.id
-        );
-        
-        console.log(userProfileImage);
-        setUserProfile( userRegisterProfile ? userRegisterProfile?.[0]?.attributes?.profile_photo?.data?.[0]
-          ?.attributes?.url : userProfileImage?.[0]?.attributes?.profile_photo?.data?.[0]
-            ?.attributes?.url
-        );
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    getUser();
-  }, [userProfile]);
-
+  
   const logout = () => {
     localStorage.clear();
     sessionStorage.clear();
@@ -73,6 +39,38 @@ const Hero = (props) => {
     toast.success("Logged Out");
     router.push("/");
   };
+
+  useEffect(() => {
+    if (storage) {
+      let api = "http://172.105.57.17:1337/api/profiles/?populate=%2A";
+      if (locale == "ta") {
+        api =
+          "http://172.105.57.17:1337/api/profiles/?populate=%2A&locale=ta-IN";
+      } else if (locale == "en") {
+        api = "http://172.105.57.17:1337/api/profiles/?populate=%2A";
+      }
+      async function getUser() {
+        try {
+          const response = await axios.get(api);
+          // console.log("response", response.data.data);
+          const userProfile = response.data.data.filter(
+            (u) => u.id === storage?.user_profile?.id
+          );
+          const userRegisterProfile =  response.data.data.filter(
+            (u) => u.id === storage?.id
+          );
+          const udata = userProfile[0]?.attributes?.profile_photo?.data[0]?.attributes?.url;
+          const uRdata = userRegisterProfile[0]?.attributes?.profile_photo?.data[0]?.attributes?.url
+
+          setUserProfile(uRdata != undefined ? uRdata : udata);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+      getUser();
+    }
+  }, [userProfile]);
+
   const imgLoader = () => {
     if (userProfile) {
       return `http://172.105.57.17:1337${userProfile}`;

@@ -259,7 +259,7 @@ const Orderhistory = () => {
   const [marriageStatuss, setmarriageStatuss] = useState("");
   const [checkactive, setcheckactive] = useState([]);
 const [personName, setPerson] = useState('')
-
+console.log(marriageStatuss)
   const getUserProfile = async () => {
     let config = {
       method: "get",
@@ -302,7 +302,6 @@ const [personName, setPerson] = useState('')
   ];
 
   const marriageStatus = [
-    { value: "none", label: "None" },
     { value: "applicable", label: "Applicable" },
     { value: "not_applicable", label: "Not Applicable" },
   ];
@@ -386,7 +385,7 @@ const [personName, setPerson] = useState('')
         // subscription_end_date: expiryDate,
         status: checkstatus,
         purchase_plan: plan,
-        user_id: selectedOption.value,
+        userId: selectedOption.value,
         price: price,
         marriage_fixed: false,
         marriage_fix_status: marriageStatuss,
@@ -431,6 +430,7 @@ const [personName, setPerson] = useState('')
         .request(config)
         .then((response) => {
           setcheckactive(response.data.data);
+          console.log(response.data.data)
         })
         .catch((error) => {
           console.log(error);
@@ -836,7 +836,7 @@ const [personName, setPerson] = useState('')
           </thead>
           <tbody>
             {checkactive.map((item, index) => {
-              console.log(item);
+              // console.log(item);
               // start Date
               const dateStringFromBackend =
                 item.attributes.subscription_start_date;
@@ -862,6 +862,10 @@ const [personName, setPerson] = useState('')
               // upperCase
               const plan = item.attributes.purchase_plan;
               const capitalizedWord = capitalizeFirstLetter(plan);
+
+              // check status
+             const checkStatus = new Date().toISOString().split("T")[0] > formattedDate1;
+          
               return (
                 <tr key={index} className="bg-white border-b">
                   <td className="px-6 py-4">
@@ -913,7 +917,7 @@ const [personName, setPerson] = useState('')
                       : "--/--"}
                   </td>
                   <td className="px-6 py-4">
-                  {item.attributes.subscription_start_date
+                  {item.attributes.subscription_end_date
                       ? formattedDate1
                       : "--/--"}
                   </td>
@@ -921,7 +925,7 @@ const [personName, setPerson] = useState('')
                   <td className="px-6 py-4"> {item.attributes.price}   </td>
                   <td className="px-6 py-4"> {item.attributes.marriage_fixed === false ? "No" : "Yes"} </td>
                   <td className="font-medium text-left px-2 py-4">
-                    {item?.attributes?.status === "active" ? (
+                    { !checkStatus ? (
                       <span className="bg-green-600 text-white py-2 px-6 rounded text-base ">
                         Active
                       </span>

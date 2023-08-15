@@ -24,11 +24,11 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   const [profiles, setProfiles] = useState([]);
   const [myLikedprofiles, setMyLikedprofiles] = useState([]);
   const [pageCount, setPageCount] = useState(1);
-  
+
   const [currentLikes, setCurrentLikes] = useState([]);
-  
+
   const [isPremiumUser, setIsPremiumUser] = useState(false);
- console.log(allprofiles)
+  console.log(allprofiles);
 
   useEffect(() => {
     axios
@@ -105,9 +105,13 @@ const Portfoliodetails = ({ allprofiles, total }) => {
         axios
           .request(config)
           .then((response) => {
-            let sub = response.data.data.filter((u)=> u.attributes.card_detail.data.attributes.user_profile.data.attributes.user.data.id === storageData?.id)
-            console.log(sub)
-            setIsPremiumUser(sub[0].attributes.status === "active")
+            let sub = response.data.data.filter(
+              (u) =>
+                u.attributes.card_detail.data.attributes.user_profile.data
+                  .attributes.user.data.id === storageData?.id
+            );
+            console.log(sub);
+            setIsPremiumUser(sub[0].attributes.status === "active");
           })
           .catch((error) => {
             console.log(error);
@@ -262,6 +266,27 @@ const Portfoliodetails = ({ allprofiles, total }) => {
       </>
     );
   }
+
+  const handleView = () => {
+    let data = "";
+
+    let config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: `http://172.105.57.17:1337/api/plan/increaseMemeberView?user_id=${1}`,
+      headers: {},
+      data: data,
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data),'view');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <>
@@ -678,12 +703,13 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                             : "cursor-not-allowed"
                         }`}
                         onClick={() => {
-                          if (isPremiumUser) {
+                       
+                            handleView();
                             router.push({
                               pathname: "/profiledetail/[id]/",
                               query: { id: itms.id },
                             });
-                          }
+                        
                         }}
                       >
                         <td className="px-6 py-4">
@@ -753,22 +779,17 @@ const Portfoliodetails = ({ allprofiles, total }) => {
           <div className="container_card inline-grid grid-cols-4 max-lg:inline-grid max-lg:grid-cols-3 max-md:inline-grid max-md:grid-cols-2 gap-[4rem]">
             {profiles.length > 0 &&
               profiles.map((itms, index) => {
-                console.log(itms)
+                console.log(itms);
                 const age = calculateAge(itms.attributes.date_of_birth);
                 return (
                   <div
                     key={index}
                     className="relative mb-2 hover:transform hover:scale-105 duration-300 max-lg:min-w-fit"
                   >
-               
                     <div className="cards relative min-h-[400px] shadow-2xl">
-                    
-                     
-                   
                       <div className="relative h-3/5">
-                      
-                          <div className="absolute top-0 left-0 z-40 w-full h-full"></div>
-                   
+                        <div className="absolute top-0 left-0 z-40 w-full h-full"></div>
+
                         <picture>
                           <img
                             className="img_card"
@@ -830,6 +851,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                       <header
                         className="coloumn items-center justify-between leading-tight p-2 md:p-4"
                         onClick={() => {
+                          handleView();
                           router.push({
                             pathname: "/profiledetail/[id]/",
                             query: {
@@ -840,9 +862,8 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                         }}
                       >
                         <h1 className="text-lg">
-                         
-                            {/* <div className="absolute top-0 left-0 z-40 w-full h-full backdrop-blur-sm"></div> */}
-              
+                          {/* <div className="absolute top-0 left-0 z-40 w-full h-full backdrop-blur-sm"></div> */}
+
                           <span className="no-underline hover:underline text-black cursor-pointer">
                             {itms.attributes.first_name}{" "}
                             {itms.attributes.last_name}

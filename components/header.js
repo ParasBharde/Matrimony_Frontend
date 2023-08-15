@@ -27,47 +27,49 @@ const Header = () => {
   const [userProfile, setUserProfile] = useState(null);
   const [isAdminLogin, setAdminLogin] = useState();
   const [isProfileChanged, setIsProfileChanges] = useState("false");
-console.log(storage)
+  console.log(storage);
 
   useEffect(() => {
     if (pathname == "/profile") {
       setIsProfileChanges("true");
     }
-  }, [pathname,storage]);
+  }, [pathname, storage]);
 
   useEffect(() => {
-  async function getUser() {
-    try {
-      const response = await axios.get(
-        `http://172.105.57.17:1337/api/profiles/?populate=%2A`
-      );
-      console.log(response.data);
-      let userProfile = response.data.data.filter(
-        (u) => u.id == storage?.user_profile?.id );
+    async function getUser() {
+      try {
+        const response = await axios.get(
+          `http://172.105.57.17:1337/api/profiles/?populate=%2A`
+        );
+        console.log(response.data);
+        let userProfile = response.data.data.filter(
+          (u) => u.id == storage?.user_profile?.id
+        );
 
-      let userRegisterProfile = response.data.data.filter(
-        (u) => u.id == storage?.id );
-      console.log(userRegisterProfile)
-      setUserProfile( userRegisterProfile ?
-        userRegisterProfile?.[0]?.attributes?.profile_photo?.data?.[0]?.attributes?.url : 
-        userProfile?.[0]?.attributes?.profile_photo?.data?.[0]?.attributes?.url
-      );
-      setIsProfileChanges("false");
-    } catch (error) {
-      console.error(error);
+        let userRegisterProfile = response.data.data.filter(
+          (u) => u.id == storage?.id
+        );
+
+        console.log(userProfile[0]?.attributes?.profile_photo?.data[0]?.attributes?.url);
+        console.log(userRegisterProfile);
+        
+        setUserProfile(userProfile != undefined ? userProfile[0]?.attributes?.profile_photo?.data[0]?.attributes?.url : userRegisterProfile[0]?.attributes?.profile_photo?.data[0]?.attributes?.url );
+        setIsProfileChanges("false");
+      } catch (error) {
+        console.error(error);
+      }
     }
-  }
- 
+
     getUser();
   }, [storage]);
-
+// console.log(userProfile)
   useEffect(() => {
     if (pathname == "/admin/welcome") {
       setAdminLogin(true);
     } else {
       setAdminLogin(false);
     }
-  }, [pathname,userProfile]);
+  }, [pathname, userProfile]);
 
   const closeHoverMenu1 = () => {
     setMenuDropDownOpen1(false);
@@ -86,9 +88,9 @@ console.log(storage)
   const imgLoader = () => {
     if (userProfile) {
       return `http://172.105.57.17:1337${userProfile}`;
-    } else return avatar
+    } else return avatar;
   };
-  console.log(userProfile)
+  console.log(userProfile);
 
   return (
     <div className="bg-white flex flex-row justify-between items-center  max-md:pt-5 py-3 max-md:w-auto max-md:border-solid border-y-2 max-md:px-0">
@@ -157,7 +159,6 @@ console.log(storage)
           </p>
 
           <GoogleTranslate />
-
         </div>
         <GoogleTranslate />
 

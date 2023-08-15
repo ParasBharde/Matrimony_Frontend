@@ -15,6 +15,7 @@ const Right = () => {
 
   const login = () => {
     var data = JSON.stringify({
+      username:user,
       identifier: email,
       password: password,
     });
@@ -70,18 +71,13 @@ const Right = () => {
     if (!(user && email && password)) {
       toast.error("Enter All Fields");
       return false;
-    }
-
-    if (!phoneRegex.test(user)) {
+    }else if (!phoneRegex.test(user)) {
       toast.error("Please enter a valid phone number");
       return false;
-    }
-    if (!emailRegex.test(email)) {
+    }else if (!emailRegex.test(email)) {
       toast.error("Enter Valid Email");
       return false;
-    }
-
-    if (password.length < 8) {
+    }else if (password.length < 8) {
       toast.error("Password must contain 8 or more characters");
       return false;
     }

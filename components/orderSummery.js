@@ -19,7 +19,7 @@ const Managelistdash = () => {
   const [total, setTotal] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [ids, setIds] = useState([]);
-  const [isPremiumUser, setIsPremiumUser] = useState(['Yuppp Not Data Found!']);
+  const [isPremiumUser, setIsPremiumUser] = useState(["Yuppp Not Data Found!"]);
   const [checkactive, setcheckactive] = useState([]);
   const storage = useStorage();
   console.log(isPremiumUser);
@@ -64,8 +64,9 @@ const Managelistdash = () => {
         .request(config)
         .then((response) => {
           console.log(response.data.data);
-          let sub = response.data.data.filter(
-            (u) => u.attributes.user_id.data.id === storage?.id).map(u => u);
+          let sub = response.data.data
+            .filter((u) => u.attributes.user_id.data.id === storage?.id)
+            .map((u) => u);
           setIsPremiumUser(sub);
         })
         .catch((error) => {
@@ -106,7 +107,6 @@ const Managelistdash = () => {
     Array(profileToShow.length).fill(false)
   );
 
-
   const [stDate, setstDate] = useState("");
   const [expiry, setExpiry] = useState("");
 
@@ -128,7 +128,6 @@ const Managelistdash = () => {
     setExpiry(dateOnly1);
   }, []);
 
-
   // UpperCase
   function capitalizeFirstLetter(word) {
     return word?.charAt(0).toUpperCase() + word?.slice(1);
@@ -138,112 +137,118 @@ const Managelistdash = () => {
     <>
       <div className="lg:txt lg:flex md:flex relative mt-5 mx-14 justify-between lg:items-center">
         <span className="font-medium ml-60">Order History</span>
-
       </div>
-      <div className="user_dash relative overflow-x-auto mt-6">
-      <table className="text-sm text-left text-gray-500 overflow-y-scroll">
-          <thead
-            style={{ color: "rgba(30, 30, 30, 0.5)", fontWeight: "400" }}
-            className="text-xs  uppercase "
-          >
-            <tr>
-             
-              <th scope="col" className="px-6 py-3">
-                Reg.No
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Profile
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Plan
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Start Date
-              </th>
-              <th scope="col" className="px-6 py-3">
-                End Date
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Price
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Marriage Fix Status
-              </th>
-              {/* <th scope="col" className="px-6 py-3">
+      {isPremiumUser.length > 0 ? (
+        <div className="user_dash relative overflow-x-auto mt-6">
+          <table className="text-sm text-left text-gray-500 overflow-y-scroll">
+            <thead
+              style={{ color: "rgba(30, 30, 30, 0.5)", fontWeight: "400" }}
+              className="text-xs  uppercase "
+            >
+              <tr>
+                <th scope="col" className="px-6 py-3">
+                  Reg.No
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Profile
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Plan
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Start Date
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  End Date
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Price
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Marriage Fix Status
+                </th>
+                {/* <th scope="col" className="px-6 py-3">
                 Status
               </th> */}
-            </tr>
-          </thead>
-          <tbody>
-            {isPremiumUser && isPremiumUser.map((item, index) => {
-              console.log(item);
-              // start Date
-              const dateStringFromBackend =
-                item?.attributes?.subscription_start_date;
-              const dateFromBackend = new Date(dateStringFromBackend);
-              const year = dateFromBackend.getFullYear();
-              const month = dateFromBackend.getMonth() + 1; // Months are 0-indexed, so add 1
-              const day = dateFromBackend.getDate();
-              const formattedDate = `${year}-${month < 10 ? "0" : ""}${month}-${
-                day < 10 ? "0" : ""
-              }${day}`;
+              </tr>
+            </thead>
+            <tbody>
+              {isPremiumUser &&
+                isPremiumUser.map((item, index) => {
+                  console.log(item);
+                  // start Date
+                  const dateStringFromBackend =
+                    item?.attributes?.subscription_start_date;
+                  const dateFromBackend = new Date(dateStringFromBackend);
+                  const year = dateFromBackend.getFullYear();
+                  const month = dateFromBackend.getMonth() + 1; // Months are 0-indexed, so add 1
+                  const day = dateFromBackend.getDate();
+                  const formattedDate = `${year}-${
+                    month < 10 ? "0" : ""
+                  }${month}-${day < 10 ? "0" : ""}${day}`;
 
-              // End Date
-              const dateStringFromBackend1 =
-                item?.attributes?.subscription_end_date;
-              const dateFromBackend1 = new Date(dateStringFromBackend1);
-              const year1 = dateFromBackend1.getFullYear();
-              const month1 = dateFromBackend1.getMonth() + 1; // Months are 0-indexed, so add 1
-              const day1 = dateFromBackend1.getDate();
-              const formattedDate1 = `${year1}-${
-                month1 < 10 ? "0" : ""
-              }${month1}-${day1 < 10 ? "0" : ""}${day1}`;
+                  // End Date
+                  const dateStringFromBackend1 =
+                    item?.attributes?.subscription_end_date;
+                  const dateFromBackend1 = new Date(dateStringFromBackend1);
+                  const year1 = dateFromBackend1.getFullYear();
+                  const month1 = dateFromBackend1.getMonth() + 1; // Months are 0-indexed, so add 1
+                  const day1 = dateFromBackend1.getDate();
+                  const formattedDate1 = `${year1}-${
+                    month1 < 10 ? "0" : ""
+                  }${month1}-${day1 < 10 ? "0" : ""}${day1}`;
 
-              // upperCase
-              const plan = item?.attributes?.purchase_plan;
-              const capitalizedWord = capitalizeFirstLetter(plan);
-              return (
-                <tr key={index} className="bg-white border-b">
-                 
-                  <td
-                    scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                  >
-                    {item?.attributes?.user_id?.data.id}
-                  </td>
-                  <td className="py-3 px-6 text-left">
-                    <div className="flex items-center">
-                      <div className="mr-2 hover:transform hover:scale-150 duration-300">
-                        <img
-                          alt="user image"
-                          className="w-6 h-6 rounded-full"
-                          src={`http://172.105.57.17:1337${item?.attributes?.user_id?.data?.attributes?.profile_photo?.data[0]?.attributes?.url}`}
-                          width={100}
-                          height={100}
-                        />
-                      </div>
-                      <span>
-                        {item?.attributes?.user_id?.data?.attributes?.first_name +
-                          " " +
-                          item?.attributes?.user_id?.data?.attributes?.last_name}
-                      </span>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">{capitalizedWord}</td>
-                  <td className="px-6 py-4">
-                    {item.attributes?.subscription_start_date
-                      ? formattedDate
-                      : "--/--"}
-                  </td>
-                  <td className="px-6 py-4">
-                  {item.attributes?.subscription_start_date
-                      ? formattedDate1
-                      : "--/--"}
-                  </td>
-                   
-                  <td className="px-6 py-4"> {item.attributes?.price}   </td>
-                  <td className="px-6 py-4"> {item.attributes?.marriage_fixed === false ? "No" : "Yes"} </td>
-                  {/* <td className="font-medium text-left px-2 py-4">
+                  // upperCase
+                  const plan = item?.attributes?.purchase_plan;
+                  const capitalizedWord = capitalizeFirstLetter(plan);
+                  return (
+                    <tr key={index} className="bg-white border-b">
+                      <td
+                        scope="row"
+                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                      >
+                        {item?.attributes?.user_id?.data.id}
+                      </td>
+                      <td className="py-3 px-6 text-left">
+                        <div className="flex items-center">
+                          <div className="mr-2 hover:transform hover:scale-150 duration-300">
+                            <img
+                              alt="user image"
+                              className="w-6 h-6 rounded-full"
+                              src={`http://172.105.57.17:1337${item?.attributes?.user_id?.data?.attributes?.profile_photo?.data[0]?.attributes?.url}`}
+                              width={100}
+                              height={100}
+                            />
+                          </div>
+                          <span>
+                            {item?.attributes?.user_id?.data?.attributes
+                              ?.first_name +
+                              " " +
+                              item?.attributes?.user_id?.data?.attributes
+                                ?.last_name}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4">{capitalizedWord}</td>
+                      <td className="px-6 py-4">
+                        {item.attributes?.subscription_start_date
+                          ? formattedDate
+                          : "--/--"}
+                      </td>
+                      <td className="px-6 py-4">
+                        {item.attributes?.subscription_start_date
+                          ? formattedDate1
+                          : "--/--"}
+                      </td>
+
+                      <td className="px-6 py-4"> {item.attributes?.price} </td>
+                      <td className="px-6 py-4">
+                        {" "}
+                        {item.attributes?.marriage_fixed === false
+                          ? "No"
+                          : "Yes"}{" "}
+                      </td>
+                      {/* <td className="font-medium text-left px-2 py-4">
                     {item?.attributes?.status === "active" ? (
                       <span className="bg-green-600 text-white py-2 px-6 rounded text-base ">
                         Active
@@ -254,84 +259,92 @@ const Managelistdash = () => {
                       </span>
                     )}
                   </td> */}
-                </tr>
-              );
-            }, [])}
-          </tbody>
-        </table>
-        <div className="flex items-center justify-between  px-4 py-3 sm:px-6">
-          <div className="flex flex-1 justify-between sm:hidden">
-            <p className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
-              Previous
-            </p>
-            <p className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
-              Next
-            </p>
-          </div>
-          <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between mb-20">
-            <div>
-              <span className="text-sm text-gray-700">
-                {currentPage == 1 ? "1" : `${(currentPage - 1) * 10 + 1}`}-
-                {total <= currentPage * 10 ? total : currentPage * 10}{" "}
-                <span className="font-semibold text-gray-900">of</span> {total}{" "}
-                <span className="font-semibold text-gray-900">Pages</span>
-              </span>
+                    </tr>
+                  );
+                }, [])}
+            </tbody>
+          </table>
+          <div className="flex items-center justify-between  px-4 py-3 sm:px-6">
+            <div className="flex flex-1 justify-between sm:hidden">
+              <p className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
+                Previous
+              </p>
+              <p className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
+                Next
+              </p>
             </div>
-            <div>
-              <nav
-                className="isolate inline-flex -space-x-px  rounded-md shadow-sm "
-                aria-label="Pagination"
-              >
-                <p className="relative inline-flex items-center rounded-l-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20">
-                  <span className="sr-only">Previous</span>
-                  <svg
-                    className="h-5 w-5"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </p>
-                {Array(length)
-                  .fill(0)
-                  .map((item, index) => {
-                    return (
-                      <p
-                        key={index}
-                        aria-current="page"
-                        className="relative z-10 inline-flex items-center border border-gray-400 px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
-                      >
-                        {index + 1}
-                      </p>
-                    );
-                  })}
-                <p className="relative inline-flex items-center rounded-r-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20">
-                  <span className="sr-only">Next</span>
-                  <svg
-                    className="h-5 w-5"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </p>
-              </nav>
+            <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between mb-20">
+              <div>
+                <span className="text-sm text-gray-700">
+                  {currentPage == 1 ? "1" : `${(currentPage - 1) * 10 + 1}`}-
+                  {total <= currentPage * 10 ? total : currentPage * 10}{" "}
+                  <span className="font-semibold text-gray-900">of</span>{" "}
+                  {total}{" "}
+                  <span className="font-semibold text-gray-900">Pages</span>
+                </span>
+              </div>
+              <div>
+                <nav
+                  className="isolate inline-flex -space-x-px  rounded-md shadow-sm "
+                  aria-label="Pagination"
+                >
+                  <p className="relative inline-flex items-center rounded-l-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20">
+                    <span className="sr-only">Previous</span>
+                    <svg
+                      className="h-5 w-5"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </p>
+                  {Array(length)
+                    .fill(0)
+                    .map((item, index) => {
+                      return (
+                        <p
+                          key={index}
+                          aria-current="page"
+                          className="relative z-10 inline-flex items-center border border-gray-400 px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
+                        >
+                          {index + 1}
+                        </p>
+                      );
+                    })}
+                  <p className="relative inline-flex items-center rounded-r-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20">
+                    <span className="sr-only">Next</span>
+                    <svg
+                      className="h-5 w-5"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </p>
+                </nav>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <div className=" px-4 py-3 sm:px-[6rem] h-[80vh]">
+          <p className="text-center font-semibold text-xl mt-5">
+            Oh! You haven&apos;t purchase any subscription yet!
+          </p>
+        </div>
+      )}
     </>
   );
 };
