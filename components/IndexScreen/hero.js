@@ -24,7 +24,7 @@ const Hero = (props) => {
   const [lang, setLang] = useState(locale);
 
   const storage = useStorage();
-
+console.log(storage)
   useEffect(() => {
     if (storage) {
       setLogin(true);
@@ -61,7 +61,7 @@ const Hero = (props) => {
           );
           const udata = userProfile[0]?.attributes?.profile_photo?.data[0]?.attributes?.url;
           const uRdata = userRegisterProfile[0]?.attributes?.profile_photo?.data[0]?.attributes?.url
-
+// console.log(uRdata,uRdata)
           setUserProfile(uRdata != undefined ? uRdata : udata);
         } catch (error) {
           console.error(error);
@@ -70,12 +70,12 @@ const Hero = (props) => {
       getUser();
     }
   }, [userProfile]);
-
-  const imgLoader = () => {
-    if (userProfile) {
-      return `http://172.105.57.17:1337${userProfile}`;
-    }
-  };
+console.log(userProfile)
+  // const imgLoader = () => {
+  //   if (userProfile) {
+  //     return `http://172.105.57.17:1337${userProfile}`;
+  //   }
+  // };
 
   return (
     <>
@@ -164,7 +164,7 @@ const Hero = (props) => {
                     <div className="relative max-md:right-10 right-[1rem] group dropdown">
                       <Image
                         className=" rounded-full max-w-[45px]"
-                        loader={imgLoader}
+                        // loader={imgLoader}
                         src={
                           userProfile != null
                             ? `http://172.105.57.17:1337${userProfile}`
@@ -263,7 +263,7 @@ const Hero = (props) => {
                   <div className="relative max-md:right-10 top-[-44rem] left-[12rem] group dropdown">
                     <Image
                       className="rounded-full max-w-[45px]"
-                      loader={imgLoader}
+                      // loader={imgLoader}
                       src={
                         userProfile != null
                           ? `http://172.105.57.17:1337${userProfile}`

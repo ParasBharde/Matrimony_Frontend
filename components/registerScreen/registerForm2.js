@@ -308,8 +308,9 @@ const RegisterForm2 = ({ screen, setScreen }) => {
 
   const handleHeight = (event) => {
     const inputHeight = event.target.value;
-    if (inputHeight > 200) {
+    if (inputHeight > 250 || inputHeight < 1) {
       setHeightValid(false);
+      setHeight('')
     } else {
       setHeight(inputHeight);
       setHeightValid(true);
@@ -319,8 +320,6 @@ const RegisterForm2 = ({ screen, setScreen }) => {
 
   const handleDOBChange = (event) => {
     const inputDate = event.target.value;
-
-    // Regular expression to match YYYY-MM-DD format
     const pattern = /^\d{4}-\d{2}-\d{2}$/;
 
     if (pattern.test(inputDate)) {
@@ -430,7 +429,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
             />
 
             {!isHeightValid && (
-              <p style={{ color: "red" }}>Height Should be less than 200 cm.</p>
+              <p style={{ color: "red" }}>Height Should be less than 250 cm.</p>
             )}
           </div>
 

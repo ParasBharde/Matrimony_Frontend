@@ -30,9 +30,9 @@ const Header = () => {
   console.log(storage);
 
   useEffect(() => {
-    if (pathname == "/profile") {
-      setIsProfileChanges("true");
-    }
+    // if (pathname == "/profile") {
+    //   setIsProfileChanges("true");
+    // }
   }, [pathname, storage]);
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const Header = () => {
           `http://172.105.57.17:1337/api/profiles/?populate=%2A`
         );
         console.log(response.data);
-        let userProfile = response.data.data.filter(
+        let userProfiles = response.data.data.filter(
           (u) => u.id == storage?.user_profile?.id
         );
 
@@ -50,11 +50,11 @@ const Header = () => {
           (u) => u.id == storage?.id
         );
 
-        console.log(userProfile[0]?.attributes?.profile_photo?.data[0]?.attributes?.url);
-        console.log(userRegisterProfile);
+        console.log(userProfiles[0]?.attributes?.profile_photo?.data[0]?.attributes?.url);
+        console.log(userRegisterProfile[0]?.attributes?.profile_photo?.data[0]?.attributes?.url);
         
-        setUserProfile(userProfile != undefined ? userProfile[0]?.attributes?.profile_photo?.data[0]?.attributes?.url : userRegisterProfile[0]?.attributes?.profile_photo?.data[0]?.attributes?.url );
-        setIsProfileChanges("false");
+        setUserProfile(userProfiles === undefined ? userRegisterProfile[0]?.attributes?.profile_photo?.data[0]?.attributes?.url : userProfiles[0]?.attributes?.profile_photo?.data[0]?.attributes?.url );
+
       } catch (error) {
         console.error(error);
       }
@@ -62,7 +62,7 @@ const Header = () => {
 
     getUser();
   }, [storage]);
-// console.log(userProfile)
+console.log(userProfile)
   useEffect(() => {
     if (pathname == "/admin/welcome") {
       setAdminLogin(true);
@@ -88,9 +88,9 @@ const Header = () => {
   const imgLoader = () => {
     if (userProfile) {
       return `http://172.105.57.17:1337${userProfile}`;
-    } else return avatar;
+    }
   };
-  console.log(userProfile);
+
 
   return (
     <div className="bg-white flex flex-row justify-between items-center  max-md:pt-5 py-3 max-md:w-auto max-md:border-solid border-y-2 max-md:px-0">
@@ -215,12 +215,8 @@ const Header = () => {
           <div className="relative max-md:right-10 right-[2rem] group dropdown">
             <Image
               className="rounded-full max-w-[45px]"
-              loader={imgLoader}
-              src={
-                userProfile != undefined || null || ""
-                  ? `http://172.105.57.17:1337${userProfile}`
-                  : avatar
-              }
+              // loader={imgLoader}
+              src={userProfile ? `http://172.105.57.17:1337${userProfile}`: avatar }
               width="100"
               height="100"
               unoptimized

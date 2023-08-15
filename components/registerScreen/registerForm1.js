@@ -336,12 +336,10 @@ console.log(user,email)
           className="text-white bg-main py-2 px-5 rounded-md cursor-pointer max-w-max"
           onClick={() => {
             if (validate()) {
-              if (validateUserNameEmail()) {
                 if (screen <= 3) {
                   setScreen(screen + 1);
                 }
                 beforeNextScreen();
-              }
             }
           }}
         >
