@@ -13,6 +13,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   const router = useRouter();
   const dropdownRef = useRef(null);
   const storageData = useStorage();
+  // console.log(storageData);
 
   const calculateAge = useCalculateAge();
   const [active, setActive] = useState(false);
@@ -28,12 +29,12 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   const [currentLikes, setCurrentLikes] = useState([]);
 
   const [isPremiumUser, setIsPremiumUser] = useState(false);
-  console.log(allprofiles);
 
   useEffect(() => {
     axios
       .get("http://172.105.57.17:1337/api/liked-profiles")
       .then((response) => {
+        console.log(response.data);
         if (response.data.meta) {
           setPageCount(response.data.meta.pagination.pageCount);
           // console.log("pagecount", response.data.meta.pagination.pageCount);
@@ -53,8 +54,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
           .then((response) => {
             let data = response.data.data.filter((profile) => {
               return (
-                profile?.attributes?.user_permissions_user?.data?.id ==
-                storageData?.id
+                profile?.attributes?.user_permissions_user?.data?.id === storageData?.id
               );
             });
             allData = [...allData, ...data];
@@ -78,8 +78,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
         .then((response) => {
           let data = response.data.data.filter((profile) => {
             return (
-              profile?.attributes?.user_permissions_user?.data?.id ==
-              storageData?.id
+              profile?.attributes?.user_permissions_user?.data?.id === storageData?.id
             );
           });
           allData = [...allData, ...data];
@@ -91,38 +90,6 @@ const Portfoliodetails = ({ allprofiles, total }) => {
     }
   }, [storageData, pageCount]);
 
-  // subscription code start
-  useEffect(() => {
-    const subscription = () => {
-      if (storageData) {
-        let config = {
-          method: "get",
-          maxBodyLength: Infinity,
-          url: "http://172.105.57.17:1337/api/subscription-details?populate=card_detail.user_profile.user",
-          headers: {},
-        };
-
-        axios
-          .request(config)
-          .then((response) => {
-            let sub = response.data.data.filter(
-              (u) =>
-                u.attributes.card_detail.data.attributes.user_profile.data
-                  .attributes.user.data.id === storageData?.id
-            );
-            console.log(sub);
-            setIsPremiumUser(sub[0].attributes.status === "active");
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      } else {
-        return false;
-      }
-    };
-    subscription();
-  }, [storageData]);
-  // subscription code end
 
   const closeHoverMenu = () => {
     setActive(false);
@@ -132,7 +99,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   // check profile is liked or not
   const isProfileLiked = (id) => {
     for (let prop of myLikedprofiles) {
-      if (prop.attributes?.user_profile?.data?.id == id || prop.id == id) {
+      if (prop.attributes?.user_profile?.data?.id === id || prop.id === id) {
         // console.log("idsss prop", prop.attributes, id);
         return true;
       }
@@ -143,7 +110,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   //findLikedProfileId
   const findLikedProfileId = (id) => {
     for (let prop of myLikedprofiles) {
-      if (prop.attributes.user_profile?.data?.id == id) {
+      if (prop.attributes.user_profile?.data?.id === id) {
         console.log("idsssss", prop.id, id);
         return prop?.id;
       }
@@ -209,7 +176,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
     setCurrentPage(page);
     handlePagination(page);
   };
-  // pagination code end
+
 
   // like profile code start
   const handleLike = (itms, e) => {
@@ -239,7 +206,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
     setCurrentLikes([...currentLikes, itms]);
     console.log("res ", res);
   };
-  // like profile code end
+ 
 
   useEffect(() => {
     issetList(false);
@@ -266,27 +233,6 @@ const Portfoliodetails = ({ allprofiles, total }) => {
       </>
     );
   }
-
-  const handleView = () => {
-    let data = "";
-
-    let config = {
-      method: "post",
-      maxBodyLength: Infinity,
-      url: `http://172.105.57.17:1337/api/plan/increaseMemeberView?user_id=${1}`,
-      headers: {},
-      data: data,
-    };
-
-    axios
-      .request(config)
-      .then((response) => {
-        console.log(JSON.stringify(response.data),'view');
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
 
   return (
     <>
@@ -703,13 +649,11 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                             : "cursor-not-allowed"
                         }`}
                         onClick={() => {
-                       
-                            handleView();
-                            router.push({
-                              pathname: "/profiledetail/[id]/",
-                              query: { id: itms.id },
-                            });
-                        
+                          // handleView();
+                          router.push({
+                            pathname: "/profiledetail/[id]/",
+                            query: { id: itms.id },
+                          });
                         }}
                       >
                         <td className="px-6 py-4">
@@ -776,7 +720,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
             </table>
           </div>
         ) : (
-          <div className="container_card inline-grid grid-cols-4 max-lg:inline-grid max-lg:grid-cols-3 max-md:inline-grid max-md:grid-cols-2 gap-[4rem]">
+          <div className="container_card ">
             {profiles.length > 0 &&
               profiles.map((itms, index) => {
                 console.log(itms);
@@ -784,17 +728,18 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                 return (
                   <div
                     key={index}
-                    className="relative mb-2 hover:transform hover:scale-105 duration-300 max-lg:min-w-fit"
+                    className="relative mb-2 hover:transform hover:scale-105 duration-300 "
                   >
-                    <div className="cards relative min-h-[400px] shadow-2xl">
+                    <div className="cards relative shadow-2xl ">
                       <div className="relative h-3/5">
                         <div className="absolute top-0 left-0 z-40 w-full h-full"></div>
 
                         <picture>
                           <img
-                            className="img_card"
+                            className="img_card w-[15rem]"
                             src={`http://172.105.57.17:1337${itms.attributes.profile_photo?.data?.[0]?.attributes.url}`}
                             alt=""
+                            width
                           />
                         </picture>
 
@@ -851,7 +796,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                       <header
                         className="coloumn items-center justify-between leading-tight p-2 md:p-4"
                         onClick={() => {
-                          handleView();
+                          // handleView();
                           router.push({
                             pathname: "/profiledetail/[id]/",
                             query: {

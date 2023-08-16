@@ -76,8 +76,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
   const [firstName, setFirstName] = useState("");
   const [groomOrBride, setGroomOrBride] = useState("Groom");
   const [dateOfBirth, setDateOfBirth] = useState("");
-  const [isValid, setIsValid] = useState(true);
-  const [isHeightValid, setHeightValid] = useState(true);
+
   const [height, setHeight] = useState("");
   const [educationalQualifications, setEducationalQualifications] =
     useState("");
@@ -235,7 +234,6 @@ const RegisterForm2 = ({ screen, setScreen }) => {
     sessionStorage.setItem("rg2", JSON.stringify(rg2));
   };
 
-  var nameRegex = /\d/g;
   var phoneRegex = /^(?:(?:\+91)|(?:91)|(?:0))?[7-9][0-9]{9}$/;
 
   const validate = () => {
@@ -261,11 +259,6 @@ const RegisterForm2 = ({ screen, setScreen }) => {
 
     if (!(file1 && file2 && file3 && file4)) {
       toast.error("Please input all the files");
-      return false;
-    }
-
-    if (nameRegex.test(firstName) || nameRegex.test(lastName)) {
-      toast.error("Name must not contain a number");
       return false;
     }
 
@@ -305,25 +298,71 @@ const RegisterForm2 = ({ screen, setScreen }) => {
     }
   };
 
+  const [isValid, setIsValid] = useState(true);
+  const [isHeightValid, setHeightValid] = useState(true);
+  const [isIncomeValid, setIncomeValid] = useState(true);
+  const [isFValid, setFValid] = useState(true);
+  const [isLValid, setLValid] = useState(true);
+
 
   const handleHeight = (event) => {
     const inputHeight = event.target.value;
-    if (inputHeight > 250 || inputHeight < 1) {
+    if (inputHeight > 250 || inputHeight < 1 || inputHeight === 1) {
+        // toast.error("Please enter valid height!");
       setHeightValid(false);
-      setHeight('')
+      setHeight("")
     } else {
       setHeight(inputHeight);
       setHeightValid(true);
     }
   };
+  
+  const handleIncome = (event) => {
+    const inputIncome = event.target.value;
+    if (inputIncome < 1 || inputIncome === 1 || inputIncome === 0) {
+        // toast.error("Please enter valid height!");
+        setIncomeValid(false);
+      setSalary("")
+    } else {
+      setSalary(inputIncome);
+      setIncomeValid(true);
+    }
+  }
 
+  const handleFname = (event) => {
+    const inputFirst = event.target.value;
+    var nameRegex = /\d/g;
+
+    if (nameRegex.test(inputFirst)) {
+      // toast.error("Name must not contain a number");
+      setFValid(false);
+      return false;
+    } else {
+      setFValid(true);
+      setFirstName(inputFirst);
+    }
+  };
+
+  const handleLname = (event) => {
+    const inputLast = event.target.value;
+    var nameRegex = /\d/g;
+
+    if (nameRegex.test(inputLast)) {
+      // toast.error("Name must not contain a number");
+      setLValid(false);
+      return false;
+    } else {
+      setLValid(true);
+      setLastName(inputLast);
+    }
+  };
 
   const handleDOBChange = (event) => {
     const inputDate = event.target.value;
     const pattern = /^\d{4}-\d{2}-\d{2}$/;
 
     if (pattern.test(inputDate)) {
-      const [year, month, day] = inputDate.split('-');
+      const [year, month, day] = inputDate.split("-");
       const currentDate = new Date();
       const enteredDate = new Date(year, month - 1, day);
 
@@ -341,12 +380,15 @@ const RegisterForm2 = ({ screen, setScreen }) => {
         setIsValid(true);
       } else {
         setIsValid(false);
+        // toast.error("Please enter valid date!");
+
       }
     } else {
+      // toast.error("Please enter valid date!");
+
       setIsValid(false);
     }
   };
-
 
   return (
     <>
@@ -359,12 +401,15 @@ const RegisterForm2 = ({ screen, setScreen }) => {
             <input
               placeholder="Enter Your First Name"
               value={firstName}
-              onChange={(e) => {
-                setFirstName(e.target.value);
-              }}
+              onChange={handleFname}
               type={"text"}
               className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-5"
             />
+             {!isFValid && (
+                <p style={{ color: "red", marginTop: "-1rem" }}>
+                  Invalid first name.
+                </p>
+              )}
           </div>
 
           <div>
@@ -403,19 +448,21 @@ const RegisterForm2 = ({ screen, setScreen }) => {
               Date Of Birth *
             </label>
             <div className="">
-            <input
-              value={dateOfBirth}
-              onChange={handleDOBChange}
-              type="date"
-              id="dateOfBirth"
-              name="dateOfBirth"
-              placeholder="YYYY-MM-DD"
-              className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
-            />
-            {!isValid && (
-              <p style={{ color: "red",marginTop:'-1rem' }}>Invalid date format or values.</p>
-            )}
-           </div>
+              <input
+                value={dateOfBirth}
+                onChange={handleDOBChange}
+                type="date"
+                id="dateOfBirth"
+                name="dateOfBirth"
+                placeholder="YYYY-MM-DD"
+                className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
+              />
+              {!isValid && (
+                <p style={{ color: "red", marginTop: "-1rem" }}>
+                  Invalid date format or values.
+                </p>
+              )}
+            </div>
           </div>
 
           <div className="mt-5 max-w-min mx-auto">
@@ -456,11 +503,14 @@ const RegisterForm2 = ({ screen, setScreen }) => {
               placeholder="Enter Your Salary"
               type={"number"}
               value={salary}
-              onChange={(e) => {
-                setSalary(e.target.value);
-              }}
+              onChange={handleIncome}
               className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
             />
+               {!isIncomeValid && (
+                <p style={{ color: "red", marginTop: "-1rem" }}>
+                  Invalid amount enter.
+                </p>
+              )}
           </div>
 
           <div className="mt-5 max-w-min mx-auto">
@@ -490,21 +540,22 @@ const RegisterForm2 = ({ screen, setScreen }) => {
               className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
             />
           </div>
-
         </div>
         <div>
-
           <div className="mt-6 max-w-min mx-auto">
             <p className="text-dark font-[500] text-[14px] mb-2">Last Name *</p>
             <input
               placeholder="Enter Your Last Name"
               type={"text"}
               value={lastName}
-              onChange={(e) => {
-                setLastName(e.target.value);
-              }}
+              onChange={handleLname}
               className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
             />
+             {!isLValid && (
+                <p style={{ color: "red", marginTop: "-1rem" }}>
+                  Invalid last name.
+                </p>
+              )}
           </div>
 
           <div>

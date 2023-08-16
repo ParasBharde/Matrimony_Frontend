@@ -29,7 +29,7 @@ console.log(user,email)
     sessionStorage.setItem("rg1", JSON.stringify(rg1));
   };
 
-  var nameRegex = /\d/g;
+ 
   var emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   var phoneRegex = /^(?:(?:(?:\+|0{0,2})91(\s*[\-\s]\s*)?|[0]?)?[789]\d{9})$/;
 
