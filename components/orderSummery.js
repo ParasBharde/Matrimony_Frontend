@@ -22,7 +22,7 @@ const Managelistdash = () => {
   const [isPremiumUser, setIsPremiumUser] = useState(["Yuppp Not Data Found!"]);
   const [checkactive, setcheckactive] = useState([]);
   const storage = useStorage();
-  console.log(isPremiumUser);
+  console.log(storage);
 
   useEffect(() => {
     const getUser = () => {
@@ -65,7 +65,7 @@ const Managelistdash = () => {
         .then((response) => {
           console.log(response.data.data);
           let sub = response.data.data
-            .filter((u) => u.attributes.user_id.data.id === storage?.id)
+            .filter((u) => u.attributes.user_id.data.id === storage?.user_profile?.id)
             .map((u) => u);
           setIsPremiumUser(sub);
         })

@@ -259,7 +259,7 @@ const Orderhistory = () => {
   const [marriageStatuss, setmarriageStatuss] = useState("");
   const [checkactive, setcheckactive] = useState([]);
 const [personName, setPerson] = useState('')
-console.log(marriageStatuss)
+// console.log(marriageStatuss)
   const getUserProfile = async () => {
     let config = {
       method: "get",

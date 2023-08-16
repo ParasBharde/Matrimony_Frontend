@@ -24,7 +24,7 @@ const Header = () => {
   const dropdownRef = useRef(null);
   const dropdownRef1 = useRef(null);
   const [isMenuDropDownOpen1, setMenuDropDownOpen1] = useState(false);
-  const [userProfile, setUserProfile] = useState(null);
+  const [userProfile, setUserProfile] = useState('');
   const [isAdminLogin, setAdminLogin] = useState();
   const [isProfileChanged, setIsProfileChanges] = useState("false");
   console.log(storage);
@@ -49,12 +49,11 @@ const Header = () => {
         let userRegisterProfile = response.data.data.filter(
           (u) => u.id == storage?.id
         );
-
+        console.log(userProfiles, userRegisterProfile);
         console.log(userProfiles[0]?.attributes?.profile_photo?.data[0]?.attributes?.url);
         console.log(userRegisterProfile[0]?.attributes?.profile_photo?.data[0]?.attributes?.url);
-        
-        setUserProfile(userProfiles === undefined ? userRegisterProfile[0]?.attributes?.profile_photo?.data[0]?.attributes?.url : userProfiles[0]?.attributes?.profile_photo?.data[0]?.attributes?.url );
-
+        setUserProfile(userRegisterProfile[0]?.attributes?.profile_photo?.data[0]?.attributes?.url != undefined ? userRegisterProfile[0]?.attributes?.profile_photo?.data[0]?.attributes?.url
+            : userProfiles[0]?.attributes?.profile_photo?.data[0]?.attributes?.url);
       } catch (error) {
         console.error(error);
       }
@@ -62,7 +61,6 @@ const Header = () => {
 
     getUser();
   }, [storage]);
-console.log(userProfile)
   useEffect(() => {
     if (pathname == "/admin/welcome") {
       setAdminLogin(true);
@@ -85,12 +83,12 @@ console.log(userProfile)
     router.push("/");
   };
 
+  console.log(userProfile);
   const imgLoader = () => {
     if (userProfile) {
       return `http://172.105.57.17:1337${userProfile}`;
     }
   };
-
 
   return (
     <div className="bg-white flex flex-row justify-between items-center  max-md:pt-5 py-3 max-md:w-auto max-md:border-solid border-y-2 max-md:px-0">
@@ -213,16 +211,22 @@ console.log(userProfile)
 
         {storage && (
           <div className="relative max-md:right-10 right-[2rem] group dropdown">
-            <Image
-              className="rounded-full max-w-[45px]"
-              // loader={imgLoader}
-              src={userProfile ? `http://172.105.57.17:1337${userProfile}`: avatar }
-              width="100"
-              height="100"
-              unoptimized
-              alt="avatar"
-            />
-
+           {userProfile && 
+             <Image
+             className="rounded-full max-w-[45px]"
+             loader={imgLoader}
+             src={
+               userProfile != undefined
+                 ? `http://172.105.57.17:1337${userProfile}`
+                 : avatar
+             }
+             width="100"
+             height="100"
+            //  unoptimized
+             alt="avatar"
+           />
+}
+          
             <div className="absolute group-hover:block dropdown-menu hidden h-auto right-2 shadow-lg z-50 bg-white">
               <p
                 className="m-3 w-[200px] cursor-pointer"

@@ -24,14 +24,14 @@ const Hero = (props) => {
   const [lang, setLang] = useState(locale);
 
   const storage = useStorage();
-console.log(storage)
+  console.log(storage);
+
   useEffect(() => {
     if (storage) {
       setLogin(true);
     }
   }, [storage]);
 
-  
   const logout = () => {
     localStorage.clear();
     sessionStorage.clear();
@@ -56,12 +56,12 @@ console.log(storage)
           const userProfile = response.data.data.filter(
             (u) => u.id === storage?.user_profile?.id
           );
-          const userRegisterProfile =  response.data.data.filter(
+          const userRegisterProfile = response.data.data.filter(
             (u) => u.id === storage?.id
           );
           const udata = userProfile[0]?.attributes?.profile_photo?.data[0]?.attributes?.url;
-          const uRdata = userRegisterProfile[0]?.attributes?.profile_photo?.data[0]?.attributes?.url
-// console.log(uRdata,uRdata)
+          const uRdata = userRegisterProfile[0]?.attributes?.profile_photo?.data[0]?.attributes?.url;
+          console.log(uRdata, udata);
           setUserProfile(uRdata != undefined ? uRdata : udata);
         } catch (error) {
           console.error(error);
@@ -69,13 +69,15 @@ console.log(storage)
       }
       getUser();
     }
-  }, [userProfile]);
-console.log(userProfile)
-  // const imgLoader = () => {
-  //   if (userProfile) {
-  //     return `http://172.105.57.17:1337${userProfile}`;
-  //   }
-  // };
+  }, [userProfile,router.pathname]);
+
+  console.log(userProfile);
+
+  const imgLoader = () => {
+    if (!userProfile) {
+      return `http://172.105.57.17:1337${userProfile}`;
+    }
+  };
 
   return (
     <>
@@ -162,19 +164,22 @@ console.log(userProfile)
                 {storage && (
                   <>
                     <div className="relative max-md:right-10 right-[1rem] group dropdown">
-                      <Image
-                        className=" rounded-full max-w-[45px]"
-                        // loader={imgLoader}
-                        src={
-                          userProfile != null
-                            ? `http://172.105.57.17:1337${userProfile}`
-                            : avatar
-                        }
-                        width="100"
-                        height="100"
-                        unoptimized
-                        alt="avatar"
-                      />
+                {userProfile && 
+                         <Image
+                         className=" rounded-full max-w-[45px]"
+                         loader={imgLoader}
+                         src={
+                           userProfile != undefined
+                             ? `http://172.105.57.17:1337${userProfile}`
+                             : avatar
+                         }
+                         width="100"
+                         height="100"
+                         unoptimized
+                         alt="avatar"
+                       />
+                }
+             
                       <div className="absolute group-hover:block dropdown-menu hidden h-auto text-white right-2 shadow-lg  z-50 bg-black/[0.4]">
                         <p
                           className="m-3 w-[200px] cursor-pointer"
@@ -263,9 +268,9 @@ console.log(userProfile)
                   <div className="relative max-md:right-10 top-[-44rem] left-[12rem] group dropdown">
                     <Image
                       className="rounded-full max-w-[45px]"
-                      // loader={imgLoader}
+                      loader={imgLoader}
                       src={
-                        userProfile != null
+                        userProfile != undefined
                           ? `http://172.105.57.17:1337${userProfile}`
                           : avatar
                       }
