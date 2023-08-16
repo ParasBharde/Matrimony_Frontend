@@ -13,7 +13,7 @@ import Script from "next/script";
 
 const Hero = (props) => {
   const [login, setLogin] = useState(false);
-  const [userProfile, setUserProfile] = useState(null);
+  const [userProfile, setUserProfile] = useState("");
 
   const dropdownRef = useRef(null);
   const [isMenuDropDownOpen, setMenuDropDownOpen] = useState(false);
@@ -53,23 +53,35 @@ const Hero = (props) => {
         try {
           const response = await axios.get(api);
           // console.log("response", response.data.data);
-          const userProfile = response.data.data.filter(
+          const userProfiles = response.data.data.filter(
             (u) => u.id === storage?.user_profile?.id
           );
           const userRegisterProfile = response.data.data.filter(
             (u) => u.id === storage?.id
           );
-          const udata = userProfile[0]?.attributes?.profile_photo?.data[0]?.attributes?.url;
-          const uRdata = userRegisterProfile[0]?.attributes?.profile_photo?.data[0]?.attributes?.url;
-          console.log(uRdata, udata);
-          setUserProfile(uRdata != undefined ? uRdata : udata);
+          console.log(userProfiles, userRegisterProfile);
+          console.log(
+            userProfiles[0]?.attributes?.profile_photo?.data[0]?.attributes?.url
+          );
+          console.log(
+            userRegisterProfile[0]?.attributes?.profile_photo?.data[0]
+              ?.attributes?.url
+          );
+          setUserProfile(
+            userRegisterProfile[0]?.attributes?.profile_photo?.data[0]
+              ?.attributes?.url != undefined
+              ? userRegisterProfile[0]?.attributes?.profile_photo?.data[0]
+                  ?.attributes?.url
+              : userProfiles[0]?.attributes?.profile_photo?.data[0]?.attributes
+                  ?.url
+          );
         } catch (error) {
           console.error(error);
         }
       }
       getUser();
     }
-  }, [userProfile,router.pathname]);
+  }, [userProfile, router.pathname, storage]);
 
   console.log(userProfile);
 
@@ -164,22 +176,22 @@ const Hero = (props) => {
                 {storage && (
                   <>
                     <div className="relative max-md:right-10 right-[1rem] group dropdown">
-                {userProfile && 
-                         <Image
-                         className=" rounded-full max-w-[45px]"
-                         loader={imgLoader}
-                         src={
-                           userProfile != undefined
-                             ? `http://172.105.57.17:1337${userProfile}`
-                             : avatar
-                         }
-                         width="100"
-                         height="100"
-                         unoptimized
-                         alt="avatar"
-                       />
-                }
-             
+                      {userProfile && (
+                        <Image
+                          className=" rounded-full max-w-[45px]"
+                          loader={imgLoader}
+                          src={
+                            userProfile != undefined
+                              ? `http://172.105.57.17:1337${userProfile}`
+                              : avatar
+                          }
+                          width="100"
+                          height="100"
+                          unoptimized
+                          alt="avatar"
+                        />
+                      )}
+
                       <div className="absolute group-hover:block dropdown-menu hidden h-auto text-white right-2 shadow-lg  z-50 bg-black/[0.4]">
                         <p
                           className="m-3 w-[200px] cursor-pointer"
@@ -266,19 +278,21 @@ const Hero = (props) => {
               {storage && (
                 <>
                   <div className="relative max-md:right-10 top-[-44rem] left-[12rem] group dropdown">
-                    <Image
-                      className="rounded-full max-w-[45px]"
-                      loader={imgLoader}
-                      src={
-                        userProfile != undefined
-                          ? `http://172.105.57.17:1337${userProfile}`
-                          : avatar
-                      }
-                      width="100"
-                      height="100"
-                      unoptimized
-                      alt="avatar"
-                    />
+                    {userProfile && (
+                      <Image
+                        className="rounded-full max-w-[45px]"
+                        loader={imgLoader}
+                        src={
+                          userProfile != undefined
+                            ? `http://172.105.57.17:1337${userProfile}`
+                            : avatar
+                        }
+                        width="100"
+                        height="100"
+                        unoptimized
+                        alt="avatar"
+                      />
+                    )}
                     <div className="absolute group-hover:block dropdown-menu hidden h-auto text-white right-2 shadow-lg top-11 z-50 bg-black/[0.4]">
                       <p
                         className="m-3 w-[200px] cursor-pointer"

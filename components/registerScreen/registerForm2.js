@@ -422,7 +422,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
             <p className="text-dark font-[500] text-[14px] mb-2">Height *</p>
             <input
               placeholder="Enter height in cm"
-              type={"text"}
+              type={"number"}
               value={height}
               onChange={handleHeight}
               className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
