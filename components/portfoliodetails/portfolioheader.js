@@ -41,7 +41,7 @@ const Portfolioheader = ({ handleFilterQuery }) => {
     "Separated",
     "Registerd-Partnership",
   ];
-
+  const [isPremiumUser, setPremiumUser] = useState(null)
   const [checkView, setcheckView] = useState("");
   const [remaining, setremaining] = useState("");
   console.log("checkView", checkView);
@@ -56,7 +56,7 @@ const Portfolioheader = ({ handleFilterQuery }) => {
     axios
       .request(config)
       .then((response) => {
-        console.log(response.data.data);
+        setPremiumUser(response.data.data);
         const data =
           response.data.data[0].attributes.member_display_limit -
           response.data.data[0].attributes.member_viewed;
@@ -88,7 +88,7 @@ const Portfolioheader = ({ handleFilterQuery }) => {
     <>
       <div className="flex justify-between mb-5 ">
         <Breadcrumb screens={["Home", "Search"]} />
-        {storageData && (
+        {isPremiumUser?.length > 0 && storageData && (
           <div className="grid items-center px-24">
             <span className="font-medium">
               Total number profile view: {checkView.member_display_limit}
