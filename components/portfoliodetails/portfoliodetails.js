@@ -27,7 +27,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   const [pageCount, setPageCount] = useState(1);
   const [currentLikes, setCurrentLikes] = useState([]);
   const [isPremiumUser, setIsPremiumUser] = useState(false);
-
+console.log(isPremiumUser)
   const getPremium = () => {
     let config = {
       method: "get",
@@ -74,12 +74,9 @@ const Portfoliodetails = ({ allprofiles, total }) => {
             `http://172.105.57.17:1337/api/liked-profiles?populate=user_permissions_user&populate=user_profile.profile_photo&pagination[page]=${i}`
           )
           .then((response) => {
-            console.log(response, "getlike");
+            // console.log(response, "getlike");
             let data = response.data.data.filter((profile) => {
-              return (
-                profile?.attributes?.user_permissions_user?.data?.id ===
-                storageData?.id
-              );
+              return (profile?.attributes?.user_permissions_user?.data?.id === storageData?.id);
             });
             console.log(data);
             allData = [...allData, ...data];
@@ -120,9 +117,9 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   const isProfileLiked = (id) => {
     if (myLikedprofiles.length > 0) {
       for (let prop of myLikedprofiles) {
-        console.log(prop);
+        // console.log(prop);
         if (prop.attributes?.user_profile?.data?.id === id || prop.id === id) {
-          console.log("idsss prop", prop.attributes, id);
+          // console.log("idsss prop", prop.attributes, id);
           return true;
         }
       }
@@ -682,16 +679,19 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                     <tbody key={index}>
                       <tr
                         className={`bg-white border-b ${
-                          isPremiumUser
+                          isPremiumUser.length > 0
                             ? "cursor-pointer"
                             : "cursor-not-allowed"
                         }`}
                         onClick={() => {
-                          // handleView();
+                            if (isPremiumUser.length > 0){
                           router.push({
                             pathname: "/profiledetail/[id]/",
                             query: { id: itms.id },
                           });
+                        } else {
+                          toast.info("You don't have subscription")
+                        }
                         }}
                       >
                         <td className="px-6 py-4">

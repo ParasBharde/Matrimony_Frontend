@@ -27,8 +27,7 @@
     border-radius: 4px;
     padding: 1rem;
  
-    .port_table {
-    }
+
     .port_button {
         margin: 1rem 0rem;
         padding: 0.5rem 2rem;
@@ -54,7 +53,7 @@
     display: grid;
     justify-items: center;
     gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(300px,3fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
 }
 
 .cards {
