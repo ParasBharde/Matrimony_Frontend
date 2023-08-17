@@ -47,7 +47,6 @@ const Portfolio = () => {
 
   const handleFilterQuery = (query) => {
     console.log("query1", query);
-    // console.log("age type",typeof(query.ageFrom), typeof(query.ageTo));
     if(query.looking == "Choose" && query.star == "Choose" && query.ageFrom == '' && query.ageTo == '' && query.marriageStatus == "Choose"){
       setFilteredProfiles(profiles);
       setTotal(profiles.length);

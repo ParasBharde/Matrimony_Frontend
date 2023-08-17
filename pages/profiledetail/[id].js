@@ -22,9 +22,9 @@ const Profiledetail = () => {
   const calculateAge = useCalculateAge();
   const router = useRouter();
   const { id, isLiked } = router.query;
-  console.log("isLiked", isLiked);
   const storage = useStorage();
-  console.log(id, isLiked);
+  console.log(storage);
+
 
   const increaseViews = (lid) => {
     let data = "";
@@ -50,18 +50,16 @@ const Profiledetail = () => {
     if (router.isReady) {
       console.log("idd", router.query);
       const { id } = router.query;
-      increaseViews(id);
+      increaseViews(storage?.user_profile?.id);
     }
   }, [router.isReady, router.pathname]);
 
 
   useEffect(() => {
     if (router.query.id) {
-      const { id } = router.query;
-
-      increaseViews(id);
+      increaseViews(storage?.user_profile?.id);
     }
-  }, [router.query.id]);
+  }, [router.query.id,storage]);
 
   useEffect(() => {
     if (id) {
@@ -284,7 +282,7 @@ const Profiledetail = () => {
                             height={21}
                             alt=""
                             className="mx-2"
-                            // onClick={() => isLiked=!isLiked}
+                            onClick={() => console.log("CLicked")}
                           />
                           <Image
                             onClick={handleDownloadPdf}

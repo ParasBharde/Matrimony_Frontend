@@ -13,7 +13,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   const router = useRouter();
   const dropdownRef = useRef(null);
   const storageData = useStorage();
-  // console.log(storageData);
+  console.log(storageData);
 
   const calculateAge = useCalculateAge();
   const [active, setActive] = useState(false);
@@ -25,10 +25,32 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   const [profiles, setProfiles] = useState([]);
   const [myLikedprofiles, setMyLikedprofiles] = useState([]);
   const [pageCount, setPageCount] = useState(1);
-
   const [currentLikes, setCurrentLikes] = useState([]);
-
   const [isPremiumUser, setIsPremiumUser] = useState(false);
+
+  const getPremium = () => {
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: `http://172.105.57.17:1337/api/user-active-plans?filters[user_id]=${storageData?.user_profile?.id}`,
+      headers: {},
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+
+        setIsPremiumUser(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getPremium();
+  }, []);
 
   useEffect(() => {
     axios
@@ -52,11 +74,14 @@ const Portfoliodetails = ({ allprofiles, total }) => {
             `http://172.105.57.17:1337/api/liked-profiles?populate=user_permissions_user&populate=user_profile.profile_photo&pagination[page]=${i}`
           )
           .then((response) => {
+            console.log(response, "getlike");
             let data = response.data.data.filter((profile) => {
               return (
-                profile?.attributes?.user_permissions_user?.data?.id === storageData?.id
+                profile?.attributes?.user_permissions_user?.data?.id ===
+                storageData?.id
               );
             });
+            console.log(data);
             allData = [...allData, ...data];
             setMyLikedprofiles(allData);
           })
@@ -78,7 +103,8 @@ const Portfoliodetails = ({ allprofiles, total }) => {
         .then((response) => {
           let data = response.data.data.filter((profile) => {
             return (
-              profile?.attributes?.user_permissions_user?.data?.id === storageData?.id
+              profile?.attributes?.user_permissions_user?.data?.id ===
+              storageData?.id
             );
           });
           allData = [...allData, ...data];
@@ -90,18 +116,15 @@ const Portfoliodetails = ({ allprofiles, total }) => {
     }
   }, [storageData, pageCount]);
 
-
-  const closeHoverMenu = () => {
-    setActive(false);
-  };
-  useOnHoverOutside(dropdownRef, closeHoverMenu);
-
   // check profile is liked or not
   const isProfileLiked = (id) => {
-    for (let prop of myLikedprofiles) {
-      if (prop.attributes?.user_profile?.data?.id === id || prop.id === id) {
-        // console.log("idsss prop", prop.attributes, id);
-        return true;
+    if (myLikedprofiles.length > 0) {
+      for (let prop of myLikedprofiles) {
+        console.log(prop);
+        if (prop.attributes?.user_profile?.data?.id === id || prop.id === id) {
+          console.log("idsss prop", prop.attributes, id);
+          return true;
+        }
       }
     }
     return false;
@@ -177,9 +200,9 @@ const Portfoliodetails = ({ allprofiles, total }) => {
     handlePagination(page);
   };
 
-
   // like profile code start
   const handleLike = (itms, e) => {
+    console.log(itms, e);
     let data = JSON.stringify({
       data: {
         user_permissions_user: storageData.id,
@@ -206,12 +229,27 @@ const Portfoliodetails = ({ allprofiles, total }) => {
     setCurrentLikes([...currentLikes, itms]);
     console.log("res ", res);
   };
- 
 
   useEffect(() => {
     issetList(false);
     issetGrid(true);
   }, []);
+
+  // const handleSVG = () => {
+  //   console.log("Clicked");
+  //   if (storageData != null) {
+  //     let res = isProfileLiked(itms.id);
+  //     console.log("res", res);
+  //     if (res != true) {
+  //       handleLike(itms, e);
+  //     } else {
+  //       handleDislike(itms.id, e);
+  //     }
+  //   } else {
+  //     toast.error("You must be login first!");
+  //     router.push("/signIn");
+  //   }
+  // };
 
   const [selectedRows, setSelectedRows] = useState(
     Array(profiles?.length).fill(false)
@@ -723,7 +761,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
           <div className="container_card ">
             {profiles.length > 0 &&
               profiles.map((itms, index) => {
-                console.log(itms);
+                // console.log(itms);
                 const age = calculateAge(itms.attributes.date_of_birth);
                 return (
                   <div
@@ -731,8 +769,10 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                     className="relative mb-2 hover:transform hover:scale-105 duration-300 "
                   >
                     <div className="cards relative shadow-2xl ">
+                    
                       <div className="relative h-3/5">
-                        <div className="absolute top-0 left-0 z-40 w-full h-full"></div>
+                   
+                        <div className="absolute top-0 left-0 w-full h-full"></div>
 
                         <picture>
                           <img
@@ -759,6 +799,10 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                             }`}
                             id="heart"
                             data-id="liked-profile"
+                            width="24"
+                            height="21"
+                            viewBox="0 0 24 21"
+                            fill="none"
                             onClick={(e) => {
                               if (storageData != null) {
                                 let res = isProfileLiked(itms.id);
@@ -774,11 +818,6 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                                 router.push("/signIn");
                               }
                             }}
-                            width="24"
-                            height="21"
-                            viewBox="0 0 24 21"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
                           >
                             <path
                               className={`${

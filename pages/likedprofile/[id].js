@@ -42,7 +42,7 @@ const Likedprofile = () => {
 
   useEffect(() => {
     if (allProfiles.length > 0) {
-      // console.log("liked profiles", allProfiles);
+      console.log("liked profiles", allProfiles);
       setMyLikedprofiles(allProfiles);
     }
   }, [allProfiles]);
@@ -626,7 +626,7 @@ const Likedprofile = () => {
               <div className="container_card inline-grid grid-cols-4 gap-[4rem] max-w-screen-2xl max-lg:flex max-lg:flex-col max-lg:min-w-fit">
                 {likedprofiles.length > 0 &&
                   likedprofiles.map((profile, index) => {
-                    console.log("itmssss", profile);
+                    // console.log("itmssss", profile);
                     if (
                       profile.attributes.user_profile?.data == null ||
                       profile.attributes.user_profile?.data.length == 0
