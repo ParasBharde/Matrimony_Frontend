@@ -27,10 +27,10 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   const [pageCount, setPageCount] = useState(1);
   const [currentLikes, setCurrentLikes] = useState([]);
   const [isPremiumUser, setIsPremiumUser] = useState(false);
-  const [checkStatus, setcheckStatus] = useState('')
-  const [checkExpired, setcheckExpired] = useState('')
+  const [checkStatus, setcheckStatus] = useState("");
+  const [checkExpired, setcheckExpired] = useState("");
 
- console.log(checkExpired)
+  console.log(checkExpired);
   const getPremium = () => {
     let config = {
       method: "get",
@@ -44,9 +44,11 @@ const Portfoliodetails = ({ allprofiles, total }) => {
       .then((response) => {
         console.log(response.data.data);
 
-        setcheckStatus(response.data.data[0].attributes.status)
-        const data = response.data.data[0].attributes.member_viewed === response.data.data[0].attributes.member_display_limit
-        setcheckExpired(data)
+        setcheckStatus(response.data.data[0].attributes.status);
+        const data =
+          response.data.data[0].attributes.member_viewed ===
+          response.data.data[0].attributes.member_display_limit;
+        setcheckExpired(data);
         setIsPremiumUser(response.data.data);
       })
       .catch((error) => {
@@ -687,15 +689,29 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                   return (
                     <tbody key={index}>
                       <tr
-                        className={`bg-white border-b ${isPremiumUser.length > 0 && checkStatus === "active" ? "cursor-pointer": "cursor-not-allowed"}`}
+                        className={`bg-white border-b ${
+                          isPremiumUser.length > 0 && checkStatus === "active"
+                            ? "cursor-pointer"
+                            : "cursor-not-allowed"
+                        }`}
                         onClick={() => {
-                          if (isPremiumUser.length > 0 && checkStatus === "active") {
-                            router.push({
-                              pathname: "/profiledetail/[id]/",
-                              query: { id: itms.id, ispremium: isPremiumUser },
-                            });
+                          if (storageData) {
+                            if (
+                              isPremiumUser.length > 0 &&
+                              checkStatus === "active"
+                            ) {
+                              router.push({
+                                pathname: "/profiledetail/[id]/",
+                                query: {
+                                  id: itms.id,
+                                  ispremium: isPremiumUser,
+                                },
+                              });
+                            } else {
+                              toast.info("You don't have subscription");
+                            }
                           } else {
-                            toast.info("You don't have subscription");
+                            toast.error("You must be login first!");
                           }
                         }}
                       >
@@ -797,7 +813,11 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                           className="absolute top-0 right-0 m-2 rounded flex items-center justify-center w-10 h-11 text-white text-sm font-bold"
                         >
                           <svg
-                            className={`absolute rounded cursor-pointer fill-current hover:text-[#F98B1D] ${
+                            className={`absolute rounded  ${
+                              isPremiumUser.length > 0 && checkStatus === "active"
+                                ? "cursor-pointer"
+                                : "cursor-not-allowed"
+                            } fill-current hover:text-[#F98B1D] ${
                               isProfileLiked(itms.id) && "text-[#F98B1D]"
                             }`}
                             id="heart"
@@ -817,7 +837,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                                 }
                               } else {
                                 toast.error("You must be login first!");
-                                router.push("/signIn");
+                                // router.push("/signIn");
                               }
                             }}
                           >
@@ -841,13 +861,16 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                             : "cursor-not-allowed"
                         }`}
                         onClick={() => {
-                          if (isPremiumUser.length > 0 && checkStatus === "active") {
+                          if (
+                            isPremiumUser.length > 0 &&
+                            checkStatus === "active"
+                          ) {
                             router.push({
                               pathname: "/profiledetail/[id]/",
                               query: {
                                 id: itms.id,
                                 isLiked: isProfileLiked(itms.id),
-                                ispremium: isPremiumUser
+                                ispremium: isPremiumUser,
                               },
                             });
                           } else toast.info("You don't have subscription");
@@ -856,11 +879,14 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                         <h1 className="text-lg">
                           {/* <div className="absolute top-0 left-0 z-40 w-full h-full backdrop-blur-sm"></div> */}
 
-                          <span className= {`no-underline hover:underline text-black cursor-pointer${
-                          isPremiumUser.length > 0 && checkStatus === "active"
-                            ? "cursor-pointer"
-                            : "cursor-not-allowed"
-                        }`}>
+                          <span
+                            className={`no-underline hover:underline text-black cursor-pointer${
+                              isPremiumUser.length > 0 &&
+                              checkStatus === "active"
+                                ? "cursor-pointer"
+                                : "cursor-not-allowed"
+                            }`}
+                          >
                             {itms.attributes.first_name}{" "}
                             {itms.attributes.last_name}
                           </span>
