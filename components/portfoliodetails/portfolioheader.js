@@ -44,6 +44,7 @@ const Portfolioheader = ({ handleFilterQuery }) => {
   const [isPremiumUser, setPremiumUser] = useState(null)
   const [checkView, setcheckView] = useState("");
   const [remaining, setremaining] = useState("");
+  const [checkStatus, setcheckStatus] = useState('')
   console.log("checkView", checkView);
   const getPremium = () => {
     let config = {
@@ -62,6 +63,7 @@ const Portfolioheader = ({ handleFilterQuery }) => {
           response.data.data[0].attributes.member_viewed;
         setremaining(data);
         setcheckView(response.data.data[0].attributes);
+        setcheckStatus(response.data.data[0].attributes.status)
       })
       .catch((error) => {
         console.log(error);
@@ -70,7 +72,7 @@ const Portfolioheader = ({ handleFilterQuery }) => {
 
   useEffect(() => {
     getPremium();
-  }, [storageData, checkView, remaining]);
+  }, [storageData]);
 
   const search = () => {
     const query = {
@@ -88,7 +90,7 @@ const Portfolioheader = ({ handleFilterQuery }) => {
     <>
       <div className="flex justify-between mb-5 ">
         <Breadcrumb screens={["Home", "Search"]} />
-        {isPremiumUser?.length > 0 && storageData && (
+        {isPremiumUser?.length > 0 && storageData && checkStatus === "active" &&(
           <div className="grid items-center px-24">
             <span className="font-medium">
               Total number profile view: {checkView.member_display_limit}

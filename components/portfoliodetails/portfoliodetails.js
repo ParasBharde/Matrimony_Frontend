@@ -28,9 +28,9 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   const [currentLikes, setCurrentLikes] = useState([]);
   const [isPremiumUser, setIsPremiumUser] = useState(false);
   const [checkStatus, setcheckStatus] = useState('')
-  const [checkView, setcheckView] = useState('')
+  const [checkExpired, setcheckExpired] = useState('')
 
- console.log('isPremiumUser',isPremiumUser,'checkStatus',checkStatus)
+ console.log(checkExpired)
   const getPremium = () => {
     let config = {
       method: "get",
@@ -43,8 +43,10 @@ const Portfoliodetails = ({ allprofiles, total }) => {
       .request(config)
       .then((response) => {
         console.log(response.data.data);
+
         setcheckStatus(response.data.data[0].attributes.status)
-        setcheckView(response.data.data[0].attributes.member_viewed)
+        const data = response.data.data[0].attributes.member_viewed === response.data.data[0].attributes.member_display_limit
+        setcheckExpired(data)
         setIsPremiumUser(response.data.data);
       })
       .catch((error) => {
