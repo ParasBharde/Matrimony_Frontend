@@ -52,14 +52,14 @@ const Profiledetail = () => {
       const { id } = router.query;
       increaseViews(storage?.user_profile?.id);
     }
-  }, [router.isReady, router.pathname]);
+  }, [router.isReady, router.pathname,storage]);
 
 
   useEffect(() => {
     if (router.query.id) {
       increaseViews(storage?.user_profile?.id);
     }
-  }, [router.query.id,storage]);
+  }, [router.query.id]);
 
   useEffect(() => {
     if (id) {

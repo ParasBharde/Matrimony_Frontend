@@ -1,18 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Breadcrumb from "@/components/breadcrumb";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import axios from "axios";
+import { useStorage } from "@/hooks/useStorage";
 
 const Portfolioheader = ({ handleFilterQuery }) => {
   const [bookmarksChecked, setBookmarksChecked] = React.useState(true);
   const [urlsChecked, setUrlsChecked] = React.useState(false);
   const [person, setPerson] = React.useState("pedro");
-
+  const storageData = useStorage();
   const [star, setStar] = useState("Choose");
   const [ageFrom, setAgeFrom] = useState("");
   const [ageTo, setAgeTo] = useState("");
   const [looking, setlooking] = useState("Choose");
   const [marriageStatus, setMarriageStatus] = useState("Choose");
-
   const stars = [
     "Choose",
     "Aries",
@@ -30,7 +31,6 @@ const Portfolioheader = ({ handleFilterQuery }) => {
   ];
 
   const ages = ["Choose", "18-25", "26-35", "36-45", "46-55", "56-65"];
-
   const lookingfor = ["Choose", "Groom", "Bride"];
   const marriageStatuses = [
     "Choose",
@@ -41,6 +41,36 @@ const Portfolioheader = ({ handleFilterQuery }) => {
     "Separated",
     "Registerd-Partnership",
   ];
+
+  const [checkView, setcheckView] = useState("");
+  const [remaining, setremaining] = useState("");
+  console.log("checkView", checkView);
+  const getPremium = () => {
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: `http://172.105.57.17:1337/api/user-active-plans?filters[user_id]=${storageData?.user_profile?.id}`,
+      headers: {},
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        console.log(response.data.data);
+        const data =
+          response.data.data[0].attributes.member_display_limit -
+          response.data.data[0].attributes.member_viewed;
+        setremaining(data);
+        setcheckView(response.data.data[0].attributes);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getPremium();
+  }, [storageData, checkView, remaining]);
 
   const search = () => {
     const query = {
@@ -56,7 +86,20 @@ const Portfolioheader = ({ handleFilterQuery }) => {
 
   return (
     <>
-      <Breadcrumb screens={["Home", "Search"]} />
+      <div className="flex justify-between mb-5 ">
+        <Breadcrumb screens={["Home", "Search"]} />
+        {storageData && (
+          <div className="grid items-center px-24">
+            <span className="font-medium">
+              Total number profile view: {checkView.member_display_limit}
+            </span>
+            <span className="font-medium">
+              Viewed Profile: {checkView.member_viewed}
+            </span>
+            <span className="font-medium">Remaining Profile: {remaining}</span>
+          </div>
+        )}
+      </div>
       <form className="hidden max-md:block max-md:bg-[#FFFFFF] max-md:pt-8 max-md:pb-8">
         <label
           htmlFor="default-search"
@@ -147,7 +190,7 @@ const Portfolioheader = ({ handleFilterQuery }) => {
                   value={ageFrom}
                   onChange={(e) => {
                     const reg = /^[0-9\b]+$/;
-                    if (e.target.value === '' || reg.test(e.target.value)) {
+                    if (e.target.value === "" || reg.test(e.target.value)) {
                       setAgeFrom(e.target.value);
                     }
                   }}
@@ -159,7 +202,7 @@ const Portfolioheader = ({ handleFilterQuery }) => {
                   value={ageTo}
                   onChange={(e) => {
                     const reg = /^[0-9\b]+$/;
-                    if (e.target.value === '' || reg.test(e.target.value)) {
+                    if (e.target.value === "" || reg.test(e.target.value)) {
                       setAgeTo(e.target.value);
                     }
                   }}

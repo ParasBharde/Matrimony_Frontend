@@ -13,7 +13,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   const router = useRouter();
   const dropdownRef = useRef(null);
   const storageData = useStorage();
-  console.log(storageData);
+  // console.log(storageData);
 
   const calculateAge = useCalculateAge();
   const [active, setActive] = useState(false);
@@ -27,7 +27,10 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   const [pageCount, setPageCount] = useState(1);
   const [currentLikes, setCurrentLikes] = useState([]);
   const [isPremiumUser, setIsPremiumUser] = useState(false);
-  console.log(isPremiumUser);
+  const [checkStatus, setcheckStatus] = useState('')
+  const [checkView, setcheckView] = useState('')
+
+ console.log('isPremiumUser',isPremiumUser,'checkStatus',checkStatus)
   const getPremium = () => {
     let config = {
       method: "get",
@@ -39,8 +42,9 @@ const Portfoliodetails = ({ allprofiles, total }) => {
     axios
       .request(config)
       .then((response) => {
-        console.log(JSON.stringify(response.data));
-
+        console.log(response.data.data);
+        setcheckStatus(response.data.data[0].attributes.status)
+        setcheckView(response.data.data[0].attributes.member_viewed)
         setIsPremiumUser(response.data.data);
       })
       .catch((error) => {
@@ -670,9 +674,9 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                   <th scope="col" className="px-6 py-3">
                     Date of Birth
                   </th>
-                  <th scope="col" className="px-6 py-3">
+                  {/* <th scope="col" className="px-6 py-3">
                     Action
-                  </th>
+                  </th> */}
                 </tr>
               </thead>
               {profiles.length > 0 &&
@@ -681,9 +685,9 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                   return (
                     <tbody key={index}>
                       <tr
-                        className={`bg-white border-b ${isPremiumUser.length > 0 ? "cursor-pointer": "cursor-not-allowed"}`}
+                        className={`bg-white border-b ${isPremiumUser.length > 0 && checkStatus === "active" ? "cursor-pointer": "cursor-not-allowed"}`}
                         onClick={() => {
-                          if (isPremiumUser.length > 0) {
+                          if (isPremiumUser.length > 0 && checkStatus === "active") {
                             router.push({
                               pathname: "/profiledetail/[id]/",
                               query: { id: itms.id, ispremium: isPremiumUser },
@@ -736,7 +740,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                         <td className="px-6 py-4 ">
                           {itms.attributes.date_of_birth}
                         </td>
-                        <td className="px-4 py-4 flex">
+                        {/* <td className="px-4 py-4 flex">
                           <svg
                             width="20"
                             height="20"
@@ -749,7 +753,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                               fill="#F98B1D"
                             />
                           </svg>
-                        </td>
+                        </td> */}
                       </tr>
                     </tbody>
                   );
@@ -830,12 +834,12 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                       </div>
                       <header
                         className={` coloumn items-center justify-between leading-tight p-2 md:p-4 ${
-                          isPremiumUser.length > 0
+                          isPremiumUser.length > 0 && checkStatus === "active"
                             ? "cursor-pointer"
                             : "cursor-not-allowed"
                         }`}
                         onClick={() => {
-                          if (isPremiumUser.length > 0) {
+                          if (isPremiumUser.length > 0 && checkStatus === "active") {
                             router.push({
                               pathname: "/profiledetail/[id]/",
                               query: {
@@ -851,7 +855,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                           {/* <div className="absolute top-0 left-0 z-40 w-full h-full backdrop-blur-sm"></div> */}
 
                           <span className= {`no-underline hover:underline text-black cursor-pointer${
-                          isPremiumUser.length > 0
+                          isPremiumUser.length > 0 && checkStatus === "active"
                             ? "cursor-pointer"
                             : "cursor-not-allowed"
                         }`}>
