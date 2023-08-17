@@ -259,7 +259,7 @@ const Orderhistory = () => {
   const [marriageStatuss, setmarriageStatuss] = useState("");
   const [checkactive, setcheckactive] = useState([]);
 const [personName, setPerson] = useState('')
-// console.log(marriageStatuss)
+console.log(selectedOption)
   const getUserProfile = async () => {
     let config = {
       method: "get",
@@ -302,8 +302,9 @@ const [personName, setPerson] = useState('')
   ];
 
   const marriageStatus = [
-    { value: "applicable", label: "Applicable" },
+    { value: "Select", label: "Select" },
     { value: "not_applicable", label: "Not Applicable" },
+    { value: "applicable", label: "Applicable" },
   ];
 
   const handleFileChange = (event) => {
@@ -373,6 +374,8 @@ const [personName, setPerson] = useState('')
     calculateExpiryDate();
   };
 
+
+console.log(marriageStatuss)
   const postData = () => {
     const formData = new FormData();
     formData.append("file", selectedFile);
@@ -393,7 +396,7 @@ const [personName, setPerson] = useState('')
       },
      
     });
-   console.log(data)
+ 
     let config = {
       method: "post",
       maxBodyLength: Infinity,
@@ -415,7 +418,15 @@ const [personName, setPerson] = useState('')
       });
   };
 
-  // getOrder History
+  const checkValidate = () => {
+    if (marriageStatuss === "" && refer === "" && selectedOption.value === ""  && plan === " " && price === " " && startDate === "") {
+      toast.error("Mandatory Fields Reuired!");
+      return false;
+    } else {
+      postData()
+      return true
+    }
+  }
 
   useEffect(() => {
     const subscription = () => {

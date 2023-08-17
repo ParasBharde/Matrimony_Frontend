@@ -8,6 +8,7 @@ import Breadcrumb from "@/components/breadcrumb";
 import { useStorage } from "@/hooks/useStorage";
 import { useCalculateAge } from "@/hooks/useCalculateAge";
 import { useLikedProfiles } from "@/hooks/useLikedProfiles";
+import { toast } from "react-toastify";
 
 const Likedprofile = () => {
   // const [isLiked, setIsLiked] = useState(false);
@@ -23,6 +24,33 @@ const Likedprofile = () => {
 
   const router = useRouter();
   const calculateAge = useCalculateAge();
+  const storageData = useStorage();
+
+  const [isPremiumUser, setIsPremiumUser] = useState(false);
+  const getPremium = () => {
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: `http://172.105.57.17:1337/api/user-active-plans?filters[user_id]=${storageData?.user_profile?.id}`,
+      headers: {},
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+
+        setIsPremiumUser(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getPremium();
+  }, [storageData]);
+  console.log(isPremiumUser.length >= 0);
 
   useEffect(() => {
     issetList(false);
@@ -34,8 +62,13 @@ const Likedprofile = () => {
   );
 
   const handleHeaderCheckboxChange = (event) => {
-    const isChecked = event.target.checked;
-    setSelectedRows(Array(likedprofiles.length).fill(isChecked));
+    if (isPremiumUser.length <= 0 === true) {
+      return false;
+    } else {
+      const isChecked = event.target.checked;
+      setSelectedRows(Array(likedprofiles.length).fill(isChecked));
+      return true;
+    }
   };
 
   const allProfiles = useLikedProfiles();
@@ -73,7 +106,7 @@ const Likedprofile = () => {
     let validProfiles = myLikedprofiles.filter((items) => {
       return items.attributes?.user_permissions_user?.data != null;
     });
-    console.log("validProfiles",validProfiles);
+    console.log("validProfiles", validProfiles);
     return validProfiles;
   };
   // valid liked profiles code end
@@ -124,11 +157,10 @@ const Likedprofile = () => {
     return `http://172.105.57.17:1337${url}`;
   };
 
-    
   return (
     <>
-      <div style={{ background: "white"}}>
-      {/* background: "#E0E0E0"  */}
+      <div style={{ background: "white" }}>
+        {/* background: "#E0E0E0"  */}
         <Breadcrumb screens={["Home", "Liked Profile"]} />
         {likedprofiles.length > 0 ? (
           <div className=" px-4 py-3 sm:px-[6rem] w-70 overflow-auto ">
@@ -505,7 +537,11 @@ const Likedprofile = () => {
                           type="checkbox"
                           name="chk"
                           id="header-checkbox"
-                          className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white focus:outline-none  focus:ring-2  focus:ring-gray-400"
+                          className={`relative w-5 h-5 border rounded border-gray-400 bg-white focus:outline-none  focus:ring-2  focus:ring-gray-400 ${
+                            isPremiumUser.length <= 0 === true
+                              ? "cursor-not-allowed"
+                              : "cursor-pointer"
+                          }`}
                           onChange={handleHeaderCheckboxChange}
                         />
                       </th>
@@ -544,27 +580,38 @@ const Likedprofile = () => {
                         profile_photo,
                         father_name,
                         phone_number,
-                      } =
-                        profile.attributes.user_profile?.data?.attributes;
+                      } = profile.attributes.user_profile?.data?.attributes;
                       console.log("profile", profile);
                       let id = profile.attributes.user_profile?.data?.id;
 
                       return (
                         <tbody key={index}>
                           <tr
-                            className="bg-white border-b cursor-pointer"
+                            className={`bg-white border-b ${
+                              isPremiumUser.length <= 0 === true
+                                ? "cursor-not-allowed"
+                                : "cursor-pointer"
+                            }`}
                             onClick={() => {
-                              router.push({
-                                pathname: "/profiledetail/[id]/",
-                                query: { id: id, isLiked: true },
-                              });
+                              if (isPremiumUser.length <= 0 === true) {
+                                toast.info("You don't have subscription");
+                              } else {
+                                router.push({
+                                  pathname: "/profiledetail/[id]/",
+                                  query: { id: id, isLiked: true },
+                                });
+                              }
                             }}
                           >
                             <td className="px-6 py-4">
                               <input
                                 placeholder="check box"
                                 type="checkbox"
-                                className="cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white  focus:outline-none focus:ring-2  focus:ring-gray-400"
+                                className={` relative w-5 h-5 border rounded border-gray-400 bg-white  focus:outline-none focus:ring-2  focus:ring-gray-400 ${
+                                  isPremiumUser.length <= 0 === true
+                                    ? "cursor-not-allowed"
+                                    : "cursor-pointer"
+                                }`}
                                 checked={selectedRows[index]}
                                 onChange={() => {
                                   const newSelectedRows = [...selectedRows];
@@ -582,7 +629,7 @@ const Likedprofile = () => {
                                 <div className="mr-2 hover:transform hover:scale-150 duration-300">
                                   <Image
                                     alt="logo"
-                                    className="w-6 h-6 rounded-full cusrsor-pointer "
+                                    className={`w-6 h-6 rounded-full`}
                                     loader={() =>
                                       myLoader(
                                         profile_photo.data[0].attributes.url
@@ -593,7 +640,7 @@ const Likedprofile = () => {
                                     height={100}
                                   />
                                 </div>
-                                <span className="cusrsor-pointer">
+                                <span>
                                   {first_name} {last_name}
                                 </span>
                               </div>
@@ -650,7 +697,13 @@ const Likedprofile = () => {
                         id={`liked-profile-${profile.id}`}
                         className="relative mb-2 hover:transform hover:scale-105 duration-300 max-lg:min-w-fit shadow-2xl"
                       >
-                        <div className="cards">
+                        <div
+                          className={`cards ${
+                            isPremiumUser.length <= 0 === true
+                              ? "cursor-not-allowed"
+                              : "cursor-pointer"
+                          }`}
+                        >
                           {/* <div className="cards blur-sm"> */}
                           <div className="relative">
                             <picture>
@@ -700,17 +753,35 @@ const Likedprofile = () => {
                           <header
                             className="coloumn items-center justify-between leading-tight p-2 md:p-4"
                             onClick={() => {
-                              router.push({
-                                pathname: "/profiledetail/[id]/",
-                                query: {
-                                  id: profile.attributes.user_profile?.data?.id,
-                                  isLiked: true
-                                },
-                              });
+                              if (isPremiumUser.length <= 0 === true) {
+                                toast.info("You don't have subscription");
+                              } else {
+                                router.push({
+                                  pathname: "/profiledetail/[id]/",
+                                  query: {
+                                    id: profile.attributes.user_profile?.data
+                                      ?.id,
+                                    isLiked: true,
+                                  },
+                                });
+                              }
+                              // router.push({
+                              //   pathname: "/profiledetail/[id]/",
+                              //   query: {
+                              //     id: profile.attributes.user_profile?.data?.id,
+                              //     isLiked: true,
+                              //   },
+                              // });
                             }}
                           >
                             <h1 className="text-lg">
-                              <span className="no-underline hover:underline text-black cursor-pointer">
+                              <span
+                                className={`no-underline hover:underline text-black ${
+                                  isPremiumUser.length <= 0 === true
+                                    ? "cursor-not-allowed"
+                                    : "cursor-pointer"
+                                }`}
+                              >
                                 {first_name} {last_name}
                               </span>
                             </h1>

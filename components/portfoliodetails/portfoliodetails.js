@@ -27,7 +27,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   const [pageCount, setPageCount] = useState(1);
   const [currentLikes, setCurrentLikes] = useState([]);
   const [isPremiumUser, setIsPremiumUser] = useState(false);
-console.log(isPremiumUser)
+  console.log(isPremiumUser);
   const getPremium = () => {
     let config = {
       method: "get",
@@ -50,7 +50,7 @@ console.log(isPremiumUser)
 
   useEffect(() => {
     getPremium();
-  }, []);
+  }, [storageData]);
 
   useEffect(() => {
     axios
@@ -76,7 +76,10 @@ console.log(isPremiumUser)
           .then((response) => {
             // console.log(response, "getlike");
             let data = response.data.data.filter((profile) => {
-              return (profile?.attributes?.user_permissions_user?.data?.id === storageData?.id);
+              return (
+                profile?.attributes?.user_permissions_user?.data?.id ===
+                storageData?.id
+              );
             });
             console.log(data);
             allData = [...allData, ...data];
@@ -678,20 +681,16 @@ console.log(isPremiumUser)
                   return (
                     <tbody key={index}>
                       <tr
-                        className={`bg-white border-b ${
-                          isPremiumUser.length > 0
-                            ? "cursor-pointer"
-                            : "cursor-not-allowed"
-                        }`}
+                        className={`bg-white border-b ${isPremiumUser.length > 0 ? "cursor-pointer": "cursor-not-allowed"}`}
                         onClick={() => {
-                            if (isPremiumUser.length > 0){
-                          router.push({
-                            pathname: "/profiledetail/[id]/",
-                            query: { id: itms.id },
-                          });
-                        } else {
-                          toast.info("You don't have subscription")
-                        }
+                          if (isPremiumUser.length > 0) {
+                            router.push({
+                              pathname: "/profiledetail/[id]/",
+                              query: { id: itms.id, ispremium: isPremiumUser },
+                            });
+                          } else {
+                            toast.info("You don't have subscription");
+                          }
                         }}
                       >
                         <td className="px-6 py-4">
@@ -769,14 +768,12 @@ console.log(isPremiumUser)
                     className="relative mb-2 hover:transform hover:scale-105 duration-300 "
                   >
                     <div className="cards relative shadow-2xl ">
-                    
                       <div className="relative h-3/5">
-                   
                         <div className="absolute top-0 left-0 w-full h-full"></div>
 
                         <picture>
                           <img
-                            className="img_card w-[15rem]"
+                            className="img_card w-[15rem] h-[14rem]"
                             src={`http://172.105.57.17:1337${itms.attributes.profile_photo?.data?.[0]?.attributes.url}`}
                             alt=""
                             width
@@ -809,7 +806,6 @@ console.log(isPremiumUser)
                                 console.log("res", res);
                                 if (res != true) {
                                   handleLike(itms);
-                                  // e.target.classList.add("text-[#F98B1D]");
                                 } else {
                                   handleDislike(itms.id);
                                 }
@@ -833,22 +829,32 @@ console.log(isPremiumUser)
                         </div>
                       </div>
                       <header
-                        className="coloumn items-center justify-between leading-tight p-2 md:p-4"
+                        className={` coloumn items-center justify-between leading-tight p-2 md:p-4 ${
+                          isPremiumUser.length > 0
+                            ? "cursor-pointer"
+                            : "cursor-not-allowed"
+                        }`}
                         onClick={() => {
-                          // handleView();
-                          router.push({
-                            pathname: "/profiledetail/[id]/",
-                            query: {
-                              id: itms.id,
-                              isLiked: isProfileLiked(itms.id),
-                            },
-                          });
+                          if (isPremiumUser.length > 0) {
+                            router.push({
+                              pathname: "/profiledetail/[id]/",
+                              query: {
+                                id: itms.id,
+                                isLiked: isProfileLiked(itms.id),
+                                ispremium: isPremiumUser
+                              },
+                            });
+                          } else toast.info("You don't have subscription");
                         }}
                       >
                         <h1 className="text-lg">
                           {/* <div className="absolute top-0 left-0 z-40 w-full h-full backdrop-blur-sm"></div> */}
 
-                          <span className="no-underline hover:underline text-black cursor-pointer">
+                          <span className= {`no-underline hover:underline text-black cursor-pointer${
+                          isPremiumUser.length > 0
+                            ? "cursor-pointer"
+                            : "cursor-not-allowed"
+                        }`}>
                             {itms.attributes.first_name}{" "}
                             {itms.attributes.last_name}
                           </span>

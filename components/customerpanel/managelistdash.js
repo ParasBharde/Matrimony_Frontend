@@ -23,7 +23,7 @@ const Managelistdash = () => {
   const inputRef = useRef(false);
   const [isPremiumUser, setIsPremiumUser] = useState({});
   const [checkactive, setcheckactive] = useState([]);
-  console.log(checkactive);
+  const router = useRouter();
 
   useEffect(() => {
     const getUser = () => {
@@ -446,11 +446,21 @@ const Managelistdash = () => {
                           height={100}
                         />
                       </div>
+                      <button
+                        onClick={() => {
+                          router.push({
+                            pathname: "/admin/profile",
+                            query: { id: item.attributes.user_id.data.id },
+                          });
+                        }}
+                      >
                       <span>
+                        
                         {item.attributes.user_id.data.attributes.first_name +
                           " " +
                           item.attributes.user_id.data.attributes.last_name}
                       </span>
+                      </button>
                     </div>
                   </td>
                   <td className="px-6 py-4">
