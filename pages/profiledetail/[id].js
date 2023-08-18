@@ -23,7 +23,6 @@ const Profiledetail = () => {
   const router = useRouter();
   const { id, isLiked } = router.query;
   const storage = useStorage();
-  console.log(storage);
 
 
   const increaseViews = (lid) => {
@@ -46,19 +45,22 @@ const Profiledetail = () => {
       });
   };
 
+  const userID = storage?.user_profile?.id
   useEffect(() => {
     if (router.isReady) {
       console.log("idd", router.query);
-      increaseViews(storage?.user_profile?.id);
+      increaseViews(userID);
     }
-  }, [router.isReady,router.query, router.pathname,storage.user_profile.id]);
+  }, [router.isReady,router.query, router.pathname,userID]);
 
 
+  const userIdD = storage?.user_profile?.id;
   useEffect(() => {
+    
     if (router.query.id) {
-      increaseViews(storage?.user_profile?.id);
+      increaseViews(userIdD);
     }
-  }, [router.query.id,storage.user_profile.id]);
+  }, [router.query.id,userIdD]);
 
   useEffect(() => {
     if (id) {

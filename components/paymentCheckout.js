@@ -150,45 +150,8 @@ const PaymentCheckout = () => {
 
     getUser();
     getSubscriptionDetail();
-  }, [storage.user_profile.id]);
+  }, [storage]);
 
-  const handleCVCChange = (e) => {
-    setCvv(e.target.value);
-  };
-
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-  };
-  const handleCardNumberChange = (event) => {
-    const formattedNumber = formatCardNumber(event.target.value);
-    setCardNumber(formattedNumber);
-  };
-
-  const handleFocusChange = (event) => {
-    setFocused(event.target.name);
-  };
-
-  const handleExpiryChange = (event) => {
-    const { value } = event.target;
-    const formattedExpiry = value
-      .replace(/\s/g, "") // Remove spaces
-      .replace(/[^0-9]/g, "") // Remove non-numeric characters
-      .slice(0, 4); // Limit to 4 characters (MMYY)
-
-    if (formattedExpiry.length <= 2) {
-      setExpiry(formattedExpiry);
-    } else {
-      const month = formattedExpiry.slice(0, 2);
-      const year = formattedExpiry.slice(2, 4);
-
-      const truncatedMonth = Math.min(12, parseInt(month, 10));
-      const expiryDate = `${truncatedMonth
-        .toString()
-        .padStart(2, "0")}/${year}`;
-
-      setExpiry(expiryDate);
-    }
-  };
 
   const clearData = () => {
     setCardNumber("");
