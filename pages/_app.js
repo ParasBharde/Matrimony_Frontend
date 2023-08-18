@@ -31,7 +31,9 @@ export default function App({
         </>
       )}
       <SessionProvider session={session}>
+    
         <Component {...pageProps} />
+      
         <Script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" strategy="lazyOnload"/>
       </SessionProvider>
       {router.pathname == "/signIn" ||

@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 const RegisterForm1 = ({ screen, setScreen }) => {
   const [user, setUser] = useState("");
@@ -9,11 +10,16 @@ const RegisterForm1 = ({ screen, setScreen }) => {
   const [pass, setPass] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
   const [isRevealPwd, setIsRevealPwd] = useState(false);
-  const [accept, setAccept] = useState(false);
+  const [isRevealconPwd, setIsRevealconPwd] = useState(false);
   const [profiles, setprofiles] = useState([]);
   const [isValidusername, setIsValidusername] = useState(true);
   const [isValidemail, setIsValidemail] = useState(true);
-console.log(user,email)
+  const [isChecked, setIsChecked] = useState(false);
+const router = useRouter()
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  };
   useEffect(() => {
     const rg = sessionStorage.getItem("rg1");
     if (rg) {
@@ -29,7 +35,6 @@ console.log(user,email)
     sessionStorage.setItem("rg1", JSON.stringify(rg1));
   };
 
- 
   var emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   var phoneRegex = /^(?:(?:(?:\+|0{0,2})91(\s*[\-\s]\s*)?|[0]?)?[789]\d{9})$/;
 
@@ -59,7 +64,7 @@ console.log(user,email)
       return false;
     }
 
-    if (!accept) {
+    if (!isChecked) {
       toast.error("Please accept Terms and Conditions");
       return false;
     }
@@ -115,8 +120,8 @@ console.log(user,email)
           setIsValidemail(false);
           return false;
         } else {
-       setIsValidemail(true)
-       setEmail(uemail)
+          setIsValidemail(true);
+          setEmail(uemail);
         }
       }
     }
@@ -240,7 +245,7 @@ console.log(user,email)
             onChange={(e) => {
               setConfirmPass(e.target.value);
             }}
-            type={isRevealPwd ? "text" : "password"}
+            type={isRevealconPwd ? "text" : "password"}
             className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
           />
           <div
@@ -253,9 +258,9 @@ console.log(user,email)
               right: "0",
               // paddingRight: "1px",
             }}
-            onClick={() => setIsRevealPwd((prevState) => !prevState)}
+            onClick={() => setIsRevealconPwd((prevState) => !prevState)}
           >
-            {!isRevealPwd ? (
+            {!isRevealconPwd ? (
               <svg
                 width="30px"
                 height="30px"
@@ -301,22 +306,16 @@ console.log(user,email)
           </div>
         </div>
       </div>
-
-      <div className="w-[400px] mx-auto mb-12">
-        <input
-          type="checkbox"
-          checked={accept}
-          onChange={(e) => {
-            setAccept(e.target.checked);
-          }}
-          name="rememberMe"
-          value="true"
-          className="mr-2"
-        />
-        <label htmlFor="rememberMe" className="text-[#B6B3BE]">
-          I have read and accept Terms & Conditions
-        </label>
+      <div className="checkbox-container" >
+      <div onClick={handleCheckboxChange} className={`checkbox${isChecked ? ' checked' : ''}`}>
+        {isChecked && (
+          <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="24px" height="24px"><path d="M 20.292969 5.2929688 L 9 16.585938 L 4.7070312 12.292969 L 3.2929688 13.707031 L 9 19.414062 L 21.707031 6.7070312 L 20.292969 5.2929688 z"/></svg>
+        )}
       </div>
+      <a  onClick={() => {
+                  router.push("/termCondition");
+                }}className="ml-2 self-start">I agree to the terms and conditions</a>
+    </div>
       <div
         className={`${
           screen != 1 ? "w-[800px]" : "w-[400px]"
@@ -336,10 +335,10 @@ console.log(user,email)
           className="text-white bg-main py-2 px-5 rounded-md cursor-pointer max-w-max"
           onClick={() => {
             if (validate()) {
-                if (screen <= 3) {
-                  setScreen(screen + 1);
-                }
-                beforeNextScreen();
+              if (screen <= 3) {
+                setScreen(screen + 1);
+              }
+              beforeNextScreen();
             }
           }}
         >
