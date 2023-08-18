@@ -815,11 +815,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                           className="absolute top-0 right-0 m-2 rounded flex items-center justify-center w-10 h-11 text-white text-sm font-bold"
                         >
                           <svg
-                            className={`absolute rounded  ${
-                              isPremiumUser.length > 0 && checkStatus === "active"
-                                ? "cursor-pointer"
-                                : "cursor-not-allowed"
-                            } fill-current hover:text-[#F98B1D] ${
+                            className={`absolute rounded  fill-current hover:text-[#F98B1D] ${
                               isProfileLiked(itms.id) && "text-[#F98B1D]"
                             }`}
                             id="heart"
