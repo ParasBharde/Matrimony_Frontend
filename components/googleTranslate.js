@@ -9,9 +9,11 @@ console.log(isFallback,events)
   const googleTranslateElementInit = () => {
     new window.google.translate.TranslateElement({
        pageLanguage: 'en',
-       includedLanguages: 'ta,en',
-    layout: window.google.translate.TranslateElement.InlineLayout.Bubble, }, 'google_translate_element')
-  }
+       includedLanguages: 'ta,en,kn',
+    layout: window.google.translate.TranslateElement.InlineLayout.Bubble, 
+  }, 
+  'google_translate_element'
+  )}
 
   useEffect(() => {
     const id = 'google-translate-script'
@@ -22,6 +24,7 @@ console.log(isFallback,events)
     
       s.setAttribute('id', id)
       const q = document.getElementById(id)
+      console.log(!q)
       if (!q) {
         document.body.appendChild(s)
         window.googleTranslateElementInit = googleTranslateElementInit
@@ -36,6 +39,8 @@ console.log(isFallback,events)
     }
 
     isFallback || addScript()
+    
+    console.log(  isFallback || addScript()   )
 
     events.on('routeChangeStart', removeScript)
     events.on('routeChangeComplete', addScript)

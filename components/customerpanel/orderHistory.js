@@ -349,7 +349,7 @@ console.log(selectedOption)
       durationInYears = 3;
     } else if (plan === "master") {
       // Handle unlimited plan duration, e.g., set to a large value
-      durationInYears = 100;
+      durationInYears = 50;
     }
 
     if (startDate) {
