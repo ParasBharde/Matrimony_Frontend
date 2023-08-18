@@ -27,6 +27,8 @@ const Likedprofile = () => {
   const storageData = useStorage();
 
   const [isPremiumUser, setIsPremiumUser] = useState(false);
+
+  useEffect(() => {
   const getPremium = () => {
     let config = {
       method: "get",
@@ -46,11 +48,9 @@ const Likedprofile = () => {
         console.log(error);
       });
   };
-
-  useEffect(() => {
     getPremium();
   }, [storageData]);
-  console.log(isPremiumUser.length >= 0);
+  
 
   useEffect(() => {
     issetList(false);

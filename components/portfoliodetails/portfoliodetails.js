@@ -31,6 +31,8 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   const [checkExpired, setcheckExpired] = useState("");
 
   console.log(checkExpired);
+
+  useEffect(() => {
   const getPremium = () => {
     let config = {
       method: "get",
@@ -56,7 +58,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
       });
   };
 
-  useEffect(() => {
+ 
     getPremium();
   }, [storageData]);
 

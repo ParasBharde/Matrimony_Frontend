@@ -40,7 +40,7 @@ const GoogleTranslate = () => {
       events.off('routeChangeStart', removeScript)
       events.off('routeChangeComplete', addScript)
     }
-  }, [])
+  }, [isFallback,events])
 
   return  <div id="google_translate_element"></div>;
 };

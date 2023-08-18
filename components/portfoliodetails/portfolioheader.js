@@ -46,6 +46,8 @@ const Portfolioheader = ({ handleFilterQuery }) => {
   const [remaining, setremaining] = useState("");
   const [checkStatus, setcheckStatus] = useState('')
   console.log("checkView", checkView);
+
+  useEffect(() => {
   const getPremium = () => {
     let config = {
       method: "get",
@@ -70,7 +72,7 @@ const Portfolioheader = ({ handleFilterQuery }) => {
       });
   };
 
-  useEffect(() => {
+
     getPremium();
   }, [storageData]);
 

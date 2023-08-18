@@ -43,12 +43,7 @@ const Hero = (props) => {
   useEffect(() => {
     if (storage) {
       let api = "http://172.105.57.17:1337/api/profiles/?populate=%2A";
-      if (locale == "ta") {
-        api =
-          "http://172.105.57.17:1337/api/profiles/?populate=%2A&locale=ta-IN";
-      } else if (locale == "en") {
-        api = "http://172.105.57.17:1337/api/profiles/?populate=%2A";
-      }
+    
       async function getUser() {
         try {
           const response = await axios.get(api);

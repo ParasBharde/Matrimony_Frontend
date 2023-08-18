@@ -49,17 +49,16 @@ const Profiledetail = () => {
   useEffect(() => {
     if (router.isReady) {
       console.log("idd", router.query);
-      const { id } = router.query;
       increaseViews(storage?.user_profile?.id);
     }
-  }, [router.isReady, router.pathname,storage]);
+  }, [router.isReady,router.query, router.pathname,storage.user_profile.id]);
 
 
   useEffect(() => {
     if (router.query.id) {
       increaseViews(storage?.user_profile?.id);
     }
-  }, [router.query.id]);
+  }, [router.query.id,storage.user_profile.id]);
 
   useEffect(() => {
     if (id) {
