@@ -5,9 +5,12 @@ import { useRouter } from 'next/router';
 
 const GoogleTranslate = () => {
   const { isFallback, events } = useRouter()
-
+console.log(isFallback,events)
   const googleTranslateElementInit = () => {
-    new window.google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element')
+    new window.google.translate.TranslateElement({
+       pageLanguage: 'en',
+       includedLanguages: 'ta,en',
+    layout: window.google.translate.TranslateElement.InlineLayout.Bubble, }, 'google_translate_element')
   }
 
   useEffect(() => {
@@ -15,7 +18,8 @@ const GoogleTranslate = () => {
 
     const addScript = () => {
       const s = document.createElement('script')
-      s.setAttribute('src', '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit')
+      s.setAttribute('src', 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit')
+    
       s.setAttribute('id', id)
       const q = document.getElementById(id)
       if (!q) {

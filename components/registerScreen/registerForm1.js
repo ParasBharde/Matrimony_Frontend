@@ -15,7 +15,7 @@ const RegisterForm1 = ({ screen, setScreen }) => {
   const [isValidusername, setIsValidusername] = useState(true);
   const [isValidemail, setIsValidemail] = useState(true);
   const [isChecked, setIsChecked] = useState(false);
-const router = useRouter()
+  const router = useRouter();
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
@@ -306,16 +306,31 @@ const router = useRouter()
           </div>
         </div>
       </div>
-      <div className="checkbox-container" >
-      <div onClick={handleCheckboxChange} className={`checkbox${isChecked ? ' checked' : ''}`}>
-        {isChecked && (
-          <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="24px" height="24px"><path d="M 20.292969 5.2929688 L 9 16.585938 L 4.7070312 12.292969 L 3.2929688 13.707031 L 9 19.414062 L 21.707031 6.7070312 L 20.292969 5.2929688 z"/></svg>
-        )}
+      <div className="checkbox-container">
+        <div
+          onClick={handleCheckboxChange}
+          className={`checkbox${isChecked ? " checked" : ""}`}
+        >
+          {isChecked && (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="24px"
+              height="24px"
+            >
+              <path d="M 20.292969 5.2929688 L 9 16.585938 L 4.7070312 12.292969 L 3.2929688 13.707031 L 9 19.414062 L 21.707031 6.7070312 L 20.292969 5.2929688 z" />
+            </svg>
+          )}
+        </div>
+        <a
+          onClick={() => {
+            router.push("/termCondition");
+          }}
+          className="ml-2 self-start"
+        >
+          I agree to the terms and conditions
+        </a>
       </div>
-      <a  onClick={() => {
-                  router.push("/termCondition");
-                }}className="ml-2 self-start">I agree to the terms and conditions</a>
-    </div>
       <div
         className={`${
           screen != 1 ? "w-[800px]" : "w-[400px]"
