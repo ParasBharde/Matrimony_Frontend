@@ -8,14 +8,40 @@ export const useLikedProfiles = () => {
   const [myLikedprofiles, setMyLikedprofiles] = useState([]);
   const [pageCount, setPageCount] = useState(1);
   const storageData = useStorage();
+  console.log(storageData)
+  const registerStorage = storageData?.id;
+  const loginStorage = storageData?.user_profile?.id;
+  const finalId = registerStorage === undefined ? loginStorage : registerStorage
+  console.log(finalId)
+  const [getRegister, setRegister] = useState([])
+  const isUid = getRegister.length > 0 ? getRegister[0]?.id : storageData?.id;
+  console.log(getRegister);
+  console.log(isUid);
 
   useEffect(() => {
+    const getRegisteruser = () => {
+      let config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: 'http://172.105.57.17:1337/api/users?populate=user_profile',
+        headers: { }
+      };
+      
+      axios.request(config)
+      .then((response) => {
+        const data =    response.data.filter(u => u.user_profile.id === finalId)
+        console.log(data)
+     setRegister(data)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }
+
     const filterMyLikedProfiles = (likedprofiles) => {
       let data = likedprofiles.filter((profile) => {
         return (
-          profile?.attributes?.user_permissions_user?.data?.id ==
-          storageData?.id
-        );
+          profile?.attributes?.user_permissions_user?.data?.id == isUid);
       });
       setMyLikedprofiles(data);
       // console.log("myLikedprofiles: ", data);
@@ -23,6 +49,8 @@ export const useLikedProfiles = () => {
     if (likedprofiles.length > 0) {
       filterMyLikedProfiles(likedprofiles);
     }
+
+    getRegisteruser();
   }, [likedprofiles, storageData?.id]);
 
   useEffect(() => {

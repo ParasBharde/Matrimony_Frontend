@@ -701,7 +701,6 @@ const RegisterForm2 = ({ screen, setScreen }) => {
               </label>
               <input
                 type="text"
-                id="input1"
                 value={firstName}
                 onChange={handleFname}
                 className="w-full p-2 border border-gray-300 rounded"
@@ -718,7 +717,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
               <label className="inline-flex items-center">
                 <input
                   type={"radio"}
-                  checked={groomOrBride == "Groom"}
+                  checked={groomOrBride === "Groom"}
                   onClick={() => {
                     setGroomOrBride("Groom");
                   }}
@@ -730,7 +729,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
               <label className="inline-flex items-center ml-4">
                 <input
                   type={"radio"}
-                  checked={groomOrBride == "Bride"}
+                  checked={groomOrBride === "Bride"}
                   onClick={() => {
                     setGroomOrBride("Bride");
                   }}
@@ -882,7 +881,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
                     setVegOrNonVeg("Vegetarian");
                   }}
                   className="form-radio text-blue-500 h-[20px] w-[20px]"
-                  name="radioGroup"
+                  name="radioGroup1"
                 />
                 <span className="ml-2">Vegetarian</span>
               </label>
@@ -894,7 +893,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
                     setVegOrNonVeg("Non-Vegetarian");
                   }}
                   className="form-radio text-blue-500 h-[20px] w-[20px] "
-                  name="radioGroup"
+                  name="radioGroup1"
                 />
                 <span className="ml-2">Non-Vegetarian</span>
               </label>

@@ -13,7 +13,11 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   const router = useRouter();
   const dropdownRef = useRef(null);
   const storageData = useStorage();
-  // console.log(storageData);
+  console.log(storageData)
+  const registerStorage = storageData?.id;
+  const loginStorage = storageData?.user_profile?.id;
+  const finalId = registerStorage === undefined ? loginStorage : registerStorage
+  const ch = finalId? finalId : registerStorage;
 
   const calculateAge = useCalculateAge();
   const [active, setActive] = useState(false);
@@ -29,8 +33,10 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   const [isPremiumUser, setIsPremiumUser] = useState(false);
   const [checkStatus, setcheckStatus] = useState("");
   const [checkExpired, setcheckExpired] = useState("");
-
-  console.log(checkExpired);
+  const [getRegister, setRegister] = useState([])
+  const isUid = getRegister.length > 0 ? getRegister[0]?.id : storageData?.id;
+  console.log(getRegister);
+  console.log(isUid);
 
   useEffect(() => {
   const getPremium = () => {
@@ -46,10 +52,8 @@ const Portfoliodetails = ({ allprofiles, total }) => {
       .then((response) => {
         console.log(response.data.data);
 
-        setcheckStatus(response.data.data[0].attributes.status);
-        const data =
-          response.data.data[0].attributes.member_viewed ===
-          response.data.data[0].attributes.member_display_limit;
+        setcheckStatus(response.data.data[0]?.attributes?.status);
+        const data = response.data.data[0]?.attributes.member_viewed === response.data.data[0]?.attributes.member_display_limit;
         setcheckExpired(data);
         setIsPremiumUser(response.data.data);
       })
@@ -58,13 +62,32 @@ const Portfoliodetails = ({ allprofiles, total }) => {
       });
   };
 
+  const getRegisteruser = () => {
+    let config = {
+      method: 'get',
+      maxBodyLength: Infinity,
+      url: 'http://172.105.57.17:1337/api/users?populate=user_profile',
+      headers: { }
+    };
+    
+    axios.request(config)
+    .then((response) => {
+      const data =    response.data.filter(u => u.user_profile.id === finalId)
+      console.log(data)
+      setRegister(data)
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
  
     getPremium();
-  }, [storageData]);
+    getRegisteruser();
+  }, [storageData,registerStorage,loginStorage,finalId]);
 
   useEffect(() => {
     axios
-      .get("http://172.105.57.17:1337/api/liked-profiles")
+      .get("http://172.105.57.17:1337/api/liked-profiles?populate=user_profile")
       .then((response) => {
         console.log(response.data);
         if (response.data.meta) {
@@ -75,7 +98,8 @@ const Portfoliodetails = ({ allprofiles, total }) => {
       .catch((error) => {
         console.log("liked profile error", error);
       });
-
+    },[])
+    useEffect(()=>{
     let allData = [];
     for (let i = 1; i <= pageCount; i++) {
       const getProfiles = () => {
@@ -87,8 +111,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
             // console.log(response, "getlike");
             let data = response.data.data.filter((profile) => {
               return (
-                profile?.attributes?.user_permissions_user?.data?.id ===
-                storageData?.id
+                profile?.attributes?.user_permissions_user?.data?.id === isUid
               );
             });
             console.log(data);
@@ -101,7 +124,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
       };
       getProfiles();
     }
-  }, [storageData, pageCount]);
+  }, [isUid, pageCount]);
 
   const getLikedProfiles = useCallback(() => {
     let allData = [];
@@ -111,12 +134,13 @@ const Portfoliodetails = ({ allprofiles, total }) => {
           `http://172.105.57.17:1337/api/liked-profiles?populate=user_permissions_user&populate=user_profile.profile_photo&pagination[page]=${i}`
         )
         .then((response) => {
+          console.log(response)
           let data = response.data.data.filter((profile) => {
             return (
-              profile?.attributes?.user_permissions_user?.data?.id ===
-              storageData?.id
+              profile?.attributes?.user_permissions_user?.data?.id === isUid
             );
           });
+          console.log('data',data)
           allData = [...allData, ...data];
           setMyLikedprofiles(allData);
         })
@@ -130,7 +154,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   const isProfileLiked = (id) => {
     if (myLikedprofiles.length > 0) {
       for (let prop of myLikedprofiles) {
-        // console.log(prop);
+        console.log(prop);
         if (prop.attributes?.user_profile?.data?.id === id || prop.id === id) {
           // console.log("idsss prop", prop.attributes, id);
           return true;
@@ -143,6 +167,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   //findLikedProfileId
   const findLikedProfileId = (id) => {
     for (let prop of myLikedprofiles) {
+      console.log(props)
       if (prop.attributes.user_profile?.data?.id === id) {
         console.log("idsssss", prop.id, id);
         return prop?.id;
@@ -211,11 +236,11 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   };
 
   // like profile code start
-  const handleLike = (itms, e) => {
-    console.log(itms, e);
+  const handleLike = (itms) => {
+    console.log(itms);
     let data = JSON.stringify({
       data: {
-        user_permissions_user: storageData.id,
+        user_permissions_user: isUid,
         user_profile: itms.id,
       },
     });
@@ -237,7 +262,6 @@ const Portfoliodetails = ({ allprofiles, total }) => {
         console.error("like error: ", error);
       });
     setCurrentLikes([...currentLikes, itms]);
-    console.log("res ", res);
   };
 
   useEffect(() => {
@@ -815,9 +839,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                           className="absolute top-0 right-0 m-2 rounded flex items-center justify-center w-10 h-11 text-white text-sm font-bold"
                         >
                           <svg
-                            className={`absolute rounded ${storageData?'cursor-pointer':'cursor-not-allowed'} fill-current hover:text-[#F98B1D] ${
-                              isProfileLiked(itms.id) && "text-[#F98B1D]"
-                            }`}
+                            className={`absolute rounded ${storageData?'cursor-pointer':'cursor-not-allowed'} fill-current hover:text-[#F98B1D] ${isProfileLiked(itms.id) && "text-[#F98B1D]"}`}
                             id="heart"
                             data-id="liked-profile"
                             width="24"
@@ -825,17 +847,17 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                             viewBox="0 0 24 21"
                             fill="none"
                             onClick={(e) => {
-                              if (storageData != null) {
+                              if (getRegister != null) {
                                 let res = isProfileLiked(itms.id);
                                 console.log("res", res);
                                 if (res != true) {
                                   handleLike(itms);
                                 } else {
+                                  toast.error('Already Liked')
                                   handleDislike(itms.id);
                                 }
                               } else {
                                 toast.error("You must be login first!");
-                                // router.push("/signIn");
                               }
                             }}
                           >
