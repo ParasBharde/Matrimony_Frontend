@@ -35,8 +35,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   const [checkExpired, setcheckExpired] = useState("");
   const [getRegister, setRegister] = useState([])
   const isUid = getRegister.length > 0 ? getRegister[0]?.id : storageData?.id;
-  console.log(getRegister);
-  console.log(isUid);
+
 
   useEffect(() => {
   const getPremium = () => {
@@ -99,6 +98,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
         console.log("liked profile error", error);
       });
     },[])
+
     useEffect(()=>{
     let allData = [];
     for (let i = 1; i <= pageCount; i++) {
@@ -110,9 +110,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
           .then((response) => {
             // console.log(response, "getlike");
             let data = response.data.data.filter((profile) => {
-              return (
-                profile?.attributes?.user_permissions_user?.data?.id === isUid
-              );
+              return (profile?.attributes?.user_permissions_user?.data?.id === isUid );
             });
             console.log(data);
             allData = [...allData, ...data];
@@ -148,13 +146,13 @@ const Portfoliodetails = ({ allprofiles, total }) => {
           console.error("error", error);
         });
     }
-  }, [storageData, pageCount]);
+  }, [storageData, pageCount,isUid]);
 
   // check profile is liked or not
   const isProfileLiked = (id) => {
     if (myLikedprofiles.length > 0) {
       for (let prop of myLikedprofiles) {
-        console.log(prop);
+        // console.log(prop);
         if (prop.attributes?.user_profile?.data?.id === id || prop.id === id) {
           // console.log("idsss prop", prop.attributes, id);
           return true;
@@ -167,7 +165,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   //findLikedProfileId
   const findLikedProfileId = (id) => {
     for (let prop of myLikedprofiles) {
-      console.log(props)
+      // console.log(prop)
       if (prop.attributes.user_profile?.data?.id === id) {
         console.log("idsssss", prop.id, id);
         return prop?.id;
@@ -185,7 +183,6 @@ const Portfoliodetails = ({ allprofiles, total }) => {
       .then((response) => {
         console.log("dislike:", response);
         getLikedProfiles();
-        // router.push(router.pathname);
       })
       .catch((error) => {
         console.error("dislike like error: ", error);
@@ -847,13 +844,13 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                             viewBox="0 0 24 21"
                             fill="none"
                             onClick={(e) => {
-                              if (getRegister != null) {
+                              if (storageData != null) {
                                 let res = isProfileLiked(itms.id);
                                 console.log("res", res);
                                 if (res != true) {
                                   handleLike(itms);
                                 } else {
-                                  toast.error('Already Liked')
+                                  // toast.error('Already Liked');
                                   handleDislike(itms.id);
                                 }
                               } else {

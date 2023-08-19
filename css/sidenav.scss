@@ -26,7 +26,7 @@
 
   .img_mob {
     @include breakpoint-down(small) {
-     margin-top: -2rem;
+       height: 4rem;
      }
   }
 

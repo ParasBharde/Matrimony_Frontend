@@ -93,13 +93,11 @@ const Hero = (props) => {
         <div className="absolute top-0 w-full h-[829.2px] bg-black bg-opacity-60 -z-10"></div>
         <div className="flex justify-between items-center pt-10 -md:px-2 lg:px-16 z-10">
           <Link href="/">
-            <div>
               <Image
                 src={logo}
                 alt={"logo"}
-                className="img_mob w-24 sm:w-24 md:w-48 lg:w-48"
+                className="img_mob"
               />
-            </div>
           </Link>
           <div className="flex items-center justify-between">
             <div className="flex items-center  space-x-4  text-white text-[16px] font-[600] max-md:hidden">
@@ -138,14 +136,10 @@ const Hero = (props) => {
               </p>
             </div>
           </div>
-          {!login ? (
-            <span className="not-login">
-              <GoogleTranslate />
-            </span>
-          ) : (
+          <div className="not-login">
             <GoogleTranslate />
-          )}
-
+            </div>
+        
           <div className="flex justify-center items-center  max-md:hidden">
             {!login ? (
               <>
@@ -245,6 +239,7 @@ const Hero = (props) => {
               </>
             )}
           </div>
+       
         </div>
 
         {/* dublicate div start here   */}
@@ -272,7 +267,7 @@ const Hero = (props) => {
             <>
               {storage && (
                 <>
-                  <div className="relative max-md:right-10 top-[-44rem] left-[12rem] group dropdown">
+                  <div className="relative max-md:right-10 top-[-44rem] left-[10rem] group dropdown">
                     {userProfile && (
                       <Image
                         className="rounded-full max-w-[45px]"

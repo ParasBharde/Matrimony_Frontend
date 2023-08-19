@@ -26,14 +26,12 @@
   @include breakpoint-down(small) {
     justify-content: center;
     // margin-right: 4rem;
-    margin-top: -5rem;
   }
 }
 
 .not-login {
   @include breakpoint-down(small) {
-    margin-top: 6rem;
-    margin-right: 4rem;
+    
   }
 }
 

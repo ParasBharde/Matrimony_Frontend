@@ -51,7 +51,7 @@ export const useLikedProfiles = () => {
     }
 
     getRegisteruser();
-  }, [likedprofiles, storageData?.id]);
+  }, [likedprofiles, storageData,isUid,finalId]);
 
   useEffect(() => {
     axios

@@ -6,14 +6,18 @@ import { useRouter } from "next/router";
 import { useCalculateAge } from "@/hooks/useCalculateAge";
 import { useStorage } from "@/hooks/useStorage";
 
-
 const Portfolio = () => {
   const router = useRouter();
   const [filteredProfiles, setFilteredProfiles] = useState({});
   const [profiles, setprofiles] = useState([]);
   const [total, setTotal] = useState(0);
   const storageData = useStorage();
-
+  console.log(storageData);
+  const registerData = storageData?.id;
+  const loginData = storageData?.user_profile?.id;
+  console.log(registerData,loginData)
+  const check = loginData != undefined ? loginData: registerData;
+console.log(check)
   useEffect(() => {
     async function getUser() {
       var config = {
@@ -25,12 +29,13 @@ const Portfolio = () => {
             "Bearer Bearer 3ad527b6e04e45a25b5c7a57d8e796af06f0853e2fa7c4551566c2096b18b80500bdaf2fc61dace337df1dc8c2a0026075026b10589f9c9d009a72165635b72012c305bf52929b73a79c97e1e5a53e7193f812604f83fa679731fa19540e9ecd7112dc224f0cccd4624294b05ec2864b552bdf7905d65736410f0cf2774c3994",
         },
       };
-  
+
       axios(config)
         .then(function (response) {
-          let profiles = response.data.data.filter((item) => { console.log(item)
-            return console.log(item), item.id != storageData?.user_profile?.id;
-          })
+          let profiles = response.data.data.filter((item) => {
+            console.log(item);
+            return console.log(item), item.id != check;
+          });
           setprofiles(profiles);
           setFilteredProfiles(profiles);
           setTotal(profiles.length);
@@ -40,14 +45,20 @@ const Portfolio = () => {
         });
     }
     getUser();
-  }, [storageData]);
+  }, [storageData, check, registerData, loginData]);
 
-  console.log('filteredProfiles',filteredProfiles)
+console.log('filteredProfiles',filteredProfiles)
   const calculateAge = useCalculateAge();
 
   const handleFilterQuery = (query) => {
     console.log("query1", query);
-    if(query.looking == "Choose" && query.star == "Choose" && query.ageFrom == '' && query.ageTo == '' && query.marriageStatus == "Choose"){
+    if (
+      query.looking == "Choose" &&
+      query.star == "Choose" &&
+      query.ageFrom == "" &&
+      query.ageTo == "" &&
+      query.marriageStatus == "Choose"
+    ) {
       setFilteredProfiles(profiles);
       setTotal(profiles.length);
       return;
@@ -66,7 +77,7 @@ const Portfolio = () => {
       });
     }
 
-    if (query.ageFrom != undefined && query.ageFrom != '') {
+    if (query.ageFrom != undefined && query.ageFrom != "") {
       let queryAgeFrom = Number(query.ageFrom);
       filteredProfiles = filteredProfiles.filter((profile) => {
         const age = calculateAge(profile.attributes.date_of_birth);
@@ -74,7 +85,7 @@ const Portfolio = () => {
       });
     }
 
-    if (query.ageTo != undefined && query.ageTo != '') {
+    if (query.ageTo != undefined && query.ageTo != "") {
       let queryAgeTo = Number(query.ageTo);
       filteredProfiles = filteredProfiles.filter((profile) => {
         const age = calculateAge(profile.attributes.date_of_birth);
@@ -93,8 +104,11 @@ const Portfolio = () => {
   };
   return (
     <>
-      <div className="colo" style={{backgroundColor:"white"}}>
-        <Portfolioheader handleFilterQuery={handleFilterQuery} className="bg-blue-500"/>
+      <div className="colo" style={{ backgroundColor: "white" }}>
+        <Portfolioheader
+          handleFilterQuery={handleFilterQuery}
+          className="bg-blue-500"
+        />
         <Portfoliodetails allprofiles={filteredProfiles} total={total} />
       </div>
       <style jsx>{`

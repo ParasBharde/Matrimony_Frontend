@@ -16,7 +16,7 @@ const RegisterForm1 = ({ screen, setScreen }) => {
   const [isValidemail, setIsValidemail] = useState(true);
   const [isChecked, setIsChecked] = useState(false);
   const router = useRouter();
-
+console.log(user)
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
   };
@@ -34,7 +34,7 @@ const RegisterForm1 = ({ screen, setScreen }) => {
     const rg1 = { user, email, pass };
     sessionStorage.setItem("rg1", JSON.stringify(rg1));
   };
-
+console.log(user,email,pass)
   var emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   var phoneRegex = /^(?:(?:(?:\+|0{0,2})91(\s*[\-\s]\s*)?|[0]?)?[789]\d{9})$/;
 
@@ -138,8 +138,9 @@ const RegisterForm1 = ({ screen, setScreen }) => {
           placeholder="Enter Mobile Number"
           value={user}
           onChange={validateUserName}
+          required
           onWheel={(event) => event.currentTarget.blur()}
-          type={"number"}
+          type="number"
           className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
         />
         {!isValidusername && (

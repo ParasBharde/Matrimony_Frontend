@@ -45,7 +45,7 @@ const Portfolioheader = ({ handleFilterQuery }) => {
   const [checkView, setcheckView] = useState("");
   const [remaining, setremaining] = useState("");
   const [checkStatus, setcheckStatus] = useState('')
-  console.log("checkView", checkView);
+  // console.log("checkView", checkView);
 
   useEffect(() => {
   const getPremium = () => {
@@ -60,12 +60,10 @@ const Portfolioheader = ({ handleFilterQuery }) => {
       .request(config)
       .then((response) => {
         setPremiumUser(response.data.data);
-        const data =
-          response.data.data[0].attributes.member_display_limit -
-          response.data.data[0].attributes.member_viewed;
+        const data = response.data.data[0]?.attributes?.member_display_limit - response.data.data[0]?.attributes?.member_viewed;
         setremaining(data);
-        setcheckView(response.data.data[0].attributes);
-        setcheckStatus(response.data.data[0].attributes.status)
+        setcheckView(response.data.data[0]?.attributes);
+        setcheckStatus(response.data.data[0]?.attributes.status)
       })
       .catch((error) => {
         console.log(error);
