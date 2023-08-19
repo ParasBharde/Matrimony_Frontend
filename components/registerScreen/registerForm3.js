@@ -229,8 +229,8 @@ const RegisterForm3 = ({ screen, setScreen }) => {
       <div className="w-[820px] max-md:items-center mx-auto mt-5 max-md:w-[10rem]">
         <div>
           <p className="font-[600] text-[18px] text-dark">Family Members</p>
-          <div className="flex gap-16 mt-3 max-md:hidden">
-            <div className="">
+          <div className="fam-info mt-4">
+            <div className="fam-info1 px-8">
               <input
                 type="checkbox"
                 checked={father}
@@ -242,7 +242,7 @@ const RegisterForm3 = ({ screen, setScreen }) => {
               />
               <label htmlFor="father"> Father</label>
             </div>
-            <div>
+            <div className="fam-info2 px-8">
               <input
                 type="checkbox"
                 checked={mother}
@@ -257,8 +257,8 @@ const RegisterForm3 = ({ screen, setScreen }) => {
           </div>
         </div>
       </div>
-      <div className="">
-        <div className="flex justify-between items-center mt-5 w-[820px] mx-auto max-md:flex max-md:flex-col max-md:items-center max-md:justify-center max-md:w-[10rem] max-md:ml-4 max-md:gap-3">
+      <div className="reg3-foot">
+        <div className="flex justify-between items-center mt-5 w-[820px] mx-auto max-md:flex max-md:flex-col max-md:items-center max-md:justify-center max-md:w-[10rem]  max-md:gap-3">
           <div className="max-md:flex max-md:flex-col">
             <p className="text-dark font-[500] text-[14px] mb-2 ">Brothers </p>
             <select

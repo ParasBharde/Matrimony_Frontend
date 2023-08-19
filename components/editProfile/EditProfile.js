@@ -327,7 +327,7 @@ const EditProfile = () => {
                             </div>
                           </Modal>
                            
-                          <div className="img_profile_portfolio_sec flex justify-center md:ml-2 lg:ml-0 sm:ml-0">
+                          <div className="img_profile_portfolio_sec flex justify-center md:ml-2 lg:mr-16 sm:ml-0">
                             <Image
                               className="img_profile_g w-40 h-26 "
                               src={
@@ -367,8 +367,8 @@ const EditProfile = () => {
                     </div>
                 </div>
                   
-                <p className="font-bold ml-10 lg:mt-[-8rem]">Family Information</p>
-                <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 ">
+                <p className="font-bold ml-10 ">Family Information</p>
+                <div className="grid lg:grid-cols-2  md:grid-cols-4 sm:grid-cols-1 ">
                     <div className="p-5  ">
                         <div className="ml-5">
                           <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Father&apos;s Name</p>

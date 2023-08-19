@@ -4,11 +4,18 @@ table {
 
 .mob-view {
   @include breakpoint-down(small) {
-    margin-left: 2.8rem;
+    // margin-left: 2.8rem;
   }
   @include breakpoint-down(medium) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    
+  }
+}
+
+.mobile-btn{
+  display: flex;
+  @include breakpoint-down(small) {
+    position: absolute;
+    bottom: 12%;
+    right: 25%;
   }
 }

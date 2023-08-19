@@ -5,9 +5,6 @@ import axios from "axios";
 import { useStorage } from "@/hooks/useStorage";
 
 const Portfolioheader = ({ handleFilterQuery }) => {
-  const [bookmarksChecked, setBookmarksChecked] = React.useState(true);
-  const [urlsChecked, setUrlsChecked] = React.useState(false);
-  const [person, setPerson] = React.useState("pedro");
   const storageData = useStorage();
   const [star, setStar] = useState("Choose");
   const [ageFrom, setAgeFrom] = useState("");
@@ -41,38 +38,45 @@ const Portfolioheader = ({ handleFilterQuery }) => {
     "Separated",
     "Registerd-Partnership",
   ];
-  const [isPremiumUser, setPremiumUser] = useState(null)
+  const [isPremiumUser, setPremiumUser] = useState(null);
   const [checkView, setcheckView] = useState("");
   const [remaining, setremaining] = useState("");
-  const [checkStatus, setcheckStatus] = useState('')
-  // console.log("checkView", checkView);
+  const [checkStatus, setcheckStatus] = useState("");
+  const registerStorage = storageData?.id;
+  const loginStorage = storageData?.user_profile?.id;
+
+  const finalId = storageData?.user_profile ? loginStorage : registerStorage;
+
+  console.log("isPremiumUser", isPremiumUser);
+  console.log(storageData);
+  console.log(finalId);
 
   useEffect(() => {
-  const getPremium = () => {
-    let config = {
-      method: "get",
-      maxBodyLength: Infinity,
-      url: `http://172.105.57.17:1337/api/user-active-plans?filters[user_id]=${storageData?.user_profile?.id}`,
-      headers: {},
+    const getPremium = () => {
+      let config = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: `http://172.105.57.17:1337/api/user-active-plans?filters[user_id]=${finalId}`,
+        headers: {},
+      };
+
+      axios
+        .request(config)
+        .then((response) => {
+          console.log(response.data.data);
+          const res = response.data.data[0];
+          setPremiumUser(response.data.data);
+          const data = res?.attributes?.member_display_limit - res?.attributes?.member_viewed;
+          setremaining(data);
+          setcheckView(res?.attributes);
+          setcheckStatus(res?.attributes.status);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     };
-
-    axios
-      .request(config)
-      .then((response) => {
-        setPremiumUser(response.data.data);
-        const data = response.data.data[0]?.attributes?.member_display_limit - response.data.data[0]?.attributes?.member_viewed;
-        setremaining(data);
-        setcheckView(response.data.data[0]?.attributes);
-        setcheckStatus(response.data.data[0]?.attributes.status)
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-
     getPremium();
-  }, [storageData]);
+  }, [storageData, finalId, registerStorage, loginStorage]);
 
   const search = () => {
     const query = {
@@ -90,17 +94,21 @@ const Portfolioheader = ({ handleFilterQuery }) => {
     <>
       <div className="flex justify-between mb-5 ">
         <Breadcrumb screens={["Home", "Search"]} />
-        {isPremiumUser?.length > 0 && storageData && checkStatus === "active" &&(
-          <div className="grid items-center px-24">
-            <span className="font-medium">
-              Total number profile view: {checkView.member_display_limit}
-            </span>
-            <span className="font-medium">
-              Viewed Profile: {checkView.member_viewed}
-            </span>
-            <span className="font-medium">Remaining Profile: {remaining}</span>
-          </div>
-        )}
+        {isPremiumUser?.length > 0 &&
+          storageData &&
+          checkStatus === "active" && (
+            <div className="grid items-center px-24 max-md:mt-5">
+              <span className="font-medium max-md:text-sm">
+                Total number profile view: {checkView.member_display_limit}
+              </span>
+              <span className="font-medium max-md:text-sm">
+                Viewed Profile: {checkView.member_viewed}
+              </span>
+              <span className="font-medium max-md:text-sm">
+                Remaining Profile: {remaining}
+              </span>
+            </div>
+          )}
       </div>
       <form className="hidden max-md:block max-md:bg-[#FFFFFF] max-md:pt-8 max-md:pb-8">
         <label
@@ -130,9 +138,9 @@ const Portfolioheader = ({ handleFilterQuery }) => {
           <input
             type="search"
             id="default-search"
-            className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Search Mockups, Logos..."
-            required
+            value="search"
           />
         </div>
       </form>

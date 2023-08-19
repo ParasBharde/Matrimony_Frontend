@@ -16,7 +16,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   console.log(storageData)
   const registerStorage = storageData?.id;
   const loginStorage = storageData?.user_profile?.id;
-  const finalId = registerStorage === undefined ? loginStorage : registerStorage
+  const finalId = storageData?.user_profile ? loginStorage : registerStorage;
   const ch = finalId? finalId : registerStorage;
 
   const calculateAge = useCalculateAge();
@@ -35,14 +35,14 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   const [checkExpired, setcheckExpired] = useState("");
   const [getRegister, setRegister] = useState([])
   const isUid = getRegister.length > 0 ? getRegister[0]?.id : storageData?.id;
-
+console.log(isPremiumUser)
 
   useEffect(() => {
   const getPremium = () => {
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: `http://172.105.57.17:1337/api/user-active-plans?filters[user_id]=${storageData?.user_profile?.id}`,
+      url: `http://172.105.57.17:1337/api/user-active-plans?filters[user_id]=${finalId}`,
       headers: {},
     };
 
@@ -50,9 +50,9 @@ const Portfoliodetails = ({ allprofiles, total }) => {
       .request(config)
       .then((response) => {
         console.log(response.data.data);
-
-        setcheckStatus(response.data.data[0]?.attributes?.status);
-        const data = response.data.data[0]?.attributes.member_viewed === response.data.data[0]?.attributes.member_display_limit;
+       const res = response.data.data[0];
+        setcheckStatus(res?.attributes?.status);
+        const data = res?.attributes.member_viewed === res?.attributes.member_display_limit;
         setcheckExpired(data);
         setIsPremiumUser(response.data.data);
       })
@@ -306,8 +306,8 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   return (
     <>
       <div className=" px-4 py-3 sm:px-[6rem] w-70 overflow-auto">
-        <div className="lg:flex max-md:flex max-md:justify-between lg:flex-1 lg:items-center lg:justify-between sm:flex sm:flex-1 sm:items-center sm:justify-between">
-          <div>
+        <div className="lg:flex max-md:flex max-md:justify-between lg:flex-1 lg:items-center lg:justify-between sm:flex sm:flex-1 sm:items-center sm:justify-between ">
+          <div className={`${isList?'max-md:fixed':'relative'}absolute left-0`}>
             <span className="text-sm text-gray-700">
               {currentPage == 1 ? "1" : `${(currentPage - 1) * 10 + 1}`}-
               {total <= currentPage * 10 ? total : currentPage * 10}{" "}
@@ -316,9 +316,9 @@ const Portfoliodetails = ({ allprofiles, total }) => {
               <span className="font-semibold text-gray-900">Pages</span>
             </span>
           </div>
-          <div>
+          <div className={`${isList?'max-md:fixed':'relative'}absolute right-0`}>
             <nav
-              className="isolate inline-flex -space-x-px "
+              className="isolate inline-flex -space-x-px"
               aria-label="Pagination"
             >
               <span className="px-2 py-1 max-md:hidden ">View by :</span>
@@ -657,7 +657,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
         </div>
 
         {isList ? (
-          <div className="list_data mt-[2rem] pb-[4rem]">
+          <div className="list_data pb-[4rem] max-md:mt-[4rem] mt-[4rem]">
             {/* flex justify-center */}
             <table className=" text-sm text-left text-gray-500 divide-y-4 shadow-2xl">
               <thead
@@ -802,7 +802,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
             </table>
           </div>
         ) : (
-          <div className="container_card ">
+          <div className="container_card">
             {profiles.length > 0 &&
               profiles.map((itms, index) => {
                 // console.log(itms);

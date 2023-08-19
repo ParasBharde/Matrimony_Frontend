@@ -31,10 +31,8 @@ export default function App({
         </>
       )}
       <SessionProvider session={session}>
-    
-        <Component {...pageProps} />
-      
-        <Script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" strategy="lazyOnload"/>
+        <Component {...pageProps} />   
+        <Script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" strategy="beforeInteractive"/>
       </SessionProvider>
       {router.pathname == "/signIn" ||
       router.pathname == "/admin/adminpanel" ||

@@ -23,16 +23,19 @@
 }
 
 #google_translate_element {
+  
   @include breakpoint-down(small) {
-    justify-content: center;
-    // margin-right: 4rem;
+
   }
 }
 
 .not-login {
   @include breakpoint-down(small) {
-    
+      display: none;
   }
+  @include breakpoint-down(medium) {
+    // display: none;
+}
 }
 
 // DShare Button
@@ -130,47 +133,6 @@ input[type=number] {
   display: none;
 }
 
-// checkbox
-
-// .custom-checkbox {
-//   position: relative;
-//   display: inline-block;
-//   cursor: pointer;
-//   font-size: 16px;
-  
-// }
-
-// .custom-checkbox input {
-//   position: absolute;
-//   opacity: 0;
-//   cursor: pointer;
-// }
-
-// .checkmark {
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   height: 20px;
-//   width: 20px;
-//   background-color: #faf9f4;
-//   border: 2px solid #F4C430;
-//   border-radius: 5px;
-// }
-
-// .custom-checkbox input:checked ~ .checkmark:after {
-//   content: "";
-//   position: absolute;
-//   display: block;
-//   left: 5px;
-//   top: 1px;
-//   width: 6px;
-//   height: 12px;
-//   border: solid white;
-//   border-width: 0 3px 3px 0;
-//   transform: rotate(45deg);
-// }
-
-
 .checkbox-container {
   display: flex;
   align-items: center;
@@ -205,4 +167,97 @@ input[type=number] {
   width: 12px;
   height: 12px;
   fill: #ffffff;
+}
+
+
+// registeration
+.gri-wid{
+  width: 50%;
+  @include breakpoint-down(small) {
+    width: 90%;
+  }
+  .grid-choice-one{
+    @include breakpoint-down(small) {
+      display: grid;
+
+    }
+  }
+}
+
+.gri-wid4{
+  @include breakpoint-down(small) {
+    display: block;
+  }
+ 
+}
+
+.p-text{
+  @include breakpoint-down(small) {
+    margin-left:2rem
+  }
+}
+
+.reg3-foot{
+  @include breakpoint-down(small) {
+    display: flex;
+    margin-left: 2rem;
+  }
+}
+
+.fam-info{
+  display: flex;
+  @include breakpoint-down(small) {
+    display: flex;
+    margin-bottom: 1rem;
+  }
+  .fam-info1{
+    @include breakpoint-down(small) {
+      left:0;
+      position: absolute;
+    }
+  }
+  .fam-info2{
+    @include breakpoint-down(small) {
+      // display: flex;
+     
+      position: absolute;
+    }
+  }
+}
+
+.horo-img1{
+  @include breakpoint-down(small) {
+    display: block;
+  }
+  .horo-img2{
+    display: flex;
+  justify-content: space-around;
+    @include breakpoint-down(small) {
+ display: flex;
+ justify-content: space-between;
+ max-width: 90%;
+    
+    } 
+  }
+    .horo-img3{
+      display: flex;
+      justify-content: center;
+      grid-gap:4rem;
+      @include breakpoint-down(small) {
+        display: block;
+    }
+  }
+}
+
+.step-4{
+  @include breakpoint-down(small) {
+    justify-content: center;
+}
+}
+
+.grid-widi4{
+  @include breakpoint-down(small) {
+    display: grid;
+    justify-content: flex-start;
+}
 }

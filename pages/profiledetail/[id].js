@@ -508,7 +508,7 @@ const Profiledetail = () => {
                                 </picture>
                                 <picture>
                                   <img
-                                    className="img_profile_g w-40 h-26"
+                                    className="img_profile_g"
                                     object-fit
                                     src={`http://172.105.57.17:1337${data.attributes.profile_photo?.data?.[2]?.attributes.url}`}
                                     alt=""
@@ -516,7 +516,7 @@ const Profiledetail = () => {
                                 </picture>
                                 <picture>
                                   <img
-                                    className="img_profile_g w-40 h-26"
+                                    className="img_profile_g"
                                     object-fit
                                     src={`http://172.105.57.17:1337${data.attributes.profile_photo?.data?.[3]?.attributes.url}`}
                                     alt=""
@@ -526,7 +526,7 @@ const Profiledetail = () => {
                             </div>
                           </div>
                         </div>
-                        <p className="font-bold ml-10 mt-[140px] lg:mt-20 ">
+                        <p className="font-bold ml-10 mt-[56%] lg:mt-20 ">
                           Family Information
                         </p>
                         <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 ">
@@ -716,13 +716,13 @@ const Profiledetail = () => {
                           </div>
                         </div>
                         <p className="font-bold ml-10 mt-5">Horoscope Chart</p>
-                        <div className="grid grid-cols-2 gap-4 mt-[3rem] pb-4 scale-75">
+                        <div className="grid grid-cols-2 gap-6 mt-[3rem] pb-4 scale-75">
                           {data.attributes.horoscope_document.data.map(
                             (val, i) => {
                               return (
                                 <picture key={i}>
                                   <img
-                                    className=""
+                                    className="w-[71%] h-[13rem]"
                                     object-fit
                                     src={`http://172.105.57.17:1337${data.attributes.horoscope_document.data[i].attributes.url}`}
                                     alt=""

@@ -91,7 +91,7 @@ const Header = () => {
   };
 
   return (
-    <div className="bg-white flex flex-row justify-between items-center  max-md:pt-5 py-3 max-md:w-auto max-md:border-solid border-y-2 max-md:px-0">
+    <div className="bg-white flex flex-row justify-between items-center px-14  max-md:pt-5 py-3 max-md:w-auto max-md:border-solid border-y-2 max-md:px-0">
       <Link href="/">
         <div>
           <Image
@@ -156,9 +156,8 @@ const Header = () => {
             About Us
           </p>
 
-          <GoogleTranslate />
         </div>
-        <GoogleTranslate />
+
 
         <div className="absolute right-2 hidden max-md:block max-sm:block group dropdown">
           <i className="fa-solid fa-bars mr-3 mb-3"></i>
@@ -194,14 +193,14 @@ const Header = () => {
               className="m-3 w-[200px] cursor-pointer"
               onClick={() => router.push("/contactus")}
             >
-              <i className="fa-regular fa-address-card  text-main"></i>
+              <i className="fa-regular fa-address-card mr-5 text-main"></i>
               Contact Us
             </p>
             <p
               className="m-3 w-[200px] cursor-pointer"
               onClick={() => router.push("/aboutus")}
             >
-              <i className="fa-regular fa-user  text-main"></i>
+              <i className="fa-regular fa-user mr-5 text-main"></i>
               About Us
             </p>
           </div>

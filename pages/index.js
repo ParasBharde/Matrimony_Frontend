@@ -45,15 +45,15 @@ const Index = ({ props }) => {
 
   return (
     <>
-      <div className=""> 
+      
         <Hero homedata={home} />
         <Heading homedata={home} />
         <AboutUs homedata={home} />
         <SuccessStories homedata={home} />
         <BestGiftFromYou homedata={home} />
         <ContactInformation homedata={home} />
-      </div>
-      <Script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" strategy="afterInteractive"/>
+    
+      {/* <Script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" strategy="afterInteractive"/> */}
     </>
   );
 };

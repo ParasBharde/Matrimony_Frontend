@@ -14,8 +14,8 @@ const ChangePasswordForm = () => {
   console.log(storage)
   useEffect(() => {
     if(storage) {
-      setEmail(storage.attributes.email?storage.attributes.email:storage.user_profile.email);
-      console.log("storage", storage.attributes.email);
+      setEmail(storage.attributes?.email ?  storage.attributes?.email:storage.user_profile?.email);
+      console.log("storage", storage?.attributes?.email);
     }
   },[storage])
 

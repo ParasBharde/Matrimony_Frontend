@@ -390,209 +390,123 @@ const RegisterForm2 = ({ screen, setScreen }) => {
 
   return (
     <>
-      {/* <div className="flex justify-center gap-5 items-center p-4 max-lg:min-w-min max-lg:flex max-lg:flex-col max-lg:items-center">
-        <div>
-          <div className="mt-5 max-w-min mx-auto">
-            <p className="text-dark font-[500] text-[14px] mb-2">
-              First Name *
-            </p>
+      <div className=" grid justify-items-center justify-content-center">
+        <div class="gri-wid grid grid-cols-2 gap-4">
+          <div className="">
+            <label className="block mb-1">First Name *</label>
             <input
-              placeholder="Enter Your First Name"
+              type="text"
               value={firstName}
               onChange={handleFname}
-              type={"text"}
-              className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-5"
+              className="w-full p-2 border border-gray-300 rounded"
+              placeholder="Enter Your First Name"
             />
-             {!isFValid && (
-                <p style={{ color: "red" }}>
-                  Invalid first name.
-                </p>
-              )}
+            {!isFValid && <p style={{ color: "red" }}>Invalid first name.</p>}
           </div>
-
-          <div>
-            <p className="my-5">Choose your type</p>
-            <div className="flex items-center gap-[60px]">
-              <div className="flex items-center gap-[10px]">
-                <input
-                  type={"radio"}
-                  checked={groomOrBride == "Groom"}
-                  onClick={() => {
-                    setGroomOrBride("Groom");
-                  }}
-                  className="h-[20px] w-[20px]"
-                />
-                <label>Groom</label>
-              </div>
-              <div className="flex items-center gap-[10px]">
-                <input
-                  type={"radio"}
-                  checked={groomOrBride == "Bride"}
-                  onClick={() => {
-                    setGroomOrBride("Bride");
-                  }}
-                  className="h-[20px] w-[20px]"
-                />
-                <label>Bride</label>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-5 max-w-min mx-auto">
-            <label
-              htmlFor="dateOfBirth"
-              className="text-dark font-[500] text-[14px] mb-2"
-            >
-              Date Of Birth *
-            </label>
-            <div className="">
-              <input
-                value={dateOfBirth}
-                onChange={handleDOBChange}
-                type="date"
-                id="dateOfBirth"
-                name="dateOfBirth"
-                placeholder="YYYY-MM-DD"
-                className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
-              />
-              {!isValid && (
-                <p style={{ color: "red" }}>
-                  Invalid date format or values.
-                </p>
-              )}
-            </div>
-          </div>
-
-          <div className="mt-5 max-w-min mx-auto">
-            <p className="text-dark font-[500] text-[14px] mb-2">Height *</p>
-            <input
-              placeholder="Enter height in cm"
-              type={"number"}
-              value={height}
-              onChange={handleHeight}
-              className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
-            />
-
-            {!isHeightValid && (
-              <p style={{ color: "red" }}>Height Should be less than 250 cm.</p>
-            )}
-          </div>
-
-          <div className="mt-5 max-w-min mx-auto">
-            <p className="text-dark font-[500] text-[14px] mb-2">
-              Educational Qualification *
-            </p>
-            <input
-              placeholder="Enter Your Educational Qualification"
-              type={"text"}
-              value={educationalQualifications}
-              onChange={(e) => {
-                setEducationalQualifications(e.target.value);
-              }}
-              className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
-            />
-          </div>
-
-          <div className="mt-5 max-w-min mx-auto">
-            <p className="text-dark font-[500] text-[14px] mb-2">
-              Salary / Monthly Earnings *
-            </p>
-            <input
-              placeholder="Enter Your Salary"
-              type={"number"}
-              value={salary}
-              onChange={handleIncome}
-              className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
-            />
-               {!isIncomeValid && (
-                <p style={{ color: "red" }}>
-                  Invalid amount enter.
-                </p>
-              )}
-          </div>
-
-          <div className="mt-5 max-w-min mx-auto">
-            <p className="text-dark font-[500] text-[14px] mb-2">
-              Expectation *
-            </p>
-            <input
-              placeholder="Enter Your Expectation"
-              type={"text"}
-              value={expectation}
-              onChange={(e) => {
-                setExpectation(e.target.value);
-              }}
-              className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
-            />
-          </div>
-
-          <div className="mt-5 max-w-min mx-auto">
-            <p className="text-dark font-[500] text-[14px] mb-2">Caste *</p>
-            <input
-              placeholder="Enter Your Caste"
-              type={"text"}
-              value={caste}
-              onChange={(e) => {
-                setCaste(e.target.value);
-              }}
-              className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
-            />
-          </div>
-        </div>
-        
-        <div>
-          <div className="mt-5 max-w-min mx-auto">
-            <p className="text-dark font-[500] text-[14px] mb-2">Last Name *</p>
+          <div className="">
+            <label className="block mb-1">Last Name *</label>
             <input
               placeholder="Enter Your Last Name"
               type={"text"}
               value={lastName}
               onChange={handleLname}
-              className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
+              className="w-full p-2 border border-gray-300 rounded"
             />
-             {!isLValid && (
-                <p style={{ color: "red" }}>
-                  Invalid last name.
-                </p>
-              )}
+            {!isLValid && <p style={{ color: "red" }}>Invalid last name.</p>}
           </div>
-
-          <div>
-            <p className="my-5">Choose your type</p>
-            <div className="flex items-center gap-[60px]">
-              <div className="flex items-center gap-[10px]">
+        </div>
+        <div class="gri-wid grid grid-cols-2 gap-4 ">
+          <div className="grid-choice-one p-2 ">
+            <label className="block mb-1">Choose your type:</label>
+            <label className="inline-flex items-center my-2 px-2">
+              <input
+                type={"radio"}
+                checked={groomOrBride === "Groom"}
+                onClick={() => {
+                  setGroomOrBride("Groom");
+                }}
+                className="form-radio text-blue-500 h-[20px] w-[20px]"
+                name="radioGroup"
+              />
+              <span className="ml-2">Groom</span>
+            </label>
+            <label className="inline-flex items-center px-2">
+              <input
+                type={"radio"}
+                checked={groomOrBride === "Bride"}
+                onClick={() => {
+                  setGroomOrBride("Bride");
+                }}
+                className="form-radio text-blue-500 h-[20px] w-[20px]"
+                name="radioGroup"
+              />
+              <span className="ml-2">Bride</span>
+            </label>
+            {!isFValid && (
+              <p style={{ color: "red", display: "none" }}>
+                Invalid first name.
+              </p>
+            )}
+          </div>
+          <div className="grid-choice-one p-2">
+            <label className="block mb-1">Choose your type</label>
+            <div>
+              <label className="inline-flex items-center my-2 px-2">
                 <input
                   type={"radio"}
                   checked={vegOrNonVeg == "Vegetarian"}
                   onClick={() => {
                     setVegOrNonVeg("Vegetarian");
                   }}
-                  className="h-[20px] w-[20px]"
+                  className="form-radio text-blue-500 h-[20px] w-[20px]"
+                  name="radioGroup1"
                 />
-                <label>Vegetarian</label>
-              </div>
-              <div className="flex items-center gap-[10px]">
+                <span className="ml-2">Vegetarian</span>
+              </label>
+              <label className="inline-flex items-center px-2">
                 <input
                   type={"radio"}
                   checked={vegOrNonVeg == "Non-Vegetarian"}
                   onClick={() => {
                     setVegOrNonVeg("Non-Vegetarian");
                   }}
-                  className="h-[20px] w-[20px]"
+                  className="form-radio text-blue-500 h-[20px] w-[20px] "
+                  name="radioGroup1"
                 />
-                <label>Non-Vegetarian</label>
-              </div>
+                <span className="ml-2">Non-Vegetarian</span>
+              </label>
             </div>
+            {!isFValid && (
+              <p style={{ color: "red", display: "none" }}>
+                Invalid first name.
+              </p>
+            )}
           </div>
-
-          <div className="mt-5 max-w-min mx-auto">
-            <p className="text-dark font-[500] text-[14px] mb-2">Star *</p>
+        </div>
+        <div class="gri-wid grid grid-cols-2 gap-4">
+          <div className=" p-2">
+            <label className="block">Date Of Birth *</label>
+            <input
+              value={dateOfBirth}
+              onChange={handleDOBChange}
+              type="date"
+              id="dateOfBirth"
+              name="dateOfBirth"
+              placeholder="YYYY-MM-DD"
+              className="w-full p-2 border border-gray-300 rounded"
+            />
+            {!isValid && (
+              <p style={{ color: "red" }}>Invalid date format or values.</p>
+            )}
+          </div>
+          <div className=" p-2">
+            <label className="block">Star *</label>
             <select
               value={star}
               onChange={(e) => {
                 setStar(e.target.value);
               }}
-              className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
+              className="w-full p-2 border border-gray-300 rounded py-[7px]"
             >
               {signs.map((item, index) => {
                 return (
@@ -602,10 +516,29 @@ const RegisterForm2 = ({ screen, setScreen }) => {
                 );
               })}
             </select>
+            {!isFValid && (
+              <p style={{ color: "red", display: "none" }}>
+                Invalid first name.
+              </p>
+            )}
           </div>
-
-          <div className="mt-5 max-w-min mx-auto">
-            <p className="text-dark font-[500] text-[14px] mb-2">Color *</p>
+        </div>
+        <div class="gri-wid grid grid-cols-2 gap-4">
+          <div className=" p-2">
+            <label className="block">Height *</label>
+            <input
+              placeholder="Enter height in cm"
+              type={"number"}
+              value={height}
+              onChange={handleHeight}
+              className="w-full p-2 border border-gray-300 rounded"
+            />
+            {!isHeightValid && (
+              <p style={{ color: "red" }}>Height Should be less than 250 cm.</p>
+            )}
+          </div>
+          <div className=" p-2">
+            <label className="block">Color *</label>
             <input
               placeholder="Enter Your Color"
               type={"text"}
@@ -613,14 +546,35 @@ const RegisterForm2 = ({ screen, setScreen }) => {
               onChange={(e) => {
                 setColor(e.target.value);
               }}
-              className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
+              className="w-full p-2 border border-gray-300 rounded"
             />
+            {!isFValid && (
+              <p style={{ color: "red", display: "none" }}>
+                Invalid first name.
+              </p>
+            )}
           </div>
-
-          <div className="mt-5 max-w-min mx-auto">
-            <p className="text-dark font-[500] text-[14px] mb-2">
-              Career Details *
-            </p>
+        </div>
+        <div class="gri-wid grid grid-cols-2 gap-4">
+          <div className=" p-2">
+            <label className="block text-sm">Educational Qualification *</label>
+            <input
+              placeholder="Enter Your Educational Qualification"
+              type={"text"}
+              value={educationalQualifications}
+              onChange={(e) => {
+                setEducationalQualifications(e.target.value);
+              }}
+              className="w-full p-2 border border-gray-300 rounded"
+            />
+            {!isFValid && (
+              <p style={{ color: "red", display: "none" }}>
+                Invalid first name.
+              </p>
+            )}
+          </div>
+          <div className=" p-2">
+            <label className="block">Career Details *</label>
             <input
               placeholder="Enter Career Details"
               type={"text"}
@@ -628,14 +582,31 @@ const RegisterForm2 = ({ screen, setScreen }) => {
               onChange={(e) => {
                 setCareerDetails(e.target.value);
               }}
-              className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
+              className="w-full p-2 border border-gray-300 rounded"
             />
+            {!isFValid && (
+              <p style={{ color: "red", display: "none" }}>
+                Invalid first name.
+              </p>
+            )}
           </div>
-
-          <div className="mt-5 max-w-min mx-auto">
-            <p className="text-dark font-[500] text-[14px] mb-2">
-              Family Property Details *
-            </p>
+        </div>
+        <div class="gri-wid grid grid-cols-2 gap-4">
+          <div className=" p-2">
+            <label className="block text-sm">Salary / Monthly Earnings *</label>
+            <input
+              placeholder="Enter Your Salary"
+              type={"number"}
+              value={salary}
+              onChange={handleIncome}
+              className="w-full p-2 border border-gray-300 rounded"
+            />
+            {!isIncomeValid && (
+              <p style={{ color: "red" }}>Invalid amount enter.</p>
+            )}
+          </div>
+          <div className=" p-2">
+            <label className="block">Family Property Details *</label>
             <input
               placeholder="Enter Your Family Property Details"
               type={"text"}
@@ -643,16 +614,36 @@ const RegisterForm2 = ({ screen, setScreen }) => {
               onChange={(e) => {
                 setFamilyPropertyDetails(e.target.value);
               }}
-              className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
+              className="w-full p-2 border border-gray-300 rounded"
             />
+            {!isFValid && (
+              <p style={{ color: "red", display: "none" }}>
+                Invalid first name.
+              </p>
+            )}
           </div>
-
-          <div className="mt-5 max-w-min mx-auto">
-            <p className="text-dark font-[500] text-[14px] mb-2">
-              Phone Number *
-            </p>
+        </div>
+        <div class="gri-wid grid grid-cols-2 gap-4">
+          <div className=" p-2">
+            <label className="block">Expectation *</label>
             <input
-              // type={"number"}
+              placeholder="Enter Your Expectation"
+              type={"text"}
+              value={expectation}
+              onChange={(e) => {
+                setExpectation(e.target.value);
+              }}
+              className="w-full p-2 border border-gray-300 rounded"
+            />
+            {!isFValid && (
+              <p style={{ color: "red", display: "none" }}>
+                Invalid first name.
+              </p>
+            )}
+          </div>
+          <div className=" p-2">
+            <label className="block">Phone Number *</label>
+            <input
               placeholder="Enter Contact Number"
               pattern="[0-9]"
               type={"text"}
@@ -665,20 +656,41 @@ const RegisterForm2 = ({ screen, setScreen }) => {
                   }
                 }
               }}
-              className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
+              className="w-full p-2 border border-gray-300 rounded"
             />
+            {!isFValid && (
+              <p style={{ color: "red", display: "none" }}>
+                Invalid first name.
+              </p>
+            )}
           </div>
-
-          <div className="mt-5 max-w-min mx-auto">
-            <p className="text-dark font-[500] text-[14px] mb-2">
-              Marriage Status *
-            </p>
+        </div>
+        <div class="gri-wid grid grid-cols-2 gap-4">
+          <div className=" p-2">
+            <label className="block">Caste *</label>
+            <input
+              placeholder="Enter Your Caste"
+              type={"text"}
+              value={caste}
+              onChange={(e) => {
+                setCaste(e.target.value);
+              }}
+              className="w-full p-2 border border-gray-300 rounded"
+            />
+            {!isFValid && (
+              <p style={{ color: "red", display: "none" }}>
+                Invalid first name.
+              </p>
+            )}
+          </div>
+          <div className=" p-2">
+            <label className="block mb-1">Marriage Status *</label>
             <select
               value={marriageStatus}
               onChange={(e) => {
                 setMarriageStatus(e.target.value);
               }}
-              className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
+              className="w-full p-2 border border-gray-300 rounded py-[5px] mb-2"
             >
               {marriageStatuses.map((item, index) => {
                 return (
@@ -688,359 +700,17 @@ const RegisterForm2 = ({ screen, setScreen }) => {
                 );
               })}
             </select>
-          </div>
-        </div>
-      </div> */}
-      <div className="flex justify-center items-center">
-
-        <div className="w-1/3 p-2">
-          <div className="grid grid-cols-1 gap-2">
-            <div className=" p-2">
-              <label  className="block mb-1">
-                First Name *
-              </label>
-              <input
-                type="text"
-                value={firstName}
-                onChange={handleFname}
-                className="w-full p-2 border border-gray-300 rounded"
-                placeholder="Enter Your First Name"
-              />
-              {!isFValid && (
-                <p style={{ color: "red" }}>
-                  Invalid first name.
-                </p>
-              )}
-            </div>
-            <div className="p-2">
-              <label className="block mb-1">Choose your type:</label>
-              <label className="inline-flex items-center">
-                <input
-                  type={"radio"}
-                  checked={groomOrBride === "Groom"}
-                  onClick={() => {
-                    setGroomOrBride("Groom");
-                  }}
-                  className="form-radio text-blue-500 h-[20px] w-[20px]"
-                  name="radioGroup"
-                />
-                <span className="ml-2">Groom</span>
-              </label>
-              <label className="inline-flex items-center ml-4">
-                <input
-                  type={"radio"}
-                  checked={groomOrBride === "Bride"}
-                  onClick={() => {
-                    setGroomOrBride("Bride");
-                  }}
-                  className="form-radio text-blue-500 h-[20px] w-[20px]"
-                  name="radioGroup"
-                />
-                <span className="ml-2">Bride</span>
-              </label>
-              {!isFValid && (
-                <p style={{ color: "red",display:"none" }}>
-                  Invalid first name.
-                </p>
-              )}
-            </div>
-            <div className=" p-2">
-              <label  className="block mb-1">
-                Date Of Birth *
-              </label>
-              <input
-                value={dateOfBirth}
-                onChange={handleDOBChange}
-                type="date"
-                id="dateOfBirth"
-                name="dateOfBirth"
-                placeholder="YYYY-MM-DD"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              {!isValid && (
-                <p style={{ color: "red" }}>
-                  Invalid date format or values.
-                </p>
-              )}
-            </div>
-            <div className=" p-2">
-              <label  className="block mb-1">
-                Height *
-              </label>
-              <input
-                placeholder="Enter height in cm"
-                type={"number"}
-                value={height}
-                onChange={handleHeight}
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              {!isHeightValid && (
-                <p style={{ color: "red" }}>
-                  Height Should be less than 250 cm.
-                </p>
-              )}
-            </div>
-            <div className=" p-2">
-              <label  className="block mb-1">
-                Educational Qualification *
-              </label>
-              <input
-                placeholder="Enter Your Educational Qualification"
-                type={"text"}
-                value={educationalQualifications}
-                onChange={(e) => {
-                  setEducationalQualifications(e.target.value);
-                }}
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-               {!isFValid && (
-                <p style={{ color: "red",display:"none" }}>
-                  Invalid first name.
-                </p>
-              )}
-            </div>
-            <div className=" p-2">
-              <label className="block mb-1">Salary / Monthly Earnings *</label>
-              <input
-                placeholder="Enter Your Salary"
-                type={"number"}
-                value={salary}
-                onChange={handleIncome}
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              {!isIncomeValid && (
-                <p style={{ color: "red" }}>
-                  Invalid amount enter.
-                </p>
-              )}
-            </div>
-            <div className=" p-2">
-              <label className="block mb-1">Expectation *</label>
-              <input
-                placeholder="Enter Your Expectation"
-                type={"text"}
-                value={expectation}
-                onChange={(e) => {
-                  setExpectation(e.target.value);
-                }}
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-               {!isFValid && (
-                <p style={{ color: "red",display:"none" }}>
-                  Invalid first name.
-                </p>
-              )}
-            </div>
-            <div className=" p-2">
-              <label className="block mb-1">Caste *</label>
-              <input
-                placeholder="Enter Your Caste"
-                type={"text"}
-                value={caste}
-                onChange={(e) => {
-                  setCaste(e.target.value);
-                }}
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-               {!isFValid && (
-                <p style={{ color: "red",display:"none" }}>
-                  Invalid first name.
-                </p>
-              )}
-            </div>
-          </div>
-        </div>
-
- 
-        <div className="w-1/3 p-2">
-          <div className="grid grid-cols-1 gap-2 mt-1">
-            <div className=" p-2">
-              <label  className="block mb-1">
-                Last Name *
-              </label>
-              <input
-                placeholder="Enter Your Last Name"
-                type={"text"}
-                value={lastName}
-                onChange={handleLname}
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              {!isLValid && (
-                <p style={{ color: "red" }}>
-                  Invalid last name.
-                </p>
-              )}
-            </div>
-            <div className="p-2">
-              <label className="block mb-1">Choose your type</label>
-              <label className="inline-flex items-center">
-                <input
-                  type={"radio"}
-                  checked={vegOrNonVeg == "Vegetarian"}
-                  onClick={() => {
-                    setVegOrNonVeg("Vegetarian");
-                  }}
-                  className="form-radio text-blue-500 h-[20px] w-[20px]"
-                  name="radioGroup1"
-                />
-                <span className="ml-2">Vegetarian</span>
-              </label>
-              <label className="inline-flex items-center ml-4">
-                <input
-                  type={"radio"}
-                  checked={vegOrNonVeg == "Non-Vegetarian"}
-                  onClick={() => {
-                    setVegOrNonVeg("Non-Vegetarian");
-                  }}
-                  className="form-radio text-blue-500 h-[20px] w-[20px] "
-                  name="radioGroup1"
-                />
-                <span className="ml-2">Non-Vegetarian</span>
-              </label>
-              {!isFValid && (
-                <p style={{ color: "red",display:"none" }}>
-                  Invalid first name.
-                </p>
-              )}
-            </div>
-            <div className=" p-2">
-              <label  className="block mb-1">
-                Star *
-              </label>
-              <select
-                value={star}
-                onChange={(e) => {
-                  setStar(e.target.value);
-                }}
-                className="w-full p-2 border border-gray-300 rounded"
-              >
-                {signs.map((item, index) => {
-                  return (
-                    <option key={index} value={item}>
-                      {item}
-                    </option>
-                  );
-                })}
-              </select>
-              {!isFValid && (
-                <p style={{ color: "red",display:"none" }}>
-                  Invalid first name.
-                </p>
-              )}
-            </div>
-            <div className=" p-2">
-              <label  className="block mb-1">
-                Color *
-              </label>
-              <input
-                placeholder="Enter Your Color"
-                type={"text"}
-                value={color}
-                onChange={(e) => {
-                  setColor(e.target.value);
-                }}
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-               {!isFValid && (
-                <p style={{ color: "red",display:"none" }}>
-                  Invalid first name.
-                </p>
-              )}
-            </div>
-            <div className=" p-2">
-              <label  className="block mb-1">
-                Career Details *
-              </label>
-              <input
-                placeholder="Enter Career Details"
-                type={"text"}
-                value={careerDetails}
-                onChange={(e) => {
-                  setCareerDetails(e.target.value);
-                }}
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-               {!isFValid && (
-                <p style={{ color: "red",display:"none" }}>
-                  Invalid first name.
-                </p>
-              )}
-            </div>
-            <div className=" p-2">
-              <label  className="block mb-1">
-                Family Property Details *
-              </label>
-              <input
-                placeholder="Enter Your Family Property Details"
-                type={"text"}
-                value={familyPropertyDetails}
-                onChange={(e) => {
-                  setFamilyPropertyDetails(e.target.value);
-                }}
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-               {!isFValid && (
-                <p style={{ color: "red",display:"none" }}>
-                  Invalid first name.
-                </p>
-              )}
-            </div>
-            <div className=" p-2">
-              <label  className="block mb-1">
-                Phone Number *
-              </label>
-              <input
-                placeholder="Enter Contact Number"
-                pattern="[0-9]"
-                type={"text"}
-                value={phoneNumber}
-                onChange={(e) => {
-                  const reg = /^[0-9\b]+$/;
-                  if (e.target.value === "" || reg.test(e.target.value)) {
-                    if (e.target.value.length <= 10) {
-                      setPhoneNumber(e.target.value);
-                    }
-                  }
-                }}
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-               {!isFValid && (
-                <p style={{ color: "red",display:"none" }}>
-                  Invalid first name.
-                </p>
-              )}
-            </div>
-            <div className=" p-2">
-              <label  className="block mb-1">
-                Marriage Status *
-              </label>
-              <select
-                value={marriageStatus}
-                onChange={(e) => {
-                  setMarriageStatus(e.target.value);
-                }}
-                className="w-full p-2 border border-gray-300 rounded"
-              >
-                {marriageStatuses.map((item, index) => {
-                  return (
-                    <option key={index} value={item}>
-                      {item}
-                    </option>
-                  );
-                })}
-              </select>
-              {!isFValid && (
-                <p style={{ color: "red",display:"none" }}>
-                  Invalid first name.
-                </p>
-              )}
-            </div>
+            {!isFValid && (
+              <p style={{ color: "red", display: "none" }}>
+                Invalid first name.
+              </p>
+            )}
           </div>
         </div>
       </div>
 
       <div className="w-[auto] mx-auto lg:w-[51rem] ">
-        <p className="h-[10px] my-6">Profile Photo *</p>
+        <p className=" p-text">Profile Photo *</p>
         <div className="flex justify-between items-center max-lg:flex-col space-y-5 max-lg:flex max-lg:justify-start ">
           <Files
             className="files-dropzone cursor-pointer"

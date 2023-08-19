@@ -43,7 +43,12 @@ const Hero = (props) => {
   useEffect(() => {
     if (storage) {
       let api = "http://172.105.57.17:1337/api/profiles/?populate=%2A";
-    
+      if (locale == "ta") {
+        api =
+          "http://172.105.57.17:1337/api/profiles/?populate=%2A&locale=ta-IN";
+      } else if (locale == "en") {
+        api = "http://172.105.57.17:1337/api/profiles/?populate=%2A";
+      }
       async function getUser() {
         try {
           const response = await axios.get(api);
@@ -93,11 +98,13 @@ const Hero = (props) => {
         <div className="absolute top-0 w-full h-[829.2px] bg-black bg-opacity-60 -z-10"></div>
         <div className="flex justify-between items-center pt-10 -md:px-2 lg:px-16 z-10">
           <Link href="/">
+            <div>
               <Image
                 src={logo}
                 alt={"logo"}
-                className="img_mob"
+                className="img_mob w-[12rem] sm:w-24 md:w-48 lg:w-48"
               />
+            </div>
           </Link>
           <div className="flex items-center justify-between">
             <div className="flex items-center  space-x-4  text-white text-[16px] font-[600] max-md:hidden">
@@ -136,10 +143,6 @@ const Hero = (props) => {
               </p>
             </div>
           </div>
-          <div className="not-login">
-            <GoogleTranslate />
-            </div>
-        
           <div className="flex justify-center items-center  max-md:hidden">
             {!login ? (
               <>
@@ -239,11 +242,10 @@ const Hero = (props) => {
               </>
             )}
           </div>
-       
         </div>
 
         {/* dublicate div start here   */}
-        <div className="mob-view flex justify-center items-center absolute bottom-[2rem] sm:bottom-[8rem] left-[2rem] sm:left-[16rem]  px-6 md:hidden max-md:flex">
+        <div className="mob-view flex justify-center items-center absolute bottom-[2rem] sm:bottom-[8rem] left-[2rem] max-sm:left-[4rem]  px-6 md:hidden max-md:flex">
           {!login ? (
             <>
               <p
@@ -267,7 +269,7 @@ const Hero = (props) => {
             <>
               {storage && (
                 <>
-                  <div className="relative max-md:right-10 top-[-44rem] left-[10rem] group dropdown">
+                  <div className="relative max-md:right-10 top-[-44rem] left-[12rem] group dropdown">
                     {userProfile && (
                       <Image
                         className="rounded-full max-w-[45px]"
@@ -333,7 +335,7 @@ const Hero = (props) => {
           )}
         </div>
 
-        <div className="absolute right-5 top-14 hidden max-md:block max-sm:block :">
+        <div className="absolute top-[3.5rem] right-1 hidden max-md:block max-sm:block :">
           <Hamburger
             className="relative"
             onClick={() => {

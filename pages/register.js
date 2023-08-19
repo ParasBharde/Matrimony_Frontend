@@ -180,21 +180,15 @@ const Register = () => {
   return (
     <div
       className={
-        "bg-[#E0E0E0] py-10 w-full max-md:bg-white max-md:w-fit max-md:flex max-md:justify-start"
+        "bg-[#E0E0E0]  w-full max-md:bg-white max-md:w-fit max-md:flex max-md:justify-start"
       }
     >
-      <div className="bg-white w-auto mx-auto pt-12 pb-10">
+      <div className="bg-white w-auto mx-auto pt-5 pb-10">
         <RegisterHeader index={screen} />
         {screen == 1 && <RegisterForm1 screen={screen} setScreen={setScreen} />}
         {screen == 2 && <RegisterForm2 screen={screen} setScreen={setScreen} />}
         {screen == 3 && <RegisterForm3 screen={screen} setScreen={setScreen} />}
-        {screen == 4 && (
-          <RegisterForm4
-            screen={screen}
-            setScreen={setScreen}
-            getAllDataAndPost={getAllDataAndPost}
-          />
-        )}
+        {screen == 4 && <RegisterForm4 screen={screen}  setScreen={setScreen} getAllDataAndPost={getAllDataAndPost} />}
       </div>
     </div>
   );

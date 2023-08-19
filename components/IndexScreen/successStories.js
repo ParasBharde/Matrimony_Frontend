@@ -22,7 +22,7 @@ const SuccessStories = (props) => {
 
       {/* using carousel create responsive successStoriesCard .....  */}
 
-      <div className="bg-[#f7f8fa] bg-white py-20  md:hidden mt-52">
+      <div className=" bg-white py-10 md:hidden ">
          {/* bg-[#E0E0E0] */}
         <p className="text-center font-semibold text-[30px] text-dark mb-3 ">
           Success Stories
