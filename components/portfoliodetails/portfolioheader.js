@@ -3,7 +3,6 @@ import Breadcrumb from "@/components/breadcrumb";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import axios from "axios";
 import { useStorage } from "@/hooks/useStorage";
-import SelectPicker from 'rsuite/SelectPicker';
 
 
 const languages = [

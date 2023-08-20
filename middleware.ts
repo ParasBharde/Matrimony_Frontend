@@ -9,11 +9,11 @@ export function middleware(request: NextRequest) {
 if (!isLogin) {
   if (request.nextUrl.pathname.startsWith('/checkout')) {
     return NextResponse.rewrite(new URL('/signIn', request.url))
-  } else if (request.nextUrl.pathname.startsWith('/profiledetail/')) {
+  } else if (request.nextUrl.pathname.startsWith('/profiledetail')) {
     return NextResponse.rewrite(new URL('/signIn', request.url))
   } else if (request.nextUrl.pathname.startsWith('/profile')) {
     return NextResponse.rewrite(new URL('/signIn', request.url))
-  } else if (request.nextUrl.pathname.startsWith('/likedprofile/')) {
+  } else if (request.nextUrl.pathname.startsWith('/likedprofile')) {
     return NextResponse.rewrite(new URL('/signIn', request.url))
   } else if (request.nextUrl.pathname.startsWith('/downloadProfile')) {
     return NextResponse.rewrite(new URL('/signIn', request.url))

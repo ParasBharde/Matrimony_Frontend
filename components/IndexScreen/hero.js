@@ -82,7 +82,7 @@ const Hero = (props) => {
       }
       getUser();
     }
-  }, [userProfile, router.pathname, storage]);
+  }, [userProfile, router.pathname, storage,locale]);
 
   console.log(userProfile);
 

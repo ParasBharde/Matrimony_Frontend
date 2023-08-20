@@ -6,10 +6,8 @@ import "@/css/allfile.scss";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { SessionProvider } from "next-auth/react";
-import GoogleTranslate from "@/components/googleTranslate";
 import Script from "next/script";
-import { appWithTranslation } from "next-i18next";
-import Head from "next/head";
+
 
 const App = ({ Component, pageProps: { session, ...pageProps } }) => {
   const router = useRouter();
@@ -46,4 +44,4 @@ const App = ({ Component, pageProps: { session, ...pageProps } }) => {
   );
 };
 
-export default appWithTranslation(App);
+export default App;

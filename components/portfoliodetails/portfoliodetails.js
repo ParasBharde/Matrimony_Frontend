@@ -83,7 +83,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
 
     getPremium();
     getRegisteruser();
-  }, [storageData, registerStorage, loginStorage]);
+  }, [registerStorage, loginStorage,storageData?.user_profile?.id,storageData?.id,storageData?.user_profile]);
 
   useEffect(() => {
     axios
@@ -149,7 +149,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
           console.error("error", error);
         });
     }
-  }, [storageData, pageCount, isUid]);
+  }, [pageCount, isUid]);
 
   // check profile is liked or not
   const isProfileLiked = (id) => {
