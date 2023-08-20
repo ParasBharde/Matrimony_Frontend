@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Head from "next/head";
 import quote from "@/assets/left-quote.png";
-import profile from "@/assets/profile.png";
 import axios from "axios";
 import about1 from "@/assets/about/about_1.svg";
 import about2 from "@/assets/about/about_2.svg";
@@ -28,15 +27,15 @@ const Aboutus = () => {
         console.log(error);
       });
   };
-  console.log("about", about);
-
+ 
   useEffect(() => {
     About();
   }, []);
 
   return (
     <>
-      <Head>
+  
+    <Head>
         <title>About Us | Matrimony</title>
         <meta
           name="description"
@@ -53,13 +52,6 @@ const Aboutus = () => {
           </div>
         </div>
       </div>
-      {/* <div className="bg-gray-200 py-3  border-b border-gray-300">
-        <p className="md:ml-48 ml-6">
-          <span>Home</span>
-          <span className="mx-5">{">"}</span>
-          <span className="text-gray-600">About Us</span>
-        </p>
-      </div> */}
       <div className="grid grid-cols-1 ml-5 md:grid-cols-2 gap-y-6 gap-x-6 xl:ml-44 xl:mr-44 lg:ml-24 lg:mr-24 md:ml-4 md:mr-4 mt-8">
         <div>
           <h2 className="text-2xl mb-6  md:mt-24">{about.label1} </h2>
@@ -133,3 +125,4 @@ const Aboutus = () => {
 };
 
 export default Aboutus;
+

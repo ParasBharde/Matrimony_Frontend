@@ -3,7 +3,13 @@ import Breadcrumb from "@/components/breadcrumb";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import axios from "axios";
 import { useStorage } from "@/hooks/useStorage";
+import SelectPicker from 'rsuite/SelectPicker';
 
+
+const languages = [
+  { label: "Tamil", value: "/auto/ta" },
+  { label: "English", value: "/auto/en" },
+];
 const Portfolioheader = ({ handleFilterQuery }) => {
   const storageData = useStorage();
   const [star, setStar] = useState("Choose");
@@ -11,6 +17,8 @@ const Portfolioheader = ({ handleFilterQuery }) => {
   const [ageTo, setAgeTo] = useState("");
   const [looking, setlooking] = useState("Choose");
   const [marriageStatus, setMarriageStatus] = useState("Choose");
+  const [searchin, setSearch] = useState('')
+  console.log(searchin)
   const stars = [
     "Choose",
     "Aries",
@@ -138,9 +146,10 @@ const Portfolioheader = ({ handleFilterQuery }) => {
           <input
             type="search"
             id="default-search"
-            className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-sm   "
             placeholder="Search Mockups, Logos..."
-            value="search"
+            value={searchin}
+            onChange={(e)=> setSearch(e.target.value)}
           />
         </div>
       </form>
@@ -188,6 +197,8 @@ const Portfolioheader = ({ handleFilterQuery }) => {
                   );
                 })}
               </select>
+            
+
             </div>
             <div className="mt-5 text-center grid max-w-min mx-10">
               <p className="text-dark text-left font-[500] text-[14px] mb-2">

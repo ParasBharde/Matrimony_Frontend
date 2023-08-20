@@ -13,11 +13,11 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   const router = useRouter();
   const dropdownRef = useRef(null);
   const storageData = useStorage();
-  console.log(storageData)
+  console.log(storageData);
   const registerStorage = storageData?.id;
   const loginStorage = storageData?.user_profile?.id;
   const finalId = storageData?.user_profile ? loginStorage : registerStorage;
-  const ch = finalId? finalId : registerStorage;
+  const ch = finalId ? finalId : registerStorage;
 
   const calculateAge = useCalculateAge();
   const [active, setActive] = useState(false);
@@ -33,56 +33,61 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   const [isPremiumUser, setIsPremiumUser] = useState(false);
   const [checkStatus, setcheckStatus] = useState("");
   const [checkExpired, setcheckExpired] = useState("");
-  const [getRegister, setRegister] = useState([])
+  const [getRegister, setRegister] = useState([]);
   const isUid = getRegister.length > 0 ? getRegister[0]?.id : storageData?.id;
-console.log(isPremiumUser)
+  console.log(isPremiumUser);
 
   useEffect(() => {
-  const getPremium = () => {
-    let config = {
-      method: "get",
-      maxBodyLength: Infinity,
-      url: `http://172.105.57.17:1337/api/user-active-plans?filters[user_id]=${finalId}`,
-      headers: {},
+    const getPremium = () => {
+      let config = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: `http://172.105.57.17:1337/api/user-active-plans?filters[user_id]=${finalId}`,
+        headers: {},
+      };
+
+      axios
+        .request(config)
+        .then((response) => {
+          console.log(response.data.data);
+          const res = response.data.data[0];
+          setcheckStatus(res?.attributes?.status);
+          const data =
+            res?.attributes.member_viewed ===
+            res?.attributes.member_display_limit;
+          setcheckExpired(data);
+          setIsPremiumUser(response.data.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     };
 
-    axios
-      .request(config)
-      .then((response) => {
-        console.log(response.data.data);
-       const res = response.data.data[0];
-        setcheckStatus(res?.attributes?.status);
-        const data = res?.attributes.member_viewed === res?.attributes.member_display_limit;
-        setcheckExpired(data);
-        setIsPremiumUser(response.data.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+    const getRegisteruser = () => {
+      let config = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: "http://172.105.57.17:1337/api/users?populate=user_profile",
+        headers: {},
+      };
 
-  const getRegisteruser = () => {
-    let config = {
-      method: 'get',
-      maxBodyLength: Infinity,
-      url: 'http://172.105.57.17:1337/api/users?populate=user_profile',
-      headers: { }
+      axios
+        .request(config)
+        .then((response) => {
+          const data = response.data.filter(
+            (u) => u.user_profile.id === finalId
+          );
+          console.log(data);
+          setRegister(data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     };
-    
-    axios.request(config)
-    .then((response) => {
-      const data =    response.data.filter(u => u.user_profile.id === finalId)
-      console.log(data)
-      setRegister(data)
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  }
- 
+
     getPremium();
     getRegisteruser();
-  }, [storageData,registerStorage,loginStorage,finalId]);
+  }, [storageData, registerStorage, loginStorage, finalId]);
 
   useEffect(() => {
     axios
@@ -97,9 +102,9 @@ console.log(isPremiumUser)
       .catch((error) => {
         console.log("liked profile error", error);
       });
-    },[])
+  }, []);
 
-    useEffect(()=>{
+  useEffect(() => {
     let allData = [];
     for (let i = 1; i <= pageCount; i++) {
       const getProfiles = () => {
@@ -110,7 +115,9 @@ console.log(isPremiumUser)
           .then((response) => {
             // console.log(response, "getlike");
             let data = response.data.data.filter((profile) => {
-              return (profile?.attributes?.user_permissions_user?.data?.id === isUid );
+              return (
+                profile?.attributes?.user_permissions_user?.data?.id === isUid
+              );
             });
             console.log(data);
             allData = [...allData, ...data];
@@ -132,13 +139,13 @@ console.log(isPremiumUser)
           `http://172.105.57.17:1337/api/liked-profiles?populate=user_permissions_user&populate=user_profile.profile_photo&pagination[page]=${i}`
         )
         .then((response) => {
-          console.log(response)
+          console.log(response);
           let data = response.data.data.filter((profile) => {
             return (
               profile?.attributes?.user_permissions_user?.data?.id === isUid
             );
           });
-          console.log('data',data)
+          console.log("data", data);
           allData = [...allData, ...data];
           setMyLikedprofiles(allData);
         })
@@ -146,7 +153,7 @@ console.log(isPremiumUser)
           console.error("error", error);
         });
     }
-  }, [storageData, pageCount,isUid]);
+  }, [storageData, pageCount, isUid]);
 
   // check profile is liked or not
   const isProfileLiked = (id) => {
@@ -305,359 +312,346 @@ console.log(isPremiumUser)
 
   return (
     <>
-      <div className=" px-4 py-3 sm:px-[6rem] w-70 overflow-auto">
-        <div className="lg:flex max-md:flex max-md:justify-between lg:flex-1 lg:items-center lg:justify-between sm:flex sm:flex-1 sm:items-center sm:justify-between ">
-          <div className={`${isList?'max-md:fixed':'relative'}absolute left-0`}>
-            <span className="text-sm text-gray-700">
-              {currentPage == 1 ? "1" : `${(currentPage - 1) * 10 + 1}`}-
-              {total <= currentPage * 10 ? total : currentPage * 10}{" "}
-              <span className="font-semibold text-gray-900">of</span>{" "}
-              {totalPage}{" "}
-              <span className="font-semibold text-gray-900">Pages</span>
-            </span>
-          </div>
-          <div className={`${isList?'max-md:fixed':'relative'}absolute right-0`}>
-            <nav
-              className="isolate inline-flex -space-x-px"
-              aria-label="Pagination"
-            >
-              <span className="px-2 py-1 max-md:hidden ">View by :</span>
-              <button
-                className="flex max-md:flex "
-                onClick={() => {
-                  issetList(!isList);
-                  issetGrid(!isGrid);
-                }}
-              >
-                {isGrid ? (
-                  <>
-                    <svg
-                      width="34"
-                      height="34"
-                      viewBox="0 0 34 34"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g filter="url(#filter0_d_62_22856)">
-                        <rect
-                          x="2"
-                          y="2"
-                          width="30"
-                          height="30"
-                          rx="2"
-                          fill="white"
-                          // className="max-md:bg-red-800"
-                        />
-                        <g clipPath="url(#clip0_62_22856)">
-                          <path
-                            d="M9 13H13V9H9V13ZM15 25H19V21H15V25ZM9 25H13V21H9V25ZM9 19H13V15H9V19ZM15 19H19V15H15V19ZM21 9V13H25V9H21ZM15 13H19V9H15V13ZM21 19H25V15H21V19ZM21 25H25V21H21V25Z"
-                            fill="#F98B1D"
-                          />
-                        </g>
-                      </g>
-                      <defs>
-                        <filter
-                          id="filter0_d_62_22856"
-                          x="0"
-                          y="0"
-                          width="34"
-                          height="34"
-                          filterUnits="userSpaceOnUse"
-                          colorInterpolationFilters="sRGB"
-                        >
-                          <feFlood
-                            floodOpacity="0"
-                            result="BackgroundImageFix"
-                          />
-                          <feColorMatrix
-                            in="SourceAlpha"
-                            type="matrix"
-                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                            result="hardAlpha"
-                          />
-                          <feOffset />
-                          <feGaussianBlur stdDeviation="1" />
-                          <feComposite in2="hardAlpha" operator="out" />
-                          <feColorMatrix
-                            type="matrix"
-                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"
-                          />
-                          <feBlend
-                            mode="normal"
-                            in2="BackgroundImageFix"
-                            result="effect1_dropShadow_62_22856"
-                          />
-                          <feBlend
-                            mode="normal"
-                            in="SourceGraphic"
-                            in2="effect1_dropShadow_62_22856"
-                            result="shape"
-                          />
-                        </filter>
-                        <clipPath id="clip0_62_22856">
-                          <rect
-                            width="24"
-                            height="24"
-                            fill="white"
-                            transform="translate(5 5)"
-                          />
-                        </clipPath>
-                      </defs>
-                    </svg>
-                  </>
-                ) : (
-                  <>
-                    <svg
-                      width="34"
-                      height="34"
-                      viewBox="0 0 34 34"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g filter="url(#filter0_d_313_5302)">
-                        <rect
-                          x="2"
-                          y="2"
-                          width="30"
-                          height="30"
-                          rx="2"
-                          fill="white"
-                        />
-                        <g clipPath="url(#clip0_313_5302)">
-                          <path
-                            d="M9 13H13V9H9V13ZM15 25H19V21H15V25ZM9 25H13V21H9V25ZM9 19H13V15H9V19ZM15 19H19V15H15V19ZM21 9V13H25V9H21ZM15 13H19V9H15V13ZM21 19H25V15H21V19ZM21 25H25V21H21V25Z"
-                            fill="#8E8E8E"
-                          />
-                        </g>
-                      </g>
-                      <defs>
-                        <filter
-                          id="filter0_d_313_5302"
-                          x="0"
-                          y="0"
-                          width="34"
-                          height="34"
-                          filterUnits="userSpaceOnUse"
-                          colorInterpolationFilters="sRGB"
-                        >
-                          <feFlood
-                            floodOpacity="0"
-                            result="BackgroundImageFix"
-                          />
-                          <feColorMatrix
-                            in="SourceAlpha"
-                            type="matrix"
-                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                            result="hardAlpha"
-                          />
-                          <feOffset />
-                          <feGaussianBlur stdDeviation="1" />
-                          <feComposite in2="hardAlpha" operator="out" />
-                          <feColorMatrix
-                            type="matrix"
-                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"
-                          />
-                          <feBlend
-                            mode="normal"
-                            in2="BackgroundImageFix"
-                            result="effect1_dropShadow_313_5302"
-                          />
-                          <feBlend
-                            mode="normal"
-                            in="SourceGraphic"
-                            in2="effect1_dropShadow_313_5302"
-                            result="shape"
-                          />
-                        </filter>
-                        <clipPath id="clip0_313_5302">
-                          <rect
-                            width="24"
-                            height="24"
-                            fill="white"
-                            transform="translate(5 5)"
-                          />
-                        </clipPath>
-                      </defs>
-                    </svg>
-                  </>
-                )}
-              </button>
-              <button
-                onClick={() => {
-                  issetGrid(!isGrid);
-                  issetList(!isList);
-                }}
-              >
-                {isList ? (
-                  <>
-                    <svg
-                      width="34"
-                      height="34"
-                      viewBox="0 0 34 34"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g filter="url(#filter0_d_313_5306)">
-                        <rect
-                          x="2"
-                          y="2"
-                          width="30"
-                          height="30"
-                          rx="2"
-                          fill="white"
-                          shapeRendering="crispEdges"
-                        />
-                        <g clipPath="url(#clip0_313_5306)">
-                          <path
-                            d="M24 18H10C8.9 18 8 18.9 8 20V24C8 25.1 8.9 26 10 26H24C25.1 26 26 25.1 26 24V20C26 18.9 25.1 18 24 18ZM24 24H10V20H24V24Z"
-                            fill="#F98B1D"
-                          />
-                          <path
-                            d="M24 8H10C8.9 8 8 8.9 8 10V14C8 15.1 8.9 16 10 16H24C25.1 16 26 15.1 26 14V10C26 8.9 25.1 8 24 8ZM24 14H10V10H24V14Z"
-                            fill="#F98B1D"
-                          />
-                        </g>
-                      </g>
-                      <defs>
-                        <filter
-                          id="filter0_d_313_5306"
-                          x="0"
-                          y="0"
-                          width="34"
-                          height="34"
-                          filterUnits="userSpaceOnUse"
-                          colorInterpolationFilters="sRGB"
-                        >
-                          <feFlood
-                            floodOpacity="0"
-                            result="BackgroundImageFix"
-                          />
-                          <feColorMatrix
-                            in="SourceAlpha"
-                            type="matrix"
-                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                            result="hardAlpha"
-                          />
-                          <feOffset />
-                          <feGaussianBlur stdDeviation="1" />
-                          <feComposite in2="hardAlpha" operator="out" />
-                          <feColorMatrix
-                            type="matrix"
-                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"
-                          />
-                          <feBlend
-                            mode="normal"
-                            in2="BackgroundImageFix"
-                            result="effect1_dropShadow_313_5306"
-                          />
-                          <feBlend
-                            mode="normal"
-                            in="SourceGraphic"
-                            in2="effect1_dropShadow_313_5306"
-                            result="shape"
-                          />
-                        </filter>
-                        <clipPath id="clip0_313_5306">
-                          <rect
-                            width="24"
-                            height="24"
-                            fill="white"
-                            transform="translate(5 5)"
-                          />
-                        </clipPath>
-                      </defs>
-                    </svg>
-                  </>
-                ) : (
-                  <>
-                    <svg
-                      width="34"
-                      height="34"
-                      viewBox="0 0 34 34"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g filter="url(#filter0_d_62_22860)">
-                        <rect
-                          x="2"
-                          y="2"
-                          width="30"
-                          height="30"
-                          rx="2"
-                          fill="white"
-                          shapeRendering="crispEdges"
-                        />
-                        <g clipPath="url(#clip0_62_22860)">
-                          <path
-                            d="M24 18H10C8.9 18 8 18.9 8 20V24C8 25.1 8.9 26 10 26H24C25.1 26 26 25.1 26 24V20C26 18.9 25.1 18 24 18ZM24 24H10V20H24V24Z"
-                            fill="#1E1E1E"
-                            fillOpacity="0.5"
-                          />
-                          <path
-                            d="M24 8H10C8.9 8 8 8.9 8 10V14C8 15.1 8.9 16 10 16H24C25.1 16 26 15.1 26 14V10C26 8.9 25.1 8 24 8ZM24 14H10V10H24V14Z"
-                            fill="#1E1E1E"
-                            fillOpacity="0.5"
-                          />
-                        </g>
-                      </g>
-                      <defs>
-                        <filter
-                          id="filter0_d_62_22860"
-                          x="0"
-                          y="0"
-                          width="34"
-                          height="34"
-                          filterUnits="userSpaceOnUse"
-                          colorInterpolationFilters="sRGB"
-                        >
-                          <feFlood
-                            floodOpacity="0"
-                            result="BackgroundImageFix"
-                          />
-                          <feColorMatrix
-                            in="SourceAlpha"
-                            type="matrix"
-                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                            result="hardAlpha"
-                          />
-                          <feOffset />
-                          <feGaussianBlur stdDeviation="1" />
-                          <feComposite in2="hardAlpha" operator="out" />
-                          <feColorMatrix
-                            type="matrix"
-                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"
-                          />
-                          <feBlend
-                            mode="normal"
-                            in2="BackgroundImageFix"
-                            result="effect1_dropShadow_62_22860"
-                          />
-                          <feBlend
-                            mode="normal"
-                            in="SourceGraphic"
-                            in2="effect1_dropShadow_62_22860"
-                            result="shape"
-                          />
-                        </filter>
-                        <clipPath id="clip0_62_22860">
-                          <rect
-                            width="24"
-                            height="24"
-                            fill="white"
-                            transform="translate(5 5)"
-                          />
-                        </clipPath>
-                      </defs>
-                    </svg>
-                  </>
-                )}
-              </button>
-            </nav>
-          </div>
+      <div className="lg:flex max-md:flex max-md:justify-between lg:flex-1 lg:items-center lg:justify-between sm:flex sm:flex-1 sm:items-center sm:justify-between ">
+        <div className={`${isList ? "max-md:fixed" : "relative"}absolute left-0`} >
+          <span className="text-sm text-gray-700">
+            {currentPage == 1 ? "1" : `${(currentPage - 1) * 10 + 1}`}-
+            {total <= currentPage * 10 ? total : currentPage * 10}{" "}
+            <span className="font-semibold text-gray-900">of</span> {totalPage}{" "}
+            <span className="font-semibold text-gray-900">Pages</span>
+          </span>
         </div>
+        <div className={`${isList ? "max-md:fixed" : "relative"}absolute right-0`}>
+          <nav
+            className="isolate inline-flex -space-x-px"
+            aria-label="Pagination"
+          >
+            <span className="px-2 py-1 max-md:hidden ">View by :</span>
+            <button
+              className="flex max-md:flex "
+              onClick={() => {
+                issetList(!isList);
+                issetGrid(!isGrid);
+              }}
+            >
+              {isGrid ? (
+                <>
+                  <svg
+                    width="34"
+                    height="34"
+                    viewBox="0 0 34 34"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g filter="url(#filter0_d_62_22856)">
+                      <rect
+                        x="2"
+                        y="2"
+                        width="30"
+                        height="30"
+                        rx="2"
+                        fill="white"
+                        // className="max-md:bg-red-800"
+                      />
+                      <g clipPath="url(#clip0_62_22856)">
+                        <path
+                          d="M9 13H13V9H9V13ZM15 25H19V21H15V25ZM9 25H13V21H9V25ZM9 19H13V15H9V19ZM15 19H19V15H15V19ZM21 9V13H25V9H21ZM15 13H19V9H15V13ZM21 19H25V15H21V19ZM21 25H25V21H21V25Z"
+                          fill="#F98B1D"
+                        />
+                      </g>
+                    </g>
+                    <defs>
+                      <filter
+                        id="filter0_d_62_22856"
+                        x="0"
+                        y="0"
+                        width="34"
+                        height="34"
+                        filterUnits="userSpaceOnUse"
+                        colorInterpolationFilters="sRGB"
+                      >
+                        <feFlood floodOpacity="0" result="BackgroundImageFix" />
+                        <feColorMatrix
+                          in="SourceAlpha"
+                          type="matrix"
+                          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                          result="hardAlpha"
+                        />
+                        <feOffset />
+                        <feGaussianBlur stdDeviation="1" />
+                        <feComposite in2="hardAlpha" operator="out" />
+                        <feColorMatrix
+                          type="matrix"
+                          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"
+                        />
+                        <feBlend
+                          mode="normal"
+                          in2="BackgroundImageFix"
+                          result="effect1_dropShadow_62_22856"
+                        />
+                        <feBlend
+                          mode="normal"
+                          in="SourceGraphic"
+                          in2="effect1_dropShadow_62_22856"
+                          result="shape"
+                        />
+                      </filter>
+                      <clipPath id="clip0_62_22856">
+                        <rect
+                          width="24"
+                          height="24"
+                          fill="white"
+                          transform="translate(5 5)"
+                        />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </>
+              ) : (
+                <>
+                  <svg
+                    width="34"
+                    height="34"
+                    viewBox="0 0 34 34"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g filter="url(#filter0_d_313_5302)">
+                      <rect
+                        x="2"
+                        y="2"
+                        width="30"
+                        height="30"
+                        rx="2"
+                        fill="white"
+                      />
+                      <g clipPath="url(#clip0_313_5302)">
+                        <path
+                          d="M9 13H13V9H9V13ZM15 25H19V21H15V25ZM9 25H13V21H9V25ZM9 19H13V15H9V19ZM15 19H19V15H15V19ZM21 9V13H25V9H21ZM15 13H19V9H15V13ZM21 19H25V15H21V19ZM21 25H25V21H21V25Z"
+                          fill="#8E8E8E"
+                        />
+                      </g>
+                    </g>
+                    <defs>
+                      <filter
+                        id="filter0_d_313_5302"
+                        x="0"
+                        y="0"
+                        width="34"
+                        height="34"
+                        filterUnits="userSpaceOnUse"
+                        colorInterpolationFilters="sRGB"
+                      >
+                        <feFlood floodOpacity="0" result="BackgroundImageFix" />
+                        <feColorMatrix
+                          in="SourceAlpha"
+                          type="matrix"
+                          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                          result="hardAlpha"
+                        />
+                        <feOffset />
+                        <feGaussianBlur stdDeviation="1" />
+                        <feComposite in2="hardAlpha" operator="out" />
+                        <feColorMatrix
+                          type="matrix"
+                          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"
+                        />
+                        <feBlend
+                          mode="normal"
+                          in2="BackgroundImageFix"
+                          result="effect1_dropShadow_313_5302"
+                        />
+                        <feBlend
+                          mode="normal"
+                          in="SourceGraphic"
+                          in2="effect1_dropShadow_313_5302"
+                          result="shape"
+                        />
+                      </filter>
+                      <clipPath id="clip0_313_5302">
+                        <rect
+                          width="24"
+                          height="24"
+                          fill="white"
+                          transform="translate(5 5)"
+                        />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </>
+              )}
+            </button>
+            <button
+              onClick={() => {
+                issetGrid(!isGrid);
+                issetList(!isList);
+              }}
+            >
+              {isList ? (
+                <>
+                  <svg
+                    width="34"
+                    height="34"
+                    viewBox="0 0 34 34"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g filter="url(#filter0_d_313_5306)">
+                      <rect
+                        x="2"
+                        y="2"
+                        width="30"
+                        height="30"
+                        rx="2"
+                        fill="white"
+                        shapeRendering="crispEdges"
+                      />
+                      <g clipPath="url(#clip0_313_5306)">
+                        <path
+                          d="M24 18H10C8.9 18 8 18.9 8 20V24C8 25.1 8.9 26 10 26H24C25.1 26 26 25.1 26 24V20C26 18.9 25.1 18 24 18ZM24 24H10V20H24V24Z"
+                          fill="#F98B1D"
+                        />
+                        <path
+                          d="M24 8H10C8.9 8 8 8.9 8 10V14C8 15.1 8.9 16 10 16H24C25.1 16 26 15.1 26 14V10C26 8.9 25.1 8 24 8ZM24 14H10V10H24V14Z"
+                          fill="#F98B1D"
+                        />
+                      </g>
+                    </g>
+                    <defs>
+                      <filter
+                        id="filter0_d_313_5306"
+                        x="0"
+                        y="0"
+                        width="34"
+                        height="34"
+                        filterUnits="userSpaceOnUse"
+                        colorInterpolationFilters="sRGB"
+                      >
+                        <feFlood floodOpacity="0" result="BackgroundImageFix" />
+                        <feColorMatrix
+                          in="SourceAlpha"
+                          type="matrix"
+                          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                          result="hardAlpha"
+                        />
+                        <feOffset />
+                        <feGaussianBlur stdDeviation="1" />
+                        <feComposite in2="hardAlpha" operator="out" />
+                        <feColorMatrix
+                          type="matrix"
+                          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"
+                        />
+                        <feBlend
+                          mode="normal"
+                          in2="BackgroundImageFix"
+                          result="effect1_dropShadow_313_5306"
+                        />
+                        <feBlend
+                          mode="normal"
+                          in="SourceGraphic"
+                          in2="effect1_dropShadow_313_5306"
+                          result="shape"
+                        />
+                      </filter>
+                      <clipPath id="clip0_313_5306">
+                        <rect
+                          width="24"
+                          height="24"
+                          fill="white"
+                          transform="translate(5 5)"
+                        />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </>
+              ) : (
+                <>
+                  <svg
+                    width="34"
+                    height="34"
+                    viewBox="0 0 34 34"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g filter="url(#filter0_d_62_22860)">
+                      <rect
+                        x="2"
+                        y="2"
+                        width="30"
+                        height="30"
+                        rx="2"
+                        fill="white"
+                        shapeRendering="crispEdges"
+                      />
+                      <g clipPath="url(#clip0_62_22860)">
+                        <path
+                          d="M24 18H10C8.9 18 8 18.9 8 20V24C8 25.1 8.9 26 10 26H24C25.1 26 26 25.1 26 24V20C26 18.9 25.1 18 24 18ZM24 24H10V20H24V24Z"
+                          fill="#1E1E1E"
+                          fillOpacity="0.5"
+                        />
+                        <path
+                          d="M24 8H10C8.9 8 8 8.9 8 10V14C8 15.1 8.9 16 10 16H24C25.1 16 26 15.1 26 14V10C26 8.9 25.1 8 24 8ZM24 14H10V10H24V14Z"
+                          fill="#1E1E1E"
+                          fillOpacity="0.5"
+                        />
+                      </g>
+                    </g>
+                    <defs>
+                      <filter
+                        id="filter0_d_62_22860"
+                        x="0"
+                        y="0"
+                        width="34"
+                        height="34"
+                        filterUnits="userSpaceOnUse"
+                        colorInterpolationFilters="sRGB"
+                      >
+                        <feFlood floodOpacity="0" result="BackgroundImageFix" />
+                        <feColorMatrix
+                          in="SourceAlpha"
+                          type="matrix"
+                          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                          result="hardAlpha"
+                        />
+                        <feOffset />
+                        <feGaussianBlur stdDeviation="1" />
+                        <feComposite in2="hardAlpha" operator="out" />
+                        <feColorMatrix
+                          type="matrix"
+                          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"
+                        />
+                        <feBlend
+                          mode="normal"
+                          in2="BackgroundImageFix"
+                          result="effect1_dropShadow_62_22860"
+                        />
+                        <feBlend
+                          mode="normal"
+                          in="SourceGraphic"
+                          in2="effect1_dropShadow_62_22860"
+                          result="shape"
+                        />
+                      </filter>
+                      <clipPath id="clip0_62_22860">
+                        <rect
+                          width="24"
+                          height="24"
+                          fill="white"
+                          transform="translate(5 5)"
+                        />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </>
+              )}
+            </button>
+          </nav>
+        </div>
+      </div>
 
+      <div className=" px-4 py-3 sm:px-[6rem] w-70 overflow-auto">
         {isList ? (
-          <div className="list_data pb-[4rem] max-md:mt-[4rem] mt-[4rem]">
+          <div className="list_data  max-md:mt-[4rem] mt-[4rem]">
             {/* flex justify-center */}
             <table className=" text-sm text-left text-gray-500 divide-y-4 shadow-2xl">
               <thead
@@ -836,7 +830,13 @@ console.log(isPremiumUser)
                           className="absolute top-0 right-0 m-2 rounded flex items-center justify-center w-10 h-11 text-white text-sm font-bold"
                         >
                           <svg
-                            className={`absolute rounded ${storageData?'cursor-pointer':'cursor-not-allowed'} fill-current hover:text-[#F98B1D] ${isProfileLiked(itms.id) && "text-[#F98B1D]"}`}
+                            className={`absolute rounded ${
+                              storageData
+                                ? "cursor-pointer"
+                                : "cursor-not-allowed"
+                            } fill-current hover:text-[#F98B1D] ${
+                              isProfileLiked(itms.id) && "text-[#F98B1D]"
+                            }`}
                             id="heart"
                             data-id="liked-profile"
                             width="24"
@@ -989,98 +989,97 @@ console.log(isPremiumUser)
               })}
           </div>
         )}
+      </div>
         {/* ............ this is for pagination for responsive part ...  */}
-
-        <div className="flex items-center px-4 py-[2rem] sm:px-6 mb-[2rem]">
-          <div className="flex flex-1 justify-between sm:hidden">
-            <Link
-              href="#"
-              className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-            >
-              Previous
-            </Link>
-            <Link
-              href="#"
-              className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-            >
-              Next
-            </Link>
+      <div className="flex items-center px-4  sm:px-6 ">
+        <div className="flex flex-1 justify-between sm:hidden">
+          <Link
+            href="#"
+            className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+          >
+            Previous
+          </Link>
+          <Link
+            href="#"
+            className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+          >
+            Next
+          </Link>
+        </div>
+        <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between mb-4">
+          <div>
+            <span className="text-sm text-gray-700">
+              {currentPage == 1 ? "1" : `${(currentPage - 1) * 10 + 1}`}-
+              {total <= currentPage * 10 ? total : currentPage * 10}{" "}
+              <span className="font-semibold text-gray-900">of</span>{" "}
+              {totalPage}{" "}
+              <span className="font-semibold text-gray-900">Pages</span>
+            </span>
           </div>
-          <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
-            <div>
-              <span className="text-sm text-gray-700">
-                {currentPage == 1 ? "1" : `${(currentPage - 1) * 10 + 1}`}-
-                {total <= currentPage * 10 ? total : currentPage * 10}{" "}
-                <span className="font-semibold text-gray-900">of</span>{" "}
-                {totalPage}{" "}
-                <span className="font-semibold text-gray-900">Pages</span>
-              </span>
-            </div>
-            <div>
-              <nav
-                className="isolate inline-flex -space-x-px  rounded-md shadow-sm "
-                aria-label="Pagination"
+          <div>
+            <nav
+              className="isolate inline-flex -space-x-px  rounded-md shadow-sm "
+              aria-label="Pagination"
+            >
+              <Link
+                href="#"
+                className="relative inline-flex items-center rounded-l-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
+                onClick={previousPage}
               >
-                <Link
-                  href="#"
-                  className="relative inline-flex items-center rounded-l-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
-                  onClick={previousPage}
+                <span className="sr-only">Previous</span>
+
+                <svg
+                  className="h-5 w-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
                 >
-                  <span className="sr-only">Previous</span>
+                  <path
+                    fillRule="evenodd"
+                    d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </Link>
 
-                  <svg
-                    className="h-5 w-5"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </Link>
+              {Array(Math.ceil(total / 10))
+                .fill(0)
+                .map((item, index) => {
+                  return (
+                    <p
+                      key={index}
+                      aria-current="page"
+                      onClick={() => handlePageNumberClick(index + 1)}
+                      className="relative z-10 inline-flex items-center border border-gray-400 px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
+                    >
+                      <span>{index + 1}</span>
+                    </p>
+                  );
+                })}
 
-                {Array(Math.ceil(total / 10))
-                  .fill(0)
-                  .map((item, index) => {
-                    return (
-                      <p
-                        key={index}
-                        aria-current="page"
-                        onClick={() => handlePageNumberClick(index + 1)}
-                        className="relative z-10 inline-flex items-center border border-gray-400 px-4 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
-                      >
-                        <span>{index + 1}</span>
-                      </p>
-                    );
-                  })}
+              <Link
+                href="#"
+                className="relative inline-flex items-center rounded-r-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
+                onClick={nextPage}
+              >
+                <span className="sr-only">Next</span>
 
-                <Link
-                  href="#"
-                  className="relative inline-flex items-center rounded-r-md border border-gray-400  px-2 py-2 text-sm font-medium text-gray-500 hover:bg-orange-400 focus:z-20"
-                  onClick={nextPage}
+                <svg
+                  className="h-5 w-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
                 >
-                  <span className="sr-only">Next</span>
-
-                  <svg
-                    className="h-5 w-5"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </Link>
-              </nav>
-            </div>
+                  <path
+                    fillRule="evenodd"
+                    d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </Link>
+            </nav>
           </div>
         </div>
       </div>

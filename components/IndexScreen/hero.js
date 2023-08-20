@@ -93,9 +93,11 @@ const Hero = (props) => {
 
   return (
     <>
+
       <div className="relative h-[829.2px]">
         <div className="indexbg absolute top-0 w-full h-[829.2px] -z-10 "></div>
         <div className="absolute top-0 w-full h-[829.2px] bg-black bg-opacity-60 -z-10"></div>
+       
         <div className="flex justify-between items-center pt-10 -md:px-2 lg:px-16 z-10">
           <Link href="/">
             <div>
@@ -142,7 +144,10 @@ const Hero = (props) => {
                 About Us
               </p>
             </div>
+
           </div>
+      <GoogleTranslate />
+          
           <div className="flex justify-center items-center  max-md:hidden">
             {!login ? (
               <>
@@ -243,13 +248,12 @@ const Hero = (props) => {
             )}
           </div>
         </div>
-
         {/* dublicate div start here   */}
-        <div className="mob-view flex justify-center items-center absolute bottom-[2rem] sm:bottom-[8rem] left-[2rem] max-sm:left-[4rem]  px-6 md:hidden max-md:flex">
+        <div className="mob-view flex justify-center items-center absolute bottom-[15rem] sm:bottom-[8rem] left-[2rem] max-sm:left-[4rem]  px-6 md:hidden max-md:flex">
           {!login ? (
             <>
               <p
-                className="text-white bg-main py-2 px-5 rounded-md mx-2 cursor-pointer my-5"
+                className="text-white bg-main py-2 px-8 rounded-md mx-2 cursor-pointer my-5"
                 onClick={() => {
                   router.push("/signIn");
                 }}
@@ -257,7 +261,7 @@ const Hero = (props) => {
                 Login
               </p>
               <p
-                className="text-main bg-white py-2 px-5 rounded-md mx-2 cursor-pointer "
+                className="text-main bg-white py-2 px-8 rounded-md mx-2 cursor-pointer "
                 onClick={() => {
                   router.push("/register");
                 }}

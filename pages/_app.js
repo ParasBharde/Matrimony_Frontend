@@ -7,16 +7,14 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { SessionProvider } from "next-auth/react";
 import GoogleTranslate from "@/components/googleTranslate";
-import Script from 'next/script'
-
-export default function App({
-  Component,
-  pageProps: { session, ...pageProps },
-}) {
+import Script from "next/script";
+import { appWithTranslation } from "next-i18next";
+import Head from "next/head";
+const App = ({ Component, pageProps: { session, ...pageProps } }) => {
   const router = useRouter();
-
   return (
     <>
+     
       <ToastContainer />
       {router.pathname == "/" ||
       router.pathname == "/signIn" ||
@@ -26,13 +24,11 @@ export default function App({
       router.pathname == "/admin/orderHistory" ||
       router.pathname == "/admin/profile" ||
       router.pathname == "/admin" ? null : (
-        <>
-          <Header />
-        </>
+        <Header />
       )}
       <SessionProvider session={session}>
-        <Component {...pageProps} />   
-        <Script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" strategy="beforeInteractive"/>
+        <Component {...pageProps} />
+        <Script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" strategy="lazyOnload" />
       </SessionProvider>
       {router.pathname == "/signIn" ||
       router.pathname == "/admin/adminpanel" ||
@@ -46,4 +42,6 @@ export default function App({
       )}
     </>
   );
-}
+};
+
+export default appWithTranslation(App);

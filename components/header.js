@@ -157,6 +157,7 @@ const Header = () => {
           </p>
 
         </div>
+        <GoogleTranslate />
 
 
         <div className="absolute right-2 hidden max-md:block max-sm:block group dropdown">
@@ -204,6 +205,7 @@ const Header = () => {
               About Us
             </p>
           </div>
+
         </div>
 
         {/* ..................   */}
@@ -278,6 +280,7 @@ const Header = () => {
           </div>
         )}
       </div>
+
     </div>
   );
 };
