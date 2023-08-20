@@ -16,8 +16,6 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   console.log(storageData);
   const registerStorage = storageData?.id;
   const loginStorage = storageData?.user_profile?.id;
-  const finalId = storageData?.user_profile ? loginStorage : registerStorage;
-  const ch = finalId ? finalId : registerStorage;
 
   const calculateAge = useCalculateAge();
   const [active, setActive] = useState(false);
@@ -38,6 +36,8 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   console.log(isPremiumUser);
 
   useEffect(() => {
+  const finalId = storageData?.user_profile ? storageData?.user_profile?.id : storageData?.id;
+
     const getPremium = () => {
       let config = {
         method: "get",
@@ -87,7 +87,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
 
     getPremium();
     getRegisteruser();
-  }, [storageData, registerStorage, loginStorage, finalId]);
+  }, [storageData, registerStorage, loginStorage]);
 
   useEffect(() => {
     axios
@@ -273,21 +273,6 @@ const Portfoliodetails = ({ allprofiles, total }) => {
     issetGrid(true);
   }, []);
 
-  // const handleSVG = () => {
-  //   console.log("Clicked");
-  //   if (storageData != null) {
-  //     let res = isProfileLiked(itms.id);
-  //     console.log("res", res);
-  //     if (res != true) {
-  //       handleLike(itms, e);
-  //     } else {
-  //       handleDislike(itms.id, e);
-  //     }
-  //   } else {
-  //     toast.error("You must be login first!");
-  //     router.push("/signIn");
-  //   }
-  // };
 
   const [selectedRows, setSelectedRows] = useState(
     Array(profiles?.length).fill(false)

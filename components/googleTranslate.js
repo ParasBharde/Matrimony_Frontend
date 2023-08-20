@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 
 const GoogleTranslate = () => {
   const { isFallback, events } = useRouter()
-console.log(isFallback,events)
+ 
   const googleTranslateElementInit = () => {
     new window.google.translate.TranslateElement({
        pageLanguage: 'en',
@@ -16,6 +16,7 @@ console.log(isFallback,events)
   )}
 
   useEffect(() => {
+
     const id = 'google-translate-script'
 
     const addScript = () => {
@@ -30,6 +31,25 @@ console.log(isFallback,events)
         window.googleTranslateElementInit = googleTranslateElementInit
       }
     }
+
+    const removeLogoAndAdjustContent = () => {
+      const logoLink = document.querySelector('.goog-logo-link');
+      if (logoLink) {
+        logoLink.innerHTML = '';
+      }
+
+      const translateGadget = document.querySelector('.goog-te-gadget');
+      if (translateGadget) {
+        translateGadget.innerHTML = translateGadget.children;
+      }
+    };
+
+    window.addEventListener('load', removeLogoAndAdjustContent);
+
+    return () => {
+      window.removeEventListener('load', removeLogoAndAdjustContent);
+    };
+
 
     const removeScript = () => {
       const q = document.getElementById(id)
@@ -49,6 +69,10 @@ console.log(isFallback,events)
       events.off('routeChangeStart', removeScript)
       events.off('routeChangeComplete', addScript)
     }
+
+
+
+    
   }, [isFallback,events])
 
   return  <div id="google_translate_element"></div>;

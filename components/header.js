@@ -157,10 +157,12 @@ const Header = () => {
           </p>
 
         </div>
-        <GoogleTranslate />
-
+        <div className='google' >
+          <GoogleTranslate />
+        </div>
 
         <div className="absolute right-2 hidden max-md:block max-sm:block group dropdown">
+          
           <i className="fa-solid fa-bars mr-3 mb-3"></i>
           <div className="absolute group-hover:block dropdown-menu hidden h-auto right-2 shadow-lg top-11 z-50 bg-white">
             <p
@@ -205,7 +207,6 @@ const Header = () => {
               About Us
             </p>
           </div>
-
         </div>
 
         {/* ..................   */}

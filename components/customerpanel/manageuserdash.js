@@ -239,11 +239,11 @@ const Manageuserdash = () => {
   return (
     <>
       <div className="lg:txt lg:flex md:flex mx-14 relative mt-10 justify-between lg:items-center">
-        <span className="font-medium ml-60 align-self-center">
+        <span className="font-medium ml-60 align-self-center max-md:ml-0">
           Manage Users
         </span>
 
-        <div className="search_download flex space-x-2 items-center">
+        <div className="search_download flex space-x-2 items-center max-md:grid max-md:justify-items-stretch">
           <button
             onClick={() => {
               router.push("/register");
@@ -289,7 +289,7 @@ const Manageuserdash = () => {
             disabled={downloadProfile.length <= 1 ? true : false}
             onClick={generatePDF}
           >
-            <span className="flex text-white">
+            <span className="flex text-white max-md:justify-center">
               <svg
                 className="mr-2 mt-1"
                 width="17"
@@ -476,8 +476,8 @@ const Manageuserdash = () => {
           </tbody>
         </table>
       </div>
-      <div className="flex items-center px-4 py-[2rem] sm:px-6 mb-[2rem]">
-        <div className="flex flex-1 justify-between sm:hidden">
+      <div className="flex items-center px-4 py-[2rem]  sm:px-6 mb-[2rem]">
+        <div className="admin-footer flex flex-1 justify-between sm:hidden ">
           <Link
             href="#"
             className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"

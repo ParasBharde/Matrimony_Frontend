@@ -165,30 +165,34 @@
      }
 }
 .img_profile_portfolio_sec{
+    display: flex;
+  
     @include breakpoint-down(medium) {
-        justify-items: center;
+        display: flex;
+        justify-content: space-around;
      }
      @include breakpoint-down(small) {
          display: flex;
-         justify-content: center;
+         justify-content: space-around;
+         gap: 4rem;
       }
 }
 .img_profile_g {
     border-radius: 2px;
-    margin: 0rem 0rem 0rem -2rem;
-    padding: 0rem;
-    align-content: flex-start;
-    max-width: 5rem;
-    min-height: 5rem;
-    @include breakpoint-down(medium) {
-        justify-items: center;
-       
-    }
+    gap: 2px;
+
     @include breakpoint-down(small) {
       max-width: 20vw;
       height: 19vh;
     }
 
+}
+
+.pro-gird{
+    margin-bottom: -10rem;
+    @include breakpoint-down(small) {
+        margin-bottom: 0;
+     }
 }
 .respon_img1{
     @include breakpoint-down(small) {

@@ -4,7 +4,9 @@ table {
 
 .mob-view {
   @include breakpoint-down(small) {
-    // margin-left: 2.8rem;
+    position: absolute;
+   top:-34rem;
+   left: 13rem;
   }
   @include breakpoint-down(medium) {
     

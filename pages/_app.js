@@ -36,7 +36,8 @@ const App = ({ Component, pageProps: { session, ...pageProps } }) => {
       router.pathname == "/admin/managelist" ||
       router.pathname == "/admin/orderHistory" ||
       router.pathname == "/admin/profile" ||
-      router.pathname == "/admin" ||
+      router.pathname == "/admin" || 
+      router.pathname == "/admin/welcome" ||
       router.pathname == "/changePassword" ? null : (
         <Footer />
       )}

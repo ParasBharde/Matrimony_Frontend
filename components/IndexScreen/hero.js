@@ -146,7 +146,9 @@ const Hero = (props) => {
             </div>
 
           </div>
-      <GoogleTranslate />
+          <div className='google-hero' >
+          <GoogleTranslate />
+        </div>
           
           <div className="flex justify-center items-center  max-md:hidden">
             {!login ? (
@@ -249,7 +251,7 @@ const Hero = (props) => {
           </div>
         </div>
         {/* dublicate div start here   */}
-        <div className="mob-view flex justify-center items-center absolute bottom-[15rem] sm:bottom-[8rem] left-[2rem] max-sm:left-[4rem]  px-6 md:hidden max-md:flex">
+        <div className=" flex justify-center items-center absolute bottom-[15rem] sm:bottom-[8rem] left-[2rem] max-sm:left-[4rem]  px-6 md:hidden max-md:flex">
           {!login ? (
             <>
               <p
@@ -273,7 +275,7 @@ const Hero = (props) => {
             <>
               {storage && (
                 <>
-                  <div className="relative max-md:right-10 top-[-44rem] left-[12rem] group dropdown">
+                  <div className="mob-view group dropdown">
                     {userProfile && (
                       <Image
                         className="rounded-full max-w-[45px]"

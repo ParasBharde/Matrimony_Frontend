@@ -53,13 +53,14 @@ const Portfolioheader = ({ handleFilterQuery }) => {
   const registerStorage = storageData?.id;
   const loginStorage = storageData?.user_profile?.id;
 
-  const finalId = storageData?.user_profile ? loginStorage : registerStorage;
 
   console.log("isPremiumUser", isPremiumUser);
   console.log(storageData);
-  console.log(finalId);
+
 
   useEffect(() => {
+    const finalId = storageData?.user_profile ? storageData?.user_profile?.id : storageData?.id;
+
     const getPremium = () => {
       let config = {
         method: "get",
@@ -84,7 +85,7 @@ const Portfolioheader = ({ handleFilterQuery }) => {
         });
     };
     getPremium();
-  }, [storageData, finalId, registerStorage, loginStorage]);
+  }, [storageData, registerStorage, loginStorage]);
 
   const search = () => {
     const query = {
@@ -102,9 +103,7 @@ const Portfolioheader = ({ handleFilterQuery }) => {
     <>
       <div className="flex justify-between mb-5 ">
         <Breadcrumb screens={["Home", "Search"]} />
-        {isPremiumUser?.length > 0 &&
-          storageData &&
-          checkStatus === "active" && (
+        {isPremiumUser?.length > 0 && storageData && checkStatus === "active" && (
             <div className="grid items-center px-24 max-md:mt-5">
               <span className="font-medium max-md:text-sm">
                 Total number profile view: {checkView.member_display_limit}

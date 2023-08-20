@@ -1,30 +1,56 @@
-.user_dash{
-    margin: 0rem 17rem;
-    min-width: 80vw;
-    
-    @media screen and (max-width: 1150px) {
-        display: block;
-        margin: 5rem 0rem;
-        max-width: 100%;
-       }
+.user_dash {
+  margin: 0rem 17rem;
+  min-width: 80vw;
 
+  @media screen and (max-width: 1150px) {
+    display: block;
+    // margin: 5rem 0rem;
+    max-width: 100%;
+  }
 }
-.txt{
-    // margin:2rem 0rem;
-    padding: 1rem;
-    margin-left: 15rem;
+.txt {
+  // margin:2rem 0rem;
+  padding: 1rem;
+  margin-left: 15rem;
 }
-.txt_top{
-    margin:2rem 4rem;
-    margin-left: 18rem;
+.txt_top {
+  margin: 2rem 4rem;
+  margin-left: 18rem;
 }
-.search_download{
-    // margin-left: 40rem;
-    display: flex;
-   
-    @media screen and (max-width: 1150px) {
-        display: block;
-        margin: 5rem 0rem;
-        max-width: 100%;
-       }    
+.search_download {
+  // margin-left: 40rem;
+  display: flex;
+
+  @media screen and (max-width: 1150px) {
+    display: block;
+    margin: 5rem 0rem;
+    max-width: 100%;
+  }
+  @include breakpoint-down(small) {
+    display: grid;
+    margin-top: 1rem;
+    margin-bottom: -2rem;
+  }
 }
+
+.admin-footer {
+  @include breakpoint-down(small) {
+    margin-top: -4rem;
+  }
+}
+
+.first-o {
+  @include breakpoint-down(small) {
+    display: grid;
+  }
+}
+.first-o1 {
+    @include breakpoint-down(small) {
+      display: grid;
+    }
+  }
+  .first-o2 {
+    @include breakpoint-down(small) {
+        display: grid;
+    }
+  }

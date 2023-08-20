@@ -258,8 +258,8 @@ const Orderhistory = () => {
   const [refer, setrefer] = useState("");
   const [marriageStatuss, setmarriageStatuss] = useState("");
   const [checkactive, setcheckactive] = useState([]);
-const [personName, setPerson] = useState('')
-console.log(selectedOption)
+  const [personName, setPerson] = useState("");
+  console.log(selectedOption);
   const getUserProfile = async () => {
     let config = {
       method: "get",
@@ -374,8 +374,7 @@ console.log(selectedOption)
     calculateExpiryDate();
   };
 
-
-console.log(marriageStatuss)
+  console.log(marriageStatuss);
   const postData = () => {
     const formData = new FormData();
     formData.append("file", selectedFile);
@@ -394,9 +393,8 @@ console.log(marriageStatuss)
         marriage_fix_status: marriageStatuss,
         paying_person_name: personName,
       },
-     
     });
- 
+
     let config = {
       method: "post",
       maxBodyLength: Infinity,
@@ -419,14 +417,21 @@ console.log(marriageStatuss)
   };
 
   const checkValidate = () => {
-    if (marriageStatuss === "" && refer === "" && selectedOption.value === ""  && plan === " " && price === " " && startDate === "") {
+    if (
+      marriageStatuss === "" &&
+      refer === "" &&
+      selectedOption.value === "" &&
+      plan === " " &&
+      price === " " &&
+      startDate === ""
+    ) {
       toast.error("Mandatory Fields Reuired!");
       return false;
     } else {
-      postData()
-      return true
+      postData();
+      return true;
     }
-  }
+  };
 
   useEffect(() => {
     const subscription = () => {
@@ -441,7 +446,7 @@ console.log(marriageStatuss)
         .request(config)
         .then((response) => {
           setcheckactive(response.data.data);
-          console.log(response.data.data)
+          console.log(response.data.data);
         })
         .catch((error) => {
           console.log(error);
@@ -471,16 +476,10 @@ console.log(marriageStatuss)
           </button>
           {modalOpen && (
             <div className="fixed inset-0 flex items-center justify-center z-50 shadow-lg shadow-indigo-500/40">
-              <div className="bg-white p-6 rounded-lg shadow-xl h-[35rem] w-[35rem]">
-                <form>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      marginBottom: "10px",
-                    }}
-                  >
-                    <div style={{ marginRight: "10px", width: "50%" }}>
+              <div className="bg-white p-6 rounded-lg shadow-xl h-[35rem] w-[35rem] max-md:w-11/12">
+                <form className="max-md:overflow-y-auto max-md:h-[98%]">
+                  <div className="flex flex-row mb-5">
+                    <div className="first-o w-1/2">
                       <label className="my-5" htmlFor="dropdown">
                         User Name:
                       </label>
@@ -493,13 +492,7 @@ console.log(marriageStatuss)
                       />
                     </div>
                   </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      marginBottom: "10px",
-                    }}
-                  >
+                  <div className="first-o1 flex mb-4">
                     <div
                       style={{
                         display: "flex",
@@ -547,11 +540,7 @@ console.log(marriageStatuss)
                       />
                     </div>
                   </div>
-                  <div
-                    style={{
-                      display: "flex",
-                    }}
-                  >
+                  <div className="first-o2 flex" >
                     <div
                       style={{
                         display: "grid",
@@ -591,7 +580,7 @@ console.log(marriageStatuss)
                       />
                     </div>
                   </div>
-                  <div style={{ display: "flex", marginTop: "0.5rem" }}>
+                  <div className="first-o3 flex"style={{ display: "flex", marginTop: "0.5rem" }}>
                     <div
                       style={{
                         display: "flex",
@@ -641,7 +630,9 @@ console.log(marriageStatuss)
                       </select>
                     </div>
                   </div>
-                  <div style={{ display: "flex", marginTop: "0.9rem", gap: 5 }}>
+                  <div
+                    className="first-o4 flex"
+                  >
                     <div
                       style={{
                         display: "flex",
@@ -697,14 +688,7 @@ console.log(marriageStatuss)
                       />
                     </div>
                   </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      marginRight: "10px",
-                      marginTop: "1rem",
-                    }}
-                  >
+                  <div className="first-o5 flex flex-col mt-4">
                     <label htmlFor="input1">
                       Marriage Status:(If Choosen Master Plan)
                     </label>
@@ -722,22 +706,21 @@ console.log(marriageStatuss)
                       ))}
                     </select>
                   </div>
-                  <div className="flex justify-evenly mt-8">
-                  <button
-                    onClick={closeModal}
-                    className=" px-5 rounded bg-orange-400 py-2 my-3"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    onClick={postData}
-                    className=" px-5 rounded bg-orange-400 py-2 my-3"
-                  >
-                    Submit
-                  </button>
-                </div>
+                  <div className="first-o5 flex justify-evenly mt-8">
+                    <button
+                      onClick={closeModal}
+                      className=" px-5 rounded bg-orange-400 py-2 my-3"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={postData}
+                      className=" px-5 rounded bg-orange-400 py-2 my-3"
+                    >
+                      Submit
+                    </button>
+                  </div>
                 </form>
-          
               </div>
             </div>
           )}
@@ -771,30 +754,6 @@ console.log(marriageStatuss)
             </div>
           </form>
 
-          {/* <button
-            className={`px-5 rounded bg-orange-400 py-2 my-3 ${
-              downloadProfile.length <= 1 && "cursor-not-allowed"
-            }`}
-            disabled={downloadProfile.length <= 1 ? true : false}
-            onClick={generatePDF}
-          >
-            <span className="flex text-white">
-              <svg
-                className="mr-2 mt-1"
-                width="17"
-                height="16"
-                viewBox="0 0 17 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M14.5 11V14H2.5V11H0.5V14C0.5 15.1 1.4 16 2.5 16H14.5C15.6 16 16.5 15.1 16.5 14V11H14.5ZM13.5 7L12.09 5.59L9.5 8.17V0H7.5V8.17L4.91 5.59L3.5 7L8.5 12L13.5 7Z"
-                  fill="white"
-                />
-              </svg>
-              Download
-            </span>
-          </button> */}
         </div>
       </div>
       <div className="user_dash relative overflow-x-auto mt-8 ">
@@ -875,8 +834,9 @@ console.log(marriageStatuss)
               const capitalizedWord = capitalizeFirstLetter(plan);
 
               // check status
-             const checkStatus = new Date().toISOString().split("T")[0] > formattedDate1;
-          
+              const checkStatus =
+                new Date().toISOString().split("T")[0] > formattedDate1;
+
               return (
                 <tr key={index} className="bg-white border-b">
                   <td className="px-6 py-4">
@@ -928,15 +888,20 @@ console.log(marriageStatuss)
                       : "--/--"}
                   </td>
                   <td className="px-6 py-4">
-                  {item.attributes.subscription_end_date
+                    {item.attributes.subscription_end_date
                       ? formattedDate1
                       : "--/--"}
                   </td>
-                   
-                  <td className="px-6 py-4"> {item.attributes.price}   </td>
-                  <td className="px-6 py-4"> {item.attributes.marriage_fixed === false ? "No" : "Yes"} </td>
+
+                  <td className="px-6 py-4"> {item.attributes.price} </td>
+                  <td className="px-6 py-4">
+                    {" "}
+                    {item.attributes.marriage_fixed === false
+                      ? "No"
+                      : "Yes"}{" "}
+                  </td>
                   <td className="font-medium text-left px-2 py-4">
-                    { !checkStatus ? (
+                    {!checkStatus ? (
                       <span className="bg-green-600 text-white py-2 px-6 rounded text-base ">
                         Active
                       </span>
