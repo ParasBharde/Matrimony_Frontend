@@ -10,6 +10,7 @@ import GoogleTranslate from "@/components/googleTranslate";
 import Script from "next/script";
 import { appWithTranslation } from "next-i18next";
 import Head from "next/head";
+
 const App = ({ Component, pageProps: { session, ...pageProps } }) => {
   const router = useRouter();
   return (

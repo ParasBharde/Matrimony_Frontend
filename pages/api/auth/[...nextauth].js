@@ -3,26 +3,15 @@ import CredentialsProvider from "next-auth/providers/credentials";
 
 export const authOptions = {
   pages: {
-    signIn: "/admin/welcome",
+    signIn: "/",
   },
-  // Configure one or more authentication providers
+  
   providers: [
     CredentialsProvider({
       name: "Credentials",
-        // async authorize(credentials, req) {
-        //   if (credentials.username === "shubham@gmail.com") {
-        //     return {
-        //       user: {
-        //         name: "ABC",
-        //       },
-        //     };
-        //   }
-
-        //   return null;
-        // },
       async authorize(credentials, req) {
         var data = JSON.stringify({
-          identifier: credentials.username,
+          identifier: credentials.username || credentials.email,
           password: credentials.password,
         });
 
@@ -34,7 +23,7 @@ export const authOptions = {
           body: data,
         });
         const user = await res.json();
-        // console.log("user", user);
+        console.log("user", user);
         const nextRes = await fetch(
           "http://172.105.57.17:1337/api/users/me?populate=user_profile",
           {

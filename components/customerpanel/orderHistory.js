@@ -630,9 +630,7 @@ const Orderhistory = () => {
                       </select>
                     </div>
                   </div>
-                  <div
-                    className="first-o4 flex"
-                  >
+                  <div className="first-o4 flex" >
                     <div
                       style={{
                         display: "flex",
@@ -706,7 +704,7 @@ const Orderhistory = () => {
                       ))}
                     </select>
                   </div>
-                  <div className="first-o5 flex justify-evenly mt-8">
+                  <div className="first-o5 flex justify-evenly">
                     <button
                       onClick={closeModal}
                       className=" px-5 rounded bg-orange-400 py-2 my-3"

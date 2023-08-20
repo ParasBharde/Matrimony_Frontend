@@ -4,6 +4,8 @@ import a2 from "@/assets/signUpAssets/a2.png";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { setCookie } from "cookies-next";
+import { useSession } from "next-auth/react";
 
 const Right = () => {
   const router = useRouter();
@@ -48,7 +50,7 @@ const Right = () => {
             } else {
               sessionStorage.setItem("user", JSON.stringify(response.data));
             }
-
+            setCookie("logged", "true");
             toast.success("Successfully Logged In");
             router.push("/profile");
             // router.push("/profiledetail/" + response.data.user_profile.id);

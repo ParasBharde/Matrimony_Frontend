@@ -79,6 +79,7 @@ const Header = () => {
   const logout = () => {
     localStorage.clear();
     sessionStorage.clear();
+    deleteCookie('logged', false);
     toast.success("Logged Out");
     router.push("/");
   };

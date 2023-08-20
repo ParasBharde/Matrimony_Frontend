@@ -52,9 +52,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
           console.log(response.data.data);
           const res = response.data.data[0];
           setcheckStatus(res?.attributes?.status);
-          const data =
-            res?.attributes.member_viewed ===
-            res?.attributes.member_display_limit;
+          const data = res?.attributes.member_viewed === res?.attributes.member_display_limit;
           setcheckExpired(data);
           setIsPremiumUser(response.data.data);
         })
@@ -74,9 +72,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
       axios
         .request(config)
         .then((response) => {
-          const data = response.data.filter(
-            (u) => u.user_profile.id === finalId
-          );
+          const data = response.data.filter((u) => u.user_profile.id === finalId);
           console.log(data);
           setRegister(data);
         })

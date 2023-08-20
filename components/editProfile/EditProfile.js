@@ -327,9 +327,9 @@ const EditProfile = () => {
                             </div>
                           </Modal>
                            
-                          <div className="img_profile_portfolio_sec gap-4">
+                          <div className="img_profile_portfolio_sec">
                             <Image
-                              className="img_profile_g  "
+                              className="img_profile_g "
                               src={
                                 profileImg
                                   ? `http://172.105.57.17:1337${profileImg?.[1]?.attributes?.url}`

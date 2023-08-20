@@ -5,7 +5,7 @@ import RegisterForm1 from "@/components/registerScreen/registerForm1";
 import RegisterForm2 from "@/components/registerScreen/registerForm2";
 import RegisterForm3 from "@/components/registerScreen/registerForm3";
 import RegisterForm4 from "@/components/registerScreen/registerForm4";
-
+import { setCookie } from "cookies-next";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useStorage } from "@/hooks/useStorage";
@@ -17,20 +17,7 @@ const Register = () => {
 
   const [screen, setScreen] = useState(1);
   const storageData = useStorage();
-  // useEffect(() => {
-  // if (adminUser) {
-  //   console.log(storageData);
-  //   console.log(storageData?.adminUser);
-  //   toast.info("User Created Succe");
-  //   router.push("/admin/manageuser");
 
-  // }
-  //   if (storageData) {
-
-  //     toast.info("User Already Logged In");
-  //     router.push("/profiledetail/" + storageData?.user_profile?.id);
-  //   }
-  // }, [storageData]);
 
   const getAllDataAndPost = () => {
     const rg1 = JSON.parse(sessionStorage.getItem("rg1"));
@@ -131,6 +118,7 @@ const Register = () => {
               console.log("response", response);
               const secres = response;
               toast.success("Profile Registered");
+              setCookie("logged", "true");
               if (adminUser) {
                 router.push("/admin/manageuser");
                 sessionStorage.removeItem("rg1");

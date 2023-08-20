@@ -32,24 +32,7 @@ const GoogleTranslate = () => {
       }
     }
 
-    const removeLogoAndAdjustContent = () => {
-      const logoLink = document.querySelector('.goog-logo-link');
-      if (logoLink) {
-        logoLink.innerHTML = '';
-      }
-
-      const translateGadget = document.querySelector('.goog-te-gadget');
-      if (translateGadget) {
-        translateGadget.innerHTML = translateGadget.children;
-      }
-    };
-
-    window.addEventListener('load', removeLogoAndAdjustContent);
-
-    return () => {
-      window.removeEventListener('load', removeLogoAndAdjustContent);
-    };
-
+  
 
     const removeScript = () => {
       const q = document.getElementById(id)

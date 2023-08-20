@@ -13,8 +13,11 @@ import { useRouter } from "next/router";
 import { ShareSocial } from "react-share-social";
 import { useStorage } from "@/hooks/useStorage";
 import { useCalculateAge } from "@/hooks/useCalculateAge";
+import { useSession } from "next-auth/react";
 
 const Profiledetail = () => {
+
+
   const [profilesdata, setprofilesdata] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalDefaultOpen, setModalDefaultOpen] = React.useState(false);

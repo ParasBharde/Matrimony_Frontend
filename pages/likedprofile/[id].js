@@ -9,12 +9,14 @@ import { useStorage } from "@/hooks/useStorage";
 import { useCalculateAge } from "@/hooks/useCalculateAge";
 import { useLikedProfiles } from "@/hooks/useLikedProfiles";
 import { toast } from "react-toastify";
+import { useSession } from "next-auth/react";
 
 const Likedprofile = () => {
-  // const [isLiked, setIsLiked] = useState(false);
+
+ 
+
   const [likedprofiles, setlikedprofiles] = useState([]);
   const [myLikedprofiles, setMyLikedprofiles] = useState([]);
-  // const [active, setActive] = useState(false);
   const [isList, issetList] = useState(false);
   const [isGrid, issetGrid] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);

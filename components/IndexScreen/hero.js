@@ -35,6 +35,7 @@ const Hero = (props) => {
   const logout = () => {
     localStorage.clear();
     sessionStorage.clear();
+    deleteCookie('logged', false);
     setLogin(false);
     toast.success("Logged Out");
     router.push("/");

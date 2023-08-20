@@ -15,6 +15,7 @@ const Topnav = () => {
     } 
     sessionStorage.clear();
     signOut();
+    deleteCookie('logged', false);
 
   }
   // signOut()

@@ -7,7 +7,7 @@ const Adminpanel = () => {
   const { data: session, status } = useSession({
     required: true,
   });
-  // console.log("session", session);
+
 
   if(!session) {
     return <></>
