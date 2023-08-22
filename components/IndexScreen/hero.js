@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import GoogleTranslate from "../googleTranslate";
 import Script from "next/script";
+import { deleteCookie } from 'cookies-next';
 
 const Hero = (props) => {
   const [login, setLogin] = useState(false);

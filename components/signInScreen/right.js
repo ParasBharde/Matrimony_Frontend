@@ -47,6 +47,7 @@ const Right = () => {
           .then(function (response) {
             if (rememberMe) {
               localStorage.setItem("user", JSON.stringify(response.data));
+
             } else {
               sessionStorage.setItem("user", JSON.stringify(response.data));
             }
@@ -89,13 +90,13 @@ const Right = () => {
   return (
     <div className="xl:w-[40%] lg:w-[50%] sm:w-[60%] w-full flex flex-col justify-center items-center ">
       <Image src={a2} alt="a2" />
-      <p className="text-dark font-[600] text-[24px] mt-10 max-lg:text-white">
+      <p className="text-dark font-[600] text-[24px] mt-10 max-md:mt-0 max-lg:text-white">
         Welcome Back
       </p>
       <p className="text-dark font-[500] text-[14px] opacity-50 max-lg:text-white">
         Welcome back! Please enter your details
       </p>
-      <div className="mt-7 lg:w-[400px] sm:w-[300px] w-[90%]">
+      <div className="mt-7 max-md:mt-[0.75rem] lg:w-[400px] sm:w-[300px] w-[90%]">
         <p className="text-dark font-[500] text-[14px] max-lg:text-white">
           Username*
         </p>
@@ -119,7 +120,7 @@ const Right = () => {
             Welcome back! Please enter your details
           </p> */}
 
-      <div className="mt-7 lg:w-[400px] sm:w-[300px] w-[90%]">
+      <div className="mt-7 max-md:mt-[0.75rem] lg:w-[400px] sm:w-[300px] w-[90%]">
         <p className="text-dark font-[500] text-[14px]">Email*</p>
         <input
           value={email}
@@ -130,7 +131,7 @@ const Right = () => {
           className="border border-[#E1E1E1] lg:w-[400px] sm:w-[300px] w-[100%] py-2 px-8 rounded-md text-black"
         />
       </div>
-      <div className="mt-3 lg:w-[400px] sm:w-[300px] w-[90%] ">
+      <div className="mt-3 max-md:mt-[0.75rem] lg:w-[400px] sm:w-[300px] w-[90%] ">
         <p className="text-dark font-[500] text-[14px]">Password*</p>
         <div className="flex relative" style={{ width: "100%" }}>
           <input
@@ -200,7 +201,7 @@ const Right = () => {
           </div>
         </div>
       </div>
-      <div className="lg:w-[400px] sm:w-[300px] w-[90%] flex justify-between items-center mt-2">
+      <div className="lg:w-[400px] sm:w-[300px] w-[90%] flex justify-between items-center mt-2 max-md:mt-0">
         <div className="lg:w-[250px] sm:w-[300px] w-[90%] mx-auto flex items-center">
           <input
             type="checkbox"

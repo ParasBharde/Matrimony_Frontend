@@ -10,6 +10,7 @@ import axios from "axios";
 import { useOnHoverOutside } from "@/hooks/useOnHoverOutside";
 import { useStorage } from "@/hooks/useStorage";
 import GoogleTranslate from "./googleTranslate";
+import { deleteCookie } from 'cookies-next';
 
 const Header = () => {
   const router = useRouter();
@@ -88,6 +89,8 @@ const Header = () => {
   const imgLoader = () => {
     if (userProfile) {
       return `http://172.105.57.17:1337${userProfile}`;
+    } else {
+      return `http://172.105.57.17:1337${avatar}`
     }
   };
 
@@ -214,18 +217,12 @@ const Header = () => {
 
         {storage && (
           <div className="relative max-md:right-10 right-[2rem] group dropdown">
-           {userProfile && 
-             <Image
-             className="rounded-full max-w-[45px]"
+           {userProfile && <Image className="rounded-full max-w-[45px]"
              loader={imgLoader}
-             src={
-               userProfile != undefined
-                 ? `http://172.105.57.17:1337${userProfile}`
-                 : avatar
-             }
+             src={`http://172.105.57.17:1337${userProfile}`}
              width="100"
              height="100"
-            //  unoptimized
+             unoptimized
              alt="avatar"
            />
 }

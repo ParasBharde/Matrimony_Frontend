@@ -6,6 +6,7 @@ import { useOnHoverOutside } from "@/hooks/useOnHoverOutside";
 import { useRouter } from "next/router";
 import { signOut } from "next-auth/react";
 import GoogleTranslate from "../googleTranslate";
+import { deleteCookie } from 'cookies-next';
 
 const Topnav = () => {
   const handleLog = () => {

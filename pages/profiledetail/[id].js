@@ -16,8 +16,6 @@ import { useCalculateAge } from "@/hooks/useCalculateAge";
 import { useSession } from "next-auth/react";
 
 const Profiledetail = () => {
-
-
   const [profilesdata, setprofilesdata] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalDefaultOpen, setModalDefaultOpen] = React.useState(false);
@@ -27,13 +25,12 @@ const Profiledetail = () => {
   const { id, isLiked } = router.query;
   const storage = useStorage();
 
-
-  const increaseViews = (lid) => {
+  const increaseViews = (uid,pId) => {
     let data = "";
     let config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: `http://172.105.57.17:1337/api/plan/increaseMemeberView?user_id=${lid}`,
+      url: `http://172.105.57.17:1337/api/plan/increaseMemeberView?user_id=${uid}&viewed_member_id=${pId}`,
       headers: {},
       data: data,
     };
@@ -48,22 +45,12 @@ const Profiledetail = () => {
       });
   };
 
-  const userID = storage?.user_profile?.id
-  useEffect(() => {
-    if (router.isReady) {
-      console.log("idd", router.query);
-      increaseViews(userID);
-    }
-  }, [router.isReady,router.query, router.pathname,userID]);
-
-
   const userIdD = storage?.user_profile?.id;
   useEffect(() => {
-    
     if (router.query.id) {
-      increaseViews(userIdD);
+      increaseViews(userIdD,id);
     }
-  }, [router.query.id,userIdD]);
+  }, [router.query.id, userIdD]);
 
   useEffect(() => {
     if (id) {
@@ -180,7 +167,7 @@ const Profiledetail = () => {
 
       if (screenWidth < 768) {
         // For mobile devices
-        width = 80;
+        width = 100;
         height = 600;
       } else if (screenWidth >= 768 && screenWidth < 1024) {
         // For tablet devices
@@ -308,119 +295,136 @@ const Profiledetail = () => {
                         </div>
                       </td>
                     </tr>
+
                     <tbody id="pdf-content">
                       <div className="profile_data table-fixed bg-white">
-                        <div className="ml-5 mt-2">
-                          <p className="font-bold pt-5 ml-5">
-                            {data.attributes.first_name}{" "}
-                            {data.attributes.last_name}
-                          </p>
-                        </div>
-                        <div className=" ml-5">
-                          <p className="ml-5"> {data.id}</p>
-                        </div>
-
-                        <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1">
-                          <div className="p-5  ">
-                            <div className="ml-5">
-                              <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                                Email{" "}
-                              </span>
-                              <p className="">{data.attributes.email}</p>
-                            </div>
-                            <div className="mt-5 ml-5">
-                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                                Age
+                        <div className="flex justify-between">     
+                          <div className=" max-md:mt-[18rem]">
+                            <div className="ml-5 mt-2">
+                              <p className="font-bold pt-5 ml-5">
+                                {data.attributes.first_name}{" "}
+                                {data.attributes.last_name}
                               </p>
-                              {/* <p>{calculateAge(date_of_birth)}</p> */}
-                              <p>{age}</p>
                             </div>
-                            <div className="mt-5 ml-5">
-                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                                {" "}
-                                Height
-                              </p>
-                              <p>{data.attributes.Height}</p>
-                            </div>
-                            <div className="mt-5 ml-5">
-                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                                {" "}
-                                Caste
-                              </p>
-                              <p>{data.attributes.caste}</p>
-                            </div>
-                            <div className="mt-5 ml-5">
-                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                                Career
-                              </p>
-                              <p>{data.attributes.career_detail}</p>
+                            <div className=" ml-5">
+                              <p className="ml-5"> {data.id}</p>
+                            </div> 
+                            <div className="grid lg:grid-cols-3 max-md:grid-cols-1 sm:grid-cols-1">
+                              <div className="p-5  ">
+                                <div className="ml-5">
+                                  <span
+                                    style={{ color: "rgba(30, 30, 30, 0.5)" }}
+                                  >
+                                    Email{" "}
+                                  </span>
+                                  <p className="max-md:break-normal">
+                                    {data.attributes.email}
+                                  </p>
+                                </div>
+                                <div className="mt-5 ml-5">
+                                  <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                    Age
+                                  </p>
+                                  {/* <p>{calculateAge(date_of_birth)}</p> */}
+                                  <p>{age}</p>
+                                </div>
+                                <div className="mt-5 ml-5">
+                                  <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                    {" "}
+                                    Height
+                                  </p>
+                                  <p>{data.attributes.Height}</p>
+                                </div>
+                                <div className="mt-5 ml-5">
+                                  <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                    {" "}
+                                    Caste
+                                  </p>
+                                  <p>{data.attributes.caste}</p>
+                                </div>
+                                <div className="mt-5 ml-5">
+                                  <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                    Career
+                                  </p>
+                                  <p>{data.attributes.career_detail}</p>
+                                </div>
+                              </div>
+                              <div className="p-5">
+                                <div className="ml-5">
+                                  <span
+                                    style={{ color: "rgba(30, 30, 30, 0.5)" }}
+                                  >
+                                    Phone
+                                  </span>
+                                  <p className="">
+                                    {data.attributes.phone_number}
+                                  </p>
+                                </div>
+                                <div className="mt-5 ml-5">
+                                  <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                    Star{" "}
+                                  </p>
+                                  <p>{data.attributes.star}</p>
+                                </div>
+                                <div className="mt-5 ml-5">
+                                  <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                    Qualification
+                                  </p>
+                                  <p>
+                                    {data.attributes.educational_qualification}
+                                  </p>
+                                </div>
+                                <div className="mt-5 ml-5">
+                                  <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                    Family Property{" "}
+                                  </p>
+                                  <p>
+                                    {data.attributes.family_property_details}
+                                  </p>
+                                </div>
+                                <div className="mt-5 ml-5">
+                                  <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                    Salary
+                                  </p>
+                                  <p>{data.attributes.Salary_monthly_income}</p>
+                                </div>
+                              </div>
+                              <div className="p-5  ">
+                                <div className="ml-5">
+                                  <span
+                                    style={{ color: "rgba(30, 30, 30, 0.5)" }}
+                                  >
+                                    Date of Birth
+                                  </span>
+                                  <p>{data.attributes.date_of_birth}</p>
+                                </div>
+                                <div className="mt-5 ml-5">
+                                  <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                    Marriage Status
+                                  </p>
+                                  <p>{data.attributes.marriage_status}</p>
+                                </div>
+                                <div className="mt-5 ml-5">
+                                  <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                    Color
+                                  </p>
+                                  <p>{data.attributes.Color}</p>
+                                </div>
+                                <div className="mt-5 ml-5">
+                                  <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                    Type of food
+                                  </p>
+                                  <p>{data.attributes.Choose_veg_nonveg}</p>
+                                </div>
+                                <div className="mt-5 ml-5">
+                                  <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                    Expectation
+                                  </p>
+                                  <p>{data.attributes.Expection}</p>
+                                </div>
+                              </div>
                             </div>
                           </div>
-                          <div className="p-5  ">
-                            <div className="ml-5">
-                              <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                                Phone
-                              </span>
-                              <p className="">{data.attributes.phone_number}</p>
-                            </div>
-                            <div className="mt-5 ml-5">
-                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                                Star{" "}
-                              </p>
-                              <p>{data.attributes.star}</p>
-                            </div>
-                            <div className="mt-5 ml-5">
-                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                                Qualification
-                              </p>
-                              <p>{data.attributes.educational_qualification}</p>
-                            </div>
-                            <div className="mt-5 ml-5">
-                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                                Family Property{" "}
-                              </p>
-                              <p>{data.attributes.family_property_details}</p>
-                            </div>
-                            <div className="mt-5 ml-5">
-                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                                Salary
-                              </p>
-                              <p>{data.attributes.Salary_monthly_income}</p>
-                            </div>
-                          </div>
-                          <div className="p-5  ">
-                            <div className="ml-5">
-                              <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                                Date of Birth
-                              </span>
-                              <p>{data.attributes.date_of_birth}</p>
-                            </div>
-                            <div className="mt-5 ml-5">
-                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                                Marriage Status
-                              </p>
-                              <p>{data.attributes.marriage_status}</p>
-                            </div>
-                            <div className="mt-5 ml-5">
-                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                                Color
-                              </p>
-                              <p>{data.attributes.Color}</p>
-                            </div>
-                            <div className="mt-5 ml-5">
-                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                                Type of food
-                              </p>
-                              <p>{data.attributes.Choose_veg_nonveg}</p>
-                            </div>
-                            <div className="mt-5 ml-5">
-                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                                Expectation
-                              </p>
-                              <p>{data.attributes.Expection}</p>
-                            </div>
-                          </div>
-                          <div className="column items-center justify-center h-36   md:ml-5">
                             <div className="second_item relative">
                               <button
                                 className=""
@@ -500,8 +504,8 @@ const Profiledetail = () => {
                                   />
                                 </div>
                               </Modal>
-                              <div className="flex justify-around">
-                                <picture>
+                              <div className="flex justify-around lg:gap-2 max-md:gap-5">
+                                <picture className=" ">
                                   <img
                                     className="img_profile_g"
                                     object-fit
@@ -509,15 +513,15 @@ const Profiledetail = () => {
                                     alt=""
                                   />
                                 </picture>
-                                <picture>
+                                <picture  className=" ">
                                   <img
-                                    className="img_profile_g"
+                                    className="img_profile_g "
                                     object-fit
                                     src={`http://172.105.57.17:1337${data.attributes.profile_photo?.data?.[2]?.attributes.url}`}
                                     alt=""
                                   />
-                                </picture>
-                                <picture>
+                                </picture >
+                                <picture className=" ">
                                   <img
                                     className="img_profile_g"
                                     object-fit
@@ -527,7 +531,6 @@ const Profiledetail = () => {
                                 </picture>
                               </div>
                             </div>
-                          </div>
                         </div>
                         <p className="font-bold ml-10 mt-[56%] lg:mt-20 ">
                           Family Information

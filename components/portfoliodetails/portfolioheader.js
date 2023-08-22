@@ -4,7 +4,6 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import axios from "axios";
 import { useStorage } from "@/hooks/useStorage";
 
-
 const languages = [
   { label: "Tamil", value: "/auto/ta" },
   { label: "English", value: "/auto/en" },
@@ -16,8 +15,8 @@ const Portfolioheader = ({ handleFilterQuery }) => {
   const [ageTo, setAgeTo] = useState("");
   const [looking, setlooking] = useState("Choose");
   const [marriageStatus, setMarriageStatus] = useState("Choose");
-  const [searchin, setSearch] = useState('')
-  console.log(searchin)
+  const [searchin, setSearch] = useState("");
+
   const stars = [
     "Choose",
     "Aries",
@@ -45,46 +44,7 @@ const Portfolioheader = ({ handleFilterQuery }) => {
     "Separated",
     "Registerd-Partnership",
   ];
-  const [isPremiumUser, setPremiumUser] = useState(null);
-  const [checkView, setcheckView] = useState("");
-  const [remaining, setremaining] = useState("");
-  const [checkStatus, setcheckStatus] = useState("");
-  const registerStorage = storageData?.id;
-  const loginStorage = storageData?.user_profile?.id;
-
-
-  console.log("isPremiumUser", isPremiumUser);
-  console.log(storageData);
-
-
-  useEffect(() => {
-    const finalId = storageData?.user_profile ? storageData?.user_profile?.id : storageData?.id;
-
-    const getPremium = () => {
-      let config = {
-        method: "get",
-        maxBodyLength: Infinity,
-        url: `http://172.105.57.17:1337/api/user-active-plans?filters[user_id]=${finalId}`,
-        headers: {},
-      };
-
-      axios
-        .request(config)
-        .then((response) => {
-          console.log(response.data.data);
-          const res = response.data.data[0];
-          setPremiumUser(response.data.data);
-          const data = res?.attributes?.member_display_limit - res?.attributes?.member_viewed;
-          setremaining(data);
-          setcheckView(res?.attributes);
-          setcheckStatus(res?.attributes.status);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
-    getPremium();
-  }, [storageData, registerStorage, loginStorage]);
+  const [isPremiumUser, setPremiumUser] = useState([]);
 
   const search = () => {
     const query = {
@@ -98,23 +58,101 @@ const Portfolioheader = ({ handleFilterQuery }) => {
     console.log(query);
   };
 
+  // useEffect(() => {
+  //   const check =  storageData?.user_profile?.id != undefined ?  storageData?.user_profile?.id : storageData?.id;
+
+  //     let config = {
+  //       method: "get",
+  //       maxBodyLength: Infinity,
+  //       url: `http://172.105.57.17:1337/api/user-active-plans?filters[user_id]=${check}`,
+  //       headers: {},
+  //     };
+
+  //     axios
+  //       .request(config)
+  //       .then((response) => {
+  //         console.log(JSON.stringify(response.data))
+  //         setPremiumUser(response.data.data);
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //       });
+  // }, [storageData]);
+
+  useEffect(() => {
+    const check =
+      storageData?.user_profile?.id != undefined
+        ? storageData?.user_profile?.id
+        : storageData?.id;
+    if (storageData) {
+      async function getUser() {
+        try {
+          const response = await axios.get(
+            `http://172.105.57.17:1337/api/user-active-plans?filters[user_id]=${check}`
+          );
+          console.log(JSON.stringify(response.data));
+          setPremiumUser(response.data.data);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+      getUser();
+    }
+  }, [storageData]);
+
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const check =
+      storageData?.user_profile?.id != undefined
+        ? storageData?.user_profile?.id
+        : storageData?.id;
+
+    async function fetchData() {
+      try {
+        const response = await fetch(
+          `http://172.105.57.17:1337/api/user-active-plans?filters[user_id]=${check}`
+        );
+        const data = await response.json();
+        setUserData(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  console.log("userData", userData);
+
   return (
     <>
       <div className="flex justify-between mb-5 ">
         <Breadcrumb screens={["Home", "Search"]} />
-        {isPremiumUser?.length > 0 && storageData && checkStatus === "active" && (
-            <div className="grid items-center px-24 max-md:mt-5">
-              <span className="font-medium max-md:text-sm">
-                Total number profile view: {checkView.member_display_limit}
-              </span>
-              <span className="font-medium max-md:text-sm">
-                Viewed Profile: {checkView.member_viewed}
-              </span>
-              <span className="font-medium max-md:text-sm">
-                Remaining Profile: {remaining}
-              </span>
-            </div>
-          )}
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <div className="grid items-center px-24 max-md:mt-5">
+            <span className="font-medium max-md:text-sm">
+              Total number profile view:{" "}
+              {userData?.data[0]?.attributes.member_display_limit}
+            </span>
+            <span className="font-medium max-md:text-sm">
+              Viewed Profile:{" "}
+              {userData?.data[0]?.attributes.member_viewed}
+            </span>
+            <span className="font-medium max-md:text-sm">
+              Remaining Profile:{" "}
+              {userData?.data[0]?.attributes.member_display_limit - userData?.data[0].attributes.member_viewed}
+            </span>
+          </div>
+        )}
+        {/* {isPremiumUser?.length > 0 &&  (
+         
+        )} */}
       </div>
       <form className="hidden max-md:block max-md:bg-[#FFFFFF] max-md:pt-8 max-md:pb-8">
         <label
@@ -147,7 +185,7 @@ const Portfolioheader = ({ handleFilterQuery }) => {
             className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-sm   "
             placeholder="Search Mockups, Logos..."
             value={searchin}
-            onChange={(e)=> setSearch(e.target.value)}
+            onChange={(e) => setSearch(e.target.value)}
           />
         </div>
       </form>
@@ -195,8 +233,6 @@ const Portfolioheader = ({ handleFilterQuery }) => {
                   );
                 })}
               </select>
-            
-
             </div>
             <div className="mt-5 text-center grid max-w-min mx-10">
               <p className="text-dark text-left font-[500] text-[14px] mb-2">

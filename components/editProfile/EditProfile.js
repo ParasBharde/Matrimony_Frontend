@@ -151,355 +151,453 @@ const EditProfile = () => {
                 </button>
               </div>
             </div>
-
-            <div className="profile_data table-fixed bg-white">
-              <div className="table_header flex ">
-                <div className="block">
-                  <div className="font-bold">
-                    {first_name} {last_name}
-                  </div>
-                  <div>
-                    <div style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                      {storageData?.user_profile?.id}
-                      {/* Reg- No : VRE22344ff */}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {/* personal information */}
-              <div className="shadow-2xl">
-                <div className="pro-gird grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-2">
-                    <div className="p-5  ">
-                        <div className="ml-5">
-                          <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>Email </span>
-                          <p className="">{email}</p>
-                        </div>
-                        <div className="mt-5 ml-5">
-                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Age</p>
-                          <p>{calculateAge(date_of_birth)}</p>
-                        </div>
-                        <div className="mt-5 ml-5">
-                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}> Height</p>
-                          <p>{Height}</p>
-                        </div>
-                        <div className="mt-5 ml-5">
-                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}> Caste</p>
-                          <p>{caste}</p>
-                        </div>
-                        <div className="mt-5 ml-5">
-                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Career</p>
-                          <p>{career_detail}</p>
-                        </div>
-                        
-                  
-                    </div>
-                    <div className="p-5  ">
-                          <div className="ml-5">
-                            <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>Phone</span>
-                            <p className="">{phone_number}</p>
+   <div className="profile_data table-fixed bg-white">
+                        <div className="flex justify-between">     
+                          <div className=" max-md:mt-[18rem]">
+                            <div className="ml-5 mt-2">
+                              <p className="font-bold pt-5 ml-5">
+                                {first_name}{" "}
+                                {last_name}
+                              </p>
+                            </div>
+                            <div className=" ml-5">
+                              <p className="ml-5">{storageData?.user_profile?.id}</p>
+                            </div> 
+                            <div className="grid lg:grid-cols-3 max-md:grid-cols-1 sm:grid-cols-1">
+                              <div className="p-5  ">
+                                <div className="ml-5">
+                                  <span
+                                    style={{ color: "rgba(30, 30, 30, 0.5)" }}
+                                  >
+                                    Email{" "}
+                                  </span>
+                                  <p className="max-md:break-normal">
+                                    {email}
+                                  </p>
+                                </div>
+                                <div className="mt-5 ml-5">
+                                  <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                    Age
+                                  </p>
+                                  {/* <p>{calculateAge(date_of_birth)}</p> */}
+                                  <p>{calculateAge(date_of_birth)}</p>
+                                </div>
+                                <div className="mt-5 ml-5">
+                                  <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                    {" "}
+                                    Height
+                                  </p>
+                                  <p>{Height}</p>
+                                </div>
+                                <div className="mt-5 ml-5">
+                                  <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                    {" "}
+                                    Caste
+                                  </p>
+                                  <p>{caste}</p>
+                                </div>
+                                <div className="mt-5 ml-5">
+                                  <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                    Career
+                                  </p>
+                                  <p>{career_detail}</p>
+                                </div>
+                              </div>
+                              <div className="p-5">
+                                <div className="ml-5">
+                                  <span
+                                    style={{ color: "rgba(30, 30, 30, 0.5)" }}
+                                  >
+                                    Phone
+                                  </span>
+                                  <p className="">
+                                    {phone_number}
+                                  </p>
+                                </div>
+                                <div className="mt-5 ml-5">
+                                  <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                    Star{" "}
+                                  </p>
+                                  <p>{star}</p>
+                                </div>
+                                <div className="mt-5 ml-5">
+                                  <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                    Qualification
+                                  </p>
+                                  <p>
+                                    {educational_qualification}
+                                  </p>
+                                </div>
+                                <div className="mt-5 ml-5">
+                                  <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                    Family Property{" "}
+                                  </p>
+                                  <p>
+                                    {family_property_details}
+                                  </p>
+                                </div>
+                                <div className="mt-5 ml-5">
+                                  <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                    Salary
+                                  </p>
+                                  <p>{Salary_monthly_income}</p>
+                                </div>
+                              </div>
+                              <div className="p-5  ">
+                                <div className="ml-5">
+                                  <span
+                                    style={{ color: "rgba(30, 30, 30, 0.5)" }}
+                                  >
+                                    Date of Birth
+                                  </span>
+                                  <p>{date_of_birth}</p>
+                                </div>
+                                <div className="mt-5 ml-5">
+                                  <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                    Marriage Status
+                                  </p>
+                                  <p>{marriage_status}</p>
+                                </div>
+                                <div className="mt-5 ml-5">
+                                  <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                    Color
+                                  </p>
+                                  <p>{Color}</p>
+                                </div>
+                                <div className="mt-5 ml-5">
+                                  <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                    Type of food
+                                  </p>
+                                  <p>{Choose_veg_nonveg}</p>
+                                </div>
+                                <div className="mt-5 ml-5">
+                                  <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                    Expectation
+                                  </p>
+                                  <p>{Expection}</p>
+                                </div>
+                              </div>
+                            </div>
                           </div>
-                          <div className="mt-5 ml-5">
-                            <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Star </p>
-                            <p>{star}</p>
-                          </div>
-                          <div className="mt-5 ml-5">
-                            <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Qualification</p>
-                            <p>{educational_qualification}</p>
-                          </div>
-                          <div className="mt-5 ml-5">
-                            <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Family Property </p>
-                            <p>{family_property_details}</p>
-                          </div>
-                          <div className="mt-5 ml-5">
-                            <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Salary</p>
-                            <p>{Salary_monthly_income}</p>
-                          </div>
-                    </div>
-                    <div className="p-5  ">
-                      <div className="ml-5">
-                        <span style={{ color: "rgba(30, 30, 30, 0.5)" }}>Date of Birth</span>
-                        <p>{date_of_birth}</p>
-                      </div>
-                      <div className="mt-5 ml-5">
-                        <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Marriage Status</p>
-                        <p>{marriage_status}</p>
-                      </div>
-                      <div className="mt-5 ml-5">
-                        <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Color</p>
-                        <p>{Color}</p>
-                      </div>
-                      <div className="mt-5 ml-5">
-                        <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Type of food</p>
-                        <p>{Choose_veg_nonveg}</p>
-                      </div>
-                      <div className="mt-5 ml-5">
-                        <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Expectation</p>
-                        <p>{Expection}</p>
-                      </div>
-                    </div>
-                    <div className="p-5">
-                    <div className=" flex items-center justify-center ">
-                        <div className="second_item_edit relative">
-                          <button
-                            className=""
-                            type="button"
-                            onClick={() => setModalDefaultOpen(true)}
-                          >
-                            <Image
-                              className="img_profile_portfolio object-contain "
-                              object-fit="true"
+                            <div className="second_item relative">
+                              <button
+                                className=""
+                                type="button"
+                                onClick={() => setModalDefaultOpen(true)}
+                              >
+                                <picture>
+                                  <img
+                                    className="img_profile_portfolio object-contain w-40 min-h-full"
+                                    object-fit="true"
                               src={
                                 profileImg
                                   ? `http://172.105.57.17:1337${profileImg?.[0]?.attributes?.url}`
                                   : profile
                               }
-                              alt={"logo"}
-                              width={200}
-                              height={250}
-                            />
-                          </button>
-                          <Modal
-                            isOpen={modalDefaultOpen}
-                            toggle={() => setModalDefaultOpen(false)}
-                            fade={true}
-                            fullscreen={true}
-                            className="flex justify-center items-center top-0 left-0 w-full h-full bg-black bg-opacity-90 fixed z-50"
-                          >
-                            <div className=" modal-header">
-                              <button
-                                aria-label="Close"
-                                className=" close flex text-white text-6xl leading-none font-semibold outline-none focus:outline-none absolute top-0 right-0 mt-4 mr-6"
-                                onClick={() => setModalDefaultOpen(false)}
-                                type="button"
-                              >
-                                <span aria-hidden={true}>×</span>
+                                    alt=""
+                                  />
+                                </picture>
                               </button>
-                            </div>
+                              <Modal
+                                isOpen={modalDefaultOpen}
+                                toggle={() => setModalDefaultOpen(false)}
+                                fade={true}
+                                fullscreen={true}
+                                className="flex justify-center items-center top-0 left-0 w-full h-full bg-black bg-opacity-50 fixed z-50"
+                              >
+                                <div className=" modal-header">
+                                  <button
+                                    aria-label="Close"
+                                    className=" close flex text-white text-6xl leading-none font-semibold outline-none focus:outline-none absolute top-0 right-0 mt-4 mr-6"
+                                    onClick={() => setModalDefaultOpen(false)}
+                                    type="button"
+                                  >
+                                    <span aria-hidden={true}>×</span>
+                                  </button>
+                                </div>
 
-                            <div className="img_modal modal-body relative ">
-                              <div className="absolute w-full h-full flex justify-between items-center">
-                                <div
-                                  onClick={() => {
-                                    setModalImage(
-                                      modalImage == 0 ? 3 : modalImage - 1
-                                    );
-                                    console.log("prev");
-                                  }}
-                                  className="-ml-10 sm:-ml-10 md:-ml-20 lg:-ml-20 bg-white/50 hover:bg-white flex justify-center items-center w-10 h-10 rounded-full cursor-pointer"
-                                >
-                                  <svg
-                                    className="h-4 w-4"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 320 512"
-                                  >
-                                    <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z" />
-                                  </svg>
+                                <div className="img_modal modal-body relative ">
+                                  <div className="absolute w-full h-full flex justify-between items-center">
+                                    <div
+                                      onClick={() => {
+                                        setModalImage(
+                                          modalImage == 0 ? 3 : modalImage - 1
+                                        );
+                                        console.log("prev");
+                                      }}
+                                      className="-ml-20 bg-white/50 hover:bg-white flex justify-center items-center w-10 h-10 rounded-full cursor-pointer"
+                                    >
+                                      <svg
+                                        className="h-4 w-4"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 320 512"
+                                      >
+                                        <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z" />
+                                      </svg>
+                                    </div>
+                                    <div
+                                      onClick={() => {
+                                        setModalImage(
+                                          modalImage == 3 ? 0 : modalImage + 1
+                                        );
+                                        console.log("next");
+                                      }}
+                                      className="-mr-20 bg-white/50 hover:bg-white flex justify-center items-center w-10 h-10 rounded-full cursor-pointer"
+                                    >
+                                      <svg
+                                        className="h-4 w-4"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 320 512"
+                                      >
+                                        <path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
+                                      </svg>
+                                    </div>
+                                  </div>
+                                  <Image
+                                    alt=""
+                                    src={
+                                      profileImg
+                                        ? `http://172.105.57.17:1337${profileImg?.[modalImage]?.attributes?.url}`
+                                        : profile
+                                    }
+                                    placeholder="image"
+                                    width={500}
+                                    height={500}
+                                  />
                                 </div>
-                                <div
-                                  onClick={() => {
-                                    setModalImage(
-                                      modalImage == 3 ? 0 : modalImage + 1
-                                    );
-                                    console.log("next");
-                                  }}
-                                  className="-mr-10 sm:-mr-10 md:-mr-20 lg:-mr-20 bg-white/50 hover:bg-white flex justify-center items-center w-10 h-10 rounded-full cursor-pointer"
-                                >
-                                  <svg
-                                    className="h-4 w-4"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 320 512"
-                                  >
-                                    <path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
-                                  </svg>
-                                </div>
+                              </Modal>
+                              <div className="flex justify-around lg:gap-2 max-md:gap-5">
+                                <picture className=" ">
+                                  <img
+                                    className="img_profile_g"
+                                    object-fit
+                                    src={
+                                      profileImg
+                                        ? `http://172.105.57.17:1337${profileImg?.[1]?.attributes?.url}`
+                                        : profile
+                                    }
+                                    alt=""
+                                  />
+                                </picture>
+                                <picture  className=" ">
+                                  <img
+                                    className="img_profile_g "
+                                    object-fit
+                                    src={
+                                      profileImg
+                                        ? `http://172.105.57.17:1337${profileImg?.[2]?.attributes?.url}`
+                                        : profile
+                                    }
+                                    alt=""
+                                  />
+                                </picture >
+                                <picture className=" ">
+                                  <img
+                                    className="img_profile_g"
+                                    object-fit
+                                    src={
+                                      profileImg
+                                        ? `http://172.105.57.17:1337${profileImg?.[3]?.attributes?.url}`
+                                        : profile
+                                    }
+                                    alt=""
+                                  />
+                                </picture>
                               </div>
-                              <Image
-                                alt=""
-                                src={
-                                  profileImg
-                                    ? `http://172.105.57.17:1337${profileImg?.[modalImage]?.attributes?.url}`
-                                    : profile
-                                }
-                                placeholder="image"
-                                width={250}
-                                height={250}
-                              />
                             </div>
-                          </Modal>
-                           
-                          <div className="img_profile_portfolio_sec">
-                            <Image
-                              className="img_profile_g "
-                              src={
-                                profileImg
-                                  ? `http://172.105.57.17:1337${profileImg?.[1]?.attributes?.url}`
-                                  : profile
-                              }
-                              alt={"logo"}
-                              width={80}
-                              height={80}
-                            />
-                            <Image
-                              className="img_profile_g"
-                              src={
-                                profileImg
-                                  ? `http://172.105.57.17:1337${profileImg?.[2]?.attributes?.url}`
-                                  : profile
-                              }
-                              alt={"logo"}
-                              width={80}
-                              height={80}
-                            />
-                            <Image
-                              className="img_profile_g "
-                              src={
-                                profileImg
-                                  ? `http://172.105.57.17:1337${profileImg?.[3]?.attributes?.url}`
-                                  : profile
-                              }
-                              alt={"logo"}
-                              width={80}
-                              height={100}
-                            />
+                        </div>
+                        <p className="font-bold ml-10 mt-[56%] lg:mt-20 ">
+                          Family Information
+                        </p>
+                        <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 ">
+                          <div className="p-5  ">
+                            <div className="ml-5">
+                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                Father&apos;s Name
+                              </p>
+                              <p>{father_name}</p>
+                            </div>
+                            <div className="mt-5 ml-5">
+                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                Father&apos;s Profession
+                              </p>
+                              <p>{father_profession}</p>
+                            </div>
+                            <div className="mt-5 ml-5">
+                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                Brothers{" "}
+                              </p>
+                              <p>{brothers}</p>
+                            </div>
+                            <div className="mt-5 ml-5">
+                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                Sisters{" "}
+                              </p>
+                              <p>{sisters}</p>
+                            </div>
+                          </div>
+                          <div className="p-5  ">
+                            <div className="ml-5">
+                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                {" "}
+                                Mother&apos;s Name{" "}
+                              </p>
+                              <p>{mother_name}</p>
+                            </div>
+                            <div className="mt-5 ml-5">
+                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                Mother&apos;s Profession
+                              </p>
+                              <p>{mother_profession}</p>
+                            </div>
+                            <div className="mt-5 ml-5">
+                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                Elder Brother{" "}
+                              </p>
+                              <p>{elder_brothers}</p>
+                            </div>
+                            <div className="mt-5 ml-5">
+                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                Elder Sisters{" "}
+                              </p>
+                              <p>{elder_sisters}</p>
+                            </div>
+                          </div>
+                          <div className="p-5  ">
+                            <div className="ml-5">
+                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                Father&apos;s Native
+                              </p>
+                              <p>{father_native}</p>
+                            </div>
+                            <div className="mt-5 ml-5">
+                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                Phone Number
+                              </p>
+                              <p>{parents_contact_number}</p>
+                            </div>
+                            <div className="mt-5 ml-5">
+                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                Younger Brother{" "}
+                              </p>
+                              <p>{younger_brothers}</p>
+                            </div>
+                            <div className="mt-5 ml-5">
+                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                Younger Sisters{" "}
+                              </p>
+                              <p>{younger_sisters}</p>
+                            </div>
+                          </div>
+                          <div className="p-5 ">
+                            <div className="ml-5">
+                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                {" "}
+                                Mother&apos;s Native
+                              </p>
+                              <p>{mother_native}</p>
+                            </div>
+                            <div className="mt-5 ml-5">
+                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                {" "}
+                                Address{" "}
+                              </p>
+                              <p>{address}</p>
+                            </div>
+                            <div className="mt-5 ml-5">
+                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                Married
+                              </p>
+                              <p>{married_brothers}</p>
+                            </div>
+                            <div className="mt-5 ml-5">
+                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                {" "}
+                                Married
+                              </p>
+                              <p>{married_sisters}</p>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                </div>
-                  
-                <p className="font-bold ml-10 ">Family Information</p>
-                <div className="grid lg:grid-cols-4  md:grid-cols-3 sm:grid-cols-2 ">
-                    <div className="p-5  ">
-                        <div className="ml-5">
-                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Father&apos;s Name</p>
-                          <p>{father_name}</p>
-                        </div>
-                        <div className="mt-5 ml-5">
-                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Father&apos;s Profession</p>
-                          <p>{father_profession}</p>
-                        </div>
-                        <div  className="mt-5 ml-5">
-                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Brothers </p>
-                          <p>{brothers}</p>
-                        </div>
-                        <div className="mt-5 ml-5">
-                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Sisters </p>
-                          <p>{sisters}</p>
-                        </div> 
-                    </div>
-                    <div className="p-5  ">
-                        <div className="ml-5">
-                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}> Mother&apos;s Name </p>
-                          <p>{mother_name}</p>
-                        </div>
-                          <div className="mt-5 ml-5">
-                            <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Mother&apos;s Profession</p>
-                            <p>{mother_profession}</p>
+                        <p className="font-bold ml-10 mt-5">
+                          Horoscope Information
+                        </p>
+                        <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 ">
+                          <div className="p-5  ">
+                            <div className="ml-5">
+                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                Zodiac Sign
+                              </p>
+                              <p>{zodiacs_sign}</p>
+                            </div>
+                            <div className="mt-5 ml-5">
+                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                Day{" "}
+                              </p>
+                              <p>{day}</p>
+                            </div>
+                            <div className="mt-5 ml-5">
+                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                Birthplace
+                              </p>
+                              <p>{birthplace}</p>
+                            </div>
                           </div>
-                          <div className="mt-5 ml-5">
-                            <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Elder Brother </p>
-                            <p>{elder_brothers}</p>
+                          <div className="p-5  ">
+                            <div className="ml-5">
+                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                Tamil Year{" "}
+                              </p>
+                              <p>{tamil_year}</p>
+                            </div>
+                            <div className="mt-5 ml-5">
+                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                Birth Time
+                              </p>
+                              <p>{birth_time}</p>
+                            </div>
+                            <div className="mt-5 ml-5">
+                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                {" "}
+                                Presence Of Natal Direction{" "}
+                              </p>
+                              <p>
+                                {presence_of_natal_direction}
+                              </p>
+                            </div>
                           </div>
-                          <div className="mt-5 ml-5">
-                            <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Elder Sisters </p>
-                            <p>{elder_sisters}</p>
+                          <div className="p-5  ">
+                            <div className="ml-5">
+                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                Tamil Month
+                              </p>
+                              <p>{tamil_month}</p>
+                            </div>
+                            <div className="mt-5 ml-5">
+                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                Star/Foot
+                              </p>
+                              <p>{star_foot}</p>
+                            </div>
                           </div>
-                    </div>
-                    <div className="p-5  ">
-                      <div className="ml-5">
-                        <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Father&apos;s Native</p>
-                        <p>{father_native}</p>
-                      </div>
-                      <div className="mt-5 ml-5">
-                        <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Phone Number</p>
-                        <p>{parents_contact_number}</p>
-                      </div>
-                      <div className="mt-5 ml-5">
-                        <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Younger Brother </p>
-                        <p>{younger_brothers}</p>
-                      </div>
-                      <div className="mt-5 ml-5">
-                        <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Younger Sisters </p>
-                        <p>{younger_sisters}</p>
-                      </div>
-                    </div>
-                    <div className="p-5 ">
-                       <div className="ml-5">
-                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}> Mother&apos;s Native</p>
-                          <p>{mother_native}</p>
-                       </div>
-                       <div className="mt-5 ml-5">
-                        <p style={{ color: "rgba(30, 30, 30, 0.5)" }}> Address </p>
-                        <p>{address}</p>
-                       </div>
-                       <div className="mt-5 ml-5">
-                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Married</p>
-                          <p>{married_brothers}</p>
-                       </div>
-                       <div className="mt-5 ml-5">
-                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}> Married</p>
-                          <p>{married_sisters}</p>
-                       </div>
-                    </div>
-                </div>
-                <p className="font-bold ml-10 mt-5">Horoscope Information</p>
-                <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-2 ">
-                    <div className="p-5  ">
-                        <div className="ml-5">
-                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Zodiac Sign</p>
-                          <p>{zodiacs_sign}</p>
-                        </div>
-                        <div className="mt-5 ml-5">
-                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Day </p>
-                          <p>{day}</p>
-                        </div>
-                        <div className="mt-5 ml-5">
-                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Birthplace</p>
-                          <p>{birthplace}</p>
-                        </div>
-                        
-                    </div>
-                    <div className="p-5  ">
-                        <div className="ml-5">
-                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Tamil Year </p>
-                          <p>{tamil_year}</p>
-                        </div>
-                          <div className="mt-5 ml-5">
-                            <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Birth Time</p>
-                            <p>{birth_time}</p>
+                          <div className="p-5 ">
+                            <div className="ml-5">
+                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                Udayati Nazhikai{" "}
+                              </p>
+                              <p>{udayati_nazhikai}</p>
+                            </div>
+                            <div className="mt-5 ml-5">
+                              <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                                Ascendant(Laknam)
+                              </p>
+                              <p>{ascendant}</p>
+                            </div>
                           </div>
-                          <div className="mt-5 ml-5">
-                            <p style={{ color: "rgba(30, 30, 30, 0.5)" }}> Presence Of Natal Direction </p>
-                            <p>{presence_of_natal_direction}</p>
-                          </div>
-                          
-                    </div>
-                    <div className="p-5  ">
-                      <div className="ml-5">
-                        <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Tamil Month</p>
-                        <p>{tamil_month}</p>
-                      </div>
-                      <div className="mt-5 ml-5">
-                        <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Star/Foot</p>
-                        <p>{star_foot}</p>
-                      </div>
-                     
-                    </div>
-                    <div className="p-5 ">
-                       <div className="ml-5">
-                          <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Udayati Nazhikai </p>
-                          <p>{udayati_nazhikai}</p>
-                       </div>
-                       <div className="mt-5 ml-5">
-                        <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Ascendant(Laknam)</p>
-                        <p>{ascendant}</p>
-                       </div>
-                      
-                    </div>
-                </div>
-                <p className="font-bold ml-10 mt-5">Horoscope Chart</p>
-                <div className="grid justify-items-center grid-cols-2 gap-4 mt-[4rem] ">
-                  {img &&
+                        </div>
+                        <p className="font-bold ml-10 mt-5">Horoscope Chart</p>
+                        <div className="grid grid-cols-2 gap-6 mt-[3rem] pb-4 scale-75">
+                        {img &&
                     img.map((data, i) => {
                       return (
                           <Image
@@ -516,23 +614,8 @@ const EditProfile = () => {
                           />
                       );
                     })}
-
-                  {/* <Image
-                    className="mb-8"
-                    src={
-                      img
-                        ? `http://172.105.57.17:1337${img?.[1]?.attributes?.url}`
-                        : horos1
-                    }
-                    width={500}
-                    alt=""
-                    height={500}
-                  /> */}
-                </div>
-
-              </div>
-
-            </div>
+                        </div>
+                      </div>
           </div>
         </div>
 

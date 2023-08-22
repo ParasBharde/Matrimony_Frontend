@@ -13,12 +13,10 @@ const Portfolio = () => {
   const [total, setTotal] = useState(0);
   const storageData = useStorage();
   console.log(storageData);
-  const registerData = storageData?.id;
-  const loginData = storageData?.user_profile?.id;
-  console.log(registerData,loginData)
-  const check = loginData != undefined ? loginData: registerData;
-console.log(check)
+
+  
   useEffect(() => {
+    const check =  storageData?.user_profile?.id != undefined ?  storageData?.user_profile?.id: storageData?.id;
     async function getUser() {
       var config = {
         method: "get",
@@ -45,7 +43,7 @@ console.log(check)
         });
     }
     getUser();
-  }, [storageData, check, registerData, loginData]);
+  }, [storageData, storageData?.user_profile?.id,storageData?.id]);
 
 console.log('filteredProfiles',filteredProfiles)
   const calculateAge = useCalculateAge();
@@ -105,10 +103,7 @@ console.log('filteredProfiles',filteredProfiles)
   return (
     <>
       <div className="colo" style={{ backgroundColor: "white" }}>
-        <Portfolioheader
-          handleFilterQuery={handleFilterQuery}
-          className="bg-blue-500"
-        />
+        <Portfolioheader handleFilterQuery={handleFilterQuery} className="bg-blue-500"/>
         <Portfoliodetails allprofiles={filteredProfiles} total={total} />
       </div>
       <style jsx>{`

@@ -28,62 +28,12 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   const [myLikedprofiles, setMyLikedprofiles] = useState([]);
   const [pageCount, setPageCount] = useState(1);
   const [currentLikes, setCurrentLikes] = useState([]);
-  const [isPremiumUser, setIsPremiumUser] = useState(false);
+  const [isPremiumUser, setIsPremiumUser] = useState([]);
   const [checkStatus, setcheckStatus] = useState("");
   const [checkExpired, setcheckExpired] = useState("");
   const [getRegister, setRegister] = useState([]);
   const isUid = getRegister.length > 0 ? getRegister[0]?.id : storageData?.id;
-  console.log(isPremiumUser);
-
-  useEffect(() => {
-  const finalId = storageData?.user_profile ? storageData?.user_profile?.id : storageData?.id;
-
-    const getPremium = () => {
-      let config = {
-        method: "get",
-        maxBodyLength: Infinity,
-        url: `http://172.105.57.17:1337/api/user-active-plans?filters[user_id]=${finalId}`,
-        headers: {},
-      };
-
-      axios
-        .request(config)
-        .then((response) => {
-          console.log(response.data.data);
-          const res = response.data.data[0];
-          setcheckStatus(res?.attributes?.status);
-          const data = res?.attributes.member_viewed === res?.attributes.member_display_limit;
-          setcheckExpired(data);
-          setIsPremiumUser(response.data.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
-
-    const getRegisteruser = () => {
-      let config = {
-        method: "get",
-        maxBodyLength: Infinity,
-        url: "http://172.105.57.17:1337/api/users?populate=user_profile",
-        headers: {},
-      };
-
-      axios
-        .request(config)
-        .then((response) => {
-          const data = response.data.filter((u) => u.user_profile.id === finalId);
-          console.log(data);
-          setRegister(data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
-
-    getPremium();
-    getRegisteruser();
-  }, [registerStorage, loginStorage,storageData?.user_profile?.id,storageData?.id,storageData?.user_profile]);
+  console.log(isUid);
 
   useEffect(() => {
     axios
@@ -92,7 +42,6 @@ const Portfoliodetails = ({ allprofiles, total }) => {
         console.log(response.data);
         if (response.data.meta) {
           setPageCount(response.data.meta.pagination.pageCount);
-          // console.log("pagecount", response.data.meta.pagination.pageCount);
         }
       })
       .catch((error) => {
@@ -126,6 +75,48 @@ const Portfoliodetails = ({ allprofiles, total }) => {
       getProfiles();
     }
   }, [isUid, pageCount]);
+
+
+  useEffect(() => {
+    const check =  storageData?.user_profile?.id != undefined ?  storageData?.user_profile?.id : storageData?.id;
+    if (storageData) {
+      async function getUser() {
+        try {
+          const response = await axios.get(
+            `http://172.105.57.17:1337/api/user-active-plans?filters[user_id]=${check}`
+          );
+          console.log(response.data.data);
+        setIsPremiumUser(response.data.data);
+        const res = response.data.data[0];
+        setcheckStatus(res?.attributes?.status);
+        setcheckExpired(res?.attributes.member_viewed === res?.attributes.member_display_limit);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+      getUser();
+    }
+  }, [storageData]);
+
+
+  useEffect(() => {
+    const check =  storageData?.user_profile?.id != undefined ?  storageData?.user_profile?.id : storageData?.id;
+    if (storageData) {
+      async function getUser() {
+        try {
+          const response = await axios.get(
+            `http://172.105.57.17:1337/api/users?populate=user_profile`
+          );
+          const data = response.data.filter((u) => u.user_profile.id === check);
+          console.log(data);
+          setRegister(data);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+      getUser();
+    }
+  }, [storageData]);
 
   const getLikedProfiles = useCallback(() => {
     let allData = [];
@@ -269,7 +260,6 @@ const Portfoliodetails = ({ allprofiles, total }) => {
     issetGrid(true);
   }, []);
 
-
   const [selectedRows, setSelectedRows] = useState(
     Array(profiles?.length).fill(false)
   );
@@ -293,8 +283,10 @@ const Portfoliodetails = ({ allprofiles, total }) => {
 
   return (
     <>
-      <div className="lg:flex max-md:flex max-md:justify-between lg:flex-1 lg:items-center lg:justify-between sm:flex sm:flex-1 sm:items-center sm:justify-between ">
-        <div className={`${isList ? "max-md:fixed" : "relative"}absolute left-0`} >
+      <div className="lg:flex lg:px-32 max-md:flex max-md:justify-between lg:flex-1 lg:items-center lg:justify-between sm:flex sm:flex-1 sm:items-center sm:justify-between ">
+        <div
+          className={`${isList ? "max-md:fixed" : "relative"}absolute left-0`}
+        >
           <span className="text-sm text-gray-700">
             {currentPage == 1 ? "1" : `${(currentPage - 1) * 10 + 1}`}-
             {total <= currentPage * 10 ? total : currentPage * 10}{" "}
@@ -302,7 +294,9 @@ const Portfoliodetails = ({ allprofiles, total }) => {
             <span className="font-semibold text-gray-900">Pages</span>
           </span>
         </div>
-        <div className={`${isList ? "max-md:fixed" : "relative"}absolute right-0`}>
+        <div
+          className={`${isList ? "max-md:fixed" : "relative"}absolute right-0`}
+        >
           <nav
             className="isolate inline-flex -space-x-px"
             aria-label="Pagination"
@@ -688,16 +682,13 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                     <tbody key={index}>
                       <tr
                         className={`bg-white border-b ${
-                          isPremiumUser.length > 0 && checkStatus === "active"
+                          checkStatus === "active"
                             ? "cursor-pointer"
                             : "cursor-not-allowed"
                         }`}
                         onClick={() => {
                           if (storageData) {
-                            if (
-                              isPremiumUser.length > 0 &&
-                              checkStatus === "active"
-                            ) {
+                            if (checkStatus === "active") {
                               router.push({
                                 pathname: "/profiledetail/[id]/",
                                 query: {
@@ -790,7 +781,6 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                     <div className="cards relative shadow-2xl ">
                       <div className="relative h-3/5">
                         <div className="absolute top-0 left-0 w-full h-full"></div>
-
                         <picture>
                           <img
                             className="img_card w-[15rem] h-[14rem]"
@@ -854,15 +844,12 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                       </div>
                       <header
                         className={` coloumn items-center justify-between leading-tight p-2 md:p-4 ${
-                          isPremiumUser.length > 0 && checkStatus === "active"
+                          checkStatus === "active"
                             ? "cursor-pointer"
                             : "cursor-not-allowed"
                         }`}
                         onClick={() => {
-                          if (
-                            isPremiumUser.length > 0 &&
-                            checkStatus === "active"
-                          ) {
+                          if (checkStatus === "active") {
                             router.push({
                               pathname: "/profiledetail/[id]/",
                               query: {
@@ -879,7 +866,6 @@ const Portfoliodetails = ({ allprofiles, total }) => {
 
                           <span
                             className={`no-underline hover:underline text-black cursor-pointer${
-                              isPremiumUser.length > 0 &&
                               checkStatus === "active"
                                 ? "cursor-pointer"
                                 : "cursor-not-allowed"
@@ -971,7 +957,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
           </div>
         )}
       </div>
-        {/* ............ this is for pagination for responsive part ...  */}
+      {/* ............ this is for pagination for responsive part ...  */}
       <div className="flex items-center px-4  sm:px-6 ">
         <div className="flex flex-1 justify-between sm:hidden">
           <Link
