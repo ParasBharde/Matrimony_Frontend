@@ -115,7 +115,7 @@ const Portfolioheader = ({ handleFilterQuery }) => {
           `http://172.105.57.17:1337/api/user-active-plans?filters[user_id]=${check}`
         );
         const data = await response.json();
-        setUserData(data);
+        setUserData(data.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -124,7 +124,7 @@ const Portfolioheader = ({ handleFilterQuery }) => {
     }
 
     fetchData();
-  }, []);
+  }, [storageData]);
 
   console.log("userData", userData);
 
@@ -135,20 +135,22 @@ const Portfolioheader = ({ handleFilterQuery }) => {
         {loading ? (
           <p>Loading...</p>
         ) : (
-          <div className="grid items-center px-24 max-md:mt-5">
-            <span className="font-medium max-md:text-sm">
-              Total number profile view:{" "}
-              {userData?.data[0]?.attributes.member_display_limit}
-            </span>
-            <span className="font-medium max-md:text-sm">
-              Viewed Profile:{" "}
-              {userData?.data[0]?.attributes.member_viewed}
-            </span>
-            <span className="font-medium max-md:text-sm">
-              Remaining Profile:{" "}
-              {userData?.data[0]?.attributes.member_display_limit - userData?.data[0].attributes.member_viewed}
-            </span>
-          </div>
+          userData.length > 0 && (
+            <div className="grid items-center px-24 max-md:mt-5">
+              <span className="font-medium max-md:text-sm">
+                Total number profile view:{" "}
+                {userData[0]?.attributes.member_display_limit}
+              </span>
+              <span className="font-medium max-md:text-sm">
+                Viewed Profile: {userData[0]?.attributes.member_viewed}
+              </span>
+              <span className="font-medium max-md:text-sm">
+                Remaining Profile:{" "}
+                {userData[0]?.attributes.member_display_limit -
+                  userData[0]?.attributes.member_viewed}
+              </span>
+            </div>
+          )
         )}
         {/* {isPremiumUser?.length > 0 &&  (
          
