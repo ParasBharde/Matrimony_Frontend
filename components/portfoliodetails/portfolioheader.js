@@ -72,13 +72,11 @@ console.log(storageData)
         );
         const data = await response.json();
        
-          setUserData(data.data);
-      
-        // setUserData(data.data);
+          setUserData(data?.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
-        setLoading(true);
+        setLoading(false);
       }
     }
 
@@ -91,7 +89,7 @@ console.log(storageData)
     <>
       <div className="flex justify-between mb-5 ">
         <Breadcrumb screens={["Home", "Search"]} />
-        {!loading ? (
+        {loading ? (
           <p>Loading...</p>
         ) : (userData.length > 0 && (
             <div className="grid items-center px-24 max-md:mt-5">

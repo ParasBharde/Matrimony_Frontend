@@ -30,9 +30,7 @@ const Portfolio = () => {
 
       axios(config)
         .then(function (response) {
-          let profiles = response.data.data.filter((item) => {
-            console.log(item);
-            return console.log(item), item.id != check;
+          let profiles = response.data.data.filter((item) => {return console.log(item), item.id != check;
           });
           setprofiles(profiles);
           setFilteredProfiles(profiles);
