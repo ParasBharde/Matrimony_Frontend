@@ -59,39 +59,50 @@ const Portfolioheader = ({ handleFilterQuery }) => {
   };
 
 console.log(storageData)
-  const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [userData, setUserData] = useState([]);
 
   const check = storageData?.user_profile?.id != undefined ? storageData?.user_profile?.id  : storageData?.id;
   useEffect(() => {
-
-    async function fetchData() {
+    
+    const fetchData = async () => {
       try {
-        const response = await fetch(
-          `http://172.105.57.17:1337/api/user-active-plans?filters[user_id]=${check}`
-        );
-        const data = await response.json();
-       
-          setUserData(data?.data);
+        let config = {
+          method: 'get',
+          maxBodyLength: Infinity,
+          url:`http://172.105.57.17:1337/api/user-active-plans?filters[user_id]=${check}`,
+          headers: {}
+        };
+    
+        const response = await axios.request(config);
+        setUserData(response.data.data);
       } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
+        console.log(error);
       }
-    }
+    };
+  
+
+    // async function fetchData() {
+    //   try {
+    //     const response = await fetch(`http://172.105.57.17:1337/api/user-active-plans?filters[user_id]=${check}` );
+    //     console.log(response.data)
+    //     const data = response.data.json();
+       
+    //       setUserData(data?.data);
+    //   } catch (error) {
+    //     console.error("Error fetching data:", error);
+    //   } 
+    // }
 
     fetchData();
   }, [storageData,check]);
 
-  console.log("userData", userData);
+  console.log("userData", check);
 
   return (
     <>
       <div className="flex justify-between mb-5 ">
         <Breadcrumb screens={["Home", "Search"]} />
-        {loading ? (
-          <p>Loading...</p>
-        ) : (userData.length > 0 && (
+        {userData?.length > 0 && (
             <div className="grid items-center px-24 max-md:mt-5">
               <span className="font-medium max-md:text-sm">
                 Total number profile view:{" "}
@@ -107,7 +118,7 @@ console.log(storageData)
               </span>
             </div>
           )
-        )}
+        }
         {/* {isPremiumUser?.length > 0 &&  (
          
         )} */}

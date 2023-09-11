@@ -24,7 +24,6 @@ const Profiledetail = () => {
   const router = useRouter();
   const { id, isLiked } = router.query;
   const storage = useStorage();
-console.log(storage)
   const increaseViews = (uid,pId) => {
     let data = "";
     let config = {
@@ -45,10 +44,14 @@ console.log(storage)
       });
   };
 
-  const userIdD = storage?.id;
+  console.log(storage)
+  const userIdD = storage?.user_profile?.id;
+
   useEffect(() => {
-    if (router.query.id) {
-      increaseViews(userIdD,id);
+    if (parseInt(id) && userIdD) {
+      increaseViews(userIdD,parseInt(id));
+    } else {
+      console.log('Not COuntedView')
     }
   }, [router.query.id, userIdD,id]);
 
