@@ -34,7 +34,6 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   const [getRegister, setRegister] = useState([]);
 
   const isUid = getRegister.length > 0 ? getRegister[0]?.id : storageData?.id;
-  console.log(getRegister[0]?.id , storageData?.id);
 
   useEffect(() => {
     axios

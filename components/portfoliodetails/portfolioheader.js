@@ -93,7 +93,7 @@ console.log(storageData)
         <Breadcrumb screens={["Home", "Search"]} />
         {!loading ? (
           <p>Loading...</p>
-        ) : (userData?.length > 0 && (
+        ) : (userData.length > 0 && (
             <div className="grid items-center px-24 max-md:mt-5">
               <span className="font-medium max-md:text-sm">
                 Total number profile view:{" "}

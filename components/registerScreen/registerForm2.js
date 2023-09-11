@@ -106,7 +106,6 @@ const RegisterForm2 = ({ screen, setScreen }) => {
     const rg = sessionStorage.getItem("rg2");
     if (rg) {
       const jrg = JSON.parse(rg);
-
       setFile1(jrg.file1);
       setFile2(jrg.file2);
       setFile3(jrg.file3);

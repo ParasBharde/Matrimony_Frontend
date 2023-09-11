@@ -208,9 +208,7 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
 
   return (
     <>
-    
-     
-        <p className="font-[600] text-[18px] ml-80">Horoscope Information</p>
+      <div className="ml-80"><p className="font-[600] text-[18px] ">Horoscope Information</p></div>
       <div className="grid-widi4 grid justify-items-center justify-content-center">
         <div className="gri-wid4 grid grid-cols-2 gap-16">
           <div className="mt-5">

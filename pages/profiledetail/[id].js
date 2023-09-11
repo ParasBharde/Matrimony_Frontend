@@ -24,7 +24,7 @@ const Profiledetail = () => {
   const router = useRouter();
   const { id, isLiked } = router.query;
   const storage = useStorage();
-
+console.log(storage)
   const increaseViews = (uid,pId) => {
     let data = "";
     let config = {
@@ -45,7 +45,7 @@ const Profiledetail = () => {
       });
   };
 
-  const userIdD = storage?.user_profile?.id;
+  const userIdD = storage?.id;
   useEffect(() => {
     if (router.query.id) {
       increaseViews(userIdD,id);
