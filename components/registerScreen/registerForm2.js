@@ -82,6 +82,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
     useState("");
   const [salary, setSalary] = useState("");
   const [expectation, setExpectation] = useState("");
+  const [aadharNo, setaadharNo] = useState("");
   const [caste, setCaste] = useState("");
 
   const [lastName, setLastName] = useState("");
@@ -92,6 +93,14 @@ const RegisterForm2 = ({ screen, setScreen }) => {
   const [familyPropertyDetails, setFamilyPropertyDetails] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [marriageStatus, setMarriageStatus] = useState("Single");
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFileID, setselectedFileID] = useState(4);
+
+  const handleFileChange = (event) => {
+    console.log(event);
+    const file = event.target.files[0];
+    setSelectedFile(file);
+  };
 
   useEffect(() => {
     const rg = sessionStorage.getItem("rg2");
@@ -102,7 +111,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
       setFile2(jrg.file2);
       setFile3(jrg.file3);
       setFile4(jrg.file4);
-
+      setSelectedFile(jrg.selectedFile);
       setFirstName(jrg.firstName);
       setGroomOrBride(jrg.groomOrBride);
       setDateOfBirth(jrg.dateOfBirth);
@@ -111,7 +120,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
       setSalary(jrg.salary);
       setExpectation(jrg.expectation);
       setCaste(jrg.caste);
-
+      setaadharNo(aadharNo);
       setLastName(jrg.lastName);
       setVegOrNonVeg(jrg.vegOrNonVeg);
       setStar(jrg.star);
@@ -122,6 +131,29 @@ const RegisterForm2 = ({ screen, setScreen }) => {
       setMarriageStatus(jrg.marriageStatus);
     }
   }, []);
+
+  useEffect(() => {
+    if (selectedFile) {
+      var formdata = new FormData();
+      formdata.append("files", selectedFile);
+      var requestOptions = {
+        method: "POST",
+        body: formdata,
+        redirect: "follow",
+      };
+      fetch("http://172.105.57.17:1337/api/upload", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+          setselectedFileID(result[0].id);
+          toast.success("Image Uploaded Successfully");
+        })
+        .catch((error) => {
+          console.log("error", error);
+          setFile1ID(4);
+        });
+    }
+  }, [selectedFile]);
 
   useEffect(() => {
     if (file1) {
@@ -230,10 +262,12 @@ const RegisterForm2 = ({ screen, setScreen }) => {
       familyPropertyDetails,
       phoneNumber,
       marriageStatus,
+      tcrCertificate:selectedFileID,
+      aadharNo
     };
     sessionStorage.setItem("rg2", JSON.stringify(rg2));
   };
-
+  console.log(marriageStatus);
   var phoneRegex = /^(?:(?:\+91)|(?:91)|(?:0))?[7-9][0-9]{9}$/;
   var nameRegex = /\d/g;
   const validate = () => {
@@ -250,7 +284,9 @@ const RegisterForm2 = ({ screen, setScreen }) => {
         familyPropertyDetails &&
         expectation &&
         phoneNumber &&
-        caste
+        caste &&
+        aadharNo &&
+        selectedFile
       )
     ) {
       toast.error("Please Input all fields");
@@ -284,18 +320,18 @@ const RegisterForm2 = ({ screen, setScreen }) => {
       toast.error("Please enter a valid Salary");
       return false;
     }
+    if (aadharNo.length < 12) {
+      toast.error("Please enter a valid Aadhar Number");
+      return false;
+    } if (selectedFile == null) {
+      toast.error("Please Select TCR Certificate");
+      return false;
+    } if (aadharNo == "") {
+      toast.error("Enter Aadhar Number");
+      return false;
+    }
 
     return true;
-  };
-
-  const formatInputValue = (value) => {
-    if (value.length <= 4) {
-      return value;
-    } else if (value.length <= 6) {
-      return `${value.slice(0, 4)}-${value.slice(4)}`;
-    } else {
-      return `${value.slice(0, 4)}-${value.slice(4, 6)}-${value.slice(6, 8)}`;
-    }
   };
 
   const [isValid, setIsValid] = useState(true);
@@ -303,7 +339,8 @@ const RegisterForm2 = ({ screen, setScreen }) => {
   const [isIncomeValid, setIncomeValid] = useState(true);
   const [isFValid, setFValid] = useState(true);
   const [isLValid, setLValid] = useState(true);
-
+  const [isAadharValid, setAadharValid] = useState(true);
+  console.log(isAadharValid);
   const handleHeight = (event) => {
     const inputHeight = event.target.value;
     if (inputHeight > 250 || inputHeight < 1 || inputHeight === 1) {
@@ -385,6 +422,23 @@ const RegisterForm2 = ({ screen, setScreen }) => {
       // toast.error("Please enter valid date!");
 
       setIsValid(false);
+    }
+  };
+
+  const handleAadhar = (e) => {
+    const inputAadhar = e.target.value;
+    const trimmedInput = inputAadhar.replace(/\s/g, "");
+     if (inputAadhar.length > 12) {
+      setAadharValid(false);
+    }else if (inputAadhar < 0 ) {
+      setAadharValid(false);
+
+    } else if (inputAadhar === "") {
+        setaadharNo(inputAadhar);
+        setAadharValid(true);
+    } else {
+      setaadharNo(inputAadhar);
+      setAadharValid(true);
     }
   };
 
@@ -656,6 +710,41 @@ const RegisterForm2 = ({ screen, setScreen }) => {
                   }
                 }
               }}
+              className="w-full p-2 border border-gray-300 rounded"
+            />
+            {!isFValid && (
+              <p style={{ color: "red", display: "none" }}>
+                Invalid first name.
+              </p>
+            )}
+          </div>
+        </div>
+        <div class="gri-wid grid grid-cols-2 gap-4">
+          <div className=" p-2">
+            <label className="block">Aadhar Number *</label>
+            <input
+              placeholder="Enter Your Aadhar Number"
+              type={"number"}
+              value={aadharNo}
+              onChange={handleAadhar}
+              className="w-full p-2 border border-gray-300 rounded"
+            />
+            {!isAadharValid && (
+              <p style={{ color: "red" }}>Enter Valid Aadhar.</p>
+            )}
+          </div>
+          <div className=" p-2">
+            <label className="block">TCR Certificate *</label>
+            <input
+              style={{
+                height: "2.3rem",
+                borderRadius: "4px",
+              }}
+              type="file"
+              id="input1"
+              name="input1"
+              onChange={handleFileChange}
+              accept="image/*"
               className="w-full p-2 border border-gray-300 rounded"
             />
             {!isFValid && (

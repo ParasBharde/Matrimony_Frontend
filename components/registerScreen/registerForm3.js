@@ -27,7 +27,8 @@ const RegisterForm3 = ({ screen, setScreen }) => {
   const [youngerSisters, setYoungerSisters] = useState(0)
   const [elderSisters, setElderSisters] = useState(0)
   const [marriedSisters, setMarriedSisters] = useState(0)
-
+  const rg2 = JSON.parse(sessionStorage.getItem("rg2"));
+  console.log(rg2)
   useEffect(() => {
     const rg = sessionStorage.getItem("rg3")
     if (rg) {

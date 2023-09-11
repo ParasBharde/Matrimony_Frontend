@@ -58,56 +58,12 @@ const Portfolioheader = ({ handleFilterQuery }) => {
     console.log(query);
   };
 
-  // useEffect(() => {
-  //   const check =  storageData?.user_profile?.id != undefined ?  storageData?.user_profile?.id : storageData?.id;
-
-  //     let config = {
-  //       method: "get",
-  //       maxBodyLength: Infinity,
-  //       url: `http://172.105.57.17:1337/api/user-active-plans?filters[user_id]=${check}`,
-  //       headers: {},
-  //     };
-
-  //     axios
-  //       .request(config)
-  //       .then((response) => {
-  //         console.log(JSON.stringify(response.data))
-  //         setPremiumUser(response.data.data);
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //       });
-  // }, [storageData]);
-
-  useEffect(() => {
-    const check =
-      storageData?.user_profile?.id != undefined
-        ? storageData?.user_profile?.id
-        : storageData?.id;
-    if (storageData) {
-      async function getUser() {
-        try {
-          const response = await axios.get(
-            `http://172.105.57.17:1337/api/user-active-plans?filters[user_id]=${check}`
-          );
-          console.log(JSON.stringify(response.data));
-          setPremiumUser(response.data.data);
-        } catch (error) {
-          console.error(error);
-        }
-      }
-      getUser();
-    }
-  }, [storageData]);
-
+console.log(storageData)
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const check = storageData?.user_profile?.id != undefined ? storageData?.user_profile?.id  : storageData?.id;
   useEffect(() => {
-    const check =
-      storageData?.user_profile?.id != undefined
-        ? storageData?.user_profile?.id
-        : storageData?.id;
 
     async function fetchData() {
       try {
@@ -115,16 +71,19 @@ const Portfolioheader = ({ handleFilterQuery }) => {
           `http://172.105.57.17:1337/api/user-active-plans?filters[user_id]=${check}`
         );
         const data = await response.json();
-        setUserData(data.data);
+       
+          setUserData(data.data);
+      
+        // setUserData(data.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
-        setLoading(false);
+        setLoading(true);
       }
     }
 
     fetchData();
-  }, [storageData]);
+  }, [storageData,check]);
 
   console.log("userData", userData);
 
@@ -132,10 +91,9 @@ const Portfolioheader = ({ handleFilterQuery }) => {
     <>
       <div className="flex justify-between mb-5 ">
         <Breadcrumb screens={["Home", "Search"]} />
-        {loading ? (
+        {!loading ? (
           <p>Loading...</p>
-        ) : (
-          userData.length > 0 && (
+        ) : (userData?.length > 0 && (
             <div className="grid items-center px-24 max-md:mt-5">
               <span className="font-medium max-md:text-sm">
                 Total number profile view:{" "}

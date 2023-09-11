@@ -31,9 +31,6 @@ const GoogleTranslate = () => {
         window.googleTranslateElementInit = googleTranslateElementInit
       }
     }
-
-  
-
     const removeScript = () => {
       const q = document.getElementById(id)
       if (q) q.remove()

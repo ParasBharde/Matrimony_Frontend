@@ -92,7 +92,7 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
 
   const [starFoot, setStarFoot] = useState("Aries");
   const [ascendant, setAscendant] = useState("Aries");
-  console.log(starFoot);
+  console.log(starFoot,ascendant);
   const [birthplace, setBirthplace] = useState("");
   const [presenceOfNatalDirection, setPresenceOFNatalDirection] = useState("");
 
@@ -209,8 +209,8 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
   return (
     <>
     
-        <p className="font-[600] text-[18px]">Horoscope Information</p>
      
+        <p className="font-[600] text-[18px] ml-80">Horoscope Information</p>
       <div className="grid-widi4 grid justify-items-center justify-content-center">
         <div className="gri-wid4 grid grid-cols-2 gap-16">
           <div className="mt-5">
@@ -388,7 +388,7 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
       </div>
       <div className="horo-img1 mt-5">
         <div className="horo-img2">
-          <p className="text-dark font-[500] text-[14px]">
+          <p className="text-dark font-[500] text-[14px] ">
             Horoscope Doucment *
           </p>
           <button

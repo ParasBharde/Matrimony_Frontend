@@ -30,11 +30,7 @@ const Header = () => {
   const [isProfileChanged, setIsProfileChanges] = useState("false");
   console.log(storage);
 
-  useEffect(() => {
-    // if (pathname == "/profile") {
-    //   setIsProfileChanges("true");
-    // }
-  }, [pathname, storage]);
+
 
   useEffect(() => {
     async function getUser() {
@@ -42,26 +38,23 @@ const Header = () => {
         const response = await axios.get(
           `http://172.105.57.17:1337/api/profiles/?populate=%2A`
         );
-        console.log(response.data);
-        let userProfiles = response.data.data.filter(
-          (u) => u.id == storage?.user_profile?.id
-        );
+        console.log(response.data.data);
+        let userProfiles = response.data.data.filter((u) => u.id == storage?.user_profile?.id);
+        // let userProfiles = response.data.data.filter((u) => u.id == storage?.user_profile?.id);
 
-        let userRegisterProfile = response.data.data.filter(
-          (u) => u.id == storage?.id
-        );
+
+        let userRegisterProfile = response.data.data.filter((u) => u.attributes.user.data.id == storage?.id);
         console.log(userProfiles, userRegisterProfile);
         console.log(userProfiles[0]?.attributes?.profile_photo?.data[0]?.attributes?.url);
         console.log(userRegisterProfile[0]?.attributes?.profile_photo?.data[0]?.attributes?.url);
-        setUserProfile(userRegisterProfile[0]?.attributes?.profile_photo?.data[0]?.attributes?.url != undefined ? userRegisterProfile[0]?.attributes?.profile_photo?.data[0]?.attributes?.url
-            : userProfiles[0]?.attributes?.profile_photo?.data[0]?.attributes?.url);
+        setUserProfile(userRegisterProfile[0]?.attributes?.profile_photo?.data[0]?.attributes?.url != undefined ? userRegisterProfile[0]?.attributes?.profile_photo?.data[0]?.attributes?.url: userProfiles[0]?.attributes?.profile_photo?.data[0]?.attributes?.url);
       } catch (error) {
         console.error(error);
       }
     }
 
     getUser();
-  }, [storage]);
+  }, [storage,storage?.user_profile?.id]);
   useEffect(() => {
     if (pathname == "/admin/welcome") {
       setAdminLogin(true);
@@ -217,14 +210,16 @@ const Header = () => {
 
         {storage && (
           <div className="relative max-md:right-10 right-[2rem] group dropdown">
-           {userProfile && <Image className="rounded-full max-w-[45px]"
-             loader={imgLoader}
+           {userProfile && (
+           <Image className="rounded-full max-w-[45px]"
+            //  loader={imgLoader}
              src={`http://172.105.57.17:1337${userProfile}`}
              width="100"
              height="100"
              unoptimized
              alt="avatar"
            />
+           )      
 }
           
             <div className="absolute group-hover:block dropdown-menu hidden h-auto right-2 shadow-lg z-50 bg-white">
@@ -277,6 +272,17 @@ const Header = () => {
               </p>
             </div>
           </div>
+        )}
+
+        {!userProfile && (
+          <Image className="rounded-full max-w-[45px]"
+          //  loader={imgLoader}
+           src={avatar}
+           width="100"
+           height="100"
+           unoptimized
+           alt="avatar"
+         />
         )}
       </div>
 

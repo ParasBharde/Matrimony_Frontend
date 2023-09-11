@@ -70,14 +70,11 @@ const Right = () => {
   var phoneRegex = /^(?:(?:(?:\+|0{0,2})91(\s*[\-\s]\s*)?|[0]?)?[789]\d{9})$/;
 
   const validate = () => {
-    if (!(user && email && password)) {
+    if (!(user && password)) {
       toast.error("Enter All Fields");
       return false;
     }else if (!phoneRegex.test(user)) {
       toast.error("Please enter a valid phone number");
-      return false;
-    }else if (!emailRegex.test(email)) {
-      toast.error("Enter Valid Email");
       return false;
     }else if (password.length < 8) {
       toast.error("Password must contain 8 or more characters");
@@ -96,6 +93,26 @@ const Right = () => {
       <p className="text-dark font-[500] text-[14px] opacity-50 max-lg:text-white">
         Welcome back! Please enter your details
       </p>
+      {/* <div className="xl:w-[40%] lg:w-[50%] sm:w-[60%] w-full flex flex-col justify-center items-center">
+          <Image src={a2} alt="a2" />
+          <p className="text-dark font-[600] text-[24px] mt-10 ">
+            Welcome Back
+          </p>
+          <p className="text-dark font-[500] text-[14px] opacity-50">
+            Welcome back! Please enter your details
+          </p> */}
+
+      <div className="mt-7 max-md:mt-[0.75rem] lg:w-[400px] sm:w-[300px] w-[90%]">
+        <p className="text-dark font-[500] text-[14px]">Email</p>
+        <input
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
+          placeholder="Enter Your Email"
+          className="border border-[#E1E1E1] lg:w-[400px] sm:w-[300px] w-[100%] py-2 px-8 rounded-md text-black"
+        />
+      </div>
       <div className="mt-7 max-md:mt-[0.75rem] lg:w-[400px] sm:w-[300px] w-[90%]">
         <p className="text-dark font-[500] text-[14px] max-lg:text-white">
           Username*
@@ -108,26 +125,6 @@ const Right = () => {
           type={"number"}
           onWheel={(event) => event.currentTarget.blur()}
           placeholder="Enter Mobile Number"
-          className="border border-[#E1E1E1] lg:w-[400px] sm:w-[300px] w-[100%] py-2 px-8 rounded-md text-black"
-        />
-      </div>
-      {/* <div className="xl:w-[40%] lg:w-[50%] sm:w-[60%] w-full flex flex-col justify-center items-center">
-          <Image src={a2} alt="a2" />
-          <p className="text-dark font-[600] text-[24px] mt-10 ">
-            Welcome Back
-          </p>
-          <p className="text-dark font-[500] text-[14px] opacity-50">
-            Welcome back! Please enter your details
-          </p> */}
-
-      <div className="mt-7 max-md:mt-[0.75rem] lg:w-[400px] sm:w-[300px] w-[90%]">
-        <p className="text-dark font-[500] text-[14px]">Email*</p>
-        <input
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-          placeholder="Enter Your Email"
           className="border border-[#E1E1E1] lg:w-[400px] sm:w-[300px] w-[100%] py-2 px-8 rounded-md text-black"
         />
       </div>

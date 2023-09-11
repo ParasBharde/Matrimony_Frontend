@@ -50,7 +50,7 @@ const Profiledetail = () => {
     if (router.query.id) {
       increaseViews(userIdD,id);
     }
-  }, [router.query.id, userIdD]);
+  }, [router.query.id, userIdD,id]);
 
   useEffect(() => {
     if (id) {

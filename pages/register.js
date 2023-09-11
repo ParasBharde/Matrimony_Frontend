@@ -44,10 +44,12 @@ const Register = () => {
     };
 
     axios(config)
-      .then(function (response) {
-       
-          console.log("First User Registered", response.data);
+      .then(function (res) {
+          console.log("First User Registered", res.data);
           toast.success("Account Created");
+          localStorage.setItem("userLogin", JSON.stringify(res.data.user));
+          sessionStorage.setItem("userLogin", JSON.stringify(res.data.user));
+
           var data2 = JSON.stringify({
             data: {
               first_name: rg2.firstName,
@@ -66,6 +68,8 @@ const Register = () => {
               phone_number: rg2.phoneNumber,
               caste: rg2.caste,
               marriage_status: rg2.marriageStatus,
+              aadhar_number:rg2.aadharNo,
+              txr_certificate:rg2.tcrCertificate,
               profile_photo: rg2.profileImages,
               father_name: rg3.fatherName,
               mother_name: rg3.motherName,
@@ -99,7 +103,9 @@ const Register = () => {
               username: rg1.user,
               email: rg1.email,
               password: rg1.pass,
-              user: response.data.user.id,
+              user: res.data.user.id,
+             
+
             },
           });
 
@@ -143,11 +149,14 @@ const Register = () => {
                 localStorage.clear("rg3");
                 localStorage.clear("rg4");
                 localStorage.setItem("user", JSON.stringify(response.data.data));
-                console.log(response.data.data,'after Register')
+                localStorage.setItem("userLogin", JSON.stringify(res.data));
               }
 
+              localStorage.setItem("userLogin", JSON.stringify(res.data));
               localStorage.setItem("user", JSON.stringify(response.data.data));
+              
               console.log(response.data.data,'after Register')
+              console.log('uuuuser',res.data)
 
             })
             .catch(function (error) {

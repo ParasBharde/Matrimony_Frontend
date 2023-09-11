@@ -32,8 +32,9 @@ const Portfoliodetails = ({ allprofiles, total }) => {
   const [checkStatus, setcheckStatus] = useState("");
   const [checkExpired, setcheckExpired] = useState("");
   const [getRegister, setRegister] = useState([]);
+
   const isUid = getRegister.length > 0 ? getRegister[0]?.id : storageData?.id;
-  console.log(isUid);
+  console.log(getRegister[0]?.id , storageData?.id);
 
   useEffect(() => {
     axios
@@ -98,9 +99,10 @@ const Portfoliodetails = ({ allprofiles, total }) => {
     }
   }, [storageData]);
 
-
+  
   useEffect(() => {
     const check =  storageData?.user_profile?.id != undefined ?  storageData?.user_profile?.id : storageData?.id;
+    console.log(check)
     if (storageData) {
       async function getUser() {
         try {
@@ -108,7 +110,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
             `http://172.105.57.17:1337/api/users?populate=user_profile`
           );
           const data = response.data.filter((u) => u.user_profile.id === check);
-          console.log(data);
+          console.log('regidata',data);
           setRegister(data);
         } catch (error) {
           console.error(error);
@@ -228,13 +230,14 @@ const Portfoliodetails = ({ allprofiles, total }) => {
 
   // like profile code start
   const handleLike = (itms) => {
-    console.log(itms);
     let data = JSON.stringify({
       data: {
         user_permissions_user: isUid,
         user_profile: itms.id,
       },
     });
+    console.log(data);
+
     var config = {
       method: "post",
       maxBodyLength: Infinity,
@@ -801,11 +804,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                           className="absolute top-0 right-0 m-2 rounded flex items-center justify-center w-10 h-11 text-white text-sm font-bold"
                         >
                           <svg
-                            className={`absolute rounded ${
-                              storageData
-                                ? "cursor-pointer"
-                                : "cursor-not-allowed"
-                            } fill-current hover:text-[#F98B1D] ${
+                            className={`absolute rounded ${storageData? "cursor-pointer": "cursor-not-allowed"} fill-current hover:text-[#F98B1D] ${
                               isProfileLiked(itms.id) && "text-[#F98B1D]"
                             }`}
                             id="heart"
@@ -819,6 +818,8 @@ const Portfoliodetails = ({ allprofiles, total }) => {
                                 let res = isProfileLiked(itms.id);
                                 console.log("res", res);
                                 if (res != true) {
+                                console.log("res", res != true);
+
                                   handleLike(itms);
                                 } else {
                                   // toast.error('Already Liked');
