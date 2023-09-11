@@ -129,7 +129,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
       setPhoneNumber(jrg.phoneNumber);
       setMarriageStatus(jrg.marriageStatus);
     }
-  }, []);
+  }, [aadharNo]);
 
   useEffect(() => {
     if (selectedFile) {

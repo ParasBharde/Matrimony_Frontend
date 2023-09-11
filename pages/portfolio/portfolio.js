@@ -15,8 +15,8 @@ const Portfolio = () => {
   console.log(storageData);
 
   
+  const check =  storageData?.user_profile?.id != undefined ?  storageData?.user_profile?.id: storageData?.id;
   useEffect(() => {
-    const check =  storageData?.user_profile?.id != undefined ?  storageData?.user_profile?.id: storageData?.id;
     async function getUser() {
       var config = {
         method: "get",
@@ -43,7 +43,7 @@ const Portfolio = () => {
         });
     }
     getUser();
-  }, [storageData, storageData?.user_profile?.id,storageData?.id]);
+  }, [storageData, check]);
 
 console.log('filteredProfiles',filteredProfiles)
   const calculateAge = useCalculateAge();
