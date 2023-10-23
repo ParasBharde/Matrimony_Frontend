@@ -274,7 +274,7 @@ const Header = () => {
           </div>
         )}
 
-        {!userProfile && (
+        {/* {!userProfile && (
           <Image className="rounded-full max-w-[45px]"
           //  loader={imgLoader}
            src={avatar}
@@ -283,7 +283,7 @@ const Header = () => {
            unoptimized
            alt="avatar"
          />
-        )}
+        )} */}
       </div>
 
     </div>

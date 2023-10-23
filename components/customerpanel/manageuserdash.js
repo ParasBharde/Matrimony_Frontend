@@ -6,14 +6,43 @@ import Link from "next/link";
 import axios from "axios";
 import profile from "@/assets/profile.png";
 import { useRouter } from "next/router";
+import { useCalculateAge } from "@/hooks/useCalculateAge";
 
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 
-const Manageuserdash = () => {
+const Manageuserdash = ({ handleFilterQuery,allprofiles }) => {
   const router = useRouter();
+  const stars = [
+    "Choose",
+    "Aries",
+    "Taurus",
+    "Gemini",
+    "Cancer",
+    "Leo",
+    "Virgo",
+    "Libra",
+    "Scorpius",
+    "Sagittarius",
+    "Capricornus",
+    "Aquarius",
+    "Pisces",
+  ];
+  const marriageStatuses = [
+    "Choose",
+    "Single",
+    "Married",
+    "Widowed",
+    "Divorced",
+    "Separated",
+    "Registerd-Partnership",
+  ];
+  const [userData, setUserData] = useState([]);
 
+  const lookingfor = ["Choose", "Groom", "Bride"];
   const [profiles, setProfiles] = useState([]);
+  const [filteredProfiles, setFilteredProfiles] = useState({});
+
   const [search, setSearch] = useState("");
   const [profileToShow, setProfileToShow] = useState([]);
   const [length, setLength] = useState(0);
@@ -25,6 +54,37 @@ const Manageuserdash = () => {
   const [ids, setIds] = useState([]);
   const [downloadProfile, setDownloadProfile] = useState([]);
   const inputRef = useRef(false);
+  const calculateAge = useCalculateAge();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [zodiac, setZodiac] = useState("Choose");
+  const [minAge, setMinAge] = useState("");
+  const [maxAge, setMaxAge] = useState("");
+  const [gender, setGender] = useState("Choose");
+  const [maritalStatus, setMaritalStatus] = useState("Choose");
+  const [education, setEducation] = useState("");
+  const handleApplyFilters = () => {
+    const filters = {
+      zodiac,
+      minAge,
+      maxAge,
+      gender,
+      maritalStatus,
+      education,
+    };
+
+    handleFilterQuery(filters);
+  };
+
+useEffect(() => {
+  if (allprofiles.length > 0) {
+    setProfiles(allprofiles);
+  setUserData(allprofiles)
+
+  }
+},[allprofiles])
+console.log(userData)
+console.log(allprofiles)
+
 
   const getAllProfiles = () => {
     var config = {
@@ -38,6 +98,7 @@ const Manageuserdash = () => {
       .then(function (response) {
         setProfiles(response.data.data);
         setProfileToShow(response.data.data);
+        setFilteredProfiles(response.data.data);
         setuname(response?.data?.data?.attributes?.username);
         setuname(response?.data?.data?.id);
         setLength(Math.ceil(response.data.data.length / 10));
@@ -48,7 +109,6 @@ const Manageuserdash = () => {
       });
   };
 
-  // fetch downloded profiles
   useEffect(() => {
     axios
       .get(
@@ -61,8 +121,8 @@ const Manageuserdash = () => {
       .catch((error) => {
         console.log("error", error);
       });
-  }, []);
-  // get downloded profiles count
+  }, [zodiac,minAge,maxAge,gender,maritalStatus,education]);
+
   const getDownlodCount = (id) => {
     let count = 0;
     if (downloadedProfile.length > 0) {
@@ -184,25 +244,24 @@ const Manageuserdash = () => {
   };
 
   // download pdf functionality code .
-  function generatePDF() {
+  function generateAddressPDF() {
     let doc = new jsPDF("p", "mm", "a3", "portrait");
     let info = [];
     downloadProfile.forEach((p, index, array) => {
       console.log("element ", index, p);
+      const age = calculateAge(p.attributes.date_of_birth);
+
       info.push([
         p.id,
         p.attributes.first_name,
         p.attributes.last_name,
-        p.attributes.email,
-        p.attributes.Color,
-        p.attributes.father_name,
-        p.attributes.Height,
-        p.attributes.mother_name,
-        p.attributes.Salary_monthly_income,
+        p.attributes.zodiacs_sign,
+        age,
+        p.attributes.Chooese_groom_bride === "Groom" ? "Male" : "Female",
+        p.attributes.marriage_status,
+        p.attributes.educational_qualification,
+        p.attributes.phone_number,
         p.attributes.address,
-        p.attributes.birth_time,
-        p.attributes.birthplace,
-        p.attributes.date_of_birth,
       ]);
     });
 
@@ -212,16 +271,13 @@ const Manageuserdash = () => {
           "Id",
           "First Name",
           "Last Name",
-          "Email",
-          "Color",
-          "Father Name",
-          "Height",
-          "Mother Name",
-          "Salary",
+          "Zodiacs Sign",
+          "Age",
+          "Gender",
+          "Marriage Status",
+          "Educational Qualification",
+          "Contact Number",
           "Address",
-          "Birth Time",
-          "Birth Place",
-          "Date of Birth",
         ],
       ],
       margin: { top: 1, left: 1, right: 1, bottom: 1 },
@@ -236,9 +292,264 @@ const Manageuserdash = () => {
     inputRef.current.checked = false;
   }
 
+  function generatePDF() {
+    let doc = new jsPDF("p", "mm", "a3", "portrait");
+    let info = [];
+    downloadProfile.forEach((p, index, array) => {
+      console.log("element ", index, p);
+      const age = calculateAge(p.attributes.date_of_birth);
+      info.push([
+        p.id,
+        p.attributes.first_name,
+        p.attributes.last_name,
+        p.attributes.zodiacs_sign,
+        age,
+        p.attributes.Chooese_groom_bride === "Groom" ? "Male" : "Female",
+        p.attributes.marriage_status,
+        p.attributes.educational_qualification,
+      ]);
+    });
+
+    doc.autoTable({
+      head: [
+        [
+          "Id",
+          "First Name",
+          "Last Name",
+          "Zodiacs Sign",
+          "Age",
+          "Gender",
+          "Marriage Status",
+          "Educational Qualification",
+        ],
+      ],
+      margin: { top: 1, left: 1, right: 1, bottom: 1 },
+      headStyles: { fillColor: [255, 127, 0] },
+      alternateRowStyles: { fillColor: [255, 224, 204] },
+      body: info,
+    });
+
+    doc.save(`${uname}(${uid})`);
+    setIds([]);
+    setSelectedRows(Array(profileToShow.length).fill(false));
+    inputRef.current.checked = false;
+  }
+
+  const handleDownload = () => {
+    setModalOpen(!modalOpen);
+  };
+
+  const handleAdd = () => {
+    if (downloadProfile.length > 0) {
+      setModalOpen(!modalOpen);
+      generateAddressPDF();
+    }
+  };
+
+  const handleClose = () => {
+    if (downloadProfile.length > 0) {
+      setModalOpen(!modalOpen);
+      generatePDF();
+    }
+  };
+
+  // const handleFilterQuery = () => {
+  //   if (
+  //     gender == "Choose" &&
+  //     zodiac == "Choose" &&
+  //     minAge == "" &&
+  //     maxAge == "" &&
+  //     maritalStatus == "Choose" &&
+  //     education == ""
+  //   ) {
+  //     setFilteredProfiles(profiles);
+  //     setTotal(profiles.length);
+  //     return;
+  //   }
+  //   let filteredProfiles = profiles;
+  //   if (gender != "Choose") {
+  //     filteredProfiles = filteredProfiles
+  //       .filter((profile) => {
+  //         return profile.attributes.Chooese_groom_bride == gender;
+  //       })
+  //       .map((u) => u);
+  //   }
+
+  //   if (zodiac != "Choose") {
+  //     filteredProfiles = filteredProfiles.filter((profile) => {
+  //       return profile.attributes.zodiacs_sign == zodiac;
+  //     });
+  //   }
+
+  //   if (minAge != undefined && minAge != "") {
+  //     let queryAgeFrom = Number(minAge);
+  //     filteredProfiles = filteredProfiles.filter((profile) => {
+  //       const age = calculateAge(profile.attributes.date_of_birth);
+  //       return age >= queryAgeFrom;
+  //     });
+  //   }
+
+  //   if (maxAge != undefined && maxAge != "") {
+  //     let queryAgeTo = Number(maxAge);
+  //     filteredProfiles = filteredProfiles.filter((profile) => {
+  //       const age = calculateAge(profile.attributes.date_of_birth);
+  //       return age <= queryAgeTo;
+  //     });
+  //   }
+
+  //   if (maritalStatus != "Choose") {
+  //     filteredProfiles = filteredProfiles.filter((profile) => {
+  //       return profile.attributes.marriage_status == maritalStatus;
+  //     });
+  //   }
+
+  //   if (education != "") {
+  //     filteredProfiles = filteredProfiles.filter((profile) => {
+  //       console.log(profile);
+  //       return profile.attributes.educational_qualification == education;
+  //     });
+  //   }
+
+  //   setFilteredProfiles(filteredProfiles);
+  //   setTotal(filteredProfiles.length);
+  // };
+
   return (
     <>
-      <div className="lg:txt lg:flex md:flex mx-14 relative mt-10 justify-between lg:items-center">
+      {modalOpen && (
+        <div className="w-screen h-screen fixed flex justify-center items-center z-50 backdrop-blur-sm">
+          <div className="bg-slate-100 border border-black rounded-md px-4">
+            <div className="py-2 flex justify-between items-center">
+              <h3 className="font-semibold text-red-500">Confirmation</h3>
+              <span
+                className="cursor-pointer bg-slate-200 px-2 rounded-md"
+                onClick={() => {
+                  setModalOpen(false);
+                }}
+              >
+                <i className="fa-solid fa-xmark text-xl"></i>
+              </span>
+            </div>
+            <hr />
+            <div>
+              <div className="flex py-4">
+                <p className="font-semibold">
+                  Do you want to add mobile number and address?
+                </p>
+              </div>
+              <div className="mb-5 flex justify-end">
+                <button
+                  onClick={handleClose}
+                  className="px-5 py-1 rounded bg-red-500 mr-3"
+                >
+                  No
+                </button>
+                <button
+                  onClick={handleAdd}
+                  className="px-5 py-1 rounded bg-green-500 mr-3"
+                >
+                  Yes
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      <div className="p-2 bg-white flex  items-center mt-5 ">
+        <div className="ml-[17rem]">
+          <div className="flex mb-2">
+            <div className="flex flex-col mr-10">
+              <label htmlFor="zodiac">Zodiac:</label>
+              <select
+                value={zodiac}
+                onChange={(e) => setZodiac(e.target.value)}
+                className="border-gray-200 w-[200px] py-2 mb-3 text-violet11 h-[2.5rem] rounded bg-white border-2 outline-none hover:bg-violet3 focus:shadow-[0_0_0_2px]"
+              >
+                {stars.map((item, index) => {
+                  return (
+                    <option key={index} value={item}>
+                      {item}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            <div className="flex flex-col mr-10">
+              <label htmlFor="minAge">Min Age:</label>
+              <input
+                type="number"
+                id="minAge"
+                value={minAge}
+                onChange={(e) => setMinAge(e.target.value)}
+                className="border-gray-200 w-[200px] py-2 mb-3 text-violet11 h-[2.5rem] rounded bg-white border-2 outline-none hover:bg-violet3 focus:shadow-[0_0_0_2px]"
+                placeholder="From"
+              />
+            </div>
+            <div className="flex flex-col mr-10">
+              <label htmlFor="maxAge">Max Age:</label>
+              <input
+                type="number"
+                id="maxAge"
+                value={maxAge}
+                onChange={(e) => setMaxAge(e.target.value)}
+                className="border-gray-200 w-[200px] py-2 mb-3 text-violet11 h-[2.5rem] rounded bg-white border-2 outline-none hover:bg-violet3 focus:shadow-[0_0_0_2px]"
+                placeholder="To"
+              />
+            </div>
+          </div>
+          <div className="flex">
+            <div className="flex flex-col mr-10">
+              <label htmlFor="gender">Gender:</label>
+              <select
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
+                className="border-gray-200 w-[200px] py-2 mb-3 text-violet11 h-[2.5rem] rounded bg-white border-2 outline-none hover:bg-violet3 focus:shadow-[0_0_0_2px]"
+              >
+                {lookingfor.map((item, index) => {
+                  return (
+                    <option key={index} value={item}>
+                      {item}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            <div className="flex flex-col mr-10">
+              <label htmlFor="maritalStatus">Marital Status:</label>
+              <select
+                value={maritalStatus}
+                onChange={(e) => setMaritalStatus(e.target.value)}
+                className="border-gray-200 w-[200px] py-2 mb-3 text-violet11 h-[2.5rem] rounded bg-white border-2 outline-none hover:bg-violet3 focus:shadow-[0_0_0_2px]"
+              >
+                {marriageStatuses.map((item, index) => {
+                  return (
+                    <option key={index} value={item}>
+                      {item}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            <div className="flex flex-col mr-10">
+              <label htmlFor="education">Education:</label>
+              <input
+                type="text"
+                id="education"
+                value={education}
+                onChange={(e) => setEducation(e.target.value)}
+                className="border-gray-200 w-[200px] py-2 mb-3 text-violet11 h-[2.5rem] rounded bg-white border-2 outline-none hover:bg-violet3 focus:shadow-[0_0_0_2px]"
+              />
+            </div>
+          </div>
+        </div>
+        <button
+          onClick={handleApplyFilters}
+          className="bg-blue-500 text-white p-2 mt-2"
+        >
+          Apply Filters
+        </button>
+      </div>
+      <div className="lg:txt lg:flex md:flex mx-14 relative mt-4 justify-between lg:items-center">
         <span className="font-medium ml-60 align-self-center max-md:ml-0">
           Manage Users
         </span>
@@ -284,10 +595,10 @@ const Manageuserdash = () => {
 
           <button
             className={`px-5 rounded bg-orange-400 py-2 my-3 ${
-              downloadProfile.length <= 1 && "cursor-not-allowed"
+              downloadProfile.length <= 0 && "cursor-not-allowed"
             }`}
-            disabled={downloadProfile.length <= 1 ? true : false}
-            onClick={generatePDF}
+            disabled={downloadProfile.length <= 0 ? true : false}
+            onClick={handleDownload}
           >
             <span className="flex text-white max-md:justify-center">
               <svg
@@ -357,7 +668,7 @@ const Manageuserdash = () => {
             </tr>
           </thead>
           <tbody>
-            {profileToShow.map((item, index) => {
+            {userData?.map((item, index) => {
               return (
                 <tr key={index} className="bg-white border-b">
                   <td className="px-6 py-4">
@@ -447,7 +758,7 @@ const Manageuserdash = () => {
                     </svg>
                     <button
                       disabled={downloadProfile.length != 1 ? true : false}
-                      onClick={generatePDF}
+                      onClick={handleDownload}
                       className={`${
                         downloadProfile.length != 1
                           ? "cursor-not-allowed"

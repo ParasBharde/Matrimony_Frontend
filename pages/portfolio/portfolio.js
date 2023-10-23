@@ -61,19 +61,19 @@ console.log('filteredProfiles',filteredProfiles)
     }
 
     let filteredProfiles = profiles;
-    if (query.looking != "Choose") {
+    if (query.looking !== "Choose") {
       filteredProfiles = filteredProfiles.filter((profile) => {
         return profile.attributes.Chooese_groom_bride == query.looking;
       });
     }
 
-    if (query.star != "Choose") {
+    if (query.star !== "Choose") {
       filteredProfiles = filteredProfiles.filter((profile) => {
         return profile.attributes.star == query.star;
       });
     }
 
-    if (query.ageFrom != undefined && query.ageFrom != "") {
+    if (query.ageFrom !== undefined && query.ageFrom !== "") {
       let queryAgeFrom = Number(query.ageFrom);
       filteredProfiles = filteredProfiles.filter((profile) => {
         const age = calculateAge(profile.attributes.date_of_birth);
@@ -81,7 +81,7 @@ console.log('filteredProfiles',filteredProfiles)
       });
     }
 
-    if (query.ageTo != undefined && query.ageTo != "") {
+    if (query.ageTo !== undefined && query.ageTo !== "") {
       let queryAgeTo = Number(query.ageTo);
       filteredProfiles = filteredProfiles.filter((profile) => {
         const age = calculateAge(profile.attributes.date_of_birth);
@@ -89,7 +89,7 @@ console.log('filteredProfiles',filteredProfiles)
       });
     }
 
-    if (query.marriageStatus != "Choose") {
+    if (query.marriageStatus !== "Choose") {
       filteredProfiles = filteredProfiles.filter((profile) => {
         return profile.attributes.marriage_status == query.marriageStatus;
       });

@@ -15,27 +15,26 @@ const Customerpofile = () => {
   const [profileImg, setProfileImg] = useState();
   const [img, setImg] = useState();
   const [modalOpen, setModalOpen] = useState(false);
-  // const [isDeleteProfile, setIsDeleteProfile] = useState(false);
-const [uname, setuname] = useState('')
-const [uid, setuid] = useState('')
+  const [uname, setuname] = useState("");
+  const [uid, setuid] = useState("");
 
   const router = useRouter();
   // const storageData = useStorage();
-console.log(userProfile)
+
   useEffect(() => {
     console.log("getting user", router.query.id);
     if (router.query.id) {
       axios
         .get(
-          `http://172.105.57.17:1337/api/profiles/${router.query.id}?populate=%2A`
+          `http://172.105.57.17:1337/api/profiles/${router?.query.id}?populate=%2A`
         )
         .then((response) => {
-          // console.log("response", response.data.data);
-          setUserProfile(response?.data?.data);
-          setuname(response?.data?.data?.attributes?.username);
-          setuid(response?.data?.data?.id);
-
-
+          console.log("response", response.data.data);
+          if (response) {
+            setUserProfile(response?.data?.data);
+            setuname(response?.data?.data?.attributes?.username);
+            setuid(response?.data?.data?.id);
+          }
         })
         .catch((error) => {
           console.error("error", error);
@@ -43,6 +42,7 @@ console.log(userProfile)
     }
   }, [router?.query?.id]);
 
+  console.log(userProfile);
   useEffect(() => {
     if (userProfile) {
       setProfileImg(userProfile?.attributes?.profile_photo?.data);
@@ -50,7 +50,7 @@ console.log(userProfile)
     }
   }, [userProfile]);
 
-  console.log(uname,'123')
+  console.log(uname, "123");
   function downloadPdf() {
     const input = document.getElementById("pdf-content");
     html2canvas(input, {
@@ -172,51 +172,50 @@ console.log(userProfile)
           </div>
         </div>
       )}
-    <div className="flex justify-end space-x-2 mt-2 max-md:hidden mr-10 max-md:justify-center max-sm:justify-center">
-            
-            <button
-              className="px-5 rounded  bg-orange-400 py-1.5"
-              onClick={downloadPdf}
+      <div className="flex justify-end space-x-2 mt-2 max-md:hidden mr-10 max-md:justify-center max-sm:justify-center">
+        <button
+          className="px-5 rounded  bg-orange-400 py-1.5"
+          onClick={downloadPdf}
+        >
+          <Link className="flex text-white" href="#">
+            <svg
+              className="mr-2 mt-1"
+              width="17"
+              height="16"
+              viewBox="0 0 17 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <Link className="flex text-white" href="#">
-                <svg
-                  className="mr-2 mt-1"
-                  width="17"
-                  height="16"
-                  viewBox="0 0 17 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M14.5 11V14H2.5V11H0.5V14C0.5 15.1 1.4 16 2.5 16H14.5C15.6 16 16.5 15.1 16.5 14V11H14.5ZM13.5 7L12.09 5.59L9.5 8.17V0H7.5V8.17L4.91 5.59L3.5 7L8.5 12L13.5 7Z"
-                    fill="white"
-                  />
-                </svg>
-                Download
-              </Link>
-            </button>
-            <button
-              onClick={() => setModalOpen(true)}
-              className="px-5 rounded bg-orange-600 py-1.5"
+              <path
+                d="M14.5 11V14H2.5V11H0.5V14C0.5 15.1 1.4 16 2.5 16H14.5C15.6 16 16.5 15.1 16.5 14V11H14.5ZM13.5 7L12.09 5.59L9.5 8.17V0H7.5V8.17L4.91 5.59L3.5 7L8.5 12L13.5 7Z"
+                fill="white"
+              />
+            </svg>
+            Download
+          </Link>
+        </button>
+        <button
+          onClick={() => setModalOpen(true)}
+          className="px-5 rounded bg-orange-600 py-1.5"
+        >
+          <span className="flex text-white">
+            <svg
+              className="mr-2 mt-1"
+              width="17"
+              height="16"
+              viewBox="0 0 15 18"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <span className="flex text-white">
-                <svg
-                  className="mr-2 mt-1"
-                  width="17"
-                  height="16"
-                  viewBox="0 0 15 18"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1.5 16C1.5 17.1 2.4 18 3.5 18H11.5C12.6 18 13.5 17.1 13.5 16V4H1.5V16ZM14.5 1H11L10 0H5L4 1H0.5V3H14.5V1Z"
-                    fill="white"
-                  />
-                </svg>
-                Delete
-              </span>
-            </button>
-          </div>
+              <path
+                d="M1.5 16C1.5 17.1 2.4 18 3.5 18H11.5C12.6 18 13.5 17.1 13.5 16V4H1.5V16ZM14.5 1H11L10 0H5L4 1H0.5V3H14.5V1Z"
+                fill="white"
+              />
+            </svg>
+            Delete
+          </span>
+        </button>
+      </div>
       <div className="parent w-screen">
         <table className="child table-auto" id="pdf-content">
           <div className="table_header flex">
@@ -231,7 +230,6 @@ console.log(userProfile)
                 </td>
               </div>
             </thead>
-        
           </div>
 
           <div className="first_content p-4 sm:ml-64 ">
@@ -261,63 +259,60 @@ console.log(userProfile)
                     <span>{date_of_birth}</span>
                   </div>
                 </div>
-                <div className="flex items-center justify-center h-24 max-md:hidden">
+                <div className="flex flex-col ml-[-8rem] items-center h-24 gap-4 max-md:hidden w-96 mt-[-4rem]">
                   <div className="second_item_admin relative  max-md:w-full">
                     <Image
-                      className="img_profile object-contain w-40 h-60"
+                      className=" object-contain"
                       object-fit
-                      sizes="(max-width: 768px) 100vw,
-                               (max-width: 1200px) 50vw,
-                               33vw"
                       src={
                         profileImg
-                          ? `http://172.105.57.17:1337${profileImg?.[0]?.attributes?.url}`
+                          ? `http://172.105.57.17:1337${profileImg[0]?.attributes?.url}`
                           : profile
                       }
-                      width={80}
-                      height={80}
+                      width={250}
+                      height={100}
                       alt="logo"
                     />
-                    <div className="flex max-w-max">
-                      <div className="grow max-w-full">
-                        <Image
-                          className="img_profile_g"
-                          src={
-                            profileImg
-                              ? `http://172.105.57.17:1337${profileImg?.[1]?.attributes?.url}`
-                              : profile
-                          }
-                          width={80}
-                          height={80}
-                          alt="logo"
-                        />
-                      </div>
-                      <div className="grow max-w-full">
-                        <Image
-                          className="img_profile_g"
-                          src={
-                            profileImg
-                              ? `http://172.105.57.17:1337${profileImg?.[2]?.attributes?.url}`
-                              : profile
-                          }
-                          width={80}
-                          height={80}
-                          alt="logo"
-                        />
-                      </div>
-                      <div className="grow max-w-full">
-                        <Image
-                          className="img_profile_g"
-                          src={
-                            profileImg
-                              ? `http://172.105.57.17:1337${profileImg?.[3]?.attributes?.url}`
-                              : profile
-                          }
-                          width={80}
-                          height={80}
-                          alt="logo"
-                        />
-                      </div>
+                  </div>
+                  <div className="flex max-w-max gap-4">
+                    <div className="grow max-w-full">
+                      <Image
+                        className="img_profile_g"
+                        src={
+                          profileImg
+                            ? `http://172.105.57.17:1337${profileImg[1]?.attributes?.url}`
+                            : profile
+                        }
+                        width={150}
+                        height={150}
+                        alt="logo"
+                      />
+                    </div>
+                    <div className="grow max-w-full">
+                      <Image
+                        className="img_profile_g"
+                        src={
+                          profileImg
+                            ? `http://172.105.57.17:1337${profileImg[2]?.attributes?.url}`
+                            : profile
+                        }
+                        width={150}
+                        height={150}
+                        alt="logo"
+                      />
+                    </div>
+                    <div className="grow max-w-full">
+                      <Image
+                        className="img_profile_g"
+                        src={
+                          profileImg
+                            ? `http://172.105.57.17:1337${profileImg[3]?.attributes?.url}`
+                            : profile
+                        }
+                        width={150}
+                        height={150}
+                        alt="logo"
+                      />
                     </div>
                   </div>
                 </div>
@@ -719,30 +714,18 @@ console.log(userProfile)
 
           {/* Horoscope Chart */}
           <div className="fourth_content">
-            <span className="sec_text ">Horoscope Chart</span>
+            <span className="sec_text">Horoscope Chart</span>
             <div className="tb_dt flex flex-wrap ">
-              {/* <Image src={horos} alt="img" />
-              <Image src={horos1} alt="img" /> */}
-              <Image
-                src={
-                  img
-                    ? `http://172.105.57.17:1337${img?.[0]?.attributes?.url}`
-                    : horos
-                }
-                width={250}
-                alt="img"
-                height={250}
-              />
-              <Image
-                src={
-                  img
-                    ? `http://172.105.57.17:1337${img?.[1]?.attributes?.url}`
-                    : horos1
-                }
-                width={250}
-                alt="img"
-                height={250}
-              />
+              {img?.map((item, index) => (
+                <div key={index} className="w-1/2 mb-4">
+                  <Image
+                    src={`http://172.105.57.17:1337${item?.attributes?.url}`}
+                    width={250}
+                    height={250}
+                    alt="img"
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </table>

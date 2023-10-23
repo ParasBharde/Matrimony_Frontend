@@ -307,7 +307,7 @@ console.log(user,email,pass)
           </div>
         </div>
       </div>
-      <div className="checkbox-container">
+      <div className="checkbox-container gap-2 ml-5">
         <div
           onClick={handleCheckboxChange}
           className={`checkbox${isChecked ? " checked" : ""}`}
@@ -327,7 +327,7 @@ console.log(user,email,pass)
           onClick={() => {
             router.push("/termCondition");
           }}
-          className="ml-2 self-start"
+          className="self-start font-bold hover:text-blue-800 hover:underline"
         >
           I agree to the terms and conditions
         </a>
