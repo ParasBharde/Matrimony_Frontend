@@ -12,9 +12,7 @@ const nextConfig = {
         pathname: '/uploads/*',
       },
     ],
-    images: {
-      domains: ['172.105.57.17'],
-    },
+   
   },
 }
 const path = require('path')
