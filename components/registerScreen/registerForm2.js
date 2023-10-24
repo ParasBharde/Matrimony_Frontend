@@ -76,6 +76,9 @@ const RegisterForm2 = ({ screen, setScreen }) => {
   const [firstName, setFirstName] = useState("");
   const [groomOrBride, setGroomOrBride] = useState("Groom");
   const [dateOfBirth, setDateOfBirth] = useState("");
+  const [stateName, setStateName] = useState("");
+  const [districtName, setDistrictName] = useState("");
+  const [cityName, setCityName] = useState("");
 
   const [height, setHeight] = useState("");
   const [educationalQualifications, setEducationalQualifications] =
@@ -94,12 +97,21 @@ const RegisterForm2 = ({ screen, setScreen }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [marriageStatus, setMarriageStatus] = useState("Single");
   const [selectedFile, setSelectedFile] = useState(null);
-  const [selectedFileID, setselectedFileID] = useState(4);
+  const [selectedAadharFile, setAadharSelectedFile] = useState(null);
+  const [selectedFileID, setselectedFileID] = useState(0);
+  const [selectedAAdharFileID, setselectedAAdharFileID] = useState(0);
+
 
   const handleFileChange = (event) => {
     console.log(event);
     const file = event.target.files[0];
     setSelectedFile(file);
+  };
+
+  const handleAadharFileChange = (event) => {
+    console.log(event);
+    const file = event.target.files[0];
+    setAadharSelectedFile(file);
   };
 
   useEffect(() => {
@@ -129,7 +141,30 @@ const RegisterForm2 = ({ screen, setScreen }) => {
       setPhoneNumber(jrg.phoneNumber);
       setMarriageStatus(jrg.marriageStatus);
     }
-  }, [aadharNo]);
+  }, [aadharNo,height]);
+
+  useEffect(() => {
+    if (selectedAadharFile) {
+      var formdata = new FormData();
+      formdata.append("files", selectedAadharFile);
+      var requestOptions = {
+        method: "POST",
+        body: formdata,
+        redirect: "follow",
+      };
+      fetch("http://172.105.57.17:1337/api/upload", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+          setselectedAAdharFileID(result[0].id);
+          toast.success("Aadhar Uploaded Successfully");
+        })
+        .catch((error) => {
+          console.log("error", error);
+          setselectedAAdharFileID(0);
+        });
+    }
+  }, [selectedAadharFile]);
 
   useEffect(() => {
     if (selectedFile) {
@@ -145,11 +180,11 @@ const RegisterForm2 = ({ screen, setScreen }) => {
         .then((result) => {
           console.log(result);
           setselectedFileID(result[0].id);
-          toast.success("Image Uploaded Successfully");
+          toast.success("TCR certificate uploaded successfully");
         })
         .catch((error) => {
           console.log("error", error);
-          setFile1ID(4);
+          setselectedFileID(0);
         });
     }
   }, [selectedFile]);
@@ -240,7 +275,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
           setFile4ID(4);
         });
     }
-  }, [file4, height]);
+  }, [file4]);
 
   const beforeNextScreen = () => {
     const rg2 = {
@@ -262,11 +297,164 @@ const RegisterForm2 = ({ screen, setScreen }) => {
       phoneNumber,
       marriageStatus,
       tcrCertificate:selectedFileID,
-      aadharNo
+      aadharNo,
+      aadharCertificate:selectedAAdharFileID,
+      state:stateName,
+      district:districtName,
+      city:cityName
     };
     sessionStorage.setItem("rg2", JSON.stringify(rg2));
   };
-  console.log(marriageStatus);
+
+  const [isValid, setIsValid] = useState(true);
+  const [isHeightValid, setHeightValid] = useState(true);
+  const [isIncomeValid, setIncomeValid] = useState(true);
+  const [isFValid, setFValid] = useState(true);
+  const [isStateValid, setStateValid] = useState(true);
+  const [isDistrictValid, setDistrictValid] = useState(true);
+  const [isCityValid, setCityValid] = useState(true);
+
+  const [isLValid, setLValid] = useState(true);
+  const [isAadharValid, setAadharValid] = useState(true);
+
+  const handleHeight = (event) => {
+    const inputHeight = event?.target?.value;
+    console.log(inputHeight)
+    if (inputHeight > 250 || inputHeight < 1 || inputHeight === 1) {
+      setHeightValid(false);
+      setHeight("");
+    } else {
+      setHeight(inputHeight);
+      setHeightValid(true);
+    }
+  };
+
+  const handleIncome = (event) => {
+    const inputIncome = event?.target?.value;
+    if (!/^\d+$/.test(inputIncome) || parseInt(inputIncome) < 1) {
+      setIncomeValid(false);
+      setSalary("");
+    } else {
+      setSalary(inputIncome);
+      setIncomeValid(true);
+    }
+  };
+
+  const handleFname = (event) => {
+    const inputFirst = event?.target?.value;
+    var nameRegex = /\d/g;
+
+    if (nameRegex.test(inputFirst)) {
+      // toast.error("Name must not contain a number");
+      setFValid(false);
+      return false;
+    } else {
+      setFValid(true);
+      setFirstName(inputFirst);
+    }
+  };
+
+  const handleState = (event) => {
+    const inputFirst = event?.target?.value;
+    var nameRegex = /\d/g;
+
+    if (nameRegex.test(inputFirst)) {
+      setStateValid(false);
+      return false;
+    } else {
+      setStateValid(true);
+      setStateName(inputFirst);
+    }
+  };
+
+  const handleLname = (event) => {
+    const inputLast = event?.target?.value;
+    var nameRegex = /\d/g;
+
+    if (nameRegex.test(inputLast)) {
+      // toast.error("Name must not contain a number");
+      setLValid(false);
+      return false;
+    } else {
+      setLValid(true);
+      setLastName(inputLast);
+    }
+  };
+
+  const handleDisctrict = (event) => {
+    const inputLast = event?.target?.value;
+    var nameRegex = /\d/g;
+
+    if (nameRegex.test(inputLast)) {
+      setDistrictValid(false);
+      return false;
+    } else {
+      setDistrictValid(true);
+      setDistrictName(inputLast);
+    }
+  };
+
+  const handleCity = (event) => {
+    const inputLast = event?.target?.value;
+    var nameRegex = /\d/g;
+
+    if (nameRegex.test(inputLast)) {
+      setCityValid(false);
+      return false;
+    } else {
+      setCityValid(true);
+      setCityName(inputLast);
+    }
+  };
+
+  const handleDOBChange = (event) => {
+    const selectedDate = event?.target?.value;
+    const currentDate = new Date().toISOString().slice(0, 10); 
+  
+    if (selectedDate > currentDate) {
+      event.preventDefault();
+      setIsValid(false)
+      setDateOfBirth('');
+    } else {
+      setDateOfBirth(selectedDate);
+      setIsValid(true)
+
+    }
+  };
+
+  const handleAadhar = (e) => {
+    const inputAadhar = e?.target?.value;
+    const trimmedInput = inputAadhar?.replace(/\s/g, "");
+     if (inputAadhar?.length > 12) {
+      setAadharValid(false);
+    }else if (inputAadhar < 0 ) {
+      setAadharValid(false);
+
+    } else if (inputAadhar === "") {
+        setaadharNo(inputAadhar);
+        setAadharValid(true);
+    } else {
+      setaadharNo(inputAadhar);
+      setAadharValid(true);
+    }
+  };
+console.log(
+  'firstName',firstName ,
+  'lastName',lastName ,
+  'height',height ,
+  'dateOfBirth',dateOfBirth ,
+  'color',color ,
+  'educationalQualifications',educationalQualifications ,
+  careerDetails ,
+  salary ,
+  familyPropertyDetails ,
+  expectation ,
+  phoneNumber ,
+  caste ,
+  aadharNo ,
+  selectedFile , 
+  selectedAadharFile , 
+  cityName , stateName , districtName,star)
   var phoneRegex = /^(?:(?:\+91)|(?:91)|(?:0))?[7-9][0-9]{9}$/;
   var nameRegex = /\d/g;
   const validate = () => {
@@ -285,7 +473,9 @@ const RegisterForm2 = ({ screen, setScreen }) => {
         phoneNumber &&
         caste &&
         aadharNo &&
-        selectedFile
+        selectedFile && 
+        selectedAadharFile && 
+        cityName && stateName && districtName && star
       )
     ) {
       toast.error("Please Input all fields");
@@ -329,117 +519,19 @@ const RegisterForm2 = ({ screen, setScreen }) => {
       toast.error("Enter Aadhar Number");
       return false;
     }
-
+    handleHeight()
+    handleIncome()
+    handleFname()
+    handleState()
+    handleLname()
+    handleDisctrict()
+    handleCity()
+    handleDOBChange()
+    handleAadhar()
     return true;
   };
 
-  const [isValid, setIsValid] = useState(true);
-  const [isHeightValid, setHeightValid] = useState(true);
-  const [isIncomeValid, setIncomeValid] = useState(true);
-  const [isFValid, setFValid] = useState(true);
-  const [isLValid, setLValid] = useState(true);
-  const [isAadharValid, setAadharValid] = useState(true);
-  console.log(isAadharValid);
-  const handleHeight = (event) => {
-    const inputHeight = event.target.value;
-    if (inputHeight > 250 || inputHeight < 1 || inputHeight === 1) {
-      // toast.error("Please enter valid height!");
-      setHeightValid(false);
-      setHeight("");
-    } else {
-      setHeight(inputHeight);
-      setHeightValid(true);
-    }
-  };
 
-  const handleIncome = (event) => {
-    const inputIncome = event.target.value;
-    if (inputIncome < 1 || inputIncome === 1 || inputIncome === 0) {
-      // toast.error("Please enter valid height!");
-      setIncomeValid(false);
-      setSalary("");
-    } else {
-      setSalary(inputIncome);
-      setIncomeValid(true);
-    }
-  };
-
-  const handleFname = (event) => {
-    const inputFirst = event.target.value;
-    var nameRegex = /\d/g;
-
-    if (nameRegex.test(inputFirst)) {
-      // toast.error("Name must not contain a number");
-      setFValid(false);
-      return false;
-    } else {
-      setFValid(true);
-      setFirstName(inputFirst);
-    }
-  };
-
-  const handleLname = (event) => {
-    const inputLast = event.target.value;
-    var nameRegex = /\d/g;
-
-    if (nameRegex.test(inputLast)) {
-      // toast.error("Name must not contain a number");
-      setLValid(false);
-      return false;
-    } else {
-      setLValid(true);
-      setLastName(inputLast);
-    }
-  };
-
-  const handleDOBChange = (event) => {
-    const inputDate = event.target.value;
-    const pattern = /^\d{4}-\d{2}-\d{2}$/;
-
-    if (pattern.test(inputDate)) {
-      const [year, month, day] = inputDate.split("-");
-      const currentDate = new Date();
-      const enteredDate = new Date(year, month - 1, day);
-
-      const isValidDate =
-        !isNaN(year) &&
-        !isNaN(month) &&
-        !isNaN(day) &&
-        year <= currentDate.getFullYear() &&
-        month <= 12 &&
-        day <= 31 &&
-        enteredDate <= currentDate;
-
-      if (isValidDate) {
-        setDateOfBirth(inputDate);
-        setIsValid(true);
-      } else {
-        setIsValid(false);
-        // toast.error("Please enter valid date!");
-      }
-    } else {
-      // toast.error("Please enter valid date!");
-
-      setIsValid(false);
-    }
-  };
-
-  const handleAadhar = (e) => {
-    const inputAadhar = e.target.value;
-    const trimmedInput = inputAadhar.replace(/\s/g, "");
-     if (inputAadhar.length > 12) {
-      setAadharValid(false);
-    }else if (inputAadhar < 0 ) {
-      setAadharValid(false);
-
-    } else if (inputAadhar === "") {
-        setaadharNo(inputAadhar);
-        setAadharValid(true);
-    } else {
-      setaadharNo(inputAadhar);
-      setAadharValid(true);
-    }
-  };
 
   return (
     <>
@@ -466,6 +558,67 @@ const RegisterForm2 = ({ screen, setScreen }) => {
               className="w-full p-2 border border-gray-300 rounded"
             />
             {!isLValid && <p style={{ color: "red" }}>Invalid last name.</p>}
+          </div>
+        </div>
+        <div class="gri-wid grid grid-cols-2 gap-4">
+          <div className="pt-2">
+            <label className="block mb-1">State *</label>
+            <input
+              type="text"
+              value={stateName}
+              onChange={handleState}
+              className="w-full p-2 border border-gray-300 rounded"
+              placeholder="Enter Your State"
+              pattern="^[0-9]*$"
+              required
+            />
+            {!isStateValid && <p style={{ color: "red" }}>Invalid state</p>}
+          </div>
+          <div className="pt-2">
+            <label className="block mb-1">District *</label>
+            <input
+              placeholder="Enter Your District"
+              type={"text"}
+              value={districtName}
+              onChange={handleDisctrict}
+              className="w-full p-2 border border-gray-300 rounded"
+            />
+            {!isDistrictValid && <p style={{ color: "red" }}>Invalid district.</p>}
+          </div>
+        </div>
+        <div class="gri-wid grid grid-cols-2 ">
+          <div className="pt-2">
+            <label className="block mb-1">City *</label>
+            <input
+              type="text"
+              value={cityName}
+              onChange={handleCity}
+              className="w-full p-2 border border-gray-300 rounded"
+              placeholder="Enter Your State"
+              pattern="^[0-9]*$"
+              required
+            />
+            {!isCityValid && <p style={{ color: "red" }}>Invalid City</p>}
+          </div>
+          <div className=" p-2">
+            <label className="block  mb-1">TCR Certificate *</label>
+            <input
+              style={{
+                height: "2.3rem",
+                borderRadius: "4px",
+              }}
+              type="file"
+              id="input1"
+              name="input1"
+              onChange={handleFileChange}
+              accept="image/*"
+              className="w-full p-2 border border-gray-300 rounded"
+            />
+            {!isFValid && (
+              <p style={{ color: "red", display: "none" }}>
+                Invalid first name.
+              </p>
+            )}
           </div>
         </div>
         <div class="gri-wid grid grid-cols-2 gap-4 ">
@@ -547,6 +700,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
               name="dateOfBirth"
               placeholder="YYYY-MM-DD"
               className="w-full p-2 border border-gray-300 rounded"
+              pattern="\d{4}-\d{2}-\d{2}" required
             />
             {!isValid && (
               <p style={{ color: "red" }}>Invalid date format or values.</p>
@@ -583,7 +737,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
               placeholder="Enter height in cm"
               type={"number"}
               value={height}
-              onChange={handleHeight}
+              onChange={(e) => handleHeight(e)}
               className="w-full p-2 border border-gray-300 rounded"
             />
             {!isHeightValid && (
@@ -733,7 +887,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
             )}
           </div>
           <div className=" p-2">
-            <label className="block">TCR Certificate *</label>
+            <label className="block">Addhar Certificate *</label>
             <input
               style={{
                 height: "2.3rem",
@@ -742,7 +896,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
               type="file"
               id="input1"
               name="input1"
-              onChange={handleFileChange}
+              onChange={handleAadharFileChange}
               accept="image/*"
               className="w-full p-2 border border-gray-300 rounded"
             />

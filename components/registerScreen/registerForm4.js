@@ -33,9 +33,13 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
 
   const [file1, setFile1] = useState(null);
   const [file2, setFile2] = useState(null);
+  const [file3, setFile3] = useState(null);
+  const [file4, setFile4] = useState(null);
 
   const [file1ID, setFile1ID] = useState(null);
   const [file2ID, setFile2ID] = useState(null);
+  const [file3ID, setFile3ID] = useState(4);
+  const [file4ID, setFile4ID] = useState(4);
 
   const [increaseHoroscope, setIncreaseHoroscope] = useState([]);
   const [filesData, setFilesData] = useState([]);
@@ -59,26 +63,20 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
     console.log("error code on file 2" + error.code + ": " + error.message);
   }
 
-  // add more horo scope documents
-  function uploadFile(filedata) {
-    setFilesData([...filesData, filedata]);
-    var formdata = new FormData();
-    formdata.append("files", filedata[0], filedata[0].preview.url);
-    var requestOptions = {
-      method: "POST",
-      body: formdata,
-      redirect: "follow",
-    };
-    fetch("http://172.105.57.17:1337/api/upload", requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result);
-        setFileIds([...fileIds, result[0].id]);
-      })
-      .catch((error) => {
-        console.log("error", error);
-        setFileIds([...fileIds, 7]);
-      });
+  function onFilesChange3(files) {
+    console.log("Files 3 : ", files);
+    setFile3(files);
+  }
+  function onFilesError3(error, file) {
+    console.log("error code on file 3" + error.code + ": " + error.message);
+  }
+
+  function onFilesChange4(files) {
+    console.log("Files 4 : ", files);
+    setFile4(files);
+  }
+  function onFilesError4(error, file) {
+    console.log("error code on file 4" + error.code + ": " + error.message);
   }
 
   const [zodiacSign, setZodiacSign] = useState("Aries");
@@ -160,9 +158,53 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
     }
   }, [file2]);
 
+  useEffect(() => {
+    if (file3) {
+      var formdata = new FormData();
+      formdata.append("files", file3[0], file3[0].preview.url);
+      var requestOptions = {
+        method: "POST",
+        body: formdata,
+        redirect: "follow",
+      };
+      fetch("http://172.105.57.17:1337/api/upload", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+          setFile3ID(result[0].id);
+        })
+        .catch((error) => {
+          console.log("error", error);
+          setFile3ID(4);
+        });
+    }
+  }, [file3]);
+
+  useEffect(() => {
+    if (file4) {
+      var formdata = new FormData();
+      formdata.append("files", file4[0], file4[0].preview.url);
+      var requestOptions = {
+        method: "POST",
+        body: formdata,
+        redirect: "follow",
+      };
+      fetch("http://172.105.57.17:1337/api/upload", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+          setFile4ID(result[0].id);
+        })
+        .catch((error) => {
+          console.log("error", error);
+          setFile4ID(4);
+        });
+    }
+  }, [file4]);
+
   const beforeNextScreen = () => {
     const rg4 = {
-      horrorscopeImages: [file1ID, file2ID, ...fileIds],
+      horrorscopeImages: [file1ID, file2ID,file3ID,file4ID],
       zodiacSign,
       tamilYear,
       tamilMonth,
@@ -187,7 +229,8 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
         presenceOfNatalDirection &&
         birthplace &&
         file1 &&
-        file2
+        file2 &&
+        file3 && file4
       )
     ) {
       toast.error("Please Enter All The fields");
@@ -208,8 +251,8 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
 
   return (
     <>
-      <div className="ml-80"><p className="font-[600] text-[18px] ">Horoscope Information</p></div>
-      <div className="grid-widi4 grid justify-items-center justify-content-center">
+      <div className="flex justify-center"><p className="font-[600] text-[18px] ">Horoscope Information</p></div>
+      <div className="grid-widi2 grid justify-items-center justify-content-center">
         <div className="gri-wid4 grid grid-cols-2 gap-16">
           <div className="mt-5">
             <p className="text-dark font-[500] text-[14px] mb-1">
@@ -384,41 +427,29 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
           </div>
         </div>
       </div>
-      <div className="horo-img1 mt-5">
-        <div className="horo-img2">
-          <p className="text-dark font-[500] text-[14px] ">
-            Horoscope Doucment *
-          </p>
-          <button
-            onClick={() => {
-              console.log("add more");
-              setIncreaseHoroscope([
-                ...increaseHoroscope,
-                increaseHoroscope.length + 1,
-              ]);
-            }}
-            className="text-main font-[400] text-[14px]"
-          >
-            Add more
-          </button>
-        </div>
-        <div className="horo-img3 flex justify-between items-center max-lg:flex-col space-y-5 max-lg:flex max-lg:justify-start">
+      
+      <div className="w-[auto] mx-auto lg:w-[51rem] ">
+        <p className=" p-text">Horoscope Doucment *</p>
+        <div className="flex justify-between items-center max-lg:flex-col space-y-5 max-lg:flex max-lg:justify-start ">
           <Files
-            className="files-dropzone cursor-pointer"
-            onChange={onFilesChange1}
-            onError={onFilesError1}
-            accepts={["image/png", "image/jpg", "image/jpeg", "image/svg+xml"]}
-            maxFileSize={10000000}
-            minFileSize={0}
-            clickable
+             className="files-dropzone cursor-pointer"
+             onChange={onFilesChange1}
+             onError={onFilesError1}
+             accepts={["image/png", "image/jpg", "image/jpeg", "image/svg+xml"]}
+             maxFileSize={10000000}
+             minFileSize={0}
+             clickable
           >
             <Image
               src={file1 ? file1[0]?.preview?.url : fileInputImage}
               alt={"File Input Image"}
-              width={400}
-              height={300}
+              width={190}
+              height={190}
+              className="md:w-[190px] h-[190px] max-lg:w-[22rem] max-lg:h-[22rem]"
+
             />
           </Files>
+
           <Files
             className="files-dropzone cursor-pointer"
             onChange={onFilesChange2}
@@ -429,48 +460,51 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
             clickable
           >
             <Image
-              src={file2 ? file2[0]?.preview?.url : fileInputImage}
+              src={file2 ? file2[0].preview?.url : fileInputImage}
+              width={190}
+              height={190}
+              className="md:w-[190px] h-[190px] max-lg:w-[22rem] max-lg:h-[22rem]"
               alt={"File Input Image"}
-              width={400}
-              height={300}
+            />
+          </Files>
+
+          <Files
+            className="files-dropzone cursor-pointer"
+            onChange={onFilesChange3}
+            onError={onFilesError3}
+            accepts={["image/png", "image/jpg", "image/jpeg", "image/svg+xml"]}
+            maxFileSize={10000000}
+            minFileSize={0}
+            clickable
+          >
+            <Image
+              src={file3 ? file3[0].preview.url : fileInputImage}
+              width={190}
+              height={190}
+              alt={"File Input Image"}
+              className="md:w-[190px] h-[190px] max-lg:w-[22rem] max-lg:h-[22rem]"
+            />
+          </Files>
+          <Files
+            className="files-dropzone cursor-pointer"
+            onChange={onFilesChange4}
+            onError={onFilesError4}
+            accepts={["image/png", "image/jpg", "image/jpeg", "image/svg+xml"]}
+            maxFileSize={10000000}
+            minFileSize={0}
+            clickable
+          >
+            <Image
+              src={file4 ? file4[0].preview.url : fileInputImage}
+              width={190}
+              height={190}
+              alt={"File Input Image"}
+              className="md:w-[190px] h-[190px] max-lg:w-[22rem] max-lg:h-[22rem]"
             />
           </Files>
         </div>
-        <div className="w-full grid grid-cols-2 gap-4 mt-3">
-          {increaseHoroscope.map((val, i) => {
-            return (
-              <>
-                <Files
-                  key={i}
-                  className="files-dropzone cursor-pointer"
-                  onChange={uploadFile}
-                  onError={onFilesError1}
-                  accepts={[
-                    "image/png",
-                    "image/jpg",
-                    "image/jpeg",
-                    "image/svg+xml",
-                  ]}
-                  maxFileSize={10000000}
-                  minFileSize={0}
-                  clickable
-                >
-                  <Image
-                    src={
-                      filesData?.[i]
-                        ? filesData?.[i]?.[0].preview.url
-                        : fileInputImage
-                    }
-                    alt={"File Input Image"}
-                    width={400}
-                    height={300}
-                  />
-                </Files>
-              </>
-            );
-          })}
-        </div>
       </div>
+
       <div
         className={`${
           screen != 1 ? "w-[400px]" : "w-[400px]"

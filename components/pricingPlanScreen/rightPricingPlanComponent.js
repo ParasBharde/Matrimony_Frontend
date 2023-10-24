@@ -8,7 +8,7 @@ const RightPricingPlanComponent = (props) => {
 
   return (
     <div className="bg-white py-5 px-14 rounded-lg max-md:w-full max-md:text-center max-md:text-2xl shadow-2xl">
-      <p className="text-[16px] font-[400] text-center mb-5">Super Plan</p>
+      <p className="text-[16px] font-[400] text-center mb-5">Gold Plan</p>
       <p className="text-[30px] font-[500] text-center mb-5">
         ₹{props.pricing.Pricing_Plan2}
       </p>

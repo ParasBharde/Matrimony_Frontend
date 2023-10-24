@@ -155,6 +155,8 @@ console.log(user,email,pass)
           placeholder="Enter Your Email"
           value={email}
           onChange={validateEmail}
+          pattern="^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$"
+          required
           type={"email"}
           className="border border-gray-400 w-[400px] py-2 px-8 rounded-md mb-3"
         />

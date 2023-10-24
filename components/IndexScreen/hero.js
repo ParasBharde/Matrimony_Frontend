@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import logo from "@/assets/indexAssets/headerLogo.png";
+import logo from "@/assets/indexAssets/updatedLogo.png";
 import avatar from "@/assets/avatar.png";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -25,7 +25,7 @@ const Hero = (props) => {
   const [lang, setLang] = useState(locale);
 
   const storage = useStorage();
-  console.log(storage);
+  console.log(storage,userProfile);
 
   useEffect(() => {
     if (storage) {
@@ -45,30 +45,15 @@ const Hero = (props) => {
   useEffect(() => {
     if (storage) {
       let api = "http://172.105.57.17:1337/api/profiles/?populate=%2A";
-      if (locale == "ta") {
-        api =
-          "http://172.105.57.17:1337/api/profiles/?populate=%2A&locale=ta-IN";
-      } else if (locale == "en") {
-        api = "http://172.105.57.17:1337/api/profiles/?populate=%2A";
-      }
       async function getUser() {
         try {
           const response = await axios.get(api);
-          // console.log("response", response.data.data);
-          const userProfiles = response.data.data.filter(
-            (u) => u.id === storage?.user_profile?.id
-          );
-          const userRegisterProfile = response.data.data.filter(
-            (u) => u.id === storage?.id
-          );
-          console.log(userProfiles, userRegisterProfile);
-          console.log(
-            userProfiles[0]?.attributes?.profile_photo?.data[0]?.attributes?.url
-          );
-          console.log(
-            userRegisterProfile[0]?.attributes?.profile_photo?.data[0]
-              ?.attributes?.url
-          );
+          console.log("response", response.data.data);
+          let userProfiles = response.data.data.filter((u) => u.id == storage?.user_profile?.id);
+        let userRegisterProfile = response.data.data.filter((u) => u.attributes.user.data.id == storage?.id);
+        console.log(userProfiles, userRegisterProfile);
+        console.log(userProfiles[0]?.attributes?.profile_photo?.data[0]?.attributes?.url);
+        console.log(userRegisterProfile[0]?.attributes?.profile_photo?.data[0]?.attributes?.url);
           setUserProfile(
             userRegisterProfile[0]?.attributes?.profile_photo?.data[0]
               ?.attributes?.url != undefined
@@ -102,12 +87,13 @@ const Hero = (props) => {
        
         <div className="flex justify-between items-center pt-10 -md:px-2 lg:px-16 z-10">
           <Link href="/">
-            <div>
+            <div className="flex justify-items-center text-white text-lg font-extrabold gap-4">
               <Image
                 src={logo}
                 alt={"logo"}
-                className="img_mob w-[12rem] sm:w-24 md:w-48 lg:w-48"
+                className="img_mob   sm:w-24 md:w-48 lg:w-16"
               />
+              <label className="self-center">Matrimony</label>
             </div>
           </Link>
           <div className="flex items-center justify-between">

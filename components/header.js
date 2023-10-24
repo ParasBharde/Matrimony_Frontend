@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import headerLogo from "@/assets/headerLogo.png";
+import headerLogo from "@/assets/orangeUpdatedLogo.png";
 import avatar from "@/assets/avatar.png";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -40,9 +40,6 @@ const Header = () => {
         );
         console.log(response.data.data);
         let userProfiles = response.data.data.filter((u) => u.id == storage?.user_profile?.id);
-        // let userProfiles = response.data.data.filter((u) => u.id == storage?.user_profile?.id);
-
-
         let userRegisterProfile = response.data.data.filter((u) => u.attributes.user.data.id == storage?.id);
         console.log(userProfiles, userRegisterProfile);
         console.log(userProfiles[0]?.attributes?.profile_photo?.data[0]?.attributes?.url);
@@ -90,12 +87,13 @@ const Header = () => {
   return (
     <div className="bg-white flex flex-row justify-between items-center px-14  max-md:pt-5 py-3 max-md:w-auto max-md:border-solid border-y-2 max-md:px-0">
       <Link href="/">
-        <div>
+        <div className="flex items-center gap-5">
           <Image
             src={headerLogo}
             alt={"Header Logo"}
             className="pl-0 sm:pl-0 md:pl-5 lg:pl-5 "
           />
+          <label className="self-center text-xl font-semibold whitespace-nowrap">Matrimony</label>
         </div>
       </Link>
       <div className="flex justify-center items-center gap-16 pr-10">

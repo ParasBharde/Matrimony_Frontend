@@ -18,7 +18,6 @@ const Register = () => {
   const [screen, setScreen] = useState(1);
   const storageData = useStorage();
 
-
   const getAllDataAndPost = () => {
     const rg1 = JSON.parse(sessionStorage.getItem("rg1"));
     const rg2 = JSON.parse(sessionStorage.getItem("rg2"));
@@ -45,11 +44,11 @@ const Register = () => {
 
     axios(config)
       .then(function (res) {
-          console.log("First User Registered", res.data);
-          toast.success("Account Created");
-          localStorage.setItem("userLogin", JSON.stringify(res.data.user));
-          sessionStorage.setItem("userLogin", JSON.stringify(res.data.user));
-
+        console.log("First User Registered", res.data);
+        toast.success("Account Created");
+        localStorage.setItem("userLogin", JSON.stringify(res.data.user));
+        sessionStorage.setItem("userLogin", JSON.stringify(res.data.user));
+        if (res) {
           var data2 = JSON.stringify({
             data: {
               first_name: rg2.firstName,
@@ -57,7 +56,7 @@ const Register = () => {
               Chooese_groom_bride: rg2.groomOrBride,
               Choose_veg_nonveg: rg2.vegOrNonVeg,
               date_of_birth: rg2.dateOfBirth,
-              star: rg2.star,
+              star: rg4.starFoot,
               Height: rg2.height,
               Color: rg2.color,
               educational_qualification: rg2.educationalQualifications,
@@ -68,8 +67,8 @@ const Register = () => {
               phone_number: rg2.phoneNumber,
               caste: rg2.caste,
               marriage_status: rg2.marriageStatus,
-              aadhar_number:rg2.aadharNo,
-              txr_certificate:rg2.tcrCertificate,
+              aadhar_number: rg2.aadharNo,
+              txr_certificate: rg2.tcrCertificate,
               profile_photo: rg2.profileImages,
               father_name: rg3.fatherName,
               mother_name: rg3.motherName,
@@ -104,8 +103,10 @@ const Register = () => {
               email: rg1.email,
               password: rg1.pass,
               user: res.data.user.id,
-             
-
+              state: rg2.state,
+              district: rg2.district,
+              city: rg2.city,
+              aadhar_card: rg2.aadharCertificate,
             },
           });
 
@@ -128,7 +129,7 @@ const Register = () => {
               if (adminUser) {
                 router.push("/admin/manageuser");
                 sessionStorage.removeItem("rg1");
-                sessionStorage.removeItem( "rg2");
+                sessionStorage.removeItem("rg2");
                 sessionStorage.removeItem("rg3");
                 sessionStorage.removeItem("rg4");
 
@@ -136,11 +137,10 @@ const Register = () => {
                 localStorage.clear("rg2");
                 localStorage.clear("rg3");
                 localStorage.clear("rg4");
-
               } else {
                 router.push("/profiledetail/" + response.data.data.id);
                 sessionStorage.removeItem("rg1");
-                sessionStorage.removeItem( "rg2");
+                sessionStorage.removeItem("rg2");
                 sessionStorage.removeItem("rg3");
                 sessionStorage.removeItem("rg4");
 
@@ -148,16 +148,18 @@ const Register = () => {
                 localStorage.clear("rg2");
                 localStorage.clear("rg3");
                 localStorage.clear("rg4");
-                localStorage.setItem("user", JSON.stringify(response.data.data));
+                localStorage.setItem(
+                  "user",
+                  JSON.stringify(response.data.data)
+                );
                 localStorage.setItem("userLogin", JSON.stringify(res.data));
               }
 
               localStorage.setItem("userLogin", JSON.stringify(res.data));
               localStorage.setItem("user", JSON.stringify(response.data.data));
-              
-              console.log(response.data.data,'after Register')
-              console.log('uuuuser',res.data)
 
+              console.log(response.data.data, "after Register");
+              console.log("uuuuser", res.data);
             })
             .catch(function (error) {
               let e = error?.response?.data?.error?.details?.errors;
@@ -166,7 +168,9 @@ const Register = () => {
                 toast.error(e[i].message);
               }
             });
-      
+        } else {
+          console.error('Error')
+        }
       })
       .catch(function (error) {
         console.log(error);
@@ -185,7 +189,13 @@ const Register = () => {
         {screen == 1 && <RegisterForm1 screen={screen} setScreen={setScreen} />}
         {screen == 2 && <RegisterForm2 screen={screen} setScreen={setScreen} />}
         {screen == 3 && <RegisterForm3 screen={screen} setScreen={setScreen} />}
-        {screen == 4 && <RegisterForm4 screen={screen}  setScreen={setScreen} getAllDataAndPost={getAllDataAndPost} />}
+        {screen == 4 && (
+          <RegisterForm4
+            screen={screen}
+            setScreen={setScreen}
+            getAllDataAndPost={getAllDataAndPost}
+          />
+        )}
       </div>
     </div>
   );

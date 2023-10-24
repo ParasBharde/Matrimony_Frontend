@@ -507,7 +507,7 @@ const Profiledetail = () => {
                                   />
                                 </div>
                               </Modal>
-                              <div className="flex justify-around lg:gap-2 max-md:gap-5">
+                              <div className="left-10 second_item_child flex justify-around lg:gap-2 max-md:gap-5">
                                 <picture className=" ">
                                   <img
                                     className="img_profile_g"
