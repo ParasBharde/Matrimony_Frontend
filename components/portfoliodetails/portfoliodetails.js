@@ -959,7 +959,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
       </div>
       {/* ............ this is for pagination for responsive part ...  */}
       <div className="flex items-center px-4  sm:px-6 ">
-        <div className="flex flex-1 justify-between sm:hidden">
+        <div className="flex flex-1 justify-between sm:hidden mb-20">
           <Link
             href="#"
             className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
@@ -973,7 +973,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
             Next
           </Link>
         </div>
-        <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between mb-4">
+        <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between mb-20">
           <div>
             <span className="text-sm text-gray-700">
               {currentPage == 1 ? "1" : `${(currentPage - 1) * 10 + 1}`}-
@@ -1052,7 +1052,7 @@ const Portfoliodetails = ({ allprofiles, total }) => {
       </div>
       <style jsx>{`
         .list_data {
-          margin-bottom: 4rem;
+          margin-bottom: 10rem;
         }
       `}</style>
     </>

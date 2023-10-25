@@ -49,23 +49,14 @@ const EditProfile = () => {
   useEffect(() => {
     if (storageData) {
       let api = "http://172.105.57.17:1337/api/profiles/?populate=%2A";
-      if (locale == "ta") {
-        api =
-          "http://172.105.57.17:1337/api/profiles/?populate=%2A&locale=ta-IN";
-      } else if (locale == "en") {
-        api = "http://172.105.57.17:1337/api/profiles/?populate=%2A";
-      }
+     
       async function getUser() {
         try {
           const response = await axios.get(api);
           // console.log("response", response.data.data);
-          const userProfile = response.data.data.filter(
-            (u) => u.id === storageData?.user_profile?.id
-          );
-          const userRegisterProfile = response.data.data.filter(
-            (u) => u.id === storageData?.id
-          );
-          const udata = userProfile[0]?.attributes;
+          const userProfiles = response.data.data.filter( (u) => {return u?.attributes?.user?.data?.id == storageData?.id});
+          const userRegisterProfile = response.data.data.filter((u) => {return  u?.attributes?.user?.data?.id == storageData?.id});
+          const udata = userProfiles[0]?.attributes;
           const uRdata = userRegisterProfile[0]?.attributes;
           // console.log(udata)
           // console.log(uRdata)
@@ -494,12 +485,11 @@ const EditProfile = () => {
                   </div>
                 </div>
                 <div className="p-5  ">
-                  <div className="ml-5">
-                    <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
-                      Tamil Year{" "}
-                    </p>
-                    <p>{tamil_year}</p>
+                <div className="ml-5">
+                    <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Star/Foot</p>
+                    <p>{star_foot}</p>
                   </div>
+                 
                   <div className="mt-5 ml-5">
                     <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Birth Time</p>
                     <p>{birth_time}</p>
@@ -519,9 +509,11 @@ const EditProfile = () => {
                     </p>
                     <p>{tamil_month}</p>
                   </div>
-                  <div className="mt-5 ml-5">
-                    <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>Star/Foot</p>
-                    <p>{star_foot}</p>
+                  <div className="ml-5 mt-5">
+                    <p style={{ color: "rgba(30, 30, 30, 0.5)" }}>
+                      Tamil Year{" "}
+                    </p>
+                    <p>{tamil_year}</p>
                   </div>
                 </div>
                 <div className="p-5 ">

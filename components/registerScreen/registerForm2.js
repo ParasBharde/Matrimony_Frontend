@@ -90,7 +90,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
 
   const [lastName, setLastName] = useState("");
   const [vegOrNonVeg, setVegOrNonVeg] = useState("Vegetarian");
-  const [star, setStar] = useState("Aries");
+  const [starRg, setStarRg] = useState("Aries");
   const [color, setColor] = useState("");
   const [careerDetails, setCareerDetails] = useState("");
   const [familyPropertyDetails, setFamilyPropertyDetails] = useState("");
@@ -134,7 +134,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
       setaadharNo(aadharNo);
       setLastName(jrg.lastName);
       setVegOrNonVeg(jrg.vegOrNonVeg);
-      setStar(jrg.star);
+      setStarRg(jrg.starRg);
       setColor(jrg.color);
       setCareerDetails(jrg.careerDetails);
       setFamilyPropertyDetails(jrg.familyPropertyDetails);
@@ -293,7 +293,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
       caste,
       lastName,
       vegOrNonVeg,
-      star,
+      starRg,
       color,
       careerDetails,
       familyPropertyDetails,
@@ -464,7 +464,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
     cityName,
     stateName,
     districtName,
-    star
+    starRg
   );
   var phoneRegex = /^(?:(?:\+91)|(?:91)|(?:0))?[7-9][0-9]{9}$/;
   var nameRegex = /\d/g;
@@ -489,7 +489,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
         cityName &&
         stateName &&
         districtName &&
-        star
+        starRg
       )
     ) {
       toast.error("Please Input all fields");
@@ -726,9 +726,9 @@ const RegisterForm2 = ({ screen, setScreen }) => {
           <div className=" p-2">
             <label className="block">Star *</label>
             <select
-              value={star}
+              value={starRg}
               onChange={(e) => {
-                setStar(e.target.value);
+                setStarRg(e.target.value);
               }}
               className="w-full p-2 border border-gray-300 rounded py-[7px]"
             >
@@ -970,7 +970,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
 
       <div className="w-[auto] mx-auto lg:w-[51rem] ">
         <p className=" p-text">Profile Photo *</p>
-        <div className="flex justify-between items-center max-lg:flex-col space-y-5 max-lg:flex max-lg:justify-start ">
+        <div className="flex justify-between items-center max-lg:flex-col space-y-5 max-lg:flex max-lg:justify-starRgt ">
           <Files
             className="files-dropzone cursor-pointer"
             onChange={onFilesChange1}

@@ -56,7 +56,7 @@ const Register = () => {
               Chooese_groom_bride: rg2.groomOrBride,
               Choose_veg_nonveg: rg2.vegOrNonVeg,
               date_of_birth: rg2.dateOfBirth,
-              star: rg4.starFoot,
+              star: rg2.starRg,
               Height: rg2.height,
               Color: rg2.color,
               educational_qualification: rg2.educationalQualifications,

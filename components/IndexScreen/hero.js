@@ -44,10 +44,8 @@ const Hero = (props) => {
         try {
           const response = await axios.get(api);
           console.log("response", response.data.data);
-          const userProfiles = response.data.data.filter(
-            (u) => {return u?.id == storage?.user_profile?.id}
-          );
-          const userRegisterProfile = response.data.data.filter((u) => {return   u?.id == storage?.id});
+          const userProfiles = response.data.data.filter( (u) => {return u?.attributes?.user?.data?.id == storage?.id});
+          const userRegisterProfile = response.data.data.filter((u) => {return  u?.attributes?.user?.data?.id == storage?.id});
           console.log(userProfiles, userRegisterProfile);
           console.log( userProfiles);
           console.log( userRegisterProfile);

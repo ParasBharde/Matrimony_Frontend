@@ -15,7 +15,8 @@ const Portfolio = () => {
   console.log(storageData);
 
   
-  const check =  storageData?.user_profile?.id != undefined ?  storageData?.user_profile?.id: storageData?.id;
+  const check =  storageData?.id;
+  console.log(check)
   useEffect(() => {
     async function getUser() {
       var config = {
@@ -30,8 +31,9 @@ const Portfolio = () => {
 
       axios(config)
         .then(function (response) {
-          let profiles = response.data.data.filter((item) => {return console.log(item), item.id != check;
+          let profiles = response.data.data.filter((item) => {return item?.attributes.user.data.id != storageData?.id;
           });
+          console.log(profiles)
           setprofiles(profiles);
           setFilteredProfiles(profiles);
           setTotal(profiles.length);
