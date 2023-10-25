@@ -25,11 +25,11 @@ const Profile = () => {
       <style jsx>{``}</style>
       <style global jsx>{`
         .data {
-          background: #e0e0e0;
-          margin: 0;
-          padding: 0;
-          width:100%;
-          height: 100%;
+          // background: #e0e0e0;
+          // margin: 0;
+          // padding: 0;
+          // width:100%;
+          // height: 100%;
         }
       `}</style>
     </>

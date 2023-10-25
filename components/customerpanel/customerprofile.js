@@ -216,7 +216,7 @@ const Customerpofile = () => {
           </span>
         </button>
       </div>
-      <div className="parent w-screen">
+      {/* <div className="parent"> */}
         <table className="child table-auto" id="pdf-content">
           <div className="table_header flex">
             <thead className="">
@@ -729,7 +729,7 @@ const Customerpofile = () => {
             </div>
           </div>
         </table>
-      </div>
+      {/* </div> */}
     </>
   );
 };

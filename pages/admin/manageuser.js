@@ -42,9 +42,9 @@ const Manageuser = () => {
   console.log("filteredProfiles", filteredProfiles);
 
   const handleFilterQuery = (query) => {
-    console.log(query);
     let updatedFilteredProfiles = profiles;
-
+    const queryAgeFrom = Number(query.minAge);
+    const queryAgeTo = Number(query.maxAge);
     if (
       query?.gender == "Choose" &&
       query?.zodiac == "Choose" &&
@@ -56,28 +56,28 @@ const Manageuser = () => {
       setFilteredProfiles(profiles);
       return;
     } else {
-      console.log(updatedFilteredProfiles)
+      console.log(updatedFilteredProfiles);
       if (query.gender !== "Choose") {
-         updatedFilteredProfiles = updatedFilteredProfiles.filter((profile) => profile.attributes.Chooese_groom_bride == query.gender).map(u=> {return u});
+        updatedFilteredProfiles = updatedFilteredProfiles
+          .filter(
+            (profile) => profile.attributes.Chooese_groom_bride == query.gender
+          )
+          .map((u) => {
+            return u;
+          });
       } else if (query.zodiac !== "Choose") {
         updatedFilteredProfiles = updatedFilteredProfiles.filter((profile) => {
           {
             return profile.attributes.zodiacs_sign == query.zodiac;
           }
         });
-      } else if (query.minAge !== undefined && query.minAge !== "") {
-        const queryAgeFrom = Number(query.minAge);
+      } else if (!isNaN(queryAgeFrom) && !isNaN(queryAgeTo)) {
         updatedFilteredProfiles = updatedFilteredProfiles.filter((profile) => {
           const age = calculateAge(profile.attributes.date_of_birth);
-          return age >= queryAgeFrom;
+          return age >= queryAgeFrom && age <= queryAgeTo;
         });
-      } else if (query.maxAge !== undefined && query.maxAge !== "") {
-        const queryAgeTo = Number(query.maxAge);
-        updatedFilteredProfiles = updatedFilteredProfiles.filter((profile) => {
-          const age = calculateAge(profile.attributes.date_of_birth);
-          return age <= queryAgeTo;
-        });
-      } else if (query.maritalStatus !== "Choose") {
+      }
+      else if (query.maritalStatus !== "Choose") {
         updatedFilteredProfiles = updatedFilteredProfiles.filter((profile) => {
           return profile.attributes.marriage_status == query.maritalStatus;
         });
@@ -87,10 +87,7 @@ const Manageuser = () => {
             profile.attributes.educational_qualification == query.education
           );
         });
-      }
-       else {
-        setFilteredProfiles(profiles);
-      }
+      } 
     }
 
     setFilteredProfiles(updatedFilteredProfiles);

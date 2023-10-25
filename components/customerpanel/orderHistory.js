@@ -459,11 +459,11 @@ const Orderhistory = () => {
   function capitalizeFirstLetter(word) {
     return word.charAt(0).toUpperCase() + word.slice(1);
   }
-
+  const isWindowsDevice = window.innerWidth <= 768;
   return (
     <>
-      <div className="lg:txt lg:flex md:flex mx-20 relative mt-10 justify-between lg:items-center">
-        <span className="font-medium ml-60 align-self-center">
+      <div className="lg:txt lg:flex justify-between mx-[18rem] md:flex relative mt-10 lg:items-center">
+        <span className="font-medium align-self-center">
           Order History
         </span>
 
@@ -476,11 +476,11 @@ const Orderhistory = () => {
           </button>
           {modalOpen && (
             <div className="fixed inset-0 flex items-center justify-center z-50 shadow-lg shadow-indigo-500/40">
-              <div className="bg-white p-6 rounded-lg shadow-xl h-[35rem] w-[35rem] max-md:w-11/12">
-                <form className="max-md:overflow-y-auto max-md:h-[98%]">
-                  <div className="flex flex-row mb-5">
-                    <div className="first-o w-1/2">
-                      <label className="my-5" htmlFor="dropdown">
+              <div className="bg-white p-6 rounded-lg shadow-xl max-w-screen-md w-full max-md:w-11/12 max-h-[100vh]">
+                <form className="max-h-[98%] overflow-y-auto">
+                  <div className="flex flex-col md:flex-row">
+                    <div className="mb-2 md:w-1/2 md:pr-2">
+                      <label className="my-2" htmlFor="dropdown">
                         User Name:
                       </label>
                       <Select
@@ -491,24 +491,10 @@ const Orderhistory = () => {
                         }}
                       />
                     </div>
-                  </div>
-                  <div className="first-o1 flex mb-4">
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        marginRight: "10px",
-                        width: "50%",
-                        gap: 5,
-                      }}
-                    >
+                    <div className="mb-2 md:w-1/2">
                       <label htmlFor="input1">Paying Person Name:</label>
                       <input
-                        style={{
-                          border: "1px solid #ccc",
-                          height: "2.3rem",
-                          borderRadius: "4px",
-                        }}
+                        className="border border-gray-300 py-2 rounded w-full"
                         type="text"
                         id="input1"
                         name="input1"
@@ -516,44 +502,12 @@ const Orderhistory = () => {
                         onChange={(e) => setPerson(e.target.value)}
                       />
                     </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        marginRight: "10px",
-                        width: "50%",
-                        gap: 5,
-                      }}
-                    >
-                      <label htmlFor="input1">UPI Ref No:</label>
-                      <input
-                        value={refer}
-                        onChange={(e) => setrefer(e.target.value)}
-                        style={{
-                          border: "1px solid #ccc",
-                          height: "2.3rem",
-                          borderRadius: "4px",
-                        }}
-                        type="text"
-                        id="input1"
-                        name="input1"
-                      />
-                    </div>
                   </div>
-                  <div className="first-o2 flex" >
-                    <div
-                      style={{
-                        display: "grid",
-                        alignItems: "center",
-                        justifyItems: "stretch",
-                      }}
-                    >
-                      <label htmlFor="input1">Payment Screenshot:</label>
+                  <div className="flex flex-col md:flex-row">
+                    <div className="mb-2 md:w-1/2 md:pr-2">
+                      <label htmlFor="input1">Payment Screenshot :</label>
                       <input
-                        style={{
-                          height: "2.3rem",
-                          borderRadius: "4px",
-                        }}
+                        className="py-1 rounded w-full"
                         type="file"
                         id="input1"
                         name="input1"
@@ -561,94 +515,22 @@ const Orderhistory = () => {
                         accept="image/*"
                       />
                     </div>
-                    <div
-                      style={{
-                        display: "grid",
-                      }}
-                    >
-                      <label>Price</label>
+                    <div className="mb-2 md:w-1/2">
+                      <label>Price :</label>
                       <input
                         type="number"
                         value={price}
                         onChange={(e) => setprice(e.target.value)}
-                        style={{
-                          border: "1px solid #ccc",
-                          height: "2.3rem",
-                          borderRadius: "4px",
-                          width: "16rem",
-                        }}
+                        className="border border-gray-300 py-1 rounded w-full"
                       />
                     </div>
                   </div>
-                  <div className="first-o3 flex"style={{ display: "flex", marginTop: "0.5rem" }}>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        marginRight: "10px",
-                        width: "50%",
-                        gap: 5,
-                      }}
-                    >
-                      <label htmlFor="input1">Purchase Plan:</label>
-                      <select
-                        value={plan}
-                        onChange={handlePlanChange}
-                        id="dropdown"
-                        className="border-y-2 py-2 border-x-2 rounded"
-                        name="dropdown"
-                      >
-                        {plans.map((option) => (
-                          <option key={option.value} value={option.value}>
-                            {option.label}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        marginRight: "10px",
-                        width: "50%",
-                        gap: 5,
-                      }}
-                    >
-                      <label htmlFor="input1">Status:</label>
-                      <select
-                        value={checkstatus}
-                        onChange={(e) => setcheckstatus(e.target.value)}
-                        id="dropdown"
-                        name="dropdown"
-                        className="border-y-2 py-2 border-x-2 rounded"
-                      >
-                        {status.map((option) => (
-                          <option key={option.value} value={option.value}>
-                            {option.label}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-                  <div className="first-o4 flex" >
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        marginRight: "10px",
-                        width: "50%",
-                        gap: 10,
-                      }}
-                    >
+                  <div className="flex flex-col md:flex-row">
+                    <div className="mb-2 md:w-1/2 md:pr-2">
                       <label htmlFor="input1">Subscription Start Date:</label>
                       <div className="flex gap-2">
                         <input
-                          style={{
-                            border: "1px solid #ccc",
-                            height: "2.3rem",
-                            borderRadius: "4px",
-                            width: "100%",
-                          }}
+                          className="border border-gray-300 py-1 rounded w-full"
                           onChange={handleStartDateChange}
                           type="date"
                           id="input1"
@@ -664,29 +546,17 @@ const Orderhistory = () => {
                         />
                       </div>
                     </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        marginRight: "10px",
-                        width: "50%",
-                        gap: 10,
-                      }}
-                    >
+                    <div className="mb-2 md:w-1/2">
                       <label htmlFor="input1">Subscription End Date:</label>
                       <input
                         type="date"
-                        className="py-2"
-                        style={{
-                          border: "1px solid #ccc",
-                          borderRadius: "4px",
-                        }}
+                        className="border border-gray-300 py-1 rounded w-full"
                         value={expiryDate}
                         disabled
                       />
                     </div>
                   </div>
-                  <div className="first-o5 flex flex-col mt-4">
+                  <div className="mb-2">
                     <label htmlFor="input1">
                       Marriage Status:(If Choosen Master Plan)
                     </label>
@@ -694,7 +564,7 @@ const Orderhistory = () => {
                       value={marriageStatuss}
                       onChange={(e) => setmarriageStatuss(e.target.value)}
                       id="dropdown"
-                      className="border-y-2 py-2 border-x-2 rounded w-auto"
+                      className="border border-gray-300 py-1 rounded w-auto"
                       name="dropdown"
                     >
                       {marriageStatus.map((option) => (
@@ -704,16 +574,16 @@ const Orderhistory = () => {
                       ))}
                     </select>
                   </div>
-                  <div className="first-o5 flex justify-evenly">
+                  <div className="flex justify-between">
                     <button
                       onClick={closeModal}
-                      className=" px-5 rounded bg-orange-400 py-2 my-3"
+                      className="px-5 rounded bg-orange-400 py-2 my-3"
                     >
                       Cancel
                     </button>
                     <button
                       onClick={postData}
-                      className=" px-5 rounded bg-orange-400 py-2 my-3"
+                      className="px-5 rounded bg-orange-400 py-2 my-3"
                     >
                       Submit
                     </button>
@@ -722,6 +592,7 @@ const Orderhistory = () => {
               </div>
             </div>
           )}
+
           <form>
             <div className="relative w-full">
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -751,7 +622,6 @@ const Orderhistory = () => {
               />
             </div>
           </form>
-
         </div>
       </div>
       <div className="user_dash relative overflow-x-auto mt-8 ">

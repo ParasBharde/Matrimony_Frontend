@@ -265,9 +265,7 @@ const Managelistdash = () => {
                 }, [])}
             </tbody>
           </table>
-
-        </div>
-        <div className="flex items-center justify-between  px-4 py-3 sm:px-6">
+          <div className="flex items-center justify-between  px-4 py-3 sm:px-6">
             <div className="flex flex-1 justify-between sm:hidden">
               <p className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
                 Previous
@@ -340,6 +338,8 @@ const Managelistdash = () => {
               </div>
             </div>
           </div>
+        </div>
+       
         </>
       ) : (
         <div className=" px-4 py-3 sm:px-[6rem] h-[80vh]">

@@ -101,7 +101,6 @@ const RegisterForm2 = ({ screen, setScreen }) => {
   const [selectedFileID, setselectedFileID] = useState(0);
   const [selectedAAdharFileID, setselectedAAdharFileID] = useState(0);
 
-
   const handleFileChange = (event) => {
     console.log(event);
     const file = event.target.files[0];
@@ -123,6 +122,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
       setFile3(jrg.file3);
       setFile4(jrg.file4);
       setSelectedFile(jrg.selectedFile);
+      setAadharSelectedFile(jrg.selectedAadharFile)
       setFirstName(jrg.firstName);
       setGroomOrBride(jrg.groomOrBride);
       setDateOfBirth(jrg.dateOfBirth);
@@ -140,8 +140,11 @@ const RegisterForm2 = ({ screen, setScreen }) => {
       setFamilyPropertyDetails(jrg.familyPropertyDetails);
       setPhoneNumber(jrg.phoneNumber);
       setMarriageStatus(jrg.marriageStatus);
+      setStateName(jrg.state);
+      setDistrictName(jrg.district);
+      setCityName(jrg.city);
     }
-  }, [aadharNo,height]);
+  }, [aadharNo, height]);
 
   useEffect(() => {
     if (selectedAadharFile) {
@@ -296,12 +299,12 @@ const RegisterForm2 = ({ screen, setScreen }) => {
       familyPropertyDetails,
       phoneNumber,
       marriageStatus,
-      tcrCertificate:selectedFileID,
+      tcrCertificate: selectedFileID,
       aadharNo,
-      aadharCertificate:selectedAAdharFileID,
-      state:stateName,
-      district:districtName,
-      city:cityName
+      aadharCertificate: selectedAAdharFileID,
+      state: stateName,
+      district: districtName,
+      city: cityName,
     };
     sessionStorage.setItem("rg2", JSON.stringify(rg2));
   };
@@ -319,7 +322,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
 
   const handleHeight = (event) => {
     const inputHeight = event?.target?.value;
-    console.log(inputHeight)
+    console.log(inputHeight);
     if (inputHeight > 250 || inputHeight < 1 || inputHeight === 1) {
       setHeightValid(false);
       setHeight("");
@@ -409,52 +412,60 @@ const RegisterForm2 = ({ screen, setScreen }) => {
 
   const handleDOBChange = (event) => {
     const selectedDate = event?.target?.value;
-    const currentDate = new Date().toISOString().slice(0, 10); 
-  
+    const currentDate = new Date().toISOString().slice(0, 10);
+
     if (selectedDate > currentDate) {
       event.preventDefault();
-      setIsValid(false)
-      setDateOfBirth('');
+      setIsValid(false);
+      setDateOfBirth("");
     } else {
       setDateOfBirth(selectedDate);
-      setIsValid(true)
-
+      setIsValid(true);
     }
   };
 
   const handleAadhar = (e) => {
     const inputAadhar = e?.target?.value;
     const trimmedInput = inputAadhar?.replace(/\s/g, "");
-     if (inputAadhar?.length > 12) {
+    if (inputAadhar?.length > 12) {
       setAadharValid(false);
-    }else if (inputAadhar < 0 ) {
+    } else if (inputAadhar < 0) {
       setAadharValid(false);
-
     } else if (inputAadhar === "") {
-        setaadharNo(inputAadhar);
-        setAadharValid(true);
+      setaadharNo(inputAadhar);
+      setAadharValid(true);
     } else {
       setaadharNo(inputAadhar);
       setAadharValid(true);
     }
   };
-console.log(
-  'firstName',firstName ,
-  'lastName',lastName ,
-  'height',height ,
-  'dateOfBirth',dateOfBirth ,
-  'color',color ,
-  'educationalQualifications',educationalQualifications ,
-  careerDetails ,
-  salary ,
-  familyPropertyDetails ,
-  expectation ,
-  phoneNumber ,
-  caste ,
-  aadharNo ,
-  selectedFile , 
-  selectedAadharFile , 
-  cityName , stateName , districtName,star)
+  console.log(
+    "firstName",
+    firstName,
+    "lastName",
+    lastName,
+    "height",
+    height,
+    "dateOfBirth",
+    dateOfBirth,
+    "color",
+    color,
+    "educationalQualifications",
+    educationalQualifications,
+    careerDetails,
+    salary,
+    familyPropertyDetails,
+    expectation,
+    phoneNumber,
+    caste,
+    aadharNo,
+    selectedFile,
+    selectedAadharFile,
+    cityName,
+    stateName,
+    districtName,
+    star
+  );
   var phoneRegex = /^(?:(?:\+91)|(?:91)|(?:0))?[7-9][0-9]{9}$/;
   var nameRegex = /\d/g;
   const validate = () => {
@@ -473,9 +484,12 @@ console.log(
         phoneNumber &&
         caste &&
         aadharNo &&
-        selectedFile && 
-        selectedAadharFile && 
-        cityName && stateName && districtName && star
+        selectedFile &&
+        selectedAadharFile &&
+        cityName &&
+        stateName &&
+        districtName &&
+        star
       )
     ) {
       toast.error("Please Input all fields");
@@ -512,26 +526,26 @@ console.log(
     if (aadharNo.length < 12) {
       toast.error("Please enter a valid Aadhar Number");
       return false;
-    } if (selectedFile == null) {
+    }
+    if (selectedFile == null) {
       toast.error("Please Select TCR Certificate");
       return false;
-    } if (aadharNo == "") {
+    }
+    if (aadharNo == "") {
       toast.error("Enter Aadhar Number");
       return false;
     }
-    handleHeight()
-    handleIncome()
-    handleFname()
-    handleState()
-    handleLname()
-    handleDisctrict()
-    handleCity()
-    handleDOBChange()
-    handleAadhar()
+    handleHeight();
+    handleIncome();
+    handleFname();
+    handleState();
+    handleLname();
+    handleDisctrict();
+    handleCity();
+    handleDOBChange();
+    handleAadhar();
     return true;
   };
-
-
 
   return (
     <>
@@ -583,7 +597,9 @@ console.log(
               onChange={handleDisctrict}
               className="w-full p-2 border border-gray-300 rounded"
             />
-            {!isDistrictValid && <p style={{ color: "red" }}>Invalid district.</p>}
+            {!isDistrictValid && (
+              <p style={{ color: "red" }}>Invalid district.</p>
+            )}
           </div>
         </div>
         <div class="gri-wid grid grid-cols-2 ">
@@ -700,7 +716,8 @@ console.log(
               name="dateOfBirth"
               placeholder="YYYY-MM-DD"
               className="w-full p-2 border border-gray-300 rounded"
-              pattern="\d{4}-\d{2}-\d{2}" required
+              pattern="\d{4}-\d{2}-\d{2}"
+              required
             />
             {!isValid && (
               <p style={{ color: "red" }}>Invalid date format or values.</p>

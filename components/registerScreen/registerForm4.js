@@ -90,7 +90,7 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
 
   const [starFoot, setStarFoot] = useState("Aries");
   const [ascendant, setAscendant] = useState("Aries");
-  console.log(starFoot,ascendant);
+  console.log(starFoot, ascendant);
   const [birthplace, setBirthplace] = useState("");
   const [presenceOfNatalDirection, setPresenceOFNatalDirection] = useState("");
 
@@ -101,6 +101,8 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
 
       setFile1(jrg.file1);
       setFile2(jrg.file2);
+      setFile3(jrg.file3);
+      setFile4(jrg.file4);
       setZodiacSign(jrg.zodiacSign);
       setTamilYear(jrg.tamilYear);
       setTamilMonth(jrg.tamilMonth);
@@ -204,7 +206,7 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
 
   const beforeNextScreen = () => {
     const rg4 = {
-      horrorscopeImages: [file1ID, file2ID,file3ID,file4ID],
+      horrorscopeImages: [file1ID, file2ID, file3ID, file4ID],
       zodiacSign,
       tamilYear,
       tamilMonth,
@@ -230,7 +232,8 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
         birthplace &&
         file1 &&
         file2 &&
-        file3 && file4
+        file3 &&
+        file4
       )
     ) {
       toast.error("Please Enter All The fields");
@@ -251,7 +254,9 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
 
   return (
     <>
-      <div className="flex justify-center"><p className="font-[600] text-[18px] ">Horoscope Information</p></div>
+      <div className="flex justify-center">
+        <p className="font-[600] text-[18px] ">Horoscope Information</p>
+      </div>
       <div className="grid-widi2 grid justify-items-center justify-content-center">
         <div className="gri-wid4 grid grid-cols-2 gap-16">
           <div className="mt-5">
@@ -427,18 +432,18 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
           </div>
         </div>
       </div>
-      
+
       <div className="w-[auto] mx-auto lg:w-[51rem] ">
         <p className=" p-text">Horoscope Doucment *</p>
         <div className="flex justify-between items-center max-lg:flex-col space-y-5 max-lg:flex max-lg:justify-start ">
           <Files
-             className="files-dropzone cursor-pointer"
-             onChange={onFilesChange1}
-             onError={onFilesError1}
-             accepts={["image/png", "image/jpg", "image/jpeg", "image/svg+xml"]}
-             maxFileSize={10000000}
-             minFileSize={0}
-             clickable
+            className="files-dropzone cursor-pointer"
+            onChange={onFilesChange1}
+            onError={onFilesError1}
+            accepts={["image/png", "image/jpg", "image/jpeg", "image/svg+xml"]}
+            maxFileSize={10000000}
+            minFileSize={0}
+            clickable
           >
             <Image
               src={file1 ? file1[0]?.preview?.url : fileInputImage}
@@ -446,7 +451,6 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
               width={190}
               height={190}
               className="md:w-[190px] h-[190px] max-lg:w-[22rem] max-lg:h-[22rem]"
-
             />
           </Files>
 
@@ -535,7 +539,6 @@ const RegisterForm4 = ({ screen, setScreen, getAllDataAndPost }) => {
           Next
         </p>
       </div>
-
     </>
   );
 };

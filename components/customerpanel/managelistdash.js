@@ -24,7 +24,7 @@ const Managelistdash = () => {
   const [isPremiumUser, setIsPremiumUser] = useState({});
   const [checkactive, setcheckactive] = useState([]);
   const router = useRouter();
-
+  const [isDownloadEnabled, setIsDownloadEnabled] = useState(false);
   useEffect(() => {
     const getUser = () => {
       var config = {
@@ -199,6 +199,7 @@ const Managelistdash = () => {
       }
     }
     setDownloadProfile(filteredRes);
+    setIsDownloadEnabled(filteredRes.length > 0);
   }, [ids]);
 
   // selet all profiles to download
@@ -305,10 +306,7 @@ const Managelistdash = () => {
             </div>
           </form>
           <button
-            className={`px-5 rounded bg-orange-400 py-2 my-3 ${
-              downloadProfile.length <= 0 && "cursor-not-allowed"
-            }`}
-            disabled={downloadProfile.length <= 0 ? true : false}
+            className={`px-5 rounded bg-orange-400 py-2 my-3 ${!isDownloadEnabled && "cursor-not-allowed"}`}
             onClick={generatePDF}
           >
             <span className="flex text-white">
@@ -379,7 +377,7 @@ const Managelistdash = () => {
           </thead>
           <tbody>
             {checkactive.map((item, index) => {
-              console.log(item);
+              // console.log(item);
               // Date
               const dateStringFromBackend =
                 item.attributes.subscription_end_date;
