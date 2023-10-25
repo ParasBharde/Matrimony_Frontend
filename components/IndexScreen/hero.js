@@ -10,22 +10,17 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import GoogleTranslate from "../googleTranslate";
 import Script from "next/script";
-import { deleteCookie } from 'cookies-next';
+import { deleteCookie } from "cookies-next";
 
 const Hero = (props) => {
   const [login, setLogin] = useState(false);
   const [userProfile, setUserProfile] = useState("");
-
+  const router = useRouter();
   const dropdownRef = useRef(null);
   const [isMenuDropDownOpen, setMenuDropDownOpen] = useState(false);
 
-  const router = useRouter();
-  const { pathname, asPath, query } = router;
-  const { locale, locales, push } = useRouter();
-  const [lang, setLang] = useState(locale);
-
   const storage = useStorage();
-  console.log(storage,userProfile);
+  console.log(storage,storage?.id);
 
   useEffect(() => {
     if (storage) {
@@ -36,7 +31,7 @@ const Hero = (props) => {
   const logout = () => {
     localStorage.clear();
     sessionStorage.clear();
-    deleteCookie('logged', false);
+    deleteCookie("logged", false);
     setLogin(false);
     toast.success("Logged Out");
     router.push("/");
@@ -49,27 +44,31 @@ const Hero = (props) => {
         try {
           const response = await axios.get(api);
           console.log("response", response.data.data);
-          let userProfiles = response.data.data.filter((u) => u.id == storage?.user_profile?.id);
-        let userRegisterProfile = response.data.data.filter((u) => u.attributes.user.data.id == storage?.id);
-        console.log(userProfiles, userRegisterProfile);
-        console.log(userProfiles[0]?.attributes?.profile_photo?.data[0]?.attributes?.url);
-        console.log(userRegisterProfile[0]?.attributes?.profile_photo?.data[0]?.attributes?.url);
-          setUserProfile(
-            userRegisterProfile[0]?.attributes?.profile_photo?.data[0]
-              ?.attributes?.url != undefined
-              ? userRegisterProfile[0]?.attributes?.profile_photo?.data[0]
-                  ?.attributes?.url
-              : userProfiles[0]?.attributes?.profile_photo?.data[0]?.attributes
-                  ?.url
+          const userProfiles = response.data.data.filter(
+            (u) => {return u?.id == storage?.user_profile?.id}
           );
+          const userRegisterProfile = response.data.data.filter((u) => {return   u?.id == storage?.id});
+          console.log(userProfiles, userRegisterProfile);
+          console.log( userProfiles);
+          console.log( userRegisterProfile);
+          if (userProfiles !== undefined || userRegisterProfile !== undefined){
+            setUserProfile(
+              userRegisterProfile[0]?.attributes?.profile_photo?.data[0]
+                ?.attributes?.url != undefined
+                ? userRegisterProfile[0]?.attributes?.profile_photo?.data[0]
+                    ?.attributes?.url
+                : userProfiles[0]?.attributes?.profile_photo?.data[0]?.attributes
+                    ?.url
+            );
+          }
+         
         } catch (error) {
           console.error(error);
         }
       }
       getUser();
     }
-  }, [userProfile, router.pathname, storage,locale]);
-
+  }, [userProfile,storage, router.pathname]);
   console.log(userProfile);
 
   const imgLoader = () => {
@@ -80,11 +79,10 @@ const Hero = (props) => {
 
   return (
     <>
-
       <div className="relative h-[829.2px]">
         <div className="indexbg absolute top-0 w-full h-[829.2px] -z-10 "></div>
         <div className="absolute top-0 w-full h-[829.2px] bg-black bg-opacity-60 -z-10"></div>
-       
+
         <div className="flex justify-between items-center pt-10 -md:px-2 lg:px-16 z-10">
           <Link href="/">
             <div className="flex justify-items-center text-white text-lg font-extrabold gap-4">
@@ -132,12 +130,11 @@ const Hero = (props) => {
                 About Us
               </p>
             </div>
-
           </div>
-          <div className='google-hero' >
-          <GoogleTranslate />
-        </div>
-          
+          <div className="google-hero">
+            <GoogleTranslate />
+          </div>
+
           <div className="flex justify-center items-center  max-md:hidden">
             {!login ? (
               <>

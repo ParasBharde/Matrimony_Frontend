@@ -8,12 +8,10 @@ import "react-toastify/dist/ReactToastify.css";
 import { SessionProvider } from "next-auth/react";
 import Script from "next/script";
 
-
 const App = ({ Component, pageProps: { session, ...pageProps } }) => {
   const router = useRouter();
   return (
     <>
-     
       <ToastContainer />
       {router.pathname == "/" ||
       router.pathname == "/signIn" ||
@@ -27,7 +25,10 @@ const App = ({ Component, pageProps: { session, ...pageProps } }) => {
       )}
       <SessionProvider session={session}>
         <Component {...pageProps} />
-        <Script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" strategy="lazyOnload" />
+        <Script
+          src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+          strategy="lazyOnload"
+        />
       </SessionProvider>
       {router.pathname == "/signIn" ||
       router.pathname == "/admin/adminpanel" ||
@@ -35,7 +36,7 @@ const App = ({ Component, pageProps: { session, ...pageProps } }) => {
       router.pathname == "/admin/managelist" ||
       router.pathname == "/admin/orderHistory" ||
       router.pathname == "/admin/profile" ||
-      router.pathname == "/admin" || 
+      router.pathname == "/admin" ||
       router.pathname == "/admin/welcome" ||
       router.pathname == "/changePassword" ? null : (
         <Footer />

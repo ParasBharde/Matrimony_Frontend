@@ -39,8 +39,8 @@ const Header = () => {
           `http://172.105.57.17:1337/api/profiles/?populate=%2A`
         );
         console.log(response.data.data);
-        let userProfiles = response.data.data.filter((u) => u.id == storage?.user_profile?.id);
-        let userRegisterProfile = response.data.data.filter((u) => u.attributes.user.data.id == storage?.id);
+        const userProfiles = response.data.data.filter((u) => {return u.id == storage?.user_profile?.id});
+        const userRegisterProfile = response.data.data.filter((u) => {return u.attributes.user.data.id == storage?.id});
         console.log(userProfiles, userRegisterProfile);
         console.log(userProfiles[0]?.attributes?.profile_photo?.data[0]?.attributes?.url);
         console.log(userRegisterProfile[0]?.attributes?.profile_photo?.data[0]?.attributes?.url);

@@ -11,7 +11,7 @@ import { useCalculateAge } from "@/hooks/useCalculateAge";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 
-const Manageuserdash = ({ handleFilterQuery,allprofiles }) => {
+const Manageuserdash = ({ handleFilterQuery, allprofiles }) => {
   const router = useRouter();
   const stars = [
     "Choose",
@@ -74,53 +74,67 @@ const Manageuserdash = ({ handleFilterQuery,allprofiles }) => {
     handleFilterQuery(filters);
   };
 
-useEffect(() => {
-  if (allprofiles.length > 0) {
-    setProfiles(allprofiles);
-  setUserData(allprofiles)
-
-  }
-},[allprofiles])
-console.log(userData)
-console.log(allprofiles)
-
-
-  const getAllProfiles = () => {
-    var config = {
-      method: "get",
-      maxBodyLength: Infinity,
-      url: "http://172.105.57.17:1337/api/profiles?populate=%2A",
-      headers: {},
-    };
-
-    axios(config)
-      .then(function (response) {
-        setProfiles(response.data.data);
-        setProfileToShow(response.data.data);
-        setFilteredProfiles(response.data.data);
-        setuname(response?.data?.data?.attributes?.username);
-        setuname(response?.data?.data?.id);
-        setLength(Math.ceil(response.data.data.length / 10));
-        setTotal(response.data.data.length);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+  useEffect(() => {
+    if (allprofiles.length > 0) {
+      setProfiles(allprofiles);
+      setUserData(allprofiles);
+    } else {
+      <>
+        <div className=" user_dash">
+          <p className="text-center font-semibold text-xl mt-5">
+            Don&apos;t have matching profiles!
+          </p>
+        </div>
+      </>;
+    }
+  }, [allprofiles]);
 
   useEffect(() => {
-    axios
-      .get(
-        "http://172.105.57.17:1337/api/download-profiles?populate=*&populete=user_profiles"
-      )
-      .then((response) => {
-        let data = response.data.data;
-        setDownloadedProfile(data);
-      })
-      .catch((error) => {
-        console.log("error", error);
-      });
-  }, [zodiac,minAge,maxAge,gender,maritalStatus,education]);
+    try {
+      axios
+        .get(
+          "http://172.105.57.17:1337/api/download-profiles?populate=*&populete=user_profiles"
+        )
+        .then((response) => {
+          let data = response.data.data;
+          setDownloadedProfile(data);
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    } catch {
+      console.log("eror");
+    }
+  }, [zodiac, minAge, maxAge, gender, maritalStatus, education]);
+
+  console.log(userData);
+  console.log(allprofiles);
+
+  useEffect(() => {
+    const getAllProfiles = () => {
+      var config = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: "http://172.105.57.17:1337/api/profiles?populate=%2A",
+        headers: {},
+      };
+
+      axios(config)
+        .then(function (response) {
+          setProfiles(response.data.data);
+          setProfileToShow(response.data.data);
+          setFilteredProfiles(response.data.data);
+          setuname(response?.data?.data?.attributes?.username);
+          setuname(response?.data?.data?.id);
+          setLength(Math.ceil(response.data.data.length / 10));
+          setTotal(response.data.data.length);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    };
+    getAllProfiles();
+  }, []);
 
   const getDownlodCount = (id) => {
     let count = 0;
@@ -137,11 +151,6 @@ console.log(allprofiles)
   };
 
   useEffect(() => {
-    getAllProfiles();
-  }, []);
-
-  useEffect(() => {
-    // console.log("search type", typeof(search));
     if (!search) {
       setProfileToShow(profiles);
     } else if (!isNaN(search)) {
@@ -351,67 +360,6 @@ console.log(allprofiles)
       generatePDF();
     }
   };
-
-  // const handleFilterQuery = () => {
-  //   if (
-  //     gender == "Choose" &&
-  //     zodiac == "Choose" &&
-  //     minAge == "" &&
-  //     maxAge == "" &&
-  //     maritalStatus == "Choose" &&
-  //     education == ""
-  //   ) {
-  //     setFilteredProfiles(profiles);
-  //     setTotal(profiles.length);
-  //     return;
-  //   }
-  //   let filteredProfiles = profiles;
-  //   if (gender != "Choose") {
-  //     filteredProfiles = filteredProfiles
-  //       .filter((profile) => {
-  //         return profile.attributes.Chooese_groom_bride == gender;
-  //       })
-  //       .map((u) => u);
-  //   }
-
-  //   if (zodiac != "Choose") {
-  //     filteredProfiles = filteredProfiles.filter((profile) => {
-  //       return profile.attributes.zodiacs_sign == zodiac;
-  //     });
-  //   }
-
-  //   if (minAge != undefined && minAge != "") {
-  //     let queryAgeFrom = Number(minAge);
-  //     filteredProfiles = filteredProfiles.filter((profile) => {
-  //       const age = calculateAge(profile.attributes.date_of_birth);
-  //       return age >= queryAgeFrom;
-  //     });
-  //   }
-
-  //   if (maxAge != undefined && maxAge != "") {
-  //     let queryAgeTo = Number(maxAge);
-  //     filteredProfiles = filteredProfiles.filter((profile) => {
-  //       const age = calculateAge(profile.attributes.date_of_birth);
-  //       return age <= queryAgeTo;
-  //     });
-  //   }
-
-  //   if (maritalStatus != "Choose") {
-  //     filteredProfiles = filteredProfiles.filter((profile) => {
-  //       return profile.attributes.marriage_status == maritalStatus;
-  //     });
-  //   }
-
-  //   if (education != "") {
-  //     filteredProfiles = filteredProfiles.filter((profile) => {
-  //       console.log(profile);
-  //       return profile.attributes.educational_qualification == education;
-  //     });
-  //   }
-
-  //   setFilteredProfiles(filteredProfiles);
-  //   setTotal(filteredProfiles.length);
-  // };
 
   return (
     <>
@@ -667,126 +615,139 @@ console.log(allprofiles)
             </tr>
           </thead>
           <tbody>
-            {userData?.map((item, index) => {
-              return (
-                <tr key={index} className="bg-white border-b">
-                  <td className="px-6 py-4">
-                    <input
-                      placeholder="check box"
-                      type="checkbox"
-                      className="row-checkbox cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white focus:outline-none focus:ring-2  focus:ring-gray-400"
-                      checked={selectedRows[index]}
-                      onChange={(event) => {
-                        const newSelectedRows = [...selectedRows];
-                        newSelectedRows[index] = !newSelectedRows[index];
-                        setSelectedRows(newSelectedRows);
-                        if (event.target.checked) {
-                          getIds(item.id);
-                        } else {
-                          removeIdFromDownload(item.id);
-                        }
-                      }}
-                    />
-                  </td>
-                  <td
-                    scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                  >
-                    {item.id}
-                  </td>
-                  <td className="py-3 px-6 text-left">
-                    <div className="flex items-center">
-                      <div className="mr-2 hover:transform hover:scale-150 duration-300">
-                        <img
-                          alt="logo"
-                          className="w-6 h-6 rounded-full"
-                          src={`http://172.105.57.17:1337${item.attributes.profile_photo.data[0].attributes.url}`}
-                          width={100}
-                          height={100}
-                        />
+            {allprofiles.length <= 0 ? (
+              <div className="">
+                <p className="text-center font-semibold text-xl mt-5">
+                  Don't have matching profiles!
+                </p>
+              </div>
+            ) : (
+              userData?.map((item, index) => {
+                return (
+                  <tr key={index} className="bg-white border-b">
+                    <td className="px-6 py-4">
+                      <input
+                        placeholder="check box"
+                        type="checkbox"
+                        className="row-checkbox cursor-pointer relative w-5 h-5 border rounded border-gray-400 bg-white focus:outline-none focus:ring-2  focus:ring-gray-400"
+                        checked={selectedRows[index]}
+                        onChange={(event) => {
+                          const newSelectedRows = [...selectedRows];
+                          newSelectedRows[index] = !newSelectedRows[index];
+                          setSelectedRows(newSelectedRows);
+                          if (event.target.checked) {
+                            getIds(item.id);
+                          } else {
+                            removeIdFromDownload(item.id);
+                          }
+                        }}
+                      />
+                    </td>
+                    <td
+                      scope="row"
+                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                    >
+                      {item.id}
+                    </td>
+                    <td className="py-3 px-6 text-left">
+                      <div className="flex items-center">
+                        <div className="mr-2 hover:transform hover:scale-150 duration-300">
+                          <img
+                            alt="logo"
+                            className="w-6 h-6 rounded-full"
+                            src={`http://172.105.57.17:1337${item.attributes.profile_photo.data[0].attributes.url}`}
+                            width={100}
+                            height={100}
+                          />
+                        </div>
+                        <button
+                          onClick={() => {
+                            router.push({
+                              pathname: "/admin/profile",
+                              query: { id: item.id },
+                            });
+                          }}
+                        >
+                          <span>
+                            {item.attributes.first_name +
+                              " " +
+                              item.attributes.last_name}
+                          </span>
+                        </button>
                       </div>
-                      <button
+                    </td>
+                    {/* <td className="px-20 py-4">Sliver</td> */}
+                    <td className="px-6 py-4">
+                      {item.attributes.Chooese_groom_bride == "Bride"
+                        ? "Female"
+                        : "Male"}
+                    </td>
+                    <td className="px-6 py-4">{item.attributes.father_name}</td>
+                    <td className="px-6 py-4">
+                      {item.attributes.date_of_birth}
+                    </td>
+                    <td className="px-6 py-4">
+                      {item.attributes.phone_number}
+                    </td>
+                    <td className="px-6 py-4 ">{getDownlodCount(item.id)}</td>
+
+                    <td className="px-6 py-4 flex items-center justify-evenly">
+                      <svg
+                        className="cursor-pointer"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
                         onClick={() => {
-                          router.push({
-                            pathname: "/admin/profile",
-                            query: { id: item.id },
-                          });
+                          router.push(
+                            {
+                              pathname: "/admin/profile",
+                              query: { id: item.id, prevUrl: router.pathname },
+                            },
+                            "/admin/profile"
+                          );
                         }}
                       >
-                        <span>
-                          {item.attributes.first_name +
-                            " " +
-                            item.attributes.last_name}
-                        </span>
-                      </button>
-                    </div>
-                  </td>
-                  {/* <td className="px-20 py-4">Sliver</td> */}
-                  <td className="px-6 py-4">
-                    {item.attributes.Chooese_groom_bride == "Bride"
-                      ? "Female"
-                      : "Male"}
-                  </td>
-                  <td className="px-6 py-4">{item.attributes.father_name}</td>
-                  <td className="px-6 py-4">{item.attributes.date_of_birth}</td>
-                  <td className="px-6 py-4">{item.attributes.phone_number}</td>
-                  <td className="px-6 py-4 ">{getDownlodCount(item.id)}</td>
-
-                  <td className="px-6 py-4 flex items-center justify-evenly">
-                    <svg
-                      className="cursor-pointer"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      onClick={() => {
-                        router.push(
-                          {
-                            pathname: "/admin/profile",
-                            query: { id: item.id, prevUrl: router.pathname },
-                          },
-                          "/admin/profile"
-                        );
-                      }}
-                    >
-                      <path
-                        d="M12 6.5C13.8387 6.49389 15.6419 7.00678 17.2021 7.97973C18.7624 8.95267 20.0164 10.3462 20.82 12C19.17 15.37 15.8 17.5 12 17.5C8.2 17.5 4.83 15.37 3.18 12C3.98362 10.3462 5.23763 8.95267 6.79788 7.97973C8.35813 7.00678 10.1613 6.49389 12 6.5ZM12 4.5C7 4.5 2.73 7.61 1 12C2.73 16.39 7 19.5 12 19.5C17 19.5 21.27 16.39 23 12C21.27 7.61 17 4.5 12 4.5ZM12 9.5C12.663 9.5 13.2989 9.76339 13.7678 10.2322C14.2366 10.7011 14.5 11.337 14.5 12C14.5 12.663 14.2366 13.2989 13.7678 13.7678C13.2989 14.2366 12.663 14.5 12 14.5C11.337 14.5 10.7011 14.2366 10.2322 13.7678C9.76339 13.2989 9.5 12.663 9.5 12C9.5 11.337 9.76339 10.7011 10.2322 10.2322C10.7011 9.76339 11.337 9.5 12 9.5ZM12 7.5C9.52 7.5 7.5 9.52 7.5 12C7.5 14.48 9.52 16.5 12 16.5C14.48 16.5 16.5 14.48 16.5 12C16.5 9.52 14.48 7.5 12 7.5Z"
-                        fill="#F98B1D"
-                      />
-                    </svg>
-                    <button
-                      disabled={downloadProfile.length != 1 ? true : false}
-                      onClick={handleDownload}
-                      className={`${
-                        downloadProfile.length != 1
-                          ? "cursor-not-allowed"
-                          : "cursor-pointer"
-                      }`}
-                    >
-                      <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 14 14"
-                        fill="none"
-                        // className="cursor-pointer"
-                        xmlns="http://www.w3.org/2000/svg"
-                        id="down1"
-                      >
                         <path
-                          d="M12.0007 9.4987V11.9987H2.00065V9.4987H0.333984V11.9987C0.333984 12.9154 1.08398 13.6654 2.00065 13.6654H12.0007C12.9173 13.6654 13.6673 12.9154 13.6673 11.9987V9.4987H12.0007ZM11.1673 6.16536L9.99232 4.99036L7.83398 7.14036V0.332031H6.16732V7.14036L4.00898 4.99036L2.83398 6.16536L7.00065 10.332L11.1673 6.16536Z"
+                          d="M12 6.5C13.8387 6.49389 15.6419 7.00678 17.2021 7.97973C18.7624 8.95267 20.0164 10.3462 20.82 12C19.17 15.37 15.8 17.5 12 17.5C8.2 17.5 4.83 15.37 3.18 12C3.98362 10.3462 5.23763 8.95267 6.79788 7.97973C8.35813 7.00678 10.1613 6.49389 12 6.5ZM12 4.5C7 4.5 2.73 7.61 1 12C2.73 16.39 7 19.5 12 19.5C17 19.5 21.27 16.39 23 12C21.27 7.61 17 4.5 12 4.5ZM12 9.5C12.663 9.5 13.2989 9.76339 13.7678 10.2322C14.2366 10.7011 14.5 11.337 14.5 12C14.5 12.663 14.2366 13.2989 13.7678 13.7678C13.2989 14.2366 12.663 14.5 12 14.5C11.337 14.5 10.7011 14.2366 10.2322 13.7678C9.76339 13.2989 9.5 12.663 9.5 12C9.5 11.337 9.76339 10.7011 10.2322 10.2322C10.7011 9.76339 11.337 9.5 12 9.5ZM12 7.5C9.52 7.5 7.5 9.52 7.5 12C7.5 14.48 9.52 16.5 12 16.5C14.48 16.5 16.5 14.48 16.5 12C16.5 9.52 14.48 7.5 12 7.5Z"
                           fill="#F98B1D"
                         />
                       </svg>
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
+                      <button
+                        disabled={downloadProfile.length != 1 ? true : false}
+                        onClick={handleDownload}
+                        className={`${
+                          downloadProfile.length != 1
+                            ? "cursor-not-allowed"
+                            : "cursor-pointer"
+                        }`}
+                      >
+                        <svg
+                          width="20"
+                          height="20"
+                          viewBox="0 0 14 14"
+                          fill="none"
+                          // className="cursor-pointer"
+                          xmlns="http://www.w3.org/2000/svg"
+                          id="down1"
+                        >
+                          <path
+                            d="M12.0007 9.4987V11.9987H2.00065V9.4987H0.333984V11.9987C0.333984 12.9154 1.08398 13.6654 2.00065 13.6654H12.0007C12.9173 13.6654 13.6673 12.9154 13.6673 11.9987V9.4987H12.0007ZM11.1673 6.16536L9.99232 4.99036L7.83398 7.14036V0.332031H6.16732V7.14036L4.00898 4.99036L2.83398 6.16536L7.00065 10.332L11.1673 6.16536Z"
+                            fill="#F98B1D"
+                          />
+                        </svg>
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })
+            )}
           </tbody>
         </table>
       </div>
-      <div className="flex items-center px-4 py-[2rem]  sm:px-6 mb-[2rem]">
+      {allprofiles.length > 0 &&
+        <div className="flex items-center px-4 py-[2rem]  sm:px-6 mb-[2rem]">
         <div className="admin-footer flex flex-1 justify-between sm:hidden ">
           <Link
             href="#"
@@ -873,6 +834,8 @@ console.log(allprofiles)
           </div>
         </div>
       </div>
+       }
+    
     </>
   );
 };
