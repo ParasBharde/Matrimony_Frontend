@@ -618,7 +618,7 @@ const Manageuserdash = ({ handleFilterQuery, allprofiles }) => {
             {allprofiles.length <= 0 ? (
               <div className="">
                 <p className="text-center font-semibold text-xl mt-5">
-                  Don't have matching profiles!
+                  Don&apos;t have matching profiles!
                 </p>
               </div>
             ) : (
