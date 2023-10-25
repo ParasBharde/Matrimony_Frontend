@@ -42,55 +42,36 @@ const Manageuser = () => {
   console.log("filteredProfiles", filteredProfiles);
 
   const handleFilterQuery = (query) => {
-    let updatedFilteredProfiles = profiles;
     const queryAgeFrom = Number(query.minAge);
     const queryAgeTo = Number(query.maxAge);
-    if (
-      query?.gender == "Choose" &&
-      query?.zodiac == "Choose" &&
-      query?.minAge == "" &&
-      query?.maxAge == "" &&
-      query?.maritalStatus == "Choose" &&
-      query?.education == ""
-    ) {
-      setFilteredProfiles(profiles);
-      return;
-    } else {
-      console.log(updatedFilteredProfiles);
-      if (query.gender !== "Choose") {
-        updatedFilteredProfiles = updatedFilteredProfiles
-          .filter(
-            (profile) => profile.attributes.Chooese_groom_bride == query.gender
-          )
-          .map((u) => {
-            return u;
-          });
-      } else if (query.zodiac !== "Choose") {
-        updatedFilteredProfiles = updatedFilteredProfiles.filter((profile) => {
-          {
-            return profile.attributes.zodiacs_sign == query.zodiac;
-          }
-        });
-      } else if (!isNaN(queryAgeFrom) && !isNaN(queryAgeTo)) {
-        updatedFilteredProfiles = updatedFilteredProfiles.filter((profile) => {
-          const age = calculateAge(profile.attributes.date_of_birth);
-          return age >= queryAgeFrom && age <= queryAgeTo;
-        });
+  
+    const filteredProfiles = profiles.filter((profile) => {
+      if (query.gender !== "Choose" && profile.attributes.Chooese_groom_bride !== query.gender) {
+        return false;
       }
-      else if (query.maritalStatus !== "Choose") {
-        updatedFilteredProfiles = updatedFilteredProfiles.filter((profile) => {
-          return profile.attributes.marriage_status == query.maritalStatus;
-        });
-      } else if (query.education !== "") {
-        updatedFilteredProfiles = updatedFilteredProfiles.filter((profile) => {
-          return (
-            profile.attributes.educational_qualification == query.education
-          );
-        });
-      } 
-    }
-
-    setFilteredProfiles(updatedFilteredProfiles);
+  
+      if (query.zodiac !== "Choose" && profile.attributes.zodiacs_sign !== query.zodiac) {
+        return false;
+      }
+  
+      if (!isNaN(queryAgeFrom) && !isNaN(queryAgeTo)) {
+        const age = calculateAge(profile.attributes.date_of_birth);
+        if (age < queryAgeFrom || age > queryAgeTo) {
+          return false;
+        }
+      }
+  
+      if (query.maritalStatus !== "Choose" && profile.attributes.marriage_status !== query.maritalStatus) {
+        return false;
+      }
+  
+      if (query.education !== "" && profile.attributes.educational_qualification !== query.education) {
+        return false;
+      }
+      return true;
+    });
+  
+    setFilteredProfiles(filteredProfiles);
   };
   console.log(filteredProfiles);
   if (!session) {
