@@ -904,7 +904,7 @@ const RegisterForm2 = ({ screen, setScreen }) => {
             )}
           </div>
           <div className=" p-2">
-            <label className="block">Addhar Certificate *</label>
+            <label className="block">Aadhar Certificate *</label>
             <input
               style={{
                 height: "2.3rem",
