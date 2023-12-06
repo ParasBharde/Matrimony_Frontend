@@ -25,20 +25,19 @@ const Managelistdash = () => {
   const [checkactive, setcheckactive] = useState([]);
   const router = useRouter();
   const [isDownloadEnabled, setIsDownloadEnabled] = useState(false);
+
   useEffect(() => {
     const getUser = () => {
       var config = {
         method: "get",
         maxBodyLength: Infinity,
         url: "http://172.105.57.17:1337/api/profiles/?populate=%2A&user",
-        headers: {
-          Authorization:
-            "Bearer Bearer 3ad527b6e04e45a25b5c7a57d8e796af06f0853e2fa7c4551566c2096b18b80500bdaf2fc61dace337df1dc8c2a0026075026b10589f9c9d009a72165635b72012c305bf52929b73a79c97e1e5a53e7193f812604f83fa679731fa19540e9ecd7112dc224f0cccd4624294b05ec2864b552bdf7905d65736410f0cf2774c3994",
-        },
+        headers: {},
       };
 
       axios(config)
         .then(function (response) {
+          console.log('response',response)
           setprofiles(response.data.data);
           setProfileToShow(response.data.data);
           setLength(Math.ceil(response.data.data.length / 10));
@@ -64,6 +63,7 @@ const Managelistdash = () => {
       axios
         .request(config)
         .then((response) => {
+          console.log(response.data)
           setcheckactive(response.data.data);
           let sub = response.data.data.map(
             (u) => u?.attributes?.card_detail?.data?.attributes?.user_profile
@@ -110,7 +110,8 @@ const Managelistdash = () => {
 
   const handleHeaderCheckboxChange = (event) => {
     const isChecked = event.target.checked;
-    setSelectedRows(Array(profileToShow.length).fill(isChecked));
+    console.log(isChecked)
+    setSelectedRows(Array(checkactive.length).fill(isChecked));
     if (isChecked) {
       getAllIds();
     } else if (!isChecked) {
@@ -191,21 +192,23 @@ const Managelistdash = () => {
   useEffect(() => {
     let filteredRes = [];
     for (let i = 0; i < ids.length; i++) {
-      for (let j = 0; j < profiles.length; j++) {
-        if (ids[i] == profiles[j].id) {
-          console.log("new data", profiles[j]);
-          filteredRes.push(profiles[j]);
+      console.log(ids[i])
+      for (let j = 0; j < checkactive.length; j++) {
+        console.log('Comparing:',checkactive[j]);
+        if (ids[i] === checkactive[j].attributes.user_id.data.id) {
+          console.log('Match found!', checkactive[j]);
+          filteredRes.push(checkactive[j]);
         }
       }
     }
     setDownloadProfile(filteredRes);
     setIsDownloadEnabled(filteredRes.length > 0);
   }, [ids]);
-
+  console.log(ids)
   // selet all profiles to download
   const getAllIds = () => {
-    let Ids = profileToShow.map((item) => {
-      return item.id;
+    let Ids = checkactive.map((item) => {
+      return item.attributes.user_id.data.id;
     });
     setIds(Ids);
     console.log("this is all ids", Ids);
@@ -220,19 +223,15 @@ const Managelistdash = () => {
     downloadProfile.forEach((p, index, array) => {
       console.log("element ", index, p);
       info.push([
-        p.id,
-        p.attributes.first_name,
-        p.attributes.last_name,
-        p.attributes.email,
-        p.attributes.Color,
-        p.attributes.father_name,
-        p.attributes.Height,
-        p.attributes.mother_name,
-        p.attributes.Salary_monthly_income,
-        p.attributes.address,
-        p.attributes.birth_time,
-        p.attributes.birthplace,
-        p.attributes.date_of_birth,
+        p.attributes.user_id.data.id,
+        p.attributes.user_id.data.attributes.first_name,
+        p.attributes.user_id.data.attributes.last_name,
+        p.attributes.user_id.data.attributes.email,
+        p.attributes.purchase_plan,
+        (p.attributes.subscription_start_date).substring(0,10),
+        (p.attributes.subscription_end_date).substring(0,10),
+        p.attributes.paying_person_name,
+        p.attributes.reference_id_or_utr_id,
       ]);
     });
 
@@ -243,15 +242,11 @@ const Managelistdash = () => {
           "First Name",
           "Last Name",
           "Email",
-          "Color",
-          "Father Name",
-          "Height",
-          "Mother Name",
-          "Salary",
-          "Address",
-          "Birth Time",
-          "Birth Place",
-          "Date of Birth",
+          "Purchase Plan",
+          "Subscrtption Start Date",
+          "Subscrtption End Date",
+          "Paying Person Name",
+          "Reference Id or utr Id",
         ],
       ],
       margin: { top: 1, left: 1, right: 1, bottom: 1 },
@@ -377,7 +372,7 @@ const Managelistdash = () => {
           </thead>
           <tbody>
             {checkactive.map((item, index) => {
-              // console.log(item);
+              console.log(item);
               // Date
               const dateStringFromBackend =
                 item.attributes.subscription_end_date;
@@ -420,7 +415,8 @@ const Managelistdash = () => {
                         newSelectedRows[index] = !newSelectedRows[index];
                         setSelectedRows(newSelectedRows);
                         if (event.target.checked) {
-                          getIds(item.id);
+                          console.log(item.attributes.user_id.data.id)
+                          getIds(item.attributes.user_id.data.id);
                         } else {
                           removeIdFromDownload(item.id);
                         }

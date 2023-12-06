@@ -121,6 +121,7 @@ const Manageuserdash = ({ handleFilterQuery, allprofiles }) => {
 
       axios(config)
         .then(function (response) {
+          console.log(response.data)
           setProfiles(response.data.data);
           setProfileToShow(response.data.data);
           setFilteredProfiles(response.data.data);
@@ -636,6 +637,7 @@ const Manageuserdash = ({ handleFilterQuery, allprofiles }) => {
                           newSelectedRows[index] = !newSelectedRows[index];
                           setSelectedRows(newSelectedRows);
                           if (event.target.checked) {
+                            console.log(item)
                             getIds(item.id);
                           } else {
                             removeIdFromDownload(item.id);
